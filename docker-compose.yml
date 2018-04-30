@@ -1,0 +1,9 @@
+version: '3'
+services:
+  serverless-utils:
+    build:
+      context: ./
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ~/.aws/:/root/.aws

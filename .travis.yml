@@ -1,0 +1,22 @@
+language: node_js
+sudo: false
+node_js:
+- 10
+- 8
+- 6
+- 4
+install:
+- npm install
+script:
+- npm run clean
+- npm run build
+- npm run lint
+- npm test
+deploy:
+  provider: npm
+  email: services@serverless.com
+  skip_cleanup: true
+  on:
+    branch: master
+    tags: true
+    repo: serverless/utils
