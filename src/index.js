@@ -7,9 +7,11 @@ if (!global._babelPolyfill) {
 require('source-map-support/register')
 
 const config = require('./config')
+const data = require('./data')
 const fs = require('./fs')
 
 module.exports = {
   ...config,
+  ...data,
   ...fs
 }
