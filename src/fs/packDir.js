@@ -1,7 +1,9 @@
 import archiver from 'archiver'
 import { createWriteStream } from 'fs-extra'
 import path from 'path'
-import { contains, last, split } from 'ramda'
+import contains from '../data/contains'
+import last from '../data/last'
+import split from '../data/split'
 import readFileIfExists from './readFileIfExists'
 
 const VALID_FORMATS = [ 'zip', 'tar' ]

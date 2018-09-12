@@ -1,4 +1,4 @@
-import { endsWith } from 'ramda'
+import endsWith from '../data/endsWith'
 
 const isJsonPath = endsWith('.json')
 

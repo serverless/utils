@@ -1,4 +1,5 @@
-import { addIndex, map } from 'ramda'
+import addIndex from './addIndex'
+import map from './map'
 
 const mapIndexed = addIndex(map)
 

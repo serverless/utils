@@ -8,10 +8,14 @@ require('source-map-support/register')
 
 const config = require('./config')
 const data = require('./data')
+const error = require('./error')
 const fs = require('./fs')
+const path = require('./path')
 
 module.exports = {
   ...config,
   ...data,
-  ...fs
+  ...error,
+  ...fs,
+  ...path
 }

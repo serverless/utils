@@ -24,22 +24,30 @@ npm-debug.log
 #mac
 .DS_Store
 
+# docker
+docker-compose.yml
+Dockerfile
+
 # eslint
 .eslintcache
-
-#development
-.editorconfig
 .eslintignore
 .eslintrc.js
+
+# prettier
+.prettierignore
+prettier.config.js
+
+#development
+.appveyor.yml
+.codecov.yml
+.editorconfig
+.github
 .travis.yml
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 DEVELOPMENT.md
-docker-compose.yml
-Dockerfile
 __tests__
 docs
 examples
-prettier.config.js
 src
 tests
