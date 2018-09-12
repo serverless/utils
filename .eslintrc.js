@@ -9,7 +9,6 @@ module.exports = {
     'prettier'
   ],
   env: {
-    browser: true,
     es6: true,
     jest: true,
     node: true
