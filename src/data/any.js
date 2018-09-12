@@ -4,7 +4,6 @@ import defn from './defn'
 import isArrayLike from './isArrayLike'
 import keys from './keys'
 
-
 /**
  * Returns `true` if at least one of elements of the collection match the predicate,
  * `false` otherwise.
@@ -28,11 +27,13 @@ import keys from './keys'
  *      any(lessThan0)([1, 2]) //=> false
  *      any(lessThan2)([1, 2]) //=> true
  */
-const any = curry(defn('any', (fn, collection) => {
-  if (isArrayLike(collection)) {
-    return anyAtIndex(fn, 0, collection)
-  }
-  return anyAtIndex((key) => fn(collection[key], key), 0, keys(collection))
-}))
+const any = curry(
+  defn('any', (fn, collection) => {
+    if (isArrayLike(collection)) {
+      return anyAtIndex(fn, 0, collection)
+    }
+    return anyAtIndex((key) => fn(collection[key], key), 0, keys(collection))
+  })
+)
 
 export default any

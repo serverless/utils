@@ -2,7 +2,6 @@ import curry from './curry'
 import defn from './defn'
 import isPromise from './isPromise'
 
-
 /**
  * Returns `true` if at least one of elements of the list match the predicate
  * starting at the given index, `false` otherwise.
@@ -16,7 +15,7 @@ import isPromise from './isPromise'
  * @category List
  * @sig (a -> Boolean) -> [a] -> Boolean
  * @param {Function} fn The predicate function.
-* @param {Integer} index The index to start at.
+ * @param {Integer} index The index to start at.
  * @param {Array} list The array to consider.
  * @return {Boolean} `true` if the predicate is satisfied by at least one element, `false`
  *         otherwise.
@@ -27,25 +26,26 @@ import isPromise from './isPromise'
  *      any(lessThan0)([1, 2]) //=> false
  *      any(lessThan2)([1, 2]) //=> true
  */
-const anyAtIndex = curry(defn('anyAtIndex', (fn, index, list) => {
-  const { length } = list
-  let idx = index || 0
-  while (idx < length) {
-    const value = list[idx]
-    const result = fn(list[idx], idx)
-    if (isPromise(result)) {
-      return result.then((resolvedResult) => {
-        if (resolvedResult) {
-          return true
-        }
-        return anyAtIndex(fn, idx + 1, list)
-      })
-    } else if (result) {
-      return true
+const anyAtIndex = curry(
+  defn('anyAtIndex', (fn, index, list) => {
+    const { length } = list
+    let idx = index || 0
+    while (idx < length) {
+      const result = fn(list[idx], idx)
+      if (isPromise(result)) {
+        return result.then((resolvedResult) => {
+          if (resolvedResult) {
+            return true
+          }
+          return anyAtIndex(fn, idx + 1, list)
+        })
+      } else if (result) {
+        return true
+      }
+      idx += 1
     }
-    idx += 1
-  }
-  return false
-}))
+    return false
+  })
+)
 
 export default anyAtIndex

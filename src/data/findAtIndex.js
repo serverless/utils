@@ -25,26 +25,28 @@ import isPromise from './isPromise'
  *      findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
  *      findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
  */
-const findAtIndex = curry(defn('findAtIndex', (fn, index, list) => {
-  const { length } = list
-  let idx = index || 0
+const findAtIndex = curry(
+  defn('findAtIndex', (fn, index, list) => {
+    const { length } = list
+    let idx = index || 0
 
-  // TODO BRN: abstract this while loop pattern and make it reusable
-  while (idx < length) {
-    const value = list[idx]
-    const result = fn(list[idx], idx)
-    if (isPromise(result)) {
-      return result.then((resolvedResult) => {
-        if (resolvedResult) {
-          return value
-        }
-        return findAtIndex(fn, idx + 1, list)
-      })
-    } else if (result) {
-      return value
+    // TODO BRN: abstract this while loop pattern and make it reusable
+    while (idx < length) {
+      const value = list[idx]
+      const result = fn(list[idx], idx)
+      if (isPromise(result)) {
+        return result.then((resolvedResult) => {
+          if (resolvedResult) {
+            return value
+          }
+          return findAtIndex(fn, idx + 1, list)
+        })
+      } else if (result) {
+        return value
+      }
+      idx += 1
     }
-    idx += 1
-  }
-}))
+  })
+)
 
 export default findAtIndex
