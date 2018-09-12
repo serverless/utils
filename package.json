@@ -18,7 +18,7 @@
     "clean": "./scripts/clean.sh",
     "cleanse": "./scripts/cleanse.sh",
     "lint": "./scripts/lint.sh",
-    "lint-staged": "./scripts/lint-staged.sh",
+    "lint:staged": "./scripts/lint-staged.sh",
     "test": "./scripts/test.sh",
     "watch": "./scripts/watch.sh"
   },
@@ -39,6 +39,7 @@
     "adm-zip": "^0.4.9",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^9.0.0",
     "babel-jest": "^22.4.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
