@@ -1,12 +1,10 @@
-import is from '../../data/is'
-import generateStackTrace from '../generateStackTrace'
+import isString from '../../data/isString'
 
-class Throwable {
+class Throwable extends Error {
   constructor({ causes, data, message, type }) {
+    super(isString(message) ? message : '')
     this.causes = causes || []
     this.data = data
-    this.message = is(String, message) ? message : ''
-    this.stack = generateStackTrace(message)
     this.type = type
   }
 }

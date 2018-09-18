@@ -1,13 +1,22 @@
 describe('index', () => {
   test('require runs without error', () => {
+    expect(() => {
+      require('./')
+    }).not.toThrow()
+  })
+
+  test('has config methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
-      // config functions
       createConfig: expect.any(Function),
       getConfig: expect.any(Function),
-      getServerlessrcPath: expect.any(Function),
+      getServerlessrcPath: expect.any(Function)
+    })
+  })
 
-      // data functions
+  test('has data methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
       __: expect.any(Object),
       addIndex: expect.any(Function),
       always: expect.any(Function),
@@ -29,6 +38,9 @@ describe('index', () => {
       findAtIndex: expect.any(Function),
       forEach: expect.any(Function),
       forEachIndexed: expect.any(Function),
+      forEachObjIndexed: expect.any(Function),
+
+      // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // freeGlobal: expect.any(Object),
       generateRandomId: expect.any(Function),
       get: expect.any(Function),
@@ -75,6 +87,8 @@ describe('index', () => {
       mapIndexed: expect.any(Function),
       memoize: expect.any(Function),
       memoizeWith: expect.any(Function),
+
+      // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // nodeTypes: expect.any(Object),
       nAry: expect.any(Function),
       over: expect.any(Function),
@@ -83,19 +97,29 @@ describe('index', () => {
       reduce: expect.any(Function),
       reduceIndexed: expect.any(Function),
       reduceObjIndexed: expect.any(Function),
+
+      // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // root: expect.any(Object),
       set: expect.any(Function),
       slice: expect.any(Function),
       split: expect.any(Function),
-      stringToPath: expect.any(Function),
+      stringToPath: expect.any(Function)
+    })
+  })
 
-      // error functions
+  test('has error methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
       createException: expect.any(Function),
       error: expect.any(Function),
       generateStackTrace: expect.any(Function),
-      throwable: expect.any(Function),
+      throwable: expect.any(Function)
+    })
+  })
 
-      // fs functions
+  test('has fs methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
       copyDirContentsSync: expect.any(Function),
       dirExists: expect.any(Function),
       fileExists: expect.any(Function),
@@ -109,9 +133,20 @@ describe('index', () => {
       readFileIfExists: expect.any(Function),
       removeFile: expect.any(Function),
       walkDirSync: expect.any(Function),
-      writeFile: expect.any(Function),
+      writeFile: expect.any(Function)
+    })
+  })
 
-      // path functions
+  test('has lang methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
+      mix: expect.any(Function)
+    })
+  })
+
+  test('has path methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
       findPath: expect.any(Function)
     })
   })

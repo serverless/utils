@@ -4,12 +4,13 @@ if (!global._babelPolyfill) {
   require('babel-polyfill')
 }
 // eslint-disable-next-line global-require
-require('source-map-support/register')
+// require('source-map-support/register')
 
 const config = require('./config')
 const data = require('./data')
 const error = require('./error')
 const fs = require('./fs')
+const lang = require('./lang')
 const path = require('./path')
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
   ...data,
   ...error,
   ...fs,
+  ...lang,
   ...path
 }
