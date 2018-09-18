@@ -6,6 +6,6 @@ describe('throwable', () => {
       message: 'Test message'
     })
     expect(error.message).toBe('Test message')
-    expect(error.stack).toMatch(/^Error\: Test message.*$/s)
+    expect(error.stack).toMatch(/^Error: Test message.*$/m)
   })
 })
