@@ -10,12 +10,12 @@ import isFunction from './isFunction'
  * @returns {Boolean}
  * @example
  *
- * isGenerator((function*() {})())  //=> true
- * isGenerator((function() {})())   //=> false
- * isGenerator({
- *   next: () => {},
- *   throw: () => {}
- * })  //=> true
+ *      isGenerator((function*() {})())  //=> true
+ *      isGenerator((function() {})())   //=> false
+ *      isGenerator({
+ *        next: () => {},
+ *        throw: () => {}
+ *      })  //=> true
  */
 const isGenerator = (value) => value && isFunction(value.next) && isFunction(value.throw)
 

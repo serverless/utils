@@ -12,17 +12,13 @@ import isLength from './isLength'
  * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
  * @example
  *
- * isArrayLike([1, 2, 3])
- * // => true
+ *      isArrayLike([1, 2, 3]) // => true
  *
- * isArrayLike(document.body.children)
- * // => true
+ *      isArrayLike(document.body.children) // => true
  *
- * isArrayLike('abc')
- * // => true
+ *      isArrayLike('abc') // => true
  *
- * isArrayLike(Function)
- * // => false
+ *      isArrayLike(Function) // => false
  */
 const isArrayLike = (value) => value != null && typeof value != 'function' && isLength(value.length)
 

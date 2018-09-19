@@ -8,9 +8,9 @@
  * @returns {Promise} The promise with exposed methods
  * @example
  *
- *    const promise = deferredPromise()
- *    // ... do something async then eventually resolve the promise
- *    promise.resolve(someValue)
+ *      const promise = deferredPromise()
+ *      // ... do something async then eventually resolve the promise
+ *      promise.resolve(someValue)
  */
 const deferredPromise = () => {
   let rejectPromise

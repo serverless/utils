@@ -25,8 +25,8 @@ const GeneratorFunction = generatorFunc ? getProto(generatorFunc) : {}
  * @returns {Boolean}
  * @example
  *
- * isGeneratorFunction(function*() {})  //=> true
- * isGeneratorFunction(function() {})   //=> false
+ *      isGeneratorFunction(function*() {})  //=> true
+ *      isGeneratorFunction(function() {})   //=> false
  */
 const isGeneratorFunction = (value) => {
   if (typeof value !== 'function') {

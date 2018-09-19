@@ -14,17 +14,13 @@ import isObjectLike from './isObjectLike'
  * @returns {boolean} Returns `true` if `value` is a number, else `false`.
  * @example
  *
- * isNumber(3)
- * // => true
+ *      isNumber(3) // => true
  *
- * isNumber(Number.MIN_VALUE)
- * // => true
+ *      isNumber(Number.MIN_VALUE) // => true
  *
- * isNumber(Infinity)
- * // => true
+ *      isNumber(Infinity) // => true
  *
- * isNumber('3')
- * // => false
+ *      isNumber('3') // => false
  */
 const isNumber = (value) =>
   typeof value == 'number' || (isObjectLike(value) && getTag(value) == '[object Number]')

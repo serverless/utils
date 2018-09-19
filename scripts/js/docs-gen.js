@@ -71,6 +71,12 @@ const findSince = (tags) => {
   return prop('string', sinceTag)
 }
 
+const cleanupTypesDescription = (typesDescription) =>
+  typesDescription
+    .replace(/\*/, '&ast;')
+    .replace(/<a.*?>/, '<code>')
+    .replace(/<\/a>/, '</code>')
+
 const renderFunctionMarkdown = ({
   description,
   example,
@@ -86,23 +92,27 @@ const renderFunctionMarkdown = ({
   markdown += `[source](${GITHUB_TAG_URL}/src/${srcFile}#L${line})    since ${since}\n`
   markdown += `${description}\n\n`
 
-  markdown += `*Params*\n`
+  markdown += `<b>Params</b><br />\n`
   if (!isEmpty(params)) {
     forEach((param) => {
-      markdown += `${param.typesDescription}: ${param.description}\n`
+      markdown += `<p>${cleanupTypesDescription(
+        param.typesDescription
+      )}: ${param.description.replace('<p>', '')}\n`
     }, params)
     markdown += `\n`
   } else {
     markdown += `None\n\n`
   }
-  markdown += `*Returns*\n`
+  markdown += `<b>Returns</b><br />\n`
   if (returns) {
-    markdown += `${returns.typesDescription}: ${returns.description}\n\n`
+    markdown += `<p>${cleanupTypesDescription(
+      returns.typesDescription
+    )}: ${returns.description.replace('<p>', '')}\n\n`
   } else {
     markdown += `<code>undefined</code>\n\n`
   }
   if (example) {
-    markdown += `*Example*\n`
+    markdown += `<b>Example</b><br />\n`
     markdown += `${example.html}\n\n`
   }
   markdown += '\n\n'

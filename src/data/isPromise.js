@@ -10,11 +10,11 @@ import isFunction from './isFunction'
  * @returns {boolean} Returns `true` if `value` is a Promise, else `false`.
  * @example
  *
- * isPromise(new Promise(() => {})) //=> true
+ *      isPromise(new Promise(() => {})) //=> true
  *
- * isPromise({}) //=> false
+ *      isPromise({}) //=> false
  *
- * isPromise({ then: () => {} }) //=> true
+ *      isPromise({ then: () => {} }) //=> true
  */
 const isPromise = (value) => value && isFunction(value.then)
 

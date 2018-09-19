@@ -1,5 +1,3 @@
-const { isArray } = Array
-
 /**
  * Checks if `value` is classified as an `Array` object.
  *
@@ -10,12 +8,14 @@ const { isArray } = Array
  * @returns {boolean} Returns `true` if `value` is an array, else `false`.
  * @example
  *
- * isArray([1, 2, 3]) // => true
+ *      isArray([1, 2, 3]) // => true
  *
- * isArray(document.body.children) // => false
+ *      isArray(document.body.children) // => false
  *
- * isArray('abc') // => false
+ *      isArray('abc') // => false
  *
- * isArray(_.noop) // => false
+ *      isArray(noop) // => false
  */
+const isArray = (value) => Array.isArray(value)
+
 export default isArray

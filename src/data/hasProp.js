@@ -16,7 +16,7 @@ import isUndefined from './isUndefined'
  * @sig s -> {s: x} -> Boolean
  * @param {String | Function} prop The name of the property to check for.
  * @param {Object | Map} value The value to query.
- * @return {Boolean} Whether the property exists.
+ * @returns {Boolean} Whether the property exists.
  * @example
  *
  *      hasProp('name', {name: 'philipp'})  //=> true
