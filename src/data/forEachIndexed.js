@@ -1,4 +1,5 @@
-import { addIndex, forEach } from 'ramda'
+import addIndex from './addIndex'
+import forEach from './forEach'
 
 const forEachIndexed = addIndex(forEach)
 

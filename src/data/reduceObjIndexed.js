@@ -1,7 +1,10 @@
-import { curry, keys, prop, reduce } from 'ramda'
+import curry from './curry'
+import keys from './keys'
+import prop from './prop'
+import reduce from './reduce'
 
 const reduceObjIndexed = curry((reducer, accum, obj) =>
-  reduce((acc, key) => reducer(acc, prop(key), key), accum, keys(obj))
+  reduce((acc, key) => reducer(acc, prop(key, obj), key), accum, keys(obj))
 )
 
 export default reduceObjIndexed
