@@ -357,7 +357,7 @@ If prop is undefined then value will be checked for truthiness.</p>
 
 <b>Params</b><br />
 <p><code>String</code>|<code>Function</code>: The name of the property to check for.</p>
-<p><code>Object</code>|<code>map</code>: The value to query.</p>
+<p><code>Object</code>|<code>Map</code>: The value to query.</p>
 
 <b>Returns</b><br />
 <p><code>Boolean</code>: Whether the property exists.</p>
