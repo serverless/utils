@@ -23,9 +23,9 @@ import keys from './keys'
  * @returns {Object} The element found, or `undefined`.
  * @example
  *
- *      const xs = [{a: 1}, {a: 2}, {a: 3}];
- *      find(propEq('a', 2))(xs); //=> {a: 2}
- *      find(propEq('a', 4))(xs); //=> undefined
+ * const xs = [{a: 1}, {a: 2}, {a: 3}];
+ * find(propEq('a', 2))(xs); //=> {a: 2}
+ * find(propEq('a', 4))(xs); //=> undefined
  */
 const find = curry(
   defn('find', (fn, collection) => {

@@ -17,7 +17,7 @@ import over from './over'
  * @returns {Array} A new array equivalent to the original except for the changed index.
  * @example
  *
- *      assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']
+ * assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']
  */
 const assocIndex = curry((index, val, arr) => {
   if (isUndefined(index)) {

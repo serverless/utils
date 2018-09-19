@@ -22,9 +22,9 @@ import isPromise from './isPromise'
  * @returns {*|Promise} The element found, or `undefined`.
  * @example
  *
- *      const xs = [{a: 1}, {a: 2}, {a: 3}];
- *      findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
- *      findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
+ * const xs = [{a: 1}, {a: 2}, {a: 3}];
+ * findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
+ * findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
  */
 const findAtIndex = curry(
   defn('findAtIndex', (fn, index, list) => {

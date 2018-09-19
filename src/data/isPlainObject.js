@@ -12,17 +12,17 @@ import isObjectLike from './isObjectLike'
  * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
  * @example
  *
- *      function Foo() {
- *        this.a = 1
- *      }
+ * function Foo() {
+ *   this.a = 1
+ * }
  *
- *      isPlainObject(new Foo) // => false
+ * isPlainObject(new Foo) // => false
  *
- *      isPlainObject([1, 2, 3]) // => false
+ * isPlainObject([1, 2, 3]) // => false
  *
- *      isPlainObject({ 'x': 0, 'y': 0 }) // => true
+ * isPlainObject({ 'x': 0, 'y': 0 }) // => true
  *
- *      isPlainObject(Object.create(null)) // => true
+ * isPlainObject(Object.create(null)) // => true
  */
 const isPlainObject = (value) => {
   if (!isObjectLike(value) || baseGetTag(value) != '[object Object]') {

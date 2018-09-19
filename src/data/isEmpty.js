@@ -25,17 +25,17 @@ const { hasOwnProperty } = Object.prototype
  * @returns {boolean} Returns `true` if `value` is empty, else `false`.
  * @example
  *
- *      isEmpty(null) // => true
+ * isEmpty(null) // => true
  *
- *      isEmpty(true) // => true
+ * isEmpty(true) // => true
  *
- *      isEmpty(1) // => true
+ * isEmpty(1) // => true
  *
- *      isEmpty([1, 2, 3]) // => false
+ * isEmpty([1, 2, 3]) // => false
  *
- *      isEmpty('abc') // => false
+ * isEmpty('abc') // => false
  *
- *      isEmpty({ 'a': 1 })  // => false
+ * isEmpty({ 'a': 1 })  // => false
  */
 const isEmpty = (value) => {
   if (value == null) {

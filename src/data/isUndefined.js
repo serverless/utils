@@ -8,9 +8,9 @@
  * @returns {boolean} Returns `true` if `value` is `undefined`, else `false`.
  * @example
  *
- *      isUndefined(void 0) // => true
+ * isUndefined(void 0) // => true
  *
- *      isUndefined(null) // => false
+ * isUndefined(null) // => false
  */
 const isUndefined = (value) => value === undefined
 

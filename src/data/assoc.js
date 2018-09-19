@@ -27,9 +27,9 @@ import over from './over'
  * @returns {*} A new collection equivalent to the original except for the changed selector path.
  * @example
  *
- *      assoc('c', 3, {a: 1, b: 2});          //=> {a: 1, b: 2, c: 3}
- *      assoc('c.d', 3, {a: 1, b: 2});        //=> {a: 1, b: 2, c: { d: 3 }}
- *      assoc([ 'c', 'd' ], 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: { d: 3 }}
+ * assoc('c', 3, {a: 1, b: 2});          //=> {a: 1, b: 2, c: 3}
+ * assoc('c.d', 3, {a: 1, b: 2});        //=> {a: 1, b: 2, c: { d: 3 }}
+ * assoc([ 'c', 'd' ], 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: { d: 3 }}
  */
 const assoc = curry((selector, value, collection) => {
   if (isUndefined(selector)) {

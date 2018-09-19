@@ -23,10 +23,10 @@ import keys from './keys'
  *         otherwise.
  * @example
  *
- *      const lessThan0 = flip(lt)(0)
- *      const lessThan2 = flip(lt)(2)
- *      any(lessThan0)([1, 2]) //=> false
- *      any(lessThan2)([1, 2]) //=> true
+ * const lessThan0 = flip(lt)(0)
+ * const lessThan2 = flip(lt)(2)
+ * any(lessThan0)([1, 2]) //=> false
+ * any(lessThan2)([1, 2]) //=> true
  */
 const any = curry(
   defn('any', (fn, collection) => {

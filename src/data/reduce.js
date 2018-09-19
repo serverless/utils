@@ -73,17 +73,16 @@ const asyncReduce = async (iteratee, accumulator, array) => {
  * @returns {*} The final, accumulated value.
  * @example
  *
- *      reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
- *      //          -               -10
- *      //         / \              / \
- *      //        -   4           -6   4
- *      //       / \              / \
- *      //      -   3   ==>     -3   3
- *      //     / \              / \
- *      //    -   2           -1   2
- *      //   / \              / \
- *      //  0   1            0   1
- *
+ * reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
+ * //          -               -10
+ * //         / \              / \
+ * //        -   4           -6   4
+ * //       / \              / \
+ * //      -   3   ==>     -3   3
+ * //     / \              / \
+ * //    -   2           -1   2
+ * //   / \              / \
+ * //  0   1            0   1
  */
 const reduce = (iteratee, accumulator, array) => {
   if (isPromise(accumulator)) {

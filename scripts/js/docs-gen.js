@@ -113,7 +113,9 @@ const renderFunctionMarkdown = ({
   }
   if (example) {
     markdown += `<b>Example</b><br />\n`
-    markdown += `${example.html}\n\n`
+    markdown += '```js\n'
+    markdown += `${example.string.trim()}\n`
+    markdown += '```\n'
   }
   markdown += '<br /><br />\n\n'
   return markdown

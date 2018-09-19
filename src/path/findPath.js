@@ -12,7 +12,7 @@ import isString from '../data/isString'
  * @returns {String} The first value found that is a path.
  * @example
  *
- *      findPath(null, 0, '/foo', '/bar') // => '/foo'
+ * findPath(null, 0, '/foo', '/bar') // => '/foo'
  */
 const findPath = (...values) => find(isString)(values)
 

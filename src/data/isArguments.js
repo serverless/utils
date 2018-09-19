@@ -11,9 +11,9 @@ import isObjectLike from './isObjectLike'
  * @returns {boolean} Returns `true` if `value` is an `arguments` object, else `false`.
  * @example
  *
- *      isArguments(function() { return arguments }()) // => true
+ * isArguments(function() { return arguments }()) // => true
  *
- *      isArguments([1, 2, 3]) // => false
+ * isArguments([1, 2, 3]) // => false
  */
 const isArguments = (value) => isObjectLike(value) && getTag(value) == '[object Arguments]'
 

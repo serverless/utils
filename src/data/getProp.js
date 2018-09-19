@@ -17,8 +17,8 @@ import isUndefined from './isUndefined'
  * @returns {*} The value at `obj.p`.
  * @example
  *
- *      getProp('x', {x: 100}); //=> 100
- *      getProp('x', {});       //=> undefined
+ * getProp('x', {x: 100}); //=> 100
+ * getProp('x', {});       //=> undefined
  */
 const getProp = curry((prop, val) => {
   if (isUndefined(prop)) {

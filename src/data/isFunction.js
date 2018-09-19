@@ -11,9 +11,9 @@ import isObject from './isObject'
  * @returns {boolean} Returns `true` if `value` is a function, else `false`.
  * @example
  *
- *      isFunction(function() {}) // => true
+ * isFunction(function() {}) // => true
  *
- *      isFunction(/abc/) // => false
+ * isFunction(/abc/) // => false
  */
 const isFunction = (value) => {
   if (!isObject(value)) {

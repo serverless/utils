@@ -19,7 +19,7 @@ import over from './over'
  * @returns {Object} A new object equivalent to the original except for the changed property.
  * @example
  *
- *      assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+ * assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
  */
 const assocProp = curry((prop, val, obj) => {
   if (isUndefined(prop)) {

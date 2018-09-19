@@ -15,8 +15,8 @@ import isUndefined from './isUndefined'
  * @returns {*} The data at `path`.
  * @example
  *
- *      getPath(['a', 'b'], {a: {b: 2}}); //=> 2
- *      getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
+ * getPath(['a', 'b'], {a: {b: 2}}); //=> 2
+ * getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
  */
 const getPath = curry((path, obj) => {
   let val = obj

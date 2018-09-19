@@ -22,10 +22,10 @@ import isPromise from './isPromise'
  *         otherwise.
  * @example
  *
- *      const lessThan0 = flip(lt)(0)
- *      const lessThan2 = flip(lt)(2)
- *      any(lessThan0)([1, 2]) //=> false
- *      any(lessThan2)([1, 2]) //=> true
+ * const lessThan0 = flip(lt)(0)
+ * const lessThan2 = flip(lt)(2)
+ * any(lessThan0)([1, 2]) //=> false
+ * any(lessThan2)([1, 2]) //=> true
  */
 const anyAtIndex = curry(
   defn('anyAtIndex', (fn, index, list) => {

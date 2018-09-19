@@ -31,8 +31,10 @@ import { reduce } from '@serverless/utils'
 
 const array = [ 'foo', 'bar' ]
 const result = reduce(
-  (acc, val) => acc + val
-'', array)
+  (acc, val) => acc + val,
+  '',
+  array
+)
 
-console.log(result) // 'foobar'
+console.log(result) //=> 'foobar'
 ```

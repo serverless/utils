@@ -16,10 +16,10 @@ import hasProp from './hasProp'
  * @returns {Boolean} Whether the path exists.
  * @example
  *
- *      has(['a', 'b'], {a: {b: 2}})          // => true
- *      has(['a', 'b'], {a: {b: undefined}})  // => true
- *      has('a.b', {a: {c: 2}})               // => false
- *      hasPath([], {})                           // => true
+ * hasPath(['a', 'b'], {a: {b: 2}})          // => true
+ * hasPath(['a', 'b'], {a: {b: undefined}})  // => true
+ * hasPath('a.b', {a: {c: 2}})               // => false
+ * hasPath([], {})                           // => true
  */
 const hasPath = curry((path, obj) => {
   if (path.length === 0) {

@@ -10,9 +10,9 @@ import getTag from './getTag'
  * @returns {boolean} Returns `true` if `value` is a string, else `false`.
  * @example
  *
- *      isString('abc') // => true
+ * isString('abc') // => true
  *
- *      isString(1) // => false
+ * isString(1) // => false
  */
 const isString = (value) => {
   const type = typeof value

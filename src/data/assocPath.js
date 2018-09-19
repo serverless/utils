@@ -23,10 +23,10 @@ import isNil from './isNil'
  * @returns {*} A new collection equivalent to the original except along the specified path.
  * @example
  *
- *      assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+ * assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
  *
- *      // Any missing or non-object keys in path will be overridden
- *      assocPath(['a', 0, 'c'], 42, {a: 5}); //=> {a: [{c: 42}]}
+ * // Any missing or non-object keys in path will be overridden
+ * assocPath(['a', 0, 'c'], 42, {a: 5}); //=> {a: [{c: 42}]}
  */
 const assocPath = curry((path, value, collection) => {
   if (path.length === 0) {

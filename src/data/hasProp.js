@@ -19,14 +19,14 @@ import isUndefined from './isUndefined'
  * @returns {Boolean} Whether the property exists.
  * @example
  *
- *      hasProp('name', {name: 'philipp'})  //=> true
- *      hasProp('name', {})                 //=> false
+ * hasProp('name', {name: 'philipp'})  //=> true
+ * hasProp('name', {})                 //=> false
  *
- *      hasProp(undefined, {})            //=> true
- *      hasProp(undefined, null)          //=> false
+ * hasProp(undefined, {})            //=> true
+ * hasProp(undefined, null)          //=> false
  *
- *      hasProp((value) => value.name, { name: 'eslam'})     //=> true
- *      hasProp((value) => value.birthday, { name: 'raees'}) //=> false
+ * hasProp((value) => value.name, { name: 'eslam'})     //=> true
+ * hasProp((value) => value.birthday, { name: 'raees'}) //=> false
  */
 const hasProp = curry((prop, value) => {
   if (isUndefined(prop)) {

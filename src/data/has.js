@@ -19,10 +19,10 @@ import isUndefined from './isUndefined'
  * @return {Boolean} Whether the selector exists.
  * @example
  *
- *      has(['a', 'b'], {a: {b: 2}})          // => true
- *      has(['a', 'b'], {a: {b: undefined}})  // => true
- *      has('a.b', {a: {c: 2}})               // => false
- *      has([], {})                           // => true
+ * has(['a', 'b'], {a: {b: 2}})          // => true
+ * has(['a', 'b'], {a: {b: undefined}})  // => true
+ * has('a.b', {a: {c: 2}})               // => false
+ * has([], {})                           // => true
  */
 const has = defn(
   'has',

@@ -69,11 +69,12 @@ method will upgrade to async and return a Promise.</p>
 <p><code>Boolean</code>: <code>true</code> if the predicate is satisfied by at least one element, <code>false</code>         otherwise.</p>
 
 <b>Example</b><br />
-<pre><code> const lessThan0 = flip(lt)(0)
- const lessThan2 = flip(lt)(2)
- any(lessThan0)([1, 2]) //=&gt; false
- any(lessThan2)([1, 2]) //=&gt; true</code></pre>
-
+```js
+const lessThan0 = flip(lt)(0)
+const lessThan2 = flip(lt)(2)
+any(lessThan0)([1, 2]) //=> false
+any(lessThan2)([1, 2]) //=> true
+```
 <br /><br />
 
 ### anyAtIndex()
@@ -94,11 +95,12 @@ method will upgrade to async and return a Promise.</p>
 <p><code>Boolean</code>: <code>true</code> if the predicate is satisfied by at least one element, <code>false</code>         otherwise.</p>
 
 <b>Example</b><br />
-<pre><code> const lessThan0 = flip(lt)(0)
- const lessThan2 = flip(lt)(2)
- any(lessThan0)([1, 2]) //=&gt; false
- any(lessThan2)([1, 2]) //=&gt; true</code></pre>
-
+```js
+const lessThan0 = flip(lt)(0)
+const lessThan2 = flip(lt)(2)
+any(lessThan0)([1, 2]) //=> false
+any(lessThan2)([1, 2]) //=> true
+```
 <br /><br />
 
 ### arrayLikeKeys()
@@ -135,10 +137,11 @@ selector to the given value.</p>
 <p><code>&ast;</code>: A new collection equivalent to the original except for the changed selector path.</p>
 
 <b>Example</b><br />
-<pre><code> assoc('c', 3, {a: 1, b: 2});          //=&gt; {a: 1, b: 2, c: 3}
- assoc('c.d', 3, {a: 1, b: 2});        //=&gt; {a: 1, b: 2, c: { d: 3 }}
- assoc([ 'c', 'd' ], 3, {a: 1, b: 2}); //=&gt; {a: 1, b: 2, c: { d: 3 }}</code></pre>
-
+```js
+assoc('c', 3, {a: 1, b: 2});          //=> {a: 1, b: 2, c: 3}
+assoc('c.d', 3, {a: 1, b: 2});        //=> {a: 1, b: 2, c: { d: 3 }}
+assoc([ 'c', 'd' ], 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: { d: 3 }}
+```
 <br /><br />
 
 ### assocIndex()
@@ -156,8 +159,9 @@ focused by the given lens to the given value.</p>
 <p><code>Array</code>: A new array equivalent to the original except for the changed index.</p>
 
 <b>Example</b><br />
-<pre><code> assocIndex(1, 'c', ['a', 'b']) //=&gt; ['a', 'c']</code></pre>
-
+```js
+assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']
+```
 <br /><br />
 
 ### assocPath()
@@ -177,11 +181,12 @@ new object as well. All non-primitive properties are copied by reference.</p>
 <p><code>&ast;</code>: A new collection equivalent to the original except along the specified path.</p>
 
 <b>Example</b><br />
-<pre><code> assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=&gt; {a: {b: {c: 42}}}
+```js
+assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
 
- // Any missing or non-object keys in path will be overridden
- assocPath(['a', 0, 'c'], 42, {a: 5}); //=&gt; {a: [{c: 42}]}</code></pre>
-
+// Any missing or non-object keys in path will be overridden
+assocPath(['a', 0, 'c'], 42, {a: 5}); //=> {a: [{c: 42}]}
+```
 <br /><br />
 
 ### assocProp()
@@ -199,8 +204,9 @@ focused by the given lens to the given value.</p>
 <p><code>Object</code>: A new object equivalent to the original except for the changed property.</p>
 
 <b>Example</b><br />
-<pre><code> assocProp('c', 3, {a: 1, b: 2}); //=&gt; {a: 1, b: 2, c: 3}</code></pre>
-
+```js
+assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+```
 <br /><br />
 
 ### deferredPromise()
@@ -216,10 +222,11 @@ None
 <p><code>Promise</code>: The promise with exposed methods</p>
 
 <b>Example</b><br />
-<pre><code> const promise = deferredPromise()
- // ... do something async then eventually resolve the promise
- promise.resolve(someValue)</code></pre>
-
+```js
+const promise = deferredPromise()
+// ... do something async then eventually resolve the promise
+promise.resolve(someValue)
+```
 <br /><br />
 
 ### find()
@@ -239,10 +246,11 @@ method will upgrade to async and return a Promise.</p>
 <p><code>Object</code>: The element found, or <code>undefined</code>.</p>
 
 <b>Example</b><br />
-<pre><code> const xs = [{a: 1}, {a: 2}, {a: 3}];
- find(propEq('a', 2))(xs); //=&gt; {a: 2}
- find(propEq('a', 4))(xs); //=&gt; undefined</code></pre>
-
+```js
+const xs = [{a: 1}, {a: 2}, {a: 3}];
+find(propEq('a', 2))(xs); //=> {a: 2}
+find(propEq('a', 4))(xs); //=> undefined
+```
 <br /><br />
 
 ### findAtIndex()
@@ -263,10 +271,11 @@ method will upgrade to async and return a Promise.</p>
 <p><code>&ast;</code>: The element found, or <code>undefined</code>.</p>
 
 <b>Example</b><br />
-<pre><code> const xs = [{a: 1}, {a: 2}, {a: 3}];
- findAtIndex(propEq('a'), 0)(xs) //=&gt; {a: 2}
- findAtIndex(propEq('a', 2), 2)(xs) //=&gt; undefined</code></pre>
-
+```js
+const xs = [{a: 1}, {a: 2}, {a: 3}];
+findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
+findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
+```
 <br /><br />
 
 ### getPath()
@@ -282,9 +291,10 @@ method will upgrade to async and return a Promise.</p>
 <p><code>&ast;</code>: The data at <code>path</code>.</p>
 
 <b>Example</b><br />
-<pre><code> getPath(['a', 'b'], {a: {b: 2}}); //=&gt; 2
- getPath(['a', 'b'], {c: {b: 2}}); //=&gt; undefined</code></pre>
-
+```js
+getPath(['a', 'b'], {a: {b: 2}}); //=> 2
+getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
+```
 <br /><br />
 
 ### getProp()
@@ -301,9 +311,10 @@ property of that object, if it exists.</p>
 <p><code>&ast;</code>: The value at <code>obj.p</code>.</p>
 
 <b>Example</b><br />
-<pre><code> getProp('x', {x: 100}); //=&gt; 100
- getProp('x', {});       //=&gt; undefined</code></pre>
-
+```js
+getProp('x', {x: 100}); //=> 100
+getProp('x', {});       //=> undefined
+```
 <br /><br />
 
 ### has()
@@ -320,11 +331,12 @@ own properties are checked.</p>
 <p><code>Boolean</code>: Whether the selector exists.</p>
 
 <b>Example</b><br />
-<pre><code> has(['a', 'b'], {a: {b: 2}})          // =&gt; true
- has(['a', 'b'], {a: {b: undefined}})  // =&gt; true
- has('a.b', {a: {c: 2}})               // =&gt; false
- has([], {})                           // =&gt; true</code></pre>
-
+```js
+has(['a', 'b'], {a: {b: 2}})          // => true
+has(['a', 'b'], {a: {b: undefined}})  // => true
+has('a.b', {a: {c: 2}})               // => false
+has([], {})                           // => true
+```
 <br /><br />
 
 ### hasPath()
@@ -341,11 +353,12 @@ own properties are checked.</p>
 <p><code>Boolean</code>: Whether the path exists.</p>
 
 <b>Example</b><br />
-<pre><code> has(['a', 'b'], {a: {b: 2}})          // =&gt; true
- has(['a', 'b'], {a: {b: undefined}})  // =&gt; true
- has('a.b', {a: {c: 2}})               // =&gt; false
- hasPath([], {})                           // =&gt; true</code></pre>
-
+```js
+hasPath(['a', 'b'], {a: {b: 2}})          // => true
+hasPath(['a', 'b'], {a: {b: undefined}})  // => true
+hasPath('a.b', {a: {c: 2}})               // => false
+hasPath([], {})                           // => true
+```
 <br /><br />
 
 ### hasProp()
@@ -363,15 +376,16 @@ If prop is undefined then value will be checked for truthiness.</p>
 <p><code>Boolean</code>: Whether the property exists.</p>
 
 <b>Example</b><br />
-<pre><code> hasProp('name', {name: 'philipp'})  //=&gt; true
- hasProp('name', {})                 //=&gt; false
+```js
+hasProp('name', {name: 'philipp'})  //=> true
+hasProp('name', {})                 //=> false
 
- hasProp(undefined, {})            //=&gt; true
- hasProp(undefined, null)          //=&gt; false
+hasProp(undefined, {})            //=> true
+hasProp(undefined, null)          //=> false
 
- hasProp((value) =&gt; value.name, { name: 'eslam'})     //=&gt; true
- hasProp((value) =&gt; value.birthday, { name: 'raees'}) //=&gt; false</code></pre>
-
+hasProp((value) => value.name, { name: 'eslam'})     //=> true
+hasProp((value) => value.birthday, { name: 'raees'}) //=> false
+```
 <br /><br />
 
 ### isArguments()
@@ -386,10 +400,11 @@ If prop is undefined then value will be checked for truthiness.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is an <code>arguments</code> object, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isArguments(function() { return arguments }()) // =&gt; true
+```js
+isArguments(function() { return arguments }()) // => true
 
- isArguments([1, 2, 3]) // =&gt; false</code></pre>
-
+isArguments([1, 2, 3]) // => false
+```
 <br /><br />
 
 ### isArray()
@@ -404,14 +419,15 @@ If prop is undefined then value will be checked for truthiness.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is an array, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isArray([1, 2, 3]) // =&gt; true
+```js
+isArray([1, 2, 3]) // => true
 
- isArray(document.body.children) // =&gt; false
+isArray(document.body.children) // => false
 
- isArray('abc') // =&gt; false
+isArray('abc') // => false
 
- isArray(noop) // =&gt; false</code></pre>
-
+isArray(noop) // => false
+```
 <br /><br />
 
 ### isArrayLike()
@@ -428,14 +444,15 @@ equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER<
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is array-like, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isArrayLike([1, 2, 3]) // =&gt; true
+```js
+isArrayLike([1, 2, 3]) // => true
 
- isArrayLike(document.body.children) // =&gt; true
+isArrayLike(document.body.children) // => true
 
- isArrayLike('abc') // =&gt; true
+isArrayLike('abc') // => true
 
- isArrayLike(Function) // =&gt; false</code></pre>
-
+isArrayLike(Function) // => false
+```
 <br /><br />
 
 ### isBuffer()
@@ -450,10 +467,11 @@ equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER<
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a buffer, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isBuffer(new Buffer(2)) // =&gt; true
+```js
+isBuffer(new Buffer(2)) // => true
 
- isBuffer(new Uint8Array(2)) // =&gt; false</code></pre>
-
+isBuffer(new Uint8Array(2)) // => false
+```
 <br /><br />
 
 ### isEmpty()
@@ -473,18 +491,19 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is empty, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isEmpty(null) // =&gt; true
+```js
+isEmpty(null) // => true
 
- isEmpty(true) // =&gt; true
+isEmpty(true) // => true
 
- isEmpty(1) // =&gt; true
+isEmpty(1) // => true
 
- isEmpty([1, 2, 3]) // =&gt; false
+isEmpty([1, 2, 3]) // => false
 
- isEmpty('abc') // =&gt; false
+isEmpty('abc') // => false
 
- isEmpty({ 'a': 1 })  // =&gt; false</code></pre>
-
+isEmpty({ 'a': 1 })  // => false
+```
 <br /><br />
 
 ### isFunction()
@@ -499,10 +518,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a function, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isFunction(function() {}) // =&gt; true
+```js
+isFunction(function() {}) // => true
 
- isFunction(/abc/) // =&gt; false</code></pre>
-
+isFunction(/abc/) // => false
+```
 <br /><br />
 
 ### isGenerator()
@@ -517,13 +537,16 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <p><code>Boolean</code>: 
 
 <b>Example</b><br />
-<pre><code> isGenerator((function*() {})())  //=&gt; true
- isGenerator((function() {})())   //=&gt; false
- isGenerator({
-   next: () =&gt; {},
-   throw: () =&gt; {}
- })  //=&gt; true</code></pre>
+```js
+isGenerator((function*() {})())  //=> true
 
+isGenerator((function() {})())   //=> false
+
+isGenerator({
+  next: () => {},
+  throw: () => {}
+})  //=> true
+```
 <br /><br />
 
 ### isGeneratorFunction()
@@ -538,9 +561,10 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <p><code>Boolean</code>: 
 
 <b>Example</b><br />
-<pre><code> isGeneratorFunction(function*() {})  //=&gt; true
- isGeneratorFunction(function() {})   //=&gt; false</code></pre>
-
+```js
+isGeneratorFunction(function*() {})  //=> true
+isGeneratorFunction(function() {})   //=> false
+```
 <br /><br />
 
 ### isIndex()
@@ -582,10 +606,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a map, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isMap(new Map) // =&gt; true
+```js
+isMap(new Map) // => true
 
- isMap(new WeakMap) // =&gt; false</code></pre>
-
+isMap(new WeakMap) // => false
+```
 <br /><br />
 
 ### isNil()
@@ -600,12 +625,13 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is nullish, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isNil(null) // =&gt; true
+```js
+isNil(null) // => true
 
- isNil(void 0) // =&gt; true
+isNil(void 0) // => true
 
- isNil(NaN) // =&gt; false</code></pre>
-
+isNil(NaN) // => false
+```
 <br /><br />
 
 ### isNull()
@@ -620,10 +646,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is <code>null</code>, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isNull(null) // =&gt; true
+```js
+isNull(null) // => true
 
- isNull(void 0) // =&gt; false</code></pre>
-
+isNull(void 0) // => false
+```
 <br /><br />
 
 ### isNumber()
@@ -640,14 +667,15 @@ classified as numbers, use the <code>Number.isFinite</code> method.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a number, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isNumber(3) // =&gt; true
+```js
+isNumber(3) // => true
 
- isNumber(Number.MIN_VALUE) // =&gt; true
+isNumber(Number.MIN_VALUE) // => true
 
- isNumber(Infinity) // =&gt; true
+isNumber(Infinity) // => true
 
- isNumber('3') // =&gt; false</code></pre>
-
+isNumber('3') // => false
+```
 <br /><br />
 
 ### isObject()
@@ -664,14 +692,15 @@ of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Num
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is an object, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isObject({}) // =&gt; true
+```js
+isObject({}) // => true
 
- isObject([1, 2, 3]) // =&gt; true
+isObject([1, 2, 3]) // => true
 
- isObject(Function) // =&gt; true
+isObject(Function) // => true
 
- isObject(null) // =&gt; false</code></pre>
-
+isObject(null) // => false
+```
 <br /><br />
 
 ### isObjectLike()
@@ -687,14 +716,15 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is object-like, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isObjectLike({}) // =&gt; true
+```js
+isObjectLike({}) // => true
 
- isObjectLike([1, 2, 3]) // =&gt; true
+isObjectLike([1, 2, 3]) // => true
 
- isObjectLike(Function) // =&gt; false
+isObjectLike(Function) // => false
 
- isObjectLike(null) // =&gt; false</code></pre>
-
+isObjectLike(null) // => false
+```
 <br /><br />
 
 ### isPlainObject()
@@ -710,18 +740,19 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a plain object, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> function Foo() {
-   this.a = 1
- }
+```js
+function Foo() {
+  this.a = 1
+}
 
- isPlainObject(new Foo) // =&gt; false
+isPlainObject(new Foo) // => false
 
- isPlainObject([1, 2, 3]) // =&gt; false
+isPlainObject([1, 2, 3]) // => false
 
- isPlainObject({ 'x': 0, 'y': 0 }) // =&gt; true
+isPlainObject({ 'x': 0, 'y': 0 }) // => true
 
- isPlainObject(Object.create(null)) // =&gt; true</code></pre>
-
+isPlainObject(Object.create(null)) // => true
+```
 <br /><br />
 
 ### isPromise()
@@ -736,12 +767,13 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a Promise, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isPromise(new Promise(() =&gt; {})) //=&gt; true
+```js
+isPromise(new Promise(() => {})) //=> true
 
- isPromise({}) //=&gt; false
+isPromise({}) //=> false
 
- isPromise({ then: () =&gt; {} }) //=&gt; true</code></pre>
-
+isPromise({ then: () => {} }) //=> true
+```
 <br /><br />
 
 ### isPrototype()
@@ -769,10 +801,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a string, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isString('abc') // =&gt; true
+```js
+isString('abc') // => true
 
- isString(1) // =&gt; false</code></pre>
-
+isString(1) // => false
+```
 <br /><br />
 
 ### isSymbol()
@@ -787,10 +820,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a symbol, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isSymbol(Symbol.iterator) // =&gt; true
+```js
+isSymbol(Symbol.iterator) // => true
 
- isSymbol('abc') // =&gt; false</code></pre>
-
+isSymbol('abc') // => false
+```
 <br /><br />
 
 ### isTypedArray()
@@ -805,10 +839,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a typed array, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isTypedArray(new Uint8Array) // =&gt; true
+```js
+isTypedArray(new Uint8Array) // => true
 
- isTypedArray([]) // =&gt; false</code></pre>
-
+isTypedArray([]) // => false
+```
 <br /><br />
 
 ### isUndefined()
@@ -823,10 +858,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is <code>undefined</code>, else <code>false</code>.</p>
 
 <b>Example</b><br />
-<pre><code> isUndefined(void 0) // =&gt; true
+```js
+isUndefined(void 0) // => true
 
- isUndefined(null) // =&gt; false</code></pre>
-
+isUndefined(null) // => false
+```
 <br /><br />
 
 ### reduce()
@@ -856,17 +892,18 @@ shortcuting, as this is not implemented by <code>reduce</code>.</p>
 <p><code>&ast;</code>: The final, accumulated value.</p>
 
 <b>Example</b><br />
-<pre><code> reduce(subtract, 0, [1, 2, 3, 4]) // =&gt; ((((0 - 1) - 2) - 3) - 4) = -10
- //          -               -10
- //         / \              / \
- //        -   4           -6   4
- //       / \              / \
- //      -   3   ==&gt;     -3   3
- //     / \              / \
- //    -   2           -1   2
- //   / \              / \
- //  0   1            0   1</code></pre>
-
+```js
+reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
+//          -               -10
+//         / \              / \
+//        -   4           -6   4
+//       / \              / \
+//      -   3   ==>     -3   3
+//     / \              / \
+//    -   2           -1   2
+//   / \              / \
+//  0   1            0   1
+```
 <br /><br />
 
 ## path methods
@@ -883,8 +920,9 @@ shortcuting, as this is not implemented by <code>reduce</code>.</p>
 <p><code>String</code>: The first value found that is a path.</p>
 
 <b>Example</b><br />
-<pre><code> findPath(null, 0, '/foo', '/bar') // =&gt; '/foo'</code></pre>
-
+```js
+findPath(null, 0, '/foo', '/bar') // => '/foo'
+```
 <br /><br />
 
 
