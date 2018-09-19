@@ -12,12 +12,13 @@ import isPromise from './isPromise'
  * method will upgrade to async and return a Promise.
  *
  * @func
- * @category List
+ * @since v0.0.3
+ * @category data
  * @sig (a -> Boolean) -> [a] -> Boolean
  * @param {Function} fn The predicate function.
  * @param {Integer} index The index to start at.
  * @param {Array} list The array to consider.
- * @return {Boolean} `true` if the predicate is satisfied by at least one element, `false`
+ * @returns {Boolean} `true` if the predicate is satisfied by at least one element, `false`
  *         otherwise.
  * @example
  *

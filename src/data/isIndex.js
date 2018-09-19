@@ -7,6 +7,9 @@ const reIsUint = /^(?:0|[1-9]\d*)$/
 /**
  * Checks if `value` is a valid array-like index.
  *
+ * @func
+ * @since v0.0.3
+ * @category data
  * @param {*} value The value to check.
  * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
  * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.

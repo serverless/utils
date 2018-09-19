@@ -9,10 +9,12 @@ import over from './over'
  * focused by the given lens to the given value.
  *
  * @func
+ * @since v0.0.3
+ * @category data
  * @param {number} index The index number to set
  * @param {*} val The new value
  * @param {Array} arr The array to clone
- * @return {Array} A new array equivalent to the original except for the changed index.
+ * @returns {Array} A new array equivalent to the original except for the changed index.
  * @example
  *
  *      assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']

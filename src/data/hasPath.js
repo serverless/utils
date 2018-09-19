@@ -7,12 +7,13 @@ import hasProp from './hasProp'
  * own properties are checked.
  *
  * @func
- * @category Object
+ * @since v0.0.3
+ * @category data
  * @typedefn Idx = String | Int
  * @sig [Idx] -> {a} -> Boolean
  * @param {Array} path The path to use.
  * @param {Object} obj The object to check the path in.
- * @return {Boolean} Whether the path exists.
+ * @returns {Boolean} Whether the path exists.
  * @example
  *
  *      has(['a', 'b'], {a: {b: 2}})          // => true

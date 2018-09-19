@@ -5,6 +5,9 @@ import isObjectLike from './isObjectLike'
  * Checks if `value` is a plain object, that is, an object created by the
  * `Object` constructor or one with a `[[Prototype]]` of `null`.
  *
+ * @func
+ * @since v0.0.3
+ * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
  * @example

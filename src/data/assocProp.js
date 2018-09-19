@@ -10,11 +10,13 @@ import over from './over'
  * focused by the given lens to the given value.
  *
  * @func
+ * @since v0.0.3
+ * @category data
  * @sig String -> a -> {k: v} -> {k: v}
  * @param {String} prop The property name to set
  * @param {*} val The new value
  * @param {Object|Map} obj The object to clone
- * @return {Object} A new object equivalent to the original except for the changed property.
+ * @returns {Object} A new object equivalent to the original except for the changed property.
  * @example
  *
  *      assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}

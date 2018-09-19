@@ -7,6 +7,9 @@ import isObjectLike from './isObjectLike'
  * **Note:** To exclude `Infinity`, `-Infinity`, and `NaN`, which are
  * classified as numbers, use the `Number.isFinite` method.
  *
+ * @func
+ * @since v0.0.3
+ * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a number, else `false`.
  * @example

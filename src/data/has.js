@@ -10,7 +10,8 @@ import isUndefined from './isUndefined'
  * own properties are checked.
  *
  * @func
- * @category Object
+ * @since v0.0.3
+ * @category data
  * @typedefn Idx = String | Int
  * @sig [Idx] -> {a} -> Boolean
  * @param {Array|String} selector The selector to use.

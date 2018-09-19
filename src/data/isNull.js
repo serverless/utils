@@ -1,6 +1,9 @@
 /**
  * Checks if `value` is `null`.
  *
+ * @func
+ * @since v0.0.3
+ * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is `null`, else `false`.
  * @example

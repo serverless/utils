@@ -13,15 +13,14 @@ import isNil from './isNil'
  * new object as well. All non-primitive properties are copied by reference.
  *
  * @func
- * @memberOf R
- * @since v0.8.0
- * @category Object
+ * @since v0.0.3
+ * @category data
  * @typedefn Idx = String | Int
  * @sig [Idx] -> a -> {a} -> {a}
  * @param {Array} path the path to set
  * @param {*} value The new value
  * @param {Object|Array|Map} collection The object, array or map to clone
- * @return {*} A new collection equivalent to the original except along the specified path.
+ * @returns {*} A new collection equivalent to the original except along the specified path.
  * @example
  *
  *      assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}

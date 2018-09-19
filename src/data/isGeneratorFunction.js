@@ -15,18 +15,31 @@ const getGeneratorFunc = () => {
 const generatorFunc = getGeneratorFunc()
 const GeneratorFunction = generatorFunc ? getProto(generatorFunc) : {}
 
-const isGeneratorFunction = (fn) => {
-  if (typeof fn !== 'function') {
+/**
+ * Checks whether a function is generator function.
+ *
+ * @func
+ * @since v0.0.3
+ * @category data
+ * @param  {*} value
+ * @returns {Boolean}
+ * @example
+ *
+ * isGeneratorFunction(function*() {})  //=> true
+ * isGeneratorFunction(function() {})   //=> false
+ */
+const isGeneratorFunction = (value) => {
+  if (typeof value !== 'function') {
     return false
   }
-  if (isFnRegex.test(fnToStr.call(fn))) {
+  if (isFnRegex.test(fnToStr.call(value))) {
     return true
   }
   if (!hasToStringTag) {
-    const str = toStr.call(fn)
+    const str = toStr.call(value)
     return str === '[object GeneratorFunction]'
   }
-  return getProto(fn) === GeneratorFunction
+  return getProto(value) === GeneratorFunction
 }
 
 export default isGeneratorFunction

@@ -11,6 +11,9 @@ const nodeIsTypedArray = nodeTypes && nodeTypes.isTypedArray
 /**
  * Checks if `value` is classified as a typed array.
  *
+ * @func
+ * @since 0.3.0
+ * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
  * @example

@@ -33,21 +33,34 @@ Dockerfile
 .eslintignore
 .eslintrc.js
 
+# github
+.github
+.gitignore
+
+# jest
+.jest.init.js
+coverage
+jest.config.js
+__tests__
+tests
+*.test.js
+
 # prettier
 .prettierignore
 prettier.config.js
 
 #development
 .appveyor.yml
+.babelrc
 .codecov.yml
 .editorconfig
 .github
+.lintstagedrc.json
 .travis.yml
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 DEVELOPMENT.md
-__tests__
 docs
 examples
+scripts
 src
-tests

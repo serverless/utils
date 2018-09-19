@@ -14,12 +14,13 @@ import keys from './keys'
  * method will upgrade to async and return a Promise.
  *
  * @func
- * @category Collection
+ * @since v0.0.3
+ * @category data
  * @sig (a, b -> Boolean) -> [a] -> a | undefined
  * @param {Function} fn The predicate function used to determine if the element is the
  *        desired one.
  * @param {*} collection The collection to consider.
- * @return {Object} The element found, or `undefined`.
+ * @returns {Object} The element found, or `undefined`.
  * @example
  *
  *      const xs = [{a: 1}, {a: 2}, {a: 3}];

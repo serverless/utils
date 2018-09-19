@@ -12,13 +12,14 @@ import isPromise from './isPromise'
  * method will upgrade to async and return a Promise.
  *
  * @func
- * @category List
+ * @since v0.0.3
+ * @category data
  * @sig (a -> Boolean) -> [a] -> a | undefined
  * @param {Function} fn The predicate function used to determine if the element is the
  *        desired one.
  * @param {Integer} index The index to start at.
  * @param {Array} list The array to consider.
- * @return {*|Promise} The element found, or `undefined`.
+ * @returns {*|Promise} The element found, or `undefined`.
  * @example
  *
  *      const xs = [{a: 1}, {a: 2}, {a: 3}];
