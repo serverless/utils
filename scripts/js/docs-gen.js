@@ -115,7 +115,7 @@ const renderFunctionMarkdown = ({
     markdown += `<b>Example</b><br />\n`
     markdown += `${example.html}\n\n`
   }
-  markdown += '\n\n'
+  markdown += '<br /><br />\n\n'
   return markdown
 }
 
@@ -143,7 +143,7 @@ const generateFunctionDocs = (meta, srcFile) => {
     category,
     description: meta.description.full,
     example: findExample(meta.tags),
-    line: meta.ctx.line,
+    line: meta.line,
     name: meta.ctx.name,
     params: findParams(meta.tags),
     returns: findReturns(meta.tags),

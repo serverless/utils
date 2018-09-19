@@ -54,7 +54,7 @@
 
 ### any()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/any.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/any.js#L7)    since v0.0.3
 <p>Returns <code>true</code> if at least one of elements of the collection match the predicate,<br />
 <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>any</code> method of the collection argument, if present.</p>
@@ -74,11 +74,11 @@ method will upgrade to async and return a Promise.</p>
  any(lessThan0)([1, 2]) //=&gt; false
  any(lessThan2)([1, 2]) //=&gt; true</code></pre>
 
-
+<br /><br />
 
 ### anyAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/anyAtIndex.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/anyAtIndex.js#L5)    since v0.0.3
 <p>Returns <code>true</code> if at least one of elements of the list match the predicate<br />
 starting at the given index, <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>anyAtIndex</code> method of the list argument, if present.</p>
@@ -99,11 +99,11 @@ method will upgrade to async and return a Promise.</p>
  any(lessThan0)([1, 2]) //=&gt; false
  any(lessThan2)([1, 2]) //=&gt; true</code></pre>
 
-
+<br /><br />
 
 ### arrayLikeKeys()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/arrayLikeKeys.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/arrayLikeKeys.js#L9)    since v0.0.3
 <p>Creates an array of the enumerable property names of the array-like <code>value</code>.</p>
 
 <b>Params</b><br />
@@ -113,11 +113,11 @@ method will upgrade to async and return a Promise.</p>
 <b>Returns</b><br />
 <p><code>Array</code>: Returns the array of property names.</p>
 
-
+<br /><br />
 
 ### assoc()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/assoc.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/assoc.js#L10)    since v0.0.3
 <p>Makes a shallow clone of an object, setting or overriding the specified<br />
 property with the given value. Note that this copies and flattens prototype<br />
 properties onto the new object as well. All non-primitive properties are<br />
@@ -139,11 +139,11 @@ selector to the given value.</p>
  assoc('c.d', 3, {a: 1, b: 2});        //=&gt; {a: 1, b: 2, c: { d: 3 }}
  assoc([ 'c', 'd' ], 3, {a: 1, b: 2}); //=&gt; {a: 1, b: 2, c: { d: 3 }}</code></pre>
 
-
+<br /><br />
 
 ### assocIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/assocIndex.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/assocIndex.js#L7)    since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
@@ -158,11 +158,11 @@ focused by the given lens to the given value.</p>
 <b>Example</b><br />
 <pre><code> assocIndex(1, 'c', ['a', 'b']) //=&gt; ['a', 'c']</code></pre>
 
-
+<br /><br />
 
 ### assocPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/assocPath.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/assocPath.js#L9)    since v0.0.3
 <p>Makes a shallow clone of an object, setting or overriding the nodes required<br />
 to create the given path, and placing the specific value at the tail end of<br />
 that path. Note that this copies and flattens prototype properties onto the<br />
@@ -182,11 +182,11 @@ new object as well. All non-primitive properties are copied by reference.</p>
  // Any missing or non-object keys in path will be overridden
  assocPath(['a', 0, 'c'], 42, {a: 5}); //=&gt; {a: [{c: 42}]}</code></pre>
 
-
+<br /><br />
 
 ### assocProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/assocProp.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/assocProp.js#L8)    since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
@@ -201,11 +201,11 @@ focused by the given lens to the given value.</p>
 <b>Example</b><br />
 <pre><code> assocProp('c', 3, {a: 1, b: 2}); //=&gt; {a: 1, b: 2, c: 3}</code></pre>
 
-
+<br /><br />
 
 ### deferredPromise()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/deferredPromise.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/deferredPromise.js#L1)    since v0.0.3
 <p>Creates a promise with the resolve and reject methods exposed as properties<br />
 on the promise.</p>
 
@@ -220,11 +220,11 @@ None
  // ... do something async then eventually resolve the promise
  promise.resolve(someValue)</code></pre>
 
-
+<br /><br />
 
 ### find()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/find.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/find.js#L7)    since v0.0.3
 <p>Returns the first element of the collection which matches the predicate, or<br />
 <code>undefined</code> if no element matches.</p>
 <p>Dispatches to the <code>find</code> method of the collection argument, if present.</p>
@@ -243,11 +243,11 @@ method will upgrade to async and return a Promise.</p>
  find(propEq('a', 2))(xs); //=&gt; {a: 2}
  find(propEq('a', 4))(xs); //=&gt; undefined</code></pre>
 
-
+<br /><br />
 
 ### findAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/findAtIndex.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/findAtIndex.js#L5)    since v0.0.3
 <p>Returns the first element of the list which matches the predicate, or<br />
 <code>undefined</code> if no element matches starting at the given index.</p>
 <p>Dispatches to the <code>findAtIndex</code> method of the last argument, if present.</p>
@@ -267,11 +267,11 @@ method will upgrade to async and return a Promise.</p>
  findAtIndex(propEq('a'), 0)(xs) //=&gt; {a: 2}
  findAtIndex(propEq('a', 2), 2)(xs) //=&gt; undefined</code></pre>
 
-
+<br /><br />
 
 ### getPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/getPath.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/getPath.js#L5)    since v0.0.3
 <p>Retrieve the value at a given path.</p>
 
 <b>Params</b><br />
@@ -285,11 +285,11 @@ method will upgrade to async and return a Promise.</p>
 <pre><code> getPath(['a', 'b'], {a: {b: 2}}); //=&gt; 2
  getPath(['a', 'b'], {c: {b: 2}}); //=&gt; undefined</code></pre>
 
-
+<br /><br />
 
 ### getProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/getProp.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/getProp.js#L7)    since v0.0.3
 <p>Returns a function that when supplied an object returns the indicated<br />
 property of that object, if it exists.</p>
 
@@ -304,11 +304,11 @@ property of that object, if it exists.</p>
 <pre><code> getProp('x', {x: 100}); //=&gt; 100
  getProp('x', {});       //=&gt; undefined</code></pre>
 
-
+<br /><br />
 
 ### has()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/has.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/has.js#L8)    since v0.0.3
 <p>Returns whether or not a path exists in an object. Only the object's<br />
 own properties are checked.</p>
 
@@ -325,11 +325,11 @@ own properties are checked.</p>
  has('a.b', {a: {c: 2}})               // =&gt; false
  has([], {})                           // =&gt; true</code></pre>
 
-
+<br /><br />
 
 ### hasPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/hasPath.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/hasPath.js#L5)    since v0.0.3
 <p>Returns whether or not a path exists in an object. Only the object's<br />
 own properties are checked.</p>
 
@@ -346,11 +346,11 @@ own properties are checked.</p>
  has('a.b', {a: {c: 2}})               // =&gt; false
  hasPath([], {})                           // =&gt; true</code></pre>
 
-
+<br /><br />
 
 ### hasProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/hasProp.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/hasProp.js#L7)    since v0.0.3
 <p>Returns whether or not an object has an own property with the specified name</p>
 <p>If prop is a function then it is executed against value as a selector.<br />
 If prop is undefined then value will be checked for truthiness.</p>
@@ -372,11 +372,11 @@ If prop is undefined then value will be checked for truthiness.</p>
  hasProp((value) =&gt; value.name, { name: 'eslam'})     //=&gt; true
  hasProp((value) =&gt; value.birthday, { name: 'raees'}) //=&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isArguments()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isArguments.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isArguments.js#L4)    since v0.0.3
 <p>Checks if <code>value</code> is likely an <code>arguments</code> object.</p>
 
 <b>Params</b><br />
@@ -390,11 +390,11 @@ If prop is undefined then value will be checked for truthiness.</p>
 
  isArguments([1, 2, 3]) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isArray()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isArray.js#Lundefined)    since 0.3.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isArray.js#L1)    since 0.3.0
 <p>Checks if <code>value</code> is classified as an <code>Array</code> object.</p>
 
 <b>Params</b><br />
@@ -412,11 +412,11 @@ If prop is undefined then value will be checked for truthiness.</p>
 
  isArray(noop) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isArrayLike()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isArrayLike.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isArrayLike.js#L3)    since v0.0.3
 <p>Checks if <code>value</code> is array-like. A value is considered array-like if it's<br />
 not a function and has a <code>value.length</code> that's an integer greater than or<br />
 equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER</code>.</p>
@@ -436,11 +436,11 @@ equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER<
 
  isArrayLike(Function) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isBuffer()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isBuffer.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isBuffer.js#L19)    since v0.0.3
 <p>Checks if <code>value</code> is a buffer.</p>
 
 <b>Params</b><br />
@@ -454,11 +454,11 @@ equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER<
 
  isBuffer(new Uint8Array(2)) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isEmpty()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isEmpty.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isEmpty.js#L11)    since v0.0.3
 <p>Checks if <code>value</code> is an empty object, collection, map, or set.</p>
 <p>Objects are considered empty if they have no own enumerable string keyed<br />
 properties.</p>
@@ -485,11 +485,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 
  isEmpty({ 'a': 1 })  // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isFunction()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isFunction.js#Lundefined)    since 0.3.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isFunction.js#L4)    since 0.3.0
 <p>Checks if <code>value</code> is classified as a <code>Function</code> object.</p>
 
 <b>Params</b><br />
@@ -503,11 +503,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 
  isFunction(/abc/) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isGenerator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isGenerator.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isGenerator.js#L3)    since v0.0.3
 <p>Checks whether the given value is a generator.</p>
 
 <b>Params</b><br />
@@ -524,11 +524,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
    throw: () =&gt; {}
  })  //=&gt; true</code></pre>
 
-
+<br /><br />
 
 ### isGeneratorFunction()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isGeneratorFunction.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isGeneratorFunction.js#L18)    since v0.0.3
 <p>Checks whether a function is generator function.</p>
 
 <b>Params</b><br />
@@ -541,11 +541,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <pre><code> isGeneratorFunction(function*() {})  //=&gt; true
  isGeneratorFunction(function() {})   //=&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isIndex.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isIndex.js#L7)    since v0.0.3
 <p>Checks if <code>value</code> is a valid array-like index.</p>
 
 <b>Params</b><br />
@@ -555,11 +555,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <b>Returns</b><br />
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a valid index, else <code>false</code>.</p>
 
-
+<br /><br />
 
 ### isInteger()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isInteger.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isInteger.js#L1)    since v0.0.3
 <p>Determine if the passed argument is an integer.</p>
 
 <b>Params</b><br />
@@ -568,11 +568,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 <b>Returns</b><br />
 <p><code>Boolean</code>: 
 
-
+<br /><br />
 
 ### isMap()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isMap.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isMap.js#L8)    since v0.0.3
 <p>Checks if <code>value</code> is classified as a <code>Map</code> object.</p>
 
 <b>Params</b><br />
@@ -586,11 +586,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 
  isMap(new WeakMap) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isNil()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isNil.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isNil.js#L1)    since v0.0.3
 <p>Checks if <code>value</code> is <code>null</code> or <code>undefined</code>.</p>
 
 <b>Params</b><br />
@@ -606,11 +606,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 
  isNil(NaN) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isNull()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isNull.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isNull.js#L1)    since v0.0.3
 <p>Checks if <code>value</code> is <code>null</code>.</p>
 
 <b>Params</b><br />
@@ -624,11 +624,11 @@ Similarly, maps and sets are considered empty if they have a <code>size</code> o
 
  isNull(void 0) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isNumber()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isNumber.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isNumber.js#L4)    since v0.0.3
 <p>Checks if <code>value</code> is classified as a <code>Number</code> primitive or object.</p>
 <p><strong>Note:</strong> To exclude <code>Infinity</code>, <code>-Infinity</code>, and <code>NaN</code>, which are<br />
 classified as numbers, use the <code>Number.isFinite</code> method.</p>
@@ -648,11 +648,11 @@ classified as numbers, use the <code>Number.isFinite</code> method.</p>
 
  isNumber('3') // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isObject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isObject.js#Lundefined)    since 0.3.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isObject.js#L1)    since 0.3.0
 <p>Checks if <code>value</code> is the<br />
 <a href="http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types">language type</a><br />
 of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
@@ -672,11 +672,11 @@ of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Num
 
  isObject(null) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isObjectLike()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isObjectLike.js#Lundefined)    since 0.3.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isObjectLike.js#L1)    since 0.3.0
 <p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code><br />
 and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
@@ -695,11 +695,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
  isObjectLike(null) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isPlainObject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isPlainObject.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isPlainObject.js#L4)    since v0.0.3
 <p>Checks if <code>value</code> is a plain object, that is, an object created by the<br />
 <code>Object</code> constructor or one with a <code>[[Prototype]]</code> of <code>null</code>.</p>
 
@@ -722,11 +722,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
  isPlainObject(Object.create(null)) // =&gt; true</code></pre>
 
-
+<br /><br />
 
 ### isPromise()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isPromise.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isPromise.js#L3)    since v0.0.3
 <p>Checks whether the given value is a Promise.</p>
 
 <b>Params</b><br />
@@ -742,11 +742,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
  isPromise({ then: () =&gt; {} }) //=&gt; true</code></pre>
 
-
+<br /><br />
 
 ### isPrototype()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isPrototype.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isPrototype.js#L4)    since v0.0.3
 <p>Checks if <code>value</code> is likely a prototype object.</p>
 
 <b>Params</b><br />
@@ -755,11 +755,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 <b>Returns</b><br />
 <p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a prototype, else <code>false</code>.</p>
 
-
+<br /><br />
 
 ### isString()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isString.js#Lundefined)    since 0.3.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isString.js#L3)    since 0.3.0
 <p>Checks if <code>value</code> is classified as a <code>String</code> primitive or object.</p>
 
 <b>Params</b><br />
@@ -773,11 +773,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
  isString(1) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isSymbol()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isSymbol.js#Lundefined)    since 0.3.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isSymbol.js#L3)    since 0.3.0
 <p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
 
 <b>Params</b><br />
@@ -791,11 +791,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
  isSymbol('abc') // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isTypedArray()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isTypedArray.js#Lundefined)    since 0.3.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isTypedArray.js#L11)    since 0.3.0
 <p>Checks if <code>value</code> is classified as a typed array.</p>
 
 <b>Params</b><br />
@@ -809,11 +809,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
  isTypedArray([]) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### isUndefined()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isUndefined.js#Lundefined)    since 0.3.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/isUndefined.js#L1)    since 0.3.0
 <p>Checks if <code>value</code> is <code>undefined</code>.</p>
 
 <b>Params</b><br />
@@ -827,11 +827,11 @@ and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
  isUndefined(null) // =&gt; false</code></pre>
 
-
+<br /><br />
 
 ### reduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/reduce.js#Lundefined)    since v0.1.0
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/data/reduce.js#L45)    since v0.1.0
 <p>Returns a single item by iterating through the list, successively calling<br />
 the iterator function and passing it an accumulator value and the current<br />
 value from the array, and then passing the result to the next call.</p>
@@ -867,13 +867,13 @@ shortcuting, as this is not implemented by <code>reduce</code>.</p>
  //   / \              / \
  //  0   1            0   1</code></pre>
 
-
+<br /><br />
 
 ## path methods
 
 ### findPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.2/src/path/findPath.js#Lundefined)    since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.2/src/path/findPath.js#L4)    since v0.0.3
 <p>Finds the first path in the given args.</p>
 
 <b>Params</b><br />
@@ -885,7 +885,7 @@ shortcuting, as this is not implemented by <code>reduce</code>.</p>
 <b>Example</b><br />
 <pre><code> findPath(null, 0, '/foo', '/bar') // =&gt; '/foo'</code></pre>
 
-
+<br /><br />
 
 
 <!-- AUTO-GENERATED-CONTENT:END -->
