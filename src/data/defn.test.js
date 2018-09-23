@@ -47,6 +47,13 @@ describe('defn', () => {
     expect(test.length).toBe(3)
   })
 
+  test('passes all args to function', () => {
+    // eslint-disable-next-line no-unused-vars
+    const test = defn('test', (arg1, ...args) => args)
+    expect(test.length).toBe(1)
+    expect(test('a', 'b', 'c')).toEqual(['b', 'c'])
+  })
+
   test('does not exceed stack limit when embedded function is defined function', () => {
     const test = defn('test', () => 'baz')
     const obj = {

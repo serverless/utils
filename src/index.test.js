@@ -5,6 +5,13 @@ describe('index', () => {
     }).not.toThrow()
   })
 
+  test('has common methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
+      sleep: expect.any(Function)
+    })
+  })
+
   test('has config methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
@@ -32,6 +39,7 @@ describe('index', () => {
       castPath: expect.any(Function),
       contains: expect.any(Function),
       curry: expect.any(Function),
+      curryN: expect.any(Function),
       defn: expect.any(Function),
       endsWith: expect.any(Function),
       find: expect.any(Function),
@@ -91,6 +99,7 @@ describe('index', () => {
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // nodeTypes: expect.any(Object),
       nAry: expect.any(Function),
+      nArySpread: expect.any(Function),
       over: expect.any(Function),
       pick: expect.any(Function),
       prop: expect.any(Function),
@@ -103,7 +112,8 @@ describe('index', () => {
       set: expect.any(Function),
       slice: expect.any(Function),
       split: expect.any(Function),
-      stringToPath: expect.any(Function)
+      stringToPath: expect.any(Function),
+      walk: expect.any(Function)
     })
   })
 
