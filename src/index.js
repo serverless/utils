@@ -6,6 +6,7 @@ if (!global._babelPolyfill) {
 // eslint-disable-next-line global-require
 // require('source-map-support/register')
 
+const common = require('./common')
 const config = require('./config')
 const data = require('./data')
 const error = require('./error')
@@ -14,6 +15,7 @@ const lang = require('./lang')
 const path = require('./path')
 
 module.exports = {
+  ...common,
   ...config,
   ...data,
   ...error,
