@@ -1,10 +1,39 @@
 import isArray from './isArray'
 import isFunction from './isFunction'
 import isObject from './isObject'
-import nAry from './nAry'
+import nArySpread from './nArySpread'
 
-const defn = (name, defaultFn, arity = defaultFn.length) => {
-  let override = function(...args) {
+/**
+ * Defines a function that will invoke the named function if it exists on the
+ * last arg. If the method does not, all args are passed through to the default
+ * function.
+ *
+ * @func
+ * @since v0.1.0
+ * @category data
+ * @sig defn(
+ *   name: string,
+ *   defaultFn: (*) => any
+ * ): (...args: any[], last: any) => last[name] ? last[name](...args) : defaultFn(...args)
+ * @param {string} name The name of the method to call if it exists
+ * @param {Function} defaultFn The default function to execute if the named one does not exist on the last arg
+ * @returns {Function} The wrapped function
+ * @example
+ *
+ * const get = defn('get', (prop, value) => value[prop])
+ * get('a', { a: 'foo' }) //=> 'foo'
+ *
+ * const obj = {
+ *   props: {
+ *     a: 'bar'
+ *   }
+ *   get: (prop) => obj.props[prop]
+ * }
+ * get('a', obj) //=> 'bar'
+ */
+const defn = (name, defaultFn) => {
+  const arity = defaultFn.length
+  const override = function(...args) {
     if (args.length === 0) {
       return defaultFn.apply(this)
     }
@@ -14,10 +43,7 @@ const defn = (name, defaultFn, arity = defaultFn.length) => {
     }
     return defaultFn.apply(this, args)
   }
-  if (arity) {
-    override = nAry(arity, override)
-  }
-  return override
+  return nArySpread(arity, override)
 }
 
 export default defn

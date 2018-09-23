@@ -89,15 +89,15 @@ const renderFunctionMarkdown = ({
 }) => {
   let markdown = `### ${name}()\n\n`
   // console.log('meta:', JSON.stringify(data, null, 2))
-  markdown += `[source](${GITHUB_TAG_URL}/src/${srcFile}#L${line})    since ${since}\n`
+  markdown += `[source](${GITHUB_TAG_URL}/src/${srcFile}#L${line})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since ${since}\n`
   markdown += `${description}\n\n`
 
   markdown += `<b>Params</b><br />\n`
   if (!isEmpty(params)) {
     forEach((param) => {
-      markdown += `<p>${cleanupTypesDescription(
+      markdown += `<p>\`${param.name}\`: ${cleanupTypesDescription(
         param.typesDescription
-      )}: ${param.description.replace('<p>', '')}\n`
+      )} - ${param.description.replace('<p>', '')}\n`
     }, params)
     markdown += `\n`
   } else {

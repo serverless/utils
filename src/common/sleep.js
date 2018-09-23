@@ -1,3 +1,17 @@
-const sleep = async (time) => new Promise((resolve) => setTimeout(() => resolve(), time))
+/**
+ * Sleeps for the given amount of `wait` milliseconds before resolving the returned `Promise`
+ *
+ * @func
+ * @since v0.0.4
+ * @category common
+ * @sig (wait) -> Promise
+ * @param {number} wait The number of milliseconds to wait before resoliving the Promise
+ * @returns {Promise} Resolves once the given amount of time has ellapsed.
+ * @example
+ *
+ * await sleep(1000)
+ * // 1000+ milliseconds later
+ */
+const sleep = async (wait) => new Promise((resolve) => setTimeout(() => resolve(), wait))
 
 export default sleep
