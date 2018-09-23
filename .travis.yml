@@ -8,9 +8,6 @@ before_install:
 - npm run setup:ci
 install:
 - npm run setup
-install:
-- npm install
-- npm install -g codecov
 script:
 - npm run lint
 - npm run test:ci
