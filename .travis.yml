@@ -4,13 +4,13 @@ node_js:
 - 10
 - 8
 - 6
+before_install:
+- npm run setup:ci
 install:
-- npm install
+- npm run setup
 script:
-- npm run clean
-- npm run build
 - npm run lint
-- npm test
+- npm run test:ci
 deploy:
   provider: npm
   email: services@serverless.com

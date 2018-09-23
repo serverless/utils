@@ -23,7 +23,10 @@
     "docs:gen": "./scripts/docs-gen.sh",
     "lint": "./scripts/lint.sh",
     "lint:staged": "./scripts/lint-staged.sh",
+    "setup": "./scripts/setup.sh",
+    "setup:ci": "./scripts/setup-ci.sh",
     "test": "./scripts/test.sh",
+    "test:ci": "./scripts/test-ci.sh",
     "watch": "./scripts/watch.sh"
   },
   "dependencies": {
