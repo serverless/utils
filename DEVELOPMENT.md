@@ -13,16 +13,20 @@ nvm install 8.5
 nvm use 8.5
 ```
 
-## Setup
+## Tasks
+The following outlines the commands for common development tasks.
+
+### Setup
+
+To setup the project for development run the below commands. After these have been run you will be able to use the project else where, run tests, etc.
 
 ```sh
 git clone https://github.com/serverless/utils.git
 cd utils
-npm install
-npm run build
+npm run setup
 ```
 
-## Build
+### Build
 
 To build the project
 
@@ -31,7 +35,7 @@ npm run build
 ```
 
 
-## Watch
+### Watch
 
 To build on every file change
 
@@ -40,7 +44,7 @@ npm run watch
 ```
 
 
-## Clean
+### Clean
 
 To clean and remove all built files
 
@@ -49,7 +53,7 @@ npm run clean
 ```
 
 
-## Cleanse
+### Cleanse
 
 To clean AND wipe out all installed modules as well as package-lock.json files, use the `cleanse` script.
 
@@ -60,7 +64,7 @@ npm run cleanse
 ```
 
 
-## Tests
+### Tests
 
 Run tests for the project
 
@@ -69,10 +73,18 @@ npm test
 ```
 
 
-## Lint
+### Lint
 
 Run lint for the project
 
 ```sh
 npm run lint
+```
+
+### Docs gen
+
+Run docs generation for the project
+
+```sh
+npm run docs:gen
 ```
