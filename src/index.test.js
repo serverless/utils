@@ -42,6 +42,7 @@ describe('index', () => {
       curryN: expect.any(Function),
       defn: expect.any(Function),
       endsWith: expect.any(Function),
+      equals: expect.any(Function),
       find: expect.any(Function),
       findAtIndex: expect.any(Function),
       forEach: expect.any(Function),
@@ -113,7 +114,9 @@ describe('index', () => {
       slice: expect.any(Function),
       split: expect.any(Function),
       stringToPath: expect.any(Function),
-      walk: expect.any(Function)
+      walk: expect.any(Function),
+      walkReduce: expect.any(Function),
+      walkReduceDepthFirst: expect.any(Function)
     })
   })
 

@@ -66,8 +66,7 @@ const asyncReduce = async (iteratee, accumulator, array) => {
  * @since v0.1.0
  * @category data
  * @sig ((a, b) -> a) -> a -> [b] -> a
- * @param {Function} fn The iterator function. Receives two values, the accumulator and the
- *        current element from the array.
+ * @param {Function} fn The iterator function. Receives two values, the accumulator and the current element from the array.
  * @param {*} acc The accumulator value.
  * @param {Array} list The list to iterate over.
  * @returns {*} The final, accumulated value.

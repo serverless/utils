@@ -24,6 +24,7 @@
   * [has()](#has)
   * [hasPath()](#haspath)
   * [hasProp()](#hasprop)
+  * [is()](#is)
   * [isArguments()](#isarguments)
   * [isArray()](#isarray)
   * [isArrayLike()](#isarraylike)
@@ -51,6 +52,8 @@
   * [nArySpread()](#naryspread)
   * [reduce()](#reduce)
   * [walk()](#walk)
+  * [walkReduce()](#walkreduce)
+  * [walkReduceDepthFirst()](#walkreducedepthfirst)
 - [path methods](#path-methods)
   * [findPath()](#findpath)
 <!-- AUTO-GENERATED-CONTENT:END -->
@@ -440,6 +443,31 @@ hasProp(undefined, null)          //=> false
 
 hasProp((value) => value.name, { name: 'eslam'})     //=> true
 hasProp((value) => value.birthday, { name: 'raees'}) //=> false
+```
+<br /><br />
+
+### is()
+
+[source](https://github.com/serverless/utils/tree/v0.0.3/src/data/is.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>See if an object (<code>val</code>) is an instance of the supplied constructor. This function will check up the inheritance chain, if any.</p>
+
+<b>Params</b><br />
+<p>`constructor`: <code>Object</code> - A constructor</p>
+<p>`value`: <code>&ast;</code> - The value to test</p>
+
+<b>Returns</b><br />
+<p><code>boolean</code>: 
+
+<b>Example</b><br />
+```js
+is(Object, {}); //=> true
+is(Number, 1); //=> true
+is(Object, 1); //=> false
+is(String, 's'); //=> true
+is(String, new String('')); //=> true
+is(Object, new String('')); //=> true
+is(Object, 's'); //=> false
+is(Number, {}); //=> false
 ```
 <br /><br />
 
@@ -996,7 +1024,7 @@ doing so, it is up to the user to handle the <a href="#reduced"><code>reduced</c
 shortcuting, as this is not implemented by <code>reduce</code>.</p>
 
 <b>Params</b><br />
-<p>`fn`: <code>Function</code> - The iterator function. Receives two values, the accumulator and the        current element from the array.</p>
+<p>`fn`: <code>Function</code> - The iterator function. Receives two values, the accumulator and the current element from the array.</p>
 <p>`acc`: <code>&ast;</code> - The accumulator value.</p>
 <p>`list`: <code>Array</code> - The list to iterate over.</p>
 
@@ -1055,6 +1083,87 @@ console.log(result)
   'b',
   { b: 'b' },
   { a: { b: 'b' } }
+]
+```
+<br /><br />
+
+### walkReduce()
+
+[source](https://github.com/serverless/utils/tree/v0.0.3/src/data/walkReduce.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Walk reduce using the given reducer function</p>
+
+<b>Params</b><br />
+<p>`fn`: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
+<p>`accum`: <code>&ast;</code> - The accumulator value.</p>
+<p>`collection`: <code>&ast;</code> - The collection to walk.</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The final, accumulated value.</p>
+
+<b>Example</b><br />
+```js
+walkReduce(
+  (accum, value, keys) => {
+    if (!isObject(value)) {
+      return accum + toString(value)
+    }
+    return accum
+  },
+  '',
+  {
+    a: {
+      b: 'b',
+      c: {
+        d: 'd'
+      }
+    },
+    e: [ 'e', 'f' ]
+  }
+)
+//=> 'bdef'
+```
+<br /><br />
+
+### walkReduceDepthFirst()
+
+[source](https://github.com/serverless/utils/tree/v0.0.3/src/data/walkReduceDepthFirst.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Walk depth first and reduce using the given reducer function</p>
+
+<b>Params</b><br />
+<p>`iteratee`: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
+<p>`accum`: <code>&ast;</code> - The accumulator value.</p>
+<p>`collection`: <code>&ast;</code> - The collection to walk.</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The final, accumulated value.</p>
+
+<b>Example</b><br />
+```js
+walkReduceDepthFirst(
+  (accum, value, keys) => {
+    accum.push(keys)
+    return accum
+  },
+  [],
+  {
+    a: {
+      b: {
+        c: 'c'
+      },
+      d: 'd',
+    },
+    e: [ 'e', 'f' ]
+  }
+)
+//=> [
+  [ 'a', 'b', 'c' ],
+  [ 'a', 'b' ],
+  [ 'a', 'd' ],
+  [ 'a' ],
+  [ 'e', 0 ],
+  [ 'e', 1 ],
+  [ 'e' ],
+  []
 ]
 ```
 <br /><br />
