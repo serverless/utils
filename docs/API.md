@@ -24,6 +24,8 @@
   * [has()](#has)
   * [hasPath()](#haspath)
   * [hasProp()](#hasprop)
+  * [head()](#head)
+  * [init()](#init)
   * [is()](#is)
   * [isArguments()](#isarguments)
   * [isArray()](#isarray)
@@ -48,9 +50,13 @@
   * [isSymbol()](#issymbol)
   * [isTypedArray()](#istypedarray)
   * [isUndefined()](#isundefined)
+  * [last()](#last)
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
+  * [nth()](#nth)
   * [reduce()](#reduce)
+  * [slice()](#slice)
+  * [tail()](#tail)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
@@ -443,6 +449,52 @@ hasProp(undefined, null)          //=> false
 
 hasProp((value) => value.name, { name: 'eslam'})     //=> true
 hasProp((value) => value.birthday, { name: 'raees'}) //=> false
+```
+<br /><br />
+
+### head()
+
+[source](https://github.com/serverless/utils/tree/v0.0.4/src/data/head.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+<p>Returns the first element of the given list or string.</p>
+
+<b>Params</b><br />
+<p>`list`: <code>Array</code>|<code>String</code> - 
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The first element in the given list</p>
+
+<b>Example</b><br />
+```js
+head(['fi', 'fo', 'fum']) //=> 'fi'
+head([]) //=> undefined
+
+head('abc') //=> 'a'
+head('') //=> ''
+```
+<br /><br />
+
+### init()
+
+[source](https://github.com/serverless/utils/tree/v0.0.4/src/data/init.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+<p>Returns all but the last element of the given list or string.</p>
+
+<b>Params</b><br />
+<p>`list`: <code>&ast;</code> - The list to select from</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: A new array or string of all but the last element in the list</p>
+
+<b>Example</b><br />
+```js
+init([1, 2, 3])  //=> [1, 2]
+init([1, 2])     //=> [1]
+init([1])        //=> []
+init([]);         //=> []
+
+init('abc')  //=> 'ab'
+init('ab')   //=> 'a'
+init('a')    //=> ''
+init('')     //=> ''
 ```
 <br /><br />
 
@@ -948,6 +1000,27 @@ isUndefined(null) // => false
 ```
 <br /><br />
 
+### last()
+
+[source](https://github.com/serverless/utils/tree/v0.0.4/src/data/last.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns the last element of the given list or string.</p>
+
+<b>Params</b><br />
+<p>`list`: <code>&ast;</code> - The list to get the last element from</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The last element of the given list or string</p>
+
+<b>Example</b><br />
+```js
+last(['fi', 'fo', 'fum']) //=> 'fum'
+last([]) //=> undefined
+
+last('abc') //=> 'c'
+last(''); //=> ''
+```
+<br /><br />
+
 ### nAry()
 
 [source](https://github.com/serverless/utils/tree/v0.0.4/src/data/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -1005,6 +1078,31 @@ const takesNArgs = (...args) => [ ...args ]
 ```
 <br /><br />
 
+### nth()
+
+[source](https://github.com/serverless/utils/tree/v0.0.4/src/data/nth.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+<p>Returns the nth element of the given list or string. If n is negative the<br />
+element at index length + n is returned.</p>
+
+<b>Params</b><br />
+<p>`offset`: <code>number</code> - The offset from the 0 index to select from. If negative it will be subtracted from length</p>
+<p>`collection`: <code>&ast;</code> - The collection to select from</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The value at the nth index</p>
+
+<b>Example</b><br />
+```js
+const list = ['foo', 'bar', 'baz', 'quux']
+nth(1, list) //=> 'bar'
+nth(-1, list) //=> 'quux'
+nth(-99, list) //=> undefined
+
+nth(2, 'abc') //=> 'c'
+nth(3, 'abc') //=> ''
+```
+<br /><br />
+
 ### reduce()
 
 [source](https://github.com/serverless/utils/tree/v0.0.4/src/data/reduce.js#L45)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.1.0
@@ -1043,6 +1141,58 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 //    -   2           -1   2
 //   / \              / \
 //  0   1            0   1
+```
+<br /><br />
+
+### slice()
+
+[source](https://github.com/serverless/utils/tree/v0.0.4/src/data/slice.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Creates a slice of <code>array</code> from <code>start</code> up to, but not including, <code>end</code>.</p>
+<p><strong>Note:</strong> This method is used instead of<br />
+<a href="https://mdn.io/Array/slice"><code>Array#slice</code></a> to ensure dense arrays are<br />
+returned.</p>
+
+<b>Params</b><br />
+<p>`[start=0]`: <code>number</code> - The start position. A negative index will be treated as an offset from the end.</p>
+<p>`[end=array.length]`: <code>number</code> - The end position. A negative index will be treated as an offset from the end.</p>
+<p>`array`: <code>Array</code> - The array to slice.</p>
+
+<b>Returns</b><br />
+<p><code>Array</code>: Returns the slice of <code>array</code>.</p>
+
+<b>Example</b><br />
+```js
+const array = [1, 2, 3, 4]
+
+slice(2, Infinity, array)
+// => [3, 4]
+```
+<br /><br />
+
+### tail()
+
+[source](https://github.com/serverless/utils/tree/v0.0.4/src/data/tail.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+<p>Returns all but the first element of the given list or string (or object<br />
+with a <code>tail</code> method).</p>
+<p>Dispatches to the <code>slice</code> method of the first argument, if present.</p>
+
+<b>Params</b><br />
+<p>`collection`: <code>&ast;</code> - The collection to get the tail of</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The tail of the given collection</p>
+
+<b>Example</b><br />
+```js
+tail([1, 2, 3]);  //=> [2, 3]
+tail([1, 2]);     //=> [2]
+tail([1]);        //=> []
+tail([]);         //=> []
+
+tail('abc');  //=> 'bc'
+tail('ab');   //=> 'b'
+tail('a');    //=> ''
+tail('');     //=> ''
 ```
 <br /><br />
 
