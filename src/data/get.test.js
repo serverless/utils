@@ -26,6 +26,23 @@ describe('get', () => {
     expect(get('foo.bar.bim', value)).toBe('bop')
   })
 
+  test('select from a nested object with get method', () => {
+    const foo = {
+      data: {
+        bar: {
+          bim: 'bop'
+        }
+      },
+      get(prop) {
+        return this.data[prop]
+      }
+    }
+    const value = {
+      foo
+    }
+    expect(get('foo.bar.bim', value)).toBe('bop')
+  })
+
   test('undefined returns current value', () => {
     const value = {}
     expect(get(undefined, value)).toBe(value)
