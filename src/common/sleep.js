@@ -4,7 +4,9 @@
  * @func
  * @since v0.0.4
  * @category common
- * @sig (wait) -> Promise
+ * @sig sleep(
+ *   wait: number
+ * ): Promise
  * @param {number} wait The number of milliseconds to wait before resoliving the Promise
  * @returns {Promise} Resolves once the given amount of time has ellapsed.
  * @example

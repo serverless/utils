@@ -1,4 +1,4 @@
-import curry from './curry'
+import curry from '../common/curry'
 import isString from './isString'
 
 /**

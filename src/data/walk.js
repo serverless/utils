@@ -1,5 +1,5 @@
-import curryN from './curryN'
-import defn from './defn'
+import curryN from '../common/curryN'
+import defn from '../common/defn'
 
 /**
  * Walk using the given walkee and iteratee functions.

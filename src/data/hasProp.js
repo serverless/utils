@@ -1,4 +1,4 @@
-import curry from './curry'
+import curry from '../common/curry'
 import isFunction from './isFunction'
 import isMap from './isMap'
 import isNil from './isNil'

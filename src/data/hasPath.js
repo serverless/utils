@@ -1,4 +1,4 @@
-import curry from './curry'
+import curry from '../common/curry'
 import getProp from './getProp'
 import hasProp from './hasProp'
 

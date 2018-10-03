@@ -4,7 +4,7 @@
  *
  * @func
  * @since v0.0.3
- * @category data
+ * @category common
  * @returns {Promise} The promise with exposed methods
  * @example
  *

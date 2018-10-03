@@ -1,4 +1,4 @@
-import curry from './curry'
+import curry from '../common/curry'
 import keys from './keys'
 import prop from './prop'
 import reduce from './reduce'

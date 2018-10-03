@@ -5,22 +5,21 @@ import curry from './curry'
  *
  * @func
  * @since v0.0.3
- * @category data
- * @sig Number -> (* -> a) -> (* -> a)
+ * @category common
  * @param {Number} n The desired arity of the new function.
  * @param {Function} fn The function to wrap.
- * @return {Function} A new function wrapping `fn`. The new function is guaranteed to be of arity `n`.
+ * @returns {Function} A new function wrapping `fn`. The new function is guaranteed to be of arity `n`.
  * @example
  *
- *      const takesTwoArgs = (a, b) => [a, b]
+ * const takesTwoArgs = (a, b) => [a, b]
  *
- *      takesTwoArgs.length //=> 2
- *      takesTwoArgs(1, 2) //=> [1, 2]
+ * takesTwoArgs.length //=> 2
+ * takesTwoArgs(1, 2) //=> [1, 2]
  *
- *      const takesOneArg = nAry(1, takesTwoArgs)
- *      takesOneArg.length //=> 1
- *      // Only `n` arguments are passed to the wrapped function
- *      takesOneArg(1, 2) //=> [1, undefined]
+ * const takesOneArg = nAry(1, takesTwoArgs)
+ * takesOneArg.length //=> 1
+ * // Only `n` arguments are passed to the wrapped function
+ * takesOneArg(1, 2) //=> [1, undefined]
  */
 const nAry = curry((n, fn) => {
   let idx = 0

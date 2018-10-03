@@ -5,27 +5,26 @@ import curry from './curry'
  *
  * @func
  * @since v0.0.4
- * @category data
- * @sig Number -> (* -> a) -> (* -> a)
+ * @category common
  * @param {Number} n The desired arity of the new function.
  * @param {Function} fn The function to wrap.
- * @return {Function} A new function wrapping `fn`. The new function is guaranteed to be of parameter length `n`.
+ * @returns {Function} A new function wrapping `fn`. The new function is guaranteed to be of parameter length `n`.
  * @example
  *
- *      const takesNArgs = (...args) => [ ...args ]
+ * const takesNArgs = (...args) => [ ...args ]
  *
- *      takesNArgs.length //=> 0
- *      takesNArgs(1, 2) //=> [1, 2]
+ * takesNArgs.length //=> 0
+ * takesNArgs(1, 2) //=> [1, 2]
  *
- *      const takesTwoArgs = nArySpread(2, takesNArgs)
- *      takesTwoArgs.length //=> 2
- *      // All arguments are passed to the wrapped function
- *      takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
+ * const takesTwoArgs = nArySpread(2, takesNArgs)
+ * takesTwoArgs.length //=> 2
+ * // All arguments are passed to the wrapped function
+ * takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
  *
- *      const curriedTakesTwoArgs = curry(takesTwoArgs)
- *      // auto currying works as expected
- *      const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
- *      takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
+ * const curriedTakesTwoArgs = curry(takesTwoArgs)
+ * // auto currying works as expected
+ * const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
+ * takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
  */
 const nArySpread = curry((n, fn) => {
   let idx = 0

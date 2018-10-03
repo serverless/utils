@@ -8,6 +8,17 @@ describe('index', () => {
   test('has common methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
+      all: expect.any(Function),
+      apply: expect.any(Function),
+      curry: expect.any(Function),
+      curryN: expect.any(Function),
+      deferredPromise: expect.any(Function),
+      defn: expect.any(Function),
+      dispatchable: expect.any(Function),
+      memoize: expect.any(Function),
+      memoizeWith: expect.any(Function),
+      nAry: expect.any(Function),
+      nArySpread: expect.any(Function),
       sleep: expect.any(Function)
     })
   })
@@ -38,9 +49,6 @@ describe('index', () => {
       baseGetTag: expect.any(Function),
       castPath: expect.any(Function),
       contains: expect.any(Function),
-      curry: expect.any(Function),
-      curryN: expect.any(Function),
-      defn: expect.any(Function),
       endsWith: expect.any(Function),
       equals: expect.any(Function),
       find: expect.any(Function),
@@ -97,14 +105,11 @@ describe('index', () => {
       last: expect.any(Function),
       map: expect.any(Function),
       mapIndexed: expect.any(Function),
-      memoize: expect.any(Function),
-      memoizeWith: expect.any(Function),
 
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // nodeTypes: expect.any(Object),
-      nAry: expect.any(Function),
-      nArySpread: expect.any(Function),
       nth: expect.any(Function),
+      omit: expect.any(Function),
       over: expect.any(Function),
       pick: expect.any(Function),
       prop: expect.any(Function),

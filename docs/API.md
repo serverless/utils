@@ -6,6 +6,13 @@
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [common methods](#common-methods)
+  * [all()](#all)
+  * [apply()](#apply)
+  * [deferredPromise()](#deferredpromise)
+  * [defn()](#defn)
+  * [dispatchable()](#dispatchable)
+  * [nAry()](#nary)
+  * [nArySpread()](#naryspread)
   * [sleep()](#sleep)
 - [data methods](#data-methods)
   * [any()](#any)
@@ -15,8 +22,8 @@
   * [assocIndex()](#associndex)
   * [assocPath()](#assocpath)
   * [assocProp()](#assocprop)
-  * [deferredPromise()](#deferredpromise)
-  * [defn()](#defn)
+  * [every()](#every)
+  * [everyAtIndex()](#everyatindex)
   * [find()](#find)
   * [findAtIndex()](#findatindex)
   * [getPath()](#getpath)
@@ -48,12 +55,12 @@
   * [isPrototype()](#isprototype)
   * [isString()](#isstring)
   * [isSymbol()](#issymbol)
+  * [isTransformer()](#istransformer)
   * [isTypedArray()](#istypedarray)
   * [isUndefined()](#isundefined)
   * [last()](#last)
-  * [nAry()](#nary)
-  * [nArySpread()](#naryspread)
   * [nth()](#nth)
+  * [omit()](#omit)
   * [reduce()](#reduce)
   * [slice()](#slice)
   * [tail()](#tail)
@@ -66,6 +73,185 @@
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
 ## common methods
+
+### all()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/all.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Resolves all async values in an array or object</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The array or object with its values resolved</p>
+
+<b>Example</b><br />
+```js
+const nums = [
+  1,
+  Promise.resolve(2),
+  (async () => 3)()
+]
+await all(nums) //=> [ 1, 2, 3 ]
+
+const keyed = {
+  a: 1,
+  b: Promise.resolve(2),
+  c: (async () => 3)()
+}
+await all(keyed) //=> { a: 1, b: 2, c: 3 }
+
+await all('abc') //=> 'abc'
+await all(123) //=> 123
+```
+<br /><br />
+
+### apply()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/apply.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Applies function <code>fn</code> to the argument list <code>args</code>. This is useful for<br />
+creating a fixed-arity function from a variadic function. <code>fn</code> should be a<br />
+bound function if context is significant.</p>
+
+<b>Params</b><br />
+<p>`fn`: <code>Function</code> - The function which will be called with <code>args</code></p>
+<p>`args`: <code>Array</code> - The arguments to call <code>fn</code> with</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: result The result, equivalent to <code>fn(...args)</code></p>
+
+<b>Example</b><br />
+```js
+const nums = [1, 2, 3, -99, 42, 6, 7]
+apply(Math.max, nums) //=> 42
+```
+<br /><br />
+
+### deferredPromise()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/deferredPromise.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Creates a promise with the resolve and reject methods exposed as properties<br />
+on the promise.</p>
+
+<b>Params</b><br />
+None
+
+<b>Returns</b><br />
+<p><code>Promise</code>: The promise with exposed methods</p>
+
+<b>Example</b><br />
+```js
+const promise = deferredPromise()
+// ... do something async then eventually resolve the promise
+promise.resolve(someValue)
+```
+<br /><br />
+
+### defn()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/defn.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.1.0
+<p>Defines a function that will invoke the named function if it exists on the<br />
+last arg. If the method does not, all args are passed through to the default<br />
+function.</p>
+
+<b>Params</b><br />
+<p>`name`: <code>string</code> - The name of the method to call if it exists</p>
+<p>`defaultFn`: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
+
+<b>Returns</b><br />
+<p><code>Function</code>: The wrapped function</p>
+
+<b>Example</b><br />
+```js
+const get = defn('get', (prop, value) => value[prop])
+get('a', { a: 'foo' }) //=> 'foo'
+
+const obj = {
+  props: {
+    a: 'bar'
+  }
+  get: (prop) => obj.props[prop]
+}
+get('a', obj) //=> 'bar'
+```
+<br /><br />
+
+### dispatchable()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/dispatchable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a function that dispatches with different strategies based on the<br />
+object in list position (last argument). If it is an array, executes [fn].<br />
+Otherwise, if it has a function with one of the given method names, it will<br />
+execute that function (functor case). Otherwise, if it is a transformer,<br />
+uses transducer [xf] to return a new transformer (transducer case).<br />
+Otherwise, it will default to executing [fn].</p>
+
+<b>Params</b><br />
+<p>`methodNames`: <code>Array</code> - properties to check for a custom implementation</p>
+<p>`xf`: <code>Function</code> - transducer to initialize if object is transformer</p>
+<p>`fn`: <code>Function</code> - default ramda implementation</p>
+
+<b>Returns</b><br />
+<p><code>Function</code>: A function that dispatches on object in list position</p>
+
+<br /><br />
+
+### nAry()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
+
+<b>Params</b><br />
+<p>`n`: <code>Number</code> - The desired arity of the new function.</p>
+<p>`fn`: <code>Function</code> - The function to wrap.</p>
+
+<b>Returns</b><br />
+<p><code>Function</code>: A new function wrapping <code>fn</code>. The new function is guaranteed to be of arity <code>n</code>.</p>
+
+<b>Example</b><br />
+```js
+const takesTwoArgs = (a, b) => [a, b]
+
+takesTwoArgs.length //=> 2
+takesTwoArgs(1, 2) //=> [1, 2]
+
+const takesOneArg = nAry(1, takesTwoArgs)
+takesOneArg.length //=> 1
+// Only `n` arguments are passed to the wrapped function
+takesOneArg(1, 2) //=> [1, undefined]
+```
+<br /><br />
+
+### nArySpread()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
+
+<b>Params</b><br />
+<p>`n`: <code>Number</code> - The desired arity of the new function.</p>
+<p>`fn`: <code>Function</code> - The function to wrap.</p>
+
+<b>Returns</b><br />
+<p><code>Function</code>: A new function wrapping <code>fn</code>. The new function is guaranteed to be of parameter length <code>n</code>.</p>
+
+<b>Example</b><br />
+```js
+const takesNArgs = (...args) => [ ...args ]
+
+takesNArgs.length //=> 0
+takesNArgs(1, 2) //=> [1, 2]
+
+const takesTwoArgs = nArySpread(2, takesNArgs)
+takesTwoArgs.length //=> 2
+// All arguments are passed to the wrapped function
+takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
+
+const curriedTakesTwoArgs = curry(takesTwoArgs)
+// auto currying works as expected
+const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
+takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
+```
+<br /><br />
 
 ### sleep()
 
@@ -90,18 +276,16 @@ await sleep(1000)
 ### any()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/any.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns <code>true</code> if at least one of elements of the collection match the predicate,<br />
-<code>false</code> otherwise.</p>
+<p>Returns <code>true</code> if at least one of elements of the collection match the predicate, <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>any</code> method of the collection argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
-method will upgrade to async and return a Promise.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
 <p>`fn`: <code>Function</code> - The predicate function.</p>
 <p>`collection`: <code>&ast;</code> - The collection to consider.</p>
 
 <b>Returns</b><br />
-<p><code>Boolean</code>: <code>true</code> if the predicate is satisfied by at least one element, <code>false</code>         otherwise.</p>
+<p><code>Boolean</code>: <code>true</code> if the predicate is satisfied by at least one element, <code>false</code> otherwise.</p>
 
 <b>Example</b><br />
 ```js
@@ -109,17 +293,18 @@ const lessThan0 = flip(lt)(0)
 const lessThan2 = flip(lt)(2)
 any(lessThan0)([1, 2]) //=> false
 any(lessThan2)([1, 2]) //=> true
+any(lessThan2)({ a: 1, b: 2 }) //=> true
+
+await any(async (value) => lessThan2(value), [1, 2]) //=> true
 ```
 <br /><br />
 
 ### anyAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/anyAtIndex.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns <code>true</code> if at least one of elements of the list match the predicate<br />
-starting at the given index, <code>false</code> otherwise.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/anyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns <code>true</code> if at least one of elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>anyAtIndex</code> method of the list argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
-method will upgrade to async and return a Promise.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
 <p>`fn`: <code>Function</code> - The predicate function.</p>
@@ -133,8 +318,10 @@ method will upgrade to async and return a Promise.</p>
 ```js
 const lessThan0 = flip(lt)(0)
 const lessThan2 = flip(lt)(2)
-any(lessThan0)([1, 2]) //=> false
-any(lessThan2)([1, 2]) //=> true
+anyAtIndex(lessThan0, 0, [3, 2, 1]) //=> false
+anyAtIndex(lessThan2, 1, [3, 2, 1]) //=> true
+
+await anyAtIndex(async (value) => lessThan2(value), 0, [1, 2]) //=> true
 ```
 <br /><br />
 
@@ -244,52 +431,52 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 ```
 <br /><br />
 
-### deferredPromise()
+### every()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/deferredPromise.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Creates a promise with the resolve and reject methods exposed as properties<br />
-on the promise.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/every.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns <code>true</code> if all elements of the list match the predicate, <code>false</code> if there are any that don't.</p>
+<p>Dispatches to the <code>every</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
-None
+<p>`fn`: <code>Function</code> - The predicate function.</p>
+<p>`collection`: <code>&ast;</code> - The collection to consider.</p>
 
 <b>Returns</b><br />
-<p><code>Promise</code>: The promise with exposed methods</p>
+<p><code>boolean</code>: <code>true</code> if the predicate is satisfied by every value, <code>false</code> otherwise.</p>
 
 <b>Example</b><br />
 ```js
-const promise = deferredPromise()
-// ... do something async then eventually resolve the promise
-promise.resolve(someValue)
+const equals3 = equals(3)
+every(equals3, [3, 3, 3, 3]) //=> true
+every(equals3, [3, 3, 1, 3]) //=> false
+every(equals3, { a: 3, b: 3, c: 3}) //=> true
+
+await every(async (value) => equals3(value), [3, 3, 3]) //=> true
 ```
 <br /><br />
 
-### defn()
+### everyAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/defn.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.1.0
-<p>Defines a function that will invoke the named function if it exists on the<br />
-last arg. If the method does not, all args are passed through to the default<br />
-function.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/everyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns <code>true</code> if all elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
+<p>Dispatches to the <code>everyAtIndex</code> method of the list argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
-<p>`name`: <code>string</code> - The name of the method to call if it exists</p>
-<p>`defaultFn`: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
+<p>`fn`: <code>Function</code> - The predicate function.</p>
+<p>`index`: <code>Integer</code> - The index to start at.</p>
+<p>`list`: <code>Array</code> - The array to consider.</p>
 
 <b>Returns</b><br />
-<p><code>Function</code>: The wrapped function</p>
+<p><code>Boolean</code>: <code>true</code> if the predicate is satisfied by at least one element, <code>false</code> otherwise.</p>
 
 <b>Example</b><br />
 ```js
-const get = defn('get', (prop, value) => value[prop])
-get('a', { a: 'foo' }) //=> 'foo'
-
-const obj = {
-  props: {
-    a: 'bar'
-  }
-  get: (prop) => obj.props[prop]
-}
-get('a', obj) //=> 'bar'
+const lessThan0 = flip(lt)(0)
+const lessThan2 = flip(lt)(2)
+any(lessThan0)([1, 2]) //=> false
+any(lessThan2)([1, 2]) //=> true
 ```
 <br /><br />
 
@@ -962,6 +1149,27 @@ isSymbol('abc') // => false
 ```
 <br /><br />
 
+### isTransformer()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/isTransformer.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.3.0
+<p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to check.</p>
+
+<b>Returns</b><br />
+<p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a transformer, else <code>false</code>.</p>
+
+<b>Example</b><br />
+```js
+isTransformer({
+  ['@@transducer/step']: () => {}
+}) // => true
+
+isTransformer('abc') // => false
+```
+<br /><br />
+
 ### isTypedArray()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/isTypedArray.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.3.0
@@ -1021,63 +1229,6 @@ last(''); //=> ''
 ```
 <br /><br />
 
-### nAry()
-
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
-
-<b>Params</b><br />
-<p>`n`: <code>Number</code> - The desired arity of the new function.</p>
-<p>`fn`: <code>Function</code> - The function to wrap.</p>
-
-<b>Returns</b><br />
-<p><code>Function</code>: A new function wrapping <code>fn</code>. The new function is guaranteed to be of arity <code>n</code>.</p>
-
-<b>Example</b><br />
-```js
-const takesTwoArgs = (a, b) => [a, b]
-
-     takesTwoArgs.length //=> 2
-     takesTwoArgs(1, 2) //=> [1, 2]
-
-     const takesOneArg = nAry(1, takesTwoArgs)
-     takesOneArg.length //=> 1
-     // Only `n` arguments are passed to the wrapped function
-     takesOneArg(1, 2) //=> [1, undefined]
-```
-<br /><br />
-
-### nArySpread()
-
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
-
-<b>Params</b><br />
-<p>`n`: <code>Number</code> - The desired arity of the new function.</p>
-<p>`fn`: <code>Function</code> - The function to wrap.</p>
-
-<b>Returns</b><br />
-<p><code>Function</code>: A new function wrapping <code>fn</code>. The new function is guaranteed to be of parameter length <code>n</code>.</p>
-
-<b>Example</b><br />
-```js
-const takesNArgs = (...args) => [ ...args ]
-
-     takesNArgs.length //=> 0
-     takesNArgs(1, 2) //=> [1, 2]
-
-     const takesTwoArgs = nArySpread(2, takesNArgs)
-     takesTwoArgs.length //=> 2
-     // All arguments are passed to the wrapped function
-     takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
-
-     const curriedTakesTwoArgs = curry(takesTwoArgs)
-     // auto currying works as expected
-     const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
-     takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
-```
-<br /><br />
-
 ### nth()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/nth.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
@@ -1100,6 +1251,24 @@ nth(-99, list) //=> undefined
 
 nth(2, 'abc') //=> 'c'
 nth(3, 'abc') //=> ''
+```
+<br /><br />
+
+### omit()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/omit.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a partial copy of an object omitting the keys specified.</p>
+
+<b>Params</b><br />
+<p>`names`: <code>Array</code> - an array of String property names to omit from the new object</p>
+<p>`obj`: <code>Object</code> - The object to copy from</p>
+
+<b>Returns</b><br />
+<p><code>Object</code>: A new object with properties from <code>names</code> not on it.</p>
+
+<b>Example</b><br />
+```js
+omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, c: 3}
 ```
 <br /><br />
 

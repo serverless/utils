@@ -1,4 +1,4 @@
-import curry from './curry'
+import curry from '../common/curry'
 import isFunction from './isFunction'
 import isMap from './isMap'
 import isNil from './isNil'
@@ -10,6 +10,7 @@ import isUndefined from './isUndefined'
  *
  * @func
  * @since v0.0.3
+ * @alias prop
  * @category data
  * @sig s -> {s: a} -> a | Undefined
  * @param {String} p The property name
