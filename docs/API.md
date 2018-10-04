@@ -62,6 +62,8 @@
   * [nth()](#nth)
   * [omit()](#omit)
   * [reduce()](#reduce)
+  * [set()](#set)
+  * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
   * [tail()](#tail)
   * [walk()](#walk)
@@ -342,13 +344,8 @@ await anyAtIndex(async (value) => lessThan2(value), 0, [1, 2]) //=> true
 ### assoc()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/assoc.js#L10)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Makes a shallow clone of an object, setting or overriding the specified<br />
-property with the given value. Note that this copies and flattens prototype<br />
-properties onto the new object as well. All non-primitive properties are<br />
-copied by reference.</p>
-<p>Supports path based property selectors 'foo.bar' and functional selectors<br />
-which performs an over on the entire collection and sets each matching<br />
-selector to the given value.</p>
+<p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
+<p>Supports path based property selectors 'foo.bar' and functional selectors which performs an over on the entire collection and sets each matching selector to the given value.</p>
 
 <b>Params</b><br />
 <p>`selector`: <code>Array</code>|<code>String</code>|<code>Function</code> - The property path to set or functional selector</p>
@@ -360,9 +357,9 @@ selector to the given value.</p>
 
 <b>Example</b><br />
 ```js
-assoc('c', 3, {a: 1, b: 2});          //=> {a: 1, b: 2, c: 3}
-assoc('c.d', 3, {a: 1, b: 2});        //=> {a: 1, b: 2, c: { d: 3 }}
-assoc([ 'c', 'd' ], 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: { d: 3 }}
+assoc('c', 3, {a: 1, b: 2})          //=> {a: 1, b: 2, c: 3}
+assoc('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
+assoc([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
 ```
 <br /><br />
 
@@ -550,7 +547,7 @@ getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
 
 ### getProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/getProp.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a function that when supplied an object returns the indicated<br />
 property of that object, if it exists.</p>
 
@@ -1310,6 +1307,50 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 //    -   2           -1   2
 //   / \              / \
 //  0   1            0   1
+```
+<br /><br />
+
+### set()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/set.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>This method is an alias for <code>assoc</code></p>
+<p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
+<p>Supports path based property selectors 'foo.bar' and functional selectors which performs an 'over' on the entire collection and sets each matching selector to the given value.</p>
+<p>dispatches to the <code>set</code> method of the 3rd argument if available</p>
+
+<b>Params</b><br />
+<p>`selector`: <code>Array</code>|<code>String</code>|<code>Function</code> - The property path to set or functional selector</p>
+<p>`value`: <code>&ast;</code> - The new value</p>
+<p>`collection`: <code>&ast;</code> - The collection to clone and assign the new value</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: A new collection equivalent to the original except for the changed selector path.</p>
+
+<b>Example</b><br />
+```js
+set('c', 3, {a: 1, b: 2})          //=> {a: 1, b: 2, c: 3}
+set('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
+set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
+```
+<br /><br />
+
+### shallowEquals()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/shallowEquals.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.</p>
+
+<b>Params</b><br />
+<p>`selector`: <code>Array</code>|<code>String</code>|<code>Function</code> - The property path to set or functional selector</p>
+<p>`objA`: <code>object</code> - The object to compare to B</p>
+<p>`objB`: <code>object</code> - The object to compare to A</p>
+
+<b>Returns</b><br />
+<p><code>boolean</code>: Whether or not the two objects are shallowly equal</p>
+
+<b>Example</b><br />
+```js
+shallowEquals({ a: 1, b: 2, c: undefined }, { a: 1, b: 2, c: undefined }) //=> true
+shallowEquals({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }) //=> false
 ```
 <br /><br />
 

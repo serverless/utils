@@ -113,6 +113,7 @@ describe('index', () => {
       over: expect.any(Function),
       pick: expect.any(Function),
       prop: expect.any(Function),
+      propOr: expect.any(Function),
       reduce: expect.any(Function),
       reduceIndexed: expect.any(Function),
       reduceObjIndexed: expect.any(Function),
@@ -120,6 +121,7 @@ describe('index', () => {
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // root: expect.any(Object),
       set: expect.any(Function),
+      shallowEquals: expect.any(Function),
       slice: expect.any(Function),
       split: expect.any(Function),
       stringToPath: expect.any(Function),
