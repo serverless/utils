@@ -69,6 +69,11 @@
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
+- [ip methods](#ip-methods)
+  * [isIp()](#isip)
+  * [lookupIp()](#lookupip)
+- [lang methods](#lang-methods)
+  * [mix()](#mix)
 - [path methods](#path-methods)
   * [findPath()](#findpath)
 <!-- AUTO-GENERATED-CONTENT:END -->
@@ -1525,6 +1530,92 @@ walkReduceDepthFirst(
   [ 'e' ],
   []
 ]
+```
+<br /><br />
+
+## ip methods
+
+### isIp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/ip/isIp.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Determines whether the given value is an IP address</p>
+
+<b>Params</b><br />
+<p>`value`: <code>string</code> - The value to check</p>
+<p>`version`: <code>string</code>|<code>number</code> - The IP version number '4' or '6'</p>
+
+<b>Returns</b><br />
+<p><code>boolean</code>: True if the value is an ip address, otherwise false</p>
+
+<b>Example</b><br />
+```js
+isIp('255.255.255.0') //=> true
+isIp('255.255.255.0', 4) //=> true
+isIp('255.255.255.0', 6) //=> false
+isIp('2001:db8:abcd:0012:0000:0000:0000:0000') //=> true
+isIp('2001:db8:abcd:0012:0000:0000:0000:0000', 4) //=> false
+isIp('2001:db8:abcd:0012:0000:0000:0000:0000', 6) //=> true
+```
+<br /><br />
+
+### lookupIp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/ip/lookupIp.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Converts an ip address into an location</p>
+
+<b>Params</b><br />
+<p>`ip`: <code>string</code> - The ip to lookup</p>
+
+<b>Returns</b><br />
+<p>: {{   city: string,<br />
+country: string,<br />
+countryCode: string,<br />
+ip: string,<br />
+lat: number,<br />
+lng: number,<br />
+postalCode: string,<br />
+region: string,<br />
+regionCode: string,<br />
+}} The location</p>
+
+<b>Example</b><br />
+```js
+await lookupIp('139.130.4.5')
+//=> {
+//   city: 'Belrose',
+//   country: 'Australia',
+//   countryCode: 'AU',
+//   ip: '139.130.4.5',
+//   lat: -33.7333,
+//   lng: 151.2167,
+//   postalCode: '2085',
+//   region: 'New South Wales',
+//   regionCode: 'NSW'
+// }
+```
+<br /><br />
+
+## lang methods
+
+### mix()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/lang/mix.js#L23)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Returns an object with a <code>with</code> method that can be used to mix the given class with mixins</p>
+
+<b>Params</b><br />
+<p>`SuperClass`: <code>class</code> - The class that you want the mixins to extend</p>
+<p>`args`: <code>&ast;</code> - Additional arguments to pass to the mixin</p>
+
+<b>Returns</b><br />
+<p>: {{   with: (<br />
+...mixins: (SuperClass: class, ...args: *) =&gt; class<br />
+) =&gt; class<br />
+}}</p>
+
+<b>Example</b><br />
+```js
+const mixin = (SuperClass, ...args) => class extends SuperClass { ... }
+class mix(Parent, ...args).with(mixin) { ... }
 ```
 <br /><br />
 

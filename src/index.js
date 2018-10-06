@@ -10,7 +10,9 @@ const common = require('./common')
 const config = require('./config')
 const data = require('./data')
 const error = require('./error')
+const fetch = require('./fetch')
 const fs = require('./fs')
+const ip = require('./ip')
 const lang = require('./lang')
 const path = require('./path')
 
@@ -19,7 +21,9 @@ module.exports = {
   ...config,
   ...data,
   ...error,
+  ...fetch,
   ...fs,
+  ...ip,
   ...lang,
   ...path
 }

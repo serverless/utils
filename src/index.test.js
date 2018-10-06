@@ -48,6 +48,7 @@ describe('index', () => {
       assocProp: expect.any(Function),
       baseGetTag: expect.any(Function),
       castPath: expect.any(Function),
+      clone: expect.any(Function),
       contains: expect.any(Function),
       endsWith: expect.any(Function),
       equals: expect.any(Function),
@@ -142,6 +143,13 @@ describe('index', () => {
     })
   })
 
+  test('has fetch methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
+      fetch: expect.any(Function)
+    })
+  })
+
   test('has fs methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
@@ -159,6 +167,14 @@ describe('index', () => {
       removeFile: expect.any(Function),
       walkDirSync: expect.any(Function),
       writeFile: expect.any(Function)
+    })
+  })
+
+  test('has ip methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
+      isIp: expect.any(Function),
+      lookupIp: expect.any(Function)
     })
   })
 
