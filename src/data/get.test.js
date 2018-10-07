@@ -66,4 +66,14 @@ describe('get', () => {
     }
     expect(get(['foo.bar'], value)).toBe('foobar')
   })
+
+  test('empty array returns the value', () => {
+    expect(get([], { a: 'b' })).toEqual({ a: 'b' })
+    expect(get([], {})).toEqual({})
+    expect(get([], [])).toEqual([])
+    expect(get([], 'foo')).toBe('foo')
+    expect(get([], 123)).toBe(123)
+    expect(get([], null)).toBe(null)
+    expect(get([], undefined)).toBe(undefined)
+  })
 })

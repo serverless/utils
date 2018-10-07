@@ -127,6 +127,7 @@ describe('index', () => {
       split: expect.any(Function),
       stringToPath: expect.any(Function),
       tail: expect.any(Function),
+      toString: expect.any(Function),
       walk: expect.any(Function),
       walkReduce: expect.any(Function),
       walkReduceDepthFirst: expect.any(Function)
@@ -181,6 +182,10 @@ describe('index', () => {
   test('has lang methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
+      assignProperties: expect.any(Function),
+      cloneProperties: expect.any(Function),
+      defineProperty: expect.any(Function),
+      getProperty: expect.any(Function),
       mix: expect.any(Function)
     })
   })

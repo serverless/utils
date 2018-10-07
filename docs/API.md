@@ -66,13 +66,16 @@
   * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
   * [tail()](#tail)
+  * [toString()](#tostring)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
+  * [walkReducePath()](#walkreducepath)
 - [ip methods](#ip-methods)
   * [isIp()](#isip)
   * [lookupIp()](#lookupip)
 - [lang methods](#lang-methods)
+  * [getProperty()](#getproperty)
   * [mix()](#mix)
 - [path methods](#path-methods)
   * [findPath()](#findpath)
@@ -1411,6 +1414,30 @@ tail('');     //=> ''
 ```
 <br /><br />
 
+### toString()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/toString.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
+<p>Converts <code>value</code> to a string. An empty string is returned for <code>null</code>  and <code>undefined</code> values. The sign of <code>-0</code> is preserved.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to convert.</p>
+
+<b>Returns</b><br />
+<p><code>string</code>: Returns the converted string.</p>
+
+<b>Example</b><br />
+```js
+toString(null)
+// => ''
+
+toString(-0)
+// => '-0'
+
+toString([1, 2, 3])
+// => '1,2,3'
+```
+<br /><br />
+
 ### walk()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/walk.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
@@ -1533,6 +1560,47 @@ walkReduceDepthFirst(
 ```
 <br /><br />
 
+### walkReducePath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/walkReducePath.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Walk reduce the specific path using the given reducer function</p>
+
+<b>Params</b><br />
+<p>`path`: <code>&ast;</code> - The specific path to walk</p>
+<p>`fn`: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
+<p>`accum`: <code>&ast;</code> - The accumulator value.</p>
+<p>`collection`: <code>&ast;</code> - The collection to walk.</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The final, accumulated value.</p>
+
+<b>Example</b><br />
+```js
+walkReducePath(
+  (accum, value, keys) => {
+    return accum.push(keys)
+  },
+  'a.c.d'
+  [],
+  {
+    a: {
+      b: 'b',
+      c: {
+        d: 'd'
+      }
+    },
+    e: [ 'e', 'f' ]
+  }
+)
+//=> [
+//   [],
+//   ['a'],
+//   ['a', 'c'],
+//   ['a', 'c', 'd']
+// ]
+```
+<br /><br />
+
 ## ip methods
 
 ### isIp()
@@ -1596,6 +1664,37 @@ await lookupIp('139.130.4.5')
 <br /><br />
 
 ## lang methods
+
+### getProperty()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/lang/getProperty.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a property descriptor for an own property</p>
+
+<b>Params</b><br />
+<p>`object`: <code>object</code> - The object to get the property from</p>
+<p>`prop`: <code>string</code> - The prop to get from the object</p>
+
+<b>Returns</b><br />
+<p>: {{   configurable: boolean,<br />
+enumerable: boolean,<br />
+value: *,<br />
+writeable: boolean,<br />
+get: () =&gt; *,<br />
+set: (value) =&gt; undefined<br />
+}} The property descriptor</p>
+
+<b>Example</b><br />
+```js
+const object = { get foo() { return 17 } }
+getProperty(o, 'foo')
+//=> {
+//   configurable: true,
+//   enumerable: true,
+//   get: foo() { ... },
+//   set: undefined
+// }
+```
+<br /><br />
 
 ### mix()
 
