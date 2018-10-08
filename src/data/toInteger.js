@@ -9,7 +9,7 @@ import toFinite from './toFinite'
  * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
  *
  * @func
- * @since v0.0.6
+ * @since v0.0.7
  * @category data
  * @param {*} value The value to convert.
  * @returns {number} Returns the converted integer.

@@ -10,8 +10,8 @@ const MAX_INTEGER = 1.7976931348623157e308
  * Converts `value` to a finite number.
  *
  * @func
- * @since 4.12.0
- * @category Lang
+ * @since v0.0.7
+ * @category data
  * @param {*} value The value to convert.
  * @returns {number} Returns the converted number.
  * @example

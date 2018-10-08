@@ -24,7 +24,8 @@ const freeParseInt = parseInt
 /**
  * Converts `value` to a number.
  *
- * @since v0.0.6
+ * @func
+ * @since v0.0.7
  * @category data
  * @param {*} value The value to process.
  * @returns {number} Returns the number.
