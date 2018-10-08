@@ -71,11 +71,15 @@
   * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
   * [tail()](#tail)
+  * [toInteger()](#tointeger)
+  * [toNumber()](#tonumber)
   * [toString()](#tostring)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
   * [walkReducePath()](#walkreducepath)
+- [Lang methods](#lang-methods)
+  * [toFinite()](#tofinite)
 - [ip methods](#ip-methods)
   * [isIp()](#isip)
   * [lookupIp()](#lookupip)
@@ -1546,6 +1550,62 @@ tail('');     //=> ''
 ```
 <br /><br />
 
+### toInteger()
+
+[source](https://github.com/serverless/utils/tree/v0.0.6/src/data/toInteger.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Converts <code>value</code> to an integer.</p>
+<p><strong>Note:</strong> This method is loosely based on<br />
+<a href="http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger"><code>ToInteger</code></a>.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to convert.</p>
+
+<b>Returns</b><br />
+<p><code>number</code>: Returns the converted integer.</p>
+
+<b>Example</b><br />
+```js
+toInteger(3.2)
+// => 3
+
+toInteger(Number.MIN_VALUE)
+// => 0
+
+toInteger(Infinity)
+// => 1.7976931348623157e+308
+
+toInteger('3.2')
+// => 3
+```
+<br /><br />
+
+### toNumber()
+
+[source](https://github.com/serverless/utils/tree/v0.0.6/src/data/toNumber.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Converts <code>value</code> to a number.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to process.</p>
+
+<b>Returns</b><br />
+<p><code>number</code>: Returns the number.</p>
+
+<b>Example</b><br />
+```js
+toNumber(3.2)
+// => 3.2
+
+toNumber(Number.MIN_VALUE)
+// => 5e-324
+
+toNumber(Infinity)
+// => Infinity
+
+toNumber('3.2')
+// => 3.2
+```
+<br /><br />
+
 ### toString()
 
 [source](https://github.com/serverless/utils/tree/v0.0.6/src/data/toString.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
@@ -1730,6 +1790,35 @@ walkReducePath(
 //   ['a', 'c'],
 //   ['a', 'c', 'd']
 // ]
+```
+<br /><br />
+
+## Lang methods
+
+### toFinite()
+
+[source](https://github.com/serverless/utils/tree/v0.0.6/src/data/toFinite.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 4.12.0
+<p>Converts <code>value</code> to a finite number.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to convert.</p>
+
+<b>Returns</b><br />
+<p><code>number</code>: Returns the converted number.</p>
+
+<b>Example</b><br />
+```js
+toFinite(3.2)
+// => 3.2
+
+toFinite(Number.MIN_VALUE)
+// => 5e-324
+
+toFinite(Infinity)
+// => 1.7976931348623157e+308
+
+toFinite('3.2')
+// => 3.2
 ```
 <br /><br />
 
