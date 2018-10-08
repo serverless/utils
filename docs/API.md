@@ -71,6 +71,9 @@
   * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
   * [tail()](#tail)
+  * [toFinite()](#tofinite)
+  * [toInteger()](#tointeger)
+  * [toNumber()](#tonumber)
   * [toString()](#tostring)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
@@ -445,12 +448,10 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 
 [source](https://github.com/serverless/utils/tree/v0.0.6/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns the result of concatenating the given lists or strings.</p>
-<p>Note: <code>R.concat</code> expects both arguments to be of the same type,<br />
+<p>Note: <code>concat</code> expects both arguments to be of the same type,<br />
 unlike the native <code>Array.prototype.concat</code> method. It will throw<br />
 an error if you <code>concat</code> an Array with a non-Array value.</p>
-<p>Dispatches to the <code>concat</code> method of the first argument, if present.<br />
-Can also concatenate two members of a <a href="https://github.com/fantasyland/fantasy-land#semigroup">fantasy-land<br />
-compatible semigroup</a>.</p>
+<p>Dispatches to the <code>concat</code> method of the first argument, if present.</p>
 <p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
@@ -1543,6 +1544,89 @@ tail('abc');  //=> 'bc'
 tail('ab');   //=> 'b'
 tail('a');    //=> ''
 tail('');     //=> ''
+```
+<br /><br />
+
+### toFinite()
+
+[source](https://github.com/serverless/utils/tree/v0.0.6/src/data/toFinite.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+<p>Converts <code>value</code> to a finite number.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to convert.</p>
+
+<b>Returns</b><br />
+<p><code>number</code>: Returns the converted number.</p>
+
+<b>Example</b><br />
+```js
+toFinite(3.2)
+// => 3.2
+
+toFinite(Number.MIN_VALUE)
+// => 5e-324
+
+toFinite(Infinity)
+// => 1.7976931348623157e+308
+
+toFinite('3.2')
+// => 3.2
+```
+<br /><br />
+
+### toInteger()
+
+[source](https://github.com/serverless/utils/tree/v0.0.6/src/data/toInteger.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+<p>Converts <code>value</code> to an integer.</p>
+<p><strong>Note:</strong> This method is loosely based on<br />
+<a href="http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger"><code>ToInteger</code></a>.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to convert.</p>
+
+<b>Returns</b><br />
+<p><code>number</code>: Returns the converted integer.</p>
+
+<b>Example</b><br />
+```js
+toInteger(3.2)
+// => 3
+
+toInteger(Number.MIN_VALUE)
+// => 0
+
+toInteger(Infinity)
+// => 1.7976931348623157e+308
+
+toInteger('3.2')
+// => 3
+```
+<br /><br />
+
+### toNumber()
+
+[source](https://github.com/serverless/utils/tree/v0.0.6/src/data/toNumber.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+<p>Converts <code>value</code> to a number.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to process.</p>
+
+<b>Returns</b><br />
+<p><code>number</code>: Returns the number.</p>
+
+<b>Example</b><br />
+```js
+toNumber(3.2)
+// => 3.2
+
+toNumber(Number.MIN_VALUE)
+// => 5e-324
+
+toNumber(Infinity)
+// => Infinity
+
+toNumber('3.2')
+// => 3.2
 ```
 <br /><br />
 

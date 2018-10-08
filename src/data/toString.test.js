@@ -29,4 +29,8 @@ describe('toString', () => {
       })
     ).toBe('{ test object }')
   })
+
+  test('upgrades to a Promise when a Promise is received as a parameter', async () => {
+    expect(await toString(Promise.resolve('abc'))).toBe('abc')
+  })
 })
