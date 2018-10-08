@@ -1,5 +1,5 @@
-import curry from './curry'
-import defn from './defn'
+import curry from '../common/curry'
+import defn from '../common/defn'
 
 /**
  * See if an object (`val`) is an instance of the supplied constructor. This function will check up the inheritance chain, if any.

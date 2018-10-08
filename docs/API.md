@@ -6,6 +6,13 @@
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [common methods](#common-methods)
+  * [all()](#all)
+  * [apply()](#apply)
+  * [deferredPromise()](#deferredpromise)
+  * [defn()](#defn)
+  * [dispatchable()](#dispatchable)
+  * [nAry()](#nary)
+  * [nArySpread()](#naryspread)
   * [sleep()](#sleep)
 - [data methods](#data-methods)
   * [any()](#any)
@@ -15,8 +22,11 @@
   * [assocIndex()](#associndex)
   * [assocPath()](#assocpath)
   * [assocProp()](#assocprop)
-  * [deferredPromise()](#deferredpromise)
-  * [defn()](#defn)
+  * [concat()](#concat)
+  * [every()](#every)
+  * [everyAtIndex()](#everyatindex)
+  * [filter()](#filter)
+  * [filterAtIndex()](#filteratindex)
   * [find()](#find)
   * [findAtIndex()](#findatindex)
   * [getPath()](#getpath)
@@ -48,24 +58,215 @@
   * [isPrototype()](#isprototype)
   * [isString()](#isstring)
   * [isSymbol()](#issymbol)
+  * [isTransformer()](#istransformer)
   * [isTypedArray()](#istypedarray)
   * [isUndefined()](#isundefined)
+  * [join()](#join)
   * [last()](#last)
-  * [nAry()](#nary)
-  * [nArySpread()](#naryspread)
   * [nth()](#nth)
+  * [omit()](#omit)
+  * [pick()](#pick)
   * [reduce()](#reduce)
+  * [set()](#set)
+  * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
   * [tail()](#tail)
+  * [toString()](#tostring)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
+  * [walkReducePath()](#walkreducepath)
+- [ip methods](#ip-methods)
+  * [isIp()](#isip)
+  * [lookupIp()](#lookupip)
+- [lang methods](#lang-methods)
+  * [getProperty()](#getproperty)
+  * [mix()](#mix)
 - [path methods](#path-methods)
   * [findPath()](#findpath)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
 ## common methods
+
+### all()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/all.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Resolves all async values in an array or object</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The array or object with its values resolved</p>
+
+<b>Example</b><br />
+```js
+const nums = [
+  1,
+  Promise.resolve(2),
+  (async () => 3)()
+]
+await all(nums) //=> [ 1, 2, 3 ]
+
+const keyed = {
+  a: 1,
+  b: Promise.resolve(2),
+  c: (async () => 3)()
+}
+await all(keyed) //=> { a: 1, b: 2, c: 3 }
+
+await all('abc') //=> 'abc'
+await all(123) //=> 123
+```
+<br /><br />
+
+### apply()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/apply.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Applies function <code>fn</code> to the argument list <code>args</code>. This is useful for<br />
+creating a fixed-arity function from a variadic function. <code>fn</code> should be a<br />
+bound function if context is significant.</p>
+
+<b>Params</b><br />
+<p>`fn`: <code>Function</code> - The function which will be called with <code>args</code></p>
+<p>`args`: <code>Array</code> - The arguments to call <code>fn</code> with</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: result The result, equivalent to <code>fn(...args)</code></p>
+
+<b>Example</b><br />
+```js
+const nums = [1, 2, 3, -99, 42, 6, 7]
+apply(Math.max, nums) //=> 42
+```
+<br /><br />
+
+### deferredPromise()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/deferredPromise.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Creates a promise with the resolve and reject methods exposed as properties<br />
+on the promise.</p>
+
+<b>Params</b><br />
+None
+
+<b>Returns</b><br />
+<p><code>Promise</code>: The promise with exposed methods</p>
+
+<b>Example</b><br />
+```js
+const promise = deferredPromise()
+// ... do something async then eventually resolve the promise
+promise.resolve(someValue)
+```
+<br /><br />
+
+### defn()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/defn.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.1.0
+<p>Defines a function that will invoke the named function if it exists on the<br />
+last arg. If the method does not, all args are passed through to the default<br />
+function.</p>
+
+<b>Params</b><br />
+<p>`name`: <code>string</code> - The name of the method to call if it exists</p>
+<p>`defaultFn`: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
+
+<b>Returns</b><br />
+<p><code>Function</code>: The wrapped function</p>
+
+<b>Example</b><br />
+```js
+const get = defn('get', (prop, value) => value[prop])
+get('a', { a: 'foo' }) //=> 'foo'
+
+const obj = {
+  props: {
+    a: 'bar'
+  }
+  get: (prop) => obj.props[prop]
+}
+get('a', obj) //=> 'bar'
+```
+<br /><br />
+
+### dispatchable()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/dispatchable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a function that dispatches with different strategies based on the<br />
+object in list position (last argument). If it is an array, executes [fn].<br />
+Otherwise, if it has a function with one of the given method names, it will<br />
+execute that function (functor case). Otherwise, if it is a transformer,<br />
+uses transducer [xf] to return a new transformer (transducer case).<br />
+Otherwise, it will default to executing [fn].</p>
+
+<b>Params</b><br />
+<p>`methodNames`: <code>Array</code> - properties to check for a custom implementation</p>
+<p>`xf`: <code>Function</code> - transducer to initialize if object is transformer</p>
+<p>`fn`: <code>Function</code> - default ramda implementation</p>
+
+<b>Returns</b><br />
+<p><code>Function</code>: A function that dispatches on object in list position</p>
+
+<br /><br />
+
+### nAry()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
+
+<b>Params</b><br />
+<p>`n`: <code>Number</code> - The desired arity of the new function.</p>
+<p>`fn`: <code>Function</code> - The function to wrap.</p>
+
+<b>Returns</b><br />
+<p><code>Function</code>: A new function wrapping <code>fn</code>. The new function is guaranteed to be of arity <code>n</code>.</p>
+
+<b>Example</b><br />
+```js
+const takesTwoArgs = (a, b) => [a, b]
+
+takesTwoArgs.length //=> 2
+takesTwoArgs(1, 2) //=> [1, 2]
+
+const takesOneArg = nAry(1, takesTwoArgs)
+takesOneArg.length //=> 1
+// Only `n` arguments are passed to the wrapped function
+takesOneArg(1, 2) //=> [1, undefined]
+```
+<br /><br />
+
+### nArySpread()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/common/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
+
+<b>Params</b><br />
+<p>`n`: <code>Number</code> - The desired arity of the new function.</p>
+<p>`fn`: <code>Function</code> - The function to wrap.</p>
+
+<b>Returns</b><br />
+<p><code>Function</code>: A new function wrapping <code>fn</code>. The new function is guaranteed to be of parameter length <code>n</code>.</p>
+
+<b>Example</b><br />
+```js
+const takesNArgs = (...args) => [ ...args ]
+
+takesNArgs.length //=> 0
+takesNArgs(1, 2) //=> [1, 2]
+
+const takesTwoArgs = nArySpread(2, takesNArgs)
+takesTwoArgs.length //=> 2
+// All arguments are passed to the wrapped function
+takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
+
+const curriedTakesTwoArgs = curry(takesTwoArgs)
+// auto currying works as expected
+const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
+takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
+```
+<br /><br />
 
 ### sleep()
 
@@ -90,18 +291,16 @@ await sleep(1000)
 ### any()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/any.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns <code>true</code> if at least one of elements of the collection match the predicate,<br />
-<code>false</code> otherwise.</p>
+<p>Returns <code>true</code> if at least one of elements of the collection match the predicate, <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>any</code> method of the collection argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
-method will upgrade to async and return a Promise.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
 <p>`fn`: <code>Function</code> - The predicate function.</p>
 <p>`collection`: <code>&ast;</code> - The collection to consider.</p>
 
 <b>Returns</b><br />
-<p><code>Boolean</code>: <code>true</code> if the predicate is satisfied by at least one element, <code>false</code>         otherwise.</p>
+<p><code>Boolean</code>: <code>true</code> if the predicate is satisfied by at least one element, <code>false</code> otherwise.</p>
 
 <b>Example</b><br />
 ```js
@@ -109,17 +308,18 @@ const lessThan0 = flip(lt)(0)
 const lessThan2 = flip(lt)(2)
 any(lessThan0)([1, 2]) //=> false
 any(lessThan2)([1, 2]) //=> true
+any(lessThan2)({ a: 1, b: 2 }) //=> true
+
+await any(async (value) => lessThan2(value), [1, 2]) //=> true
 ```
 <br /><br />
 
 ### anyAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/anyAtIndex.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns <code>true</code> if at least one of elements of the list match the predicate<br />
-starting at the given index, <code>false</code> otherwise.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/anyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns <code>true</code> if at least one of elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>anyAtIndex</code> method of the list argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
-method will upgrade to async and return a Promise.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
 <p>`fn`: <code>Function</code> - The predicate function.</p>
@@ -133,8 +333,10 @@ method will upgrade to async and return a Promise.</p>
 ```js
 const lessThan0 = flip(lt)(0)
 const lessThan2 = flip(lt)(2)
-any(lessThan0)([1, 2]) //=> false
-any(lessThan2)([1, 2]) //=> true
+anyAtIndex(lessThan0, 0, [3, 2, 1]) //=> false
+anyAtIndex(lessThan2, 1, [3, 2, 1]) //=> true
+
+await anyAtIndex(async (value) => lessThan2(value), 0, [1, 2]) //=> true
 ```
 <br /><br />
 
@@ -155,13 +357,8 @@ any(lessThan2)([1, 2]) //=> true
 ### assoc()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/assoc.js#L10)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Makes a shallow clone of an object, setting or overriding the specified<br />
-property with the given value. Note that this copies and flattens prototype<br />
-properties onto the new object as well. All non-primitive properties are<br />
-copied by reference.</p>
-<p>Supports path based property selectors 'foo.bar' and functional selectors<br />
-which performs an over on the entire collection and sets each matching<br />
-selector to the given value.</p>
+<p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
+<p>Supports path based property selectors 'foo.bar' and functional selectors which performs an over on the entire collection and sets each matching selector to the given value.</p>
 
 <b>Params</b><br />
 <p>`selector`: <code>Array</code>|<code>String</code>|<code>Function</code> - The property path to set or functional selector</p>
@@ -173,9 +370,9 @@ selector to the given value.</p>
 
 <b>Example</b><br />
 ```js
-assoc('c', 3, {a: 1, b: 2});          //=> {a: 1, b: 2, c: 3}
-assoc('c.d', 3, {a: 1, b: 2});        //=> {a: 1, b: 2, c: { d: 3 }}
-assoc([ 'c', 'd' ], 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: { d: 3 }}
+assoc('c', 3, {a: 1, b: 2})          //=> {a: 1, b: 2, c: 3}
+assoc('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
+assoc([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
 ```
 <br /><br />
 
@@ -244,52 +441,131 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 ```
 <br /><br />
 
-### deferredPromise()
+### concat()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/deferredPromise.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Creates a promise with the resolve and reject methods exposed as properties<br />
-on the promise.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns the result of concatenating the given lists or strings.</p>
+<p>Note: <code>R.concat</code> expects both arguments to be of the same type,<br />
+unlike the native <code>Array.prototype.concat</code> method. It will throw<br />
+an error if you <code>concat</code> an Array with a non-Array value.</p>
+<p>Dispatches to the <code>concat</code> method of the first argument, if present.<br />
+Can also concatenate two members of a <a href="https://github.com/fantasyland/fantasy-land#semigroup">fantasy-land<br />
+compatible semigroup</a>.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
-None
+<p>`firstList`: <code>Array</code>|<code>String</code>|<code>Promise</code> - The first list</p>
+<p>`secondList`: <code>Array</code>|<code>String</code>|<code>Promise</code> - The second list</p>
 
 <b>Returns</b><br />
-<p><code>Promise</code>: The promise with exposed methods</p>
+<p><code>Array</code>|<code>String</code>: A list consisting of the elements of <code>firstList</code> followed by the elements of <code>secondList</code>.</p>
 
 <b>Example</b><br />
 ```js
-const promise = deferredPromise()
-// ... do something async then eventually resolve the promise
-promise.resolve(someValue)
+concat('ABC', 'DEF') // 'ABCDEF'
+concat([4, 5, 6], [1, 2, 3]) //=> [4, 5, 6, 1, 2, 3]
+concat([], []) //=> []
+await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5, 6, 1, 2, 3]
 ```
 <br /><br />
 
-### defn()
+### every()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/defn.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.1.0
-<p>Defines a function that will invoke the named function if it exists on the<br />
-last arg. If the method does not, all args are passed through to the default<br />
-function.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/every.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns <code>true</code> if all elements of the list match the predicate, <code>false</code> if there are any that don't.</p>
+<p>Dispatches to the <code>every</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 <b>Params</b><br />
-<p>`name`: <code>string</code> - The name of the method to call if it exists</p>
-<p>`defaultFn`: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
+<p>`fn`: <code>Function</code> - The predicate function.</p>
+<p>`collection`: <code>&ast;</code> - The collection to consider.</p>
 
 <b>Returns</b><br />
-<p><code>Function</code>: The wrapped function</p>
+<p><code>boolean</code>: <code>true</code> if the predicate is satisfied by every value, <code>false</code> otherwise.</p>
 
 <b>Example</b><br />
 ```js
-const get = defn('get', (prop, value) => value[prop])
-get('a', { a: 'foo' }) //=> 'foo'
+const equals3 = equals(3)
+every(equals3, [3, 3, 3, 3]) //=> true
+every(equals3, [3, 3, 1, 3]) //=> false
+every(equals3, { a: 3, b: 3, c: 3}) //=> true
 
-const obj = {
-  props: {
-    a: 'bar'
-  }
-  get: (prop) => obj.props[prop]
-}
-get('a', obj) //=> 'bar'
+await every(async (value) => equals3(value), [3, 3, 3]) //=> true
+```
+<br /><br />
+
+### everyAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/everyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns <code>true</code> if all elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
+<p>Dispatches to the <code>everyAtIndex</code> method of the list argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`fn`: <code>Function</code> - The predicate function.</p>
+<p>`index`: <code>Integer</code> - The index to start at.</p>
+<p>`list`: <code>Array</code> - The array to consider.</p>
+
+<b>Returns</b><br />
+<p><code>Boolean</code>: <code>true</code> if the predicate is satisfied by at least one element, <code>false</code> otherwise.</p>
+
+<b>Example</b><br />
+```js
+const lessThan0 = flip(lt)(0)
+const lessThan2 = flip(lt)(2)
+any(lessThan0)([1, 2]) //=> false
+any(lessThan2)([1, 2]) //=> true
+```
+<br /><br />
+
+### filter()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/filter.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
+<p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`fn`: <code>Function</code> - The predicate function.</p>
+<p>`collection`: <code>&ast;</code> - The collection to consider.</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The filtered collection</p>
+
+<b>Example</b><br />
+```js
+const isEven = n => n % 2 === 0;
+
+filter(isEven, [1, 2, 3, 4]) //=> [2, 4]
+filter(isEven, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
+
+await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
+```
+<br /><br />
+
+### filterAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/filterAtIndex.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate starting from the given index. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
+<p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`fn`: <code>Function</code> - The predicate function.</p>
+<p>`index`: <code>Integer</code> - The index to start at.</p>
+<p>`list`: <code>Array</code> - The array to consider.</p>
+
+<b>Returns</b><br />
+<p><code>Array</code>: The filtered list</p>
+
+<b>Example</b><br />
+```js
+const isEven = n => n % 2 === 0;
+
+filterAtIndex(isEven, 0, [1, 2, 3, 4]) //=> [2, 4]
+filterAtIndex(isEven, 2, [1, 2, 3, 4]) //=> [4]
+
+await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
 ```
 <br /><br />
 
@@ -363,7 +639,7 @@ getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
 
 ### getProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/getProp.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a function that when supplied an object returns the indicated<br />
 property of that object, if it exists.</p>
 
@@ -962,6 +1238,27 @@ isSymbol('abc') // => false
 ```
 <br /><br />
 
+### isTransformer()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/isTransformer.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.3.0
+<p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to check.</p>
+
+<b>Returns</b><br />
+<p><code>boolean</code>: Returns <code>true</code> if <code>value</code> is a transformer, else <code>false</code>.</p>
+
+<b>Example</b><br />
+```js
+isTransformer({
+  ['@@transducer/step']: () => {}
+}) // => true
+
+isTransformer('abc') // => false
+```
+<br /><br />
+
 ### isTypedArray()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/isTypedArray.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.3.0
@@ -1000,6 +1297,29 @@ isUndefined(null) // => false
 ```
 <br /><br />
 
+### join()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/join.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a string made by inserting the <code>separator</code> between each element and<br />
+concatenating all the elements into a single string.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`separator`: <code>number</code>|<code>string</code>|<code>Promise</code>.&lt;<code>number</code>|<code>string</code>&gt; - The string used to separate the elements.</p>
+<p>`list`: <code>Array</code>|<code>Promise</code>.&lt;<code>Array</code>&gt; - The list of elements to join into a string.</p>
+
+<b>Returns</b><br />
+<p><code>string</code>|<code>Promise</code>.&lt;<code>string</code>&gt;: The string made by concatenating <code>list</code> with <code>separator</code>.</p>
+
+<b>Example</b><br />
+```js
+const spacer = join(' ')
+spacer(['a', 2, 3.4])   //=> 'a 2 3.4'
+join('|', [1, 2, 3])    //=> '1|2|3'
+await join(Promise.resolve('|'), Promise.resolve([1, 2, 3]))    //=> '1|2|3'
+```
+<br /><br />
+
 ### last()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/last.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -1018,63 +1338,6 @@ last([]) //=> undefined
 
 last('abc') //=> 'c'
 last(''); //=> ''
-```
-<br /><br />
-
-### nAry()
-
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
-
-<b>Params</b><br />
-<p>`n`: <code>Number</code> - The desired arity of the new function.</p>
-<p>`fn`: <code>Function</code> - The function to wrap.</p>
-
-<b>Returns</b><br />
-<p><code>Function</code>: A new function wrapping <code>fn</code>. The new function is guaranteed to be of arity <code>n</code>.</p>
-
-<b>Example</b><br />
-```js
-const takesTwoArgs = (a, b) => [a, b]
-
-     takesTwoArgs.length //=> 2
-     takesTwoArgs(1, 2) //=> [1, 2]
-
-     const takesOneArg = nAry(1, takesTwoArgs)
-     takesOneArg.length //=> 1
-     // Only `n` arguments are passed to the wrapped function
-     takesOneArg(1, 2) //=> [1, undefined]
-```
-<br /><br />
-
-### nArySpread()
-
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
-
-<b>Params</b><br />
-<p>`n`: <code>Number</code> - The desired arity of the new function.</p>
-<p>`fn`: <code>Function</code> - The function to wrap.</p>
-
-<b>Returns</b><br />
-<p><code>Function</code>: A new function wrapping <code>fn</code>. The new function is guaranteed to be of parameter length <code>n</code>.</p>
-
-<b>Example</b><br />
-```js
-const takesNArgs = (...args) => [ ...args ]
-
-     takesNArgs.length //=> 0
-     takesNArgs(1, 2) //=> [1, 2]
-
-     const takesTwoArgs = nArySpread(2, takesNArgs)
-     takesTwoArgs.length //=> 2
-     // All arguments are passed to the wrapped function
-     takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
-
-     const curriedTakesTwoArgs = curry(takesTwoArgs)
-     // auto currying works as expected
-     const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
-     takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
 ```
 <br /><br />
 
@@ -1100,6 +1363,49 @@ nth(-99, list) //=> undefined
 
 nth(2, 'abc') //=> 'c'
 nth(3, 'abc') //=> ''
+```
+<br /><br />
+
+### omit()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/omit.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a partial copy of an object omitting the keys specified.</p>
+
+<b>Params</b><br />
+<p>`names`: <code>Array</code> - an array of String property names to omit from the new object</p>
+<p>`obj`: <code>Object</code> - The object to copy from</p>
+
+<b>Returns</b><br />
+<p><code>Object</code>: A new object with properties from <code>names</code> not on it.</p>
+
+<b>Example</b><br />
+```js
+omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, c: 3}
+```
+<br /><br />
+
+### pick()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/pick.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a partial copy of an object containing only the keys specified. If<br />
+the key does not exist, the property is ignored.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`names`: <code>Array</code>|<code>Promise</code>.&lt;<code>Array</code>&gt; - an array of String property names to copy onto a new object</p>
+<p>`object`: <code>Object</code>|<code>Promise</code>.&lt;<code>Object</code>&gt; - The object to copy from</p>
+
+<b>Returns</b><br />
+<p><code>Object</code>|<code>Promise</code>.&lt;<code>Object</code>&gt;: A new object with only properties from <code>names</code> on it.</p>
+
+<b>Example</b><br />
+```js
+pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {a: 1, d: 4}
+pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}) //=> {a: 1}
+await pick(
+  Promise.resolve(['a', 'd']),
+  Promise.resolve({a: 1, b: 2, c: 3, d: 4})
+) //=> {a: 1, d: 4}
 ```
 <br /><br />
 
@@ -1141,6 +1447,50 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 //    -   2           -1   2
 //   / \              / \
 //  0   1            0   1
+```
+<br /><br />
+
+### set()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/set.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>This method is an alias for <code>assoc</code></p>
+<p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
+<p>Supports path based property selectors 'foo.bar' and functional selectors which performs an 'over' on the entire collection and sets each matching selector to the given value.</p>
+<p>dispatches to the <code>set</code> method of the 3rd argument if available</p>
+
+<b>Params</b><br />
+<p>`selector`: <code>Array</code>|<code>String</code>|<code>Function</code> - The property path to set or functional selector</p>
+<p>`value`: <code>&ast;</code> - The new value</p>
+<p>`collection`: <code>&ast;</code> - The collection to clone and assign the new value</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: A new collection equivalent to the original except for the changed selector path.</p>
+
+<b>Example</b><br />
+```js
+set('c', 3, {a: 1, b: 2})          //=> {a: 1, b: 2, c: 3}
+set('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
+set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
+```
+<br /><br />
+
+### shallowEquals()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/shallowEquals.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.</p>
+
+<b>Params</b><br />
+<p>`selector`: <code>Array</code>|<code>String</code>|<code>Function</code> - The property path to set or functional selector</p>
+<p>`objA`: <code>object</code> - The object to compare to B</p>
+<p>`objB`: <code>object</code> - The object to compare to A</p>
+
+<b>Returns</b><br />
+<p><code>boolean</code>: Whether or not the two objects are shallowly equal</p>
+
+<b>Example</b><br />
+```js
+shallowEquals({ a: 1, b: 2, c: undefined }, { a: 1, b: 2, c: undefined }) //=> true
+shallowEquals({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }) //=> false
 ```
 <br /><br />
 
@@ -1193,6 +1543,30 @@ tail('abc');  //=> 'bc'
 tail('ab');   //=> 'b'
 tail('a');    //=> ''
 tail('');     //=> ''
+```
+<br /><br />
+
+### toString()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/toString.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
+<p>Converts <code>value</code> to a string. An empty string is returned for <code>null</code>  and <code>undefined</code> values. The sign of <code>-0</code> is preserved.</p>
+
+<b>Params</b><br />
+<p>`value`: <code>&ast;</code> - The value to convert.</p>
+
+<b>Returns</b><br />
+<p><code>string</code>: Returns the converted string.</p>
+
+<b>Example</b><br />
+```js
+toString(null)
+// => ''
+
+toString(-0)
+// => '-0'
+
+toString([1, 2, 3])
+// => '1,2,3'
 ```
 <br /><br />
 
@@ -1315,6 +1689,164 @@ walkReduceDepthFirst(
   [ 'e' ],
   []
 ]
+```
+<br /><br />
+
+### walkReducePath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/walkReducePath.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Walk reduce the specific path using the given reducer function</p>
+
+<b>Params</b><br />
+<p>`path`: <code>&ast;</code> - The specific path to walk</p>
+<p>`fn`: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
+<p>`accum`: <code>&ast;</code> - The accumulator value.</p>
+<p>`collection`: <code>&ast;</code> - The collection to walk.</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The final, accumulated value.</p>
+
+<b>Example</b><br />
+```js
+walkReducePath(
+  (accum, value, keys) => {
+    return accum.push(keys)
+  },
+  'a.c.d'
+  [],
+  {
+    a: {
+      b: 'b',
+      c: {
+        d: 'd'
+      }
+    },
+    e: [ 'e', 'f' ]
+  }
+)
+//=> [
+//   [],
+//   ['a'],
+//   ['a', 'c'],
+//   ['a', 'c', 'd']
+// ]
+```
+<br /><br />
+
+## ip methods
+
+### isIp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/ip/isIp.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Determines whether the given value is an IP address</p>
+
+<b>Params</b><br />
+<p>`value`: <code>string</code> - The value to check</p>
+<p>`version`: <code>string</code>|<code>number</code> - The IP version number '4' or '6'</p>
+
+<b>Returns</b><br />
+<p><code>boolean</code>: True if the value is an ip address, otherwise false</p>
+
+<b>Example</b><br />
+```js
+isIp('255.255.255.0') //=> true
+isIp('255.255.255.0', 4) //=> true
+isIp('255.255.255.0', 6) //=> false
+isIp('2001:db8:abcd:0012:0000:0000:0000:0000') //=> true
+isIp('2001:db8:abcd:0012:0000:0000:0000:0000', 4) //=> false
+isIp('2001:db8:abcd:0012:0000:0000:0000:0000', 6) //=> true
+```
+<br /><br />
+
+### lookupIp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/ip/lookupIp.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Converts an ip address into an location</p>
+
+<b>Params</b><br />
+<p>`ip`: <code>string</code> - The ip to lookup</p>
+
+<b>Returns</b><br />
+<p>: {{   city: string,<br />
+country: string,<br />
+countryCode: string,<br />
+ip: string,<br />
+lat: number,<br />
+lng: number,<br />
+postalCode: string,<br />
+region: string,<br />
+regionCode: string,<br />
+}} The location</p>
+
+<b>Example</b><br />
+```js
+await lookupIp('139.130.4.5')
+//=> {
+//   city: 'Belrose',
+//   country: 'Australia',
+//   countryCode: 'AU',
+//   ip: '139.130.4.5',
+//   lat: -33.7333,
+//   lng: 151.2167,
+//   postalCode: '2085',
+//   region: 'New South Wales',
+//   regionCode: 'NSW'
+// }
+```
+<br /><br />
+
+## lang methods
+
+### getProperty()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/lang/getProperty.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a property descriptor for an own property</p>
+
+<b>Params</b><br />
+<p>`object`: <code>object</code> - The object to get the property from</p>
+<p>`prop`: <code>string</code> - The prop to get from the object</p>
+
+<b>Returns</b><br />
+<p>: {{   configurable: boolean,<br />
+enumerable: boolean,<br />
+value: *,<br />
+writeable: boolean,<br />
+get: () =&gt; *,<br />
+set: (value) =&gt; undefined<br />
+}} The property descriptor</p>
+
+<b>Example</b><br />
+```js
+const object = { get foo() { return 17 } }
+getProperty(o, 'foo')
+//=> {
+//   configurable: true,
+//   enumerable: true,
+//   get: foo() { ... },
+//   set: undefined
+// }
+```
+<br /><br />
+
+### mix()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/lang/mix.js#L23)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Returns an object with a <code>with</code> method that can be used to mix the given class with mixins</p>
+
+<b>Params</b><br />
+<p>`SuperClass`: <code>class</code> - The class that you want the mixins to extend</p>
+<p>`args`: <code>&ast;</code> - Additional arguments to pass to the mixin</p>
+
+<b>Returns</b><br />
+<p>: {{   with: (<br />
+...mixins: (SuperClass: class, ...args: *) =&gt; class<br />
+) =&gt; class<br />
+}}</p>
+
+<b>Example</b><br />
+```js
+const mixin = (SuperClass, ...args) => class extends SuperClass { ... }
+class mix(Parent, ...args).with(mixin) { ... }
 ```
 <br /><br />
 

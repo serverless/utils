@@ -1,5 +1,5 @@
-import curry from './curry'
-import defn from './defn'
+import curry from '../common/curry'
+import defn from '../common/defn'
 import slice from './slice'
 
 /**

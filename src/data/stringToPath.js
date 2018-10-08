@@ -1,4 +1,4 @@
-import memoize from './memoize'
+import memoize from '../common/memoize'
 
 const charCodeOfDot = '.'.charCodeAt(0)
 const reEscapeChar = /\\(\\)?/g

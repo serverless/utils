@@ -1,1 +1,5 @@
+export { default as assignProperties } from './assignProperties'
+export { default as cloneProperties } from './cloneProperties'
+export { default as defineProperty } from './defineProperty'
+export { default as getProperty } from './getProperty'
 export { default as mix } from './mix'

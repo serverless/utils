@@ -33,6 +33,7 @@
     "archiver": "^2.1.1",
     "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.1",
+    "cross-fetch": "^2.2.2",
     "crypto-extra": "^0.4.0",
     "fs-extra": "^5.0.0",
     "is-url": "^1.2.4",

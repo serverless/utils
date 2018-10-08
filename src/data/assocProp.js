@@ -1,5 +1,5 @@
+import curry from '../common/curry'
 import always from './always'
-import curry from './curry'
 import isFunction from './isFunction'
 import isMap from './isMap'
 import isUndefined from './isUndefined'

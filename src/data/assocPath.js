@@ -1,6 +1,6 @@
+import curry from '../common/curry'
 import assocIndex from './assocIndex'
 import assocProp from './assocProp'
-import curry from './curry'
 import has from './has'
 import isArray from './isArray'
 import isInteger from './isInteger'

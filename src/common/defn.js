@@ -1,6 +1,6 @@
-import isArray from './isArray'
-import isFunction from './isFunction'
-import isObject from './isObject'
+import isArray from '../data/isArray'
+import isFunction from '../data/isFunction'
+import isObject from '../data/isObject'
 import nArySpread from './nArySpread'
 
 /**
@@ -10,7 +10,7 @@ import nArySpread from './nArySpread'
  *
  * @func
  * @since v0.1.0
- * @category data
+ * @category common
  * @sig defn(
  *   name: string,
  *   defaultFn: (*) => any

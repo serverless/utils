@@ -1,6 +1,5 @@
-import curry from './curry'
+import curry from '../common/curry'
 import isFunction from './isFunction'
-import isMap from './isMap'
 import isNil from './isNil'
 import isUndefined from './isUndefined'
 
@@ -10,6 +9,7 @@ import isUndefined from './isUndefined'
  *
  * @func
  * @since v0.0.3
+ * @alias prop
  * @category data
  * @sig s -> {s: a} -> a | Undefined
  * @param {String} p The property name
@@ -30,7 +30,7 @@ const getProp = curry((prop, val) => {
   if (isNil(val)) {
     return undefined
   }
-  if (isMap(val)) {
+  if (isFunction(val.get)) {
     return val.get(prop)
   }
   return val[prop]

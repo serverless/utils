@@ -1,5 +1,5 @@
-import curry from './curry'
-import defn from './defn'
+import curry from '../common/curry'
+import defn from '../common/defn'
 
 /**
  * Creates a slice of `array` from `start` up to, but not including, `end`.
