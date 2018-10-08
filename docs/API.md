@@ -22,8 +22,11 @@
   * [assocIndex()](#associndex)
   * [assocPath()](#assocpath)
   * [assocProp()](#assocprop)
+  * [concat()](#concat)
   * [every()](#every)
   * [everyAtIndex()](#everyatindex)
+  * [filter()](#filter)
+  * [filterAtIndex()](#filteratindex)
   * [find()](#find)
   * [findAtIndex()](#findatindex)
   * [getPath()](#getpath)
@@ -58,9 +61,11 @@
   * [isTransformer()](#istransformer)
   * [isTypedArray()](#istypedarray)
   * [isUndefined()](#isundefined)
+  * [join()](#join)
   * [last()](#last)
   * [nth()](#nth)
   * [omit()](#omit)
+  * [pick()](#pick)
   * [reduce()](#reduce)
   * [set()](#set)
   * [shallowEquals()](#shallowequals)
@@ -436,6 +441,34 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 ```
 <br /><br />
 
+### concat()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns the result of concatenating the given lists or strings.</p>
+<p>Note: <code>R.concat</code> expects both arguments to be of the same type,<br />
+unlike the native <code>Array.prototype.concat</code> method. It will throw<br />
+an error if you <code>concat</code> an Array with a non-Array value.</p>
+<p>Dispatches to the <code>concat</code> method of the first argument, if present.<br />
+Can also concatenate two members of a <a href="https://github.com/fantasyland/fantasy-land#semigroup">fantasy-land<br />
+compatible semigroup</a>.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`firstList`: <code>Array</code>|<code>String</code>|<code>Promise</code> - The first list</p>
+<p>`secondList`: <code>Array</code>|<code>String</code>|<code>Promise</code> - The second list</p>
+
+<b>Returns</b><br />
+<p><code>Array</code>|<code>String</code>: A list consisting of the elements of <code>firstList</code> followed by the elements of <code>secondList</code>.</p>
+
+<b>Example</b><br />
+```js
+concat('ABC', 'DEF') // 'ABCDEF'
+concat([4, 5, 6], [1, 2, 3]) //=> [4, 5, 6, 1, 2, 3]
+concat([], []) //=> []
+await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5, 6, 1, 2, 3]
+```
+<br /><br />
+
 ### every()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/every.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
@@ -482,6 +515,57 @@ const lessThan0 = flip(lt)(0)
 const lessThan2 = flip(lt)(2)
 any(lessThan0)([1, 2]) //=> false
 any(lessThan2)([1, 2]) //=> true
+```
+<br /><br />
+
+### filter()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/filter.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
+<p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`fn`: <code>Function</code> - The predicate function.</p>
+<p>`collection`: <code>&ast;</code> - The collection to consider.</p>
+
+<b>Returns</b><br />
+<p><code>&ast;</code>: The filtered collection</p>
+
+<b>Example</b><br />
+```js
+const isEven = n => n % 2 === 0;
+
+filter(isEven, [1, 2, 3, 4]) //=> [2, 4]
+filter(isEven, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
+
+await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
+```
+<br /><br />
+
+### filterAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/filterAtIndex.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate starting from the given index. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
+<p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`fn`: <code>Function</code> - The predicate function.</p>
+<p>`index`: <code>Integer</code> - The index to start at.</p>
+<p>`list`: <code>Array</code> - The array to consider.</p>
+
+<b>Returns</b><br />
+<p><code>Array</code>: The filtered list</p>
+
+<b>Example</b><br />
+```js
+const isEven = n => n % 2 === 0;
+
+filterAtIndex(isEven, 0, [1, 2, 3, 4]) //=> [2, 4]
+filterAtIndex(isEven, 2, [1, 2, 3, 4]) //=> [4]
+
+await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
 ```
 <br /><br />
 
@@ -1213,6 +1297,29 @@ isUndefined(null) // => false
 ```
 <br /><br />
 
+### join()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/join.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a string made by inserting the <code>separator</code> between each element and<br />
+concatenating all the elements into a single string.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`separator`: <code>number</code>|<code>string</code>|<code>Promise</code>.&lt;<code>number</code>|<code>string</code>&gt; - The string used to separate the elements.</p>
+<p>`list`: <code>Array</code>|<code>Promise</code>.&lt;<code>Array</code>&gt; - The list of elements to join into a string.</p>
+
+<b>Returns</b><br />
+<p><code>string</code>|<code>Promise</code>.&lt;<code>string</code>&gt;: The string made by concatenating <code>list</code> with <code>separator</code>.</p>
+
+<b>Example</b><br />
+```js
+const spacer = join(' ')
+spacer(['a', 2, 3.4])   //=> 'a 2 3.4'
+join('|', [1, 2, 3])    //=> '1|2|3'
+await join(Promise.resolve('|'), Promise.resolve([1, 2, 3]))    //=> '1|2|3'
+```
+<br /><br />
+
 ### last()
 
 [source](https://github.com/serverless/utils/tree/v0.0.5/src/data/last.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -1274,6 +1381,31 @@ nth(3, 'abc') //=> ''
 <b>Example</b><br />
 ```js
 omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, c: 3}
+```
+<br /><br />
+
+### pick()
+
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/pick.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a partial copy of an object containing only the keys specified. If<br />
+the key does not exist, the property is ignored.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
+
+<b>Params</b><br />
+<p>`names`: <code>Array</code>|<code>Promise</code>.&lt;<code>Array</code>&gt; - an array of String property names to copy onto a new object</p>
+<p>`object`: <code>Object</code>|<code>Promise</code>.&lt;<code>Object</code>&gt; - The object to copy from</p>
+
+<b>Returns</b><br />
+<p><code>Object</code>|<code>Promise</code>.&lt;<code>Object</code>&gt;: A new object with only properties from <code>names</code> on it.</p>
+
+<b>Example</b><br />
+```js
+pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {a: 1, d: 4}
+pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}) //=> {a: 1}
+await pick(
+  Promise.resolve(['a', 'd']),
+  Promise.resolve({a: 1, b: 2, c: 3, d: 4})
+) //=> {a: 1, d: 4}
 ```
 <br /><br />
 
@@ -1416,7 +1548,7 @@ tail('');     //=> ''
 
 ### toString()
 
-[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/toString.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.5/src/data/toString.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
 <p>Converts <code>value</code> to a string. An empty string is returned for <code>null</code>  and <code>undefined</code> values. The sign of <code>-0</code> is preserved.</p>
 
 <b>Params</b><br />

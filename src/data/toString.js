@@ -1,3 +1,4 @@
+import defn from '../common/defn'
 import isArray from './isArray'
 import isSymbol from './isSymbol'
 import map from './map'
@@ -27,7 +28,7 @@ const symbolToString = symbolProto ? symbolProto.toString : undefined
  * toString([1, 2, 3])
  * // => '1,2,3'
  */
-const toString = (value) => {
+const toString = defn('toString', (value) => {
   if (value == null) {
     return ''
   }
@@ -44,6 +45,6 @@ const toString = (value) => {
   }
   const result = `${value}`
   return result == '0' && 1 / value == -INFINITY ? '-0' : result
-}
+})
 
 export default toString

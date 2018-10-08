@@ -1,8 +1,8 @@
-import fse from 'fs-extra'
+import fs from 'fs-extra'
 
 const dirExists = async (dirPath) => {
   try {
-    const stats = await fse.lstat(dirPath)
+    const stats = await fs.lstat(dirPath)
     return stats.isDirectory()
   } catch (error) {
     return false
