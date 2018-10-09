@@ -1412,7 +1412,7 @@ await pick(
 
 ### reduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.7/src/data/reduce.js#L45)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.1.0
+[source](https://github.com/serverless/utils/tree/v0.0.7/src/data/reduce.js#L70)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.1.0
 <p>Returns a single item by iterating through the list, successively calling<br />
 the iterator function and passing it an accumulator value and the current<br />
 value from the array, and then passing the result to the next call.</p>

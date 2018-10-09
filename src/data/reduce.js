@@ -1,5 +1,9 @@
+import curry from '../common/curry'
+import defn from '../common/defn'
+import isArrayLike from './isArrayLike'
 import isGenerator from './isGenerator'
 import isPromise from './isPromise'
+import keys from './keys'
 import slice from './slice'
 
 const generatorReduce = function*(iteratee, accumulator, array) {
@@ -34,6 +38,27 @@ const asyncReduce = async (iteratee, accumulator, array) => {
     accumulator = iteratee(accumulator, array[idx], idx)
     if (isPromise(accumulator)) {
       accumulator = await accumulator
+    } else if (isGenerator(accumulator)) {
+      return generatorReduce(iteratee, accumulator, slice(idx + 1, length, array))
+    }
+    idx += 1
+  }
+  return accumulator
+}
+
+const arrayReduce = (iteratee, accumulator, array) => {
+  if (isPromise(accumulator)) {
+    return asyncReduce(iteratee, accumulator, array)
+  } else if (isGenerator(accumulator)) {
+    return generatorReduce(iteratee, accumulator, array)
+  }
+
+  const length = array == null ? 0 : array.length
+  let idx = 0
+  while (idx < length) {
+    accumulator = iteratee(accumulator, array[idx], idx)
+    if (isPromise(accumulator)) {
+      return asyncReduce(iteratee, accumulator, slice(idx + 1, length, array))
     } else if (isGenerator(accumulator)) {
       return generatorReduce(iteratee, accumulator, slice(idx + 1, length, array))
     }
@@ -83,24 +108,23 @@ const asyncReduce = async (iteratee, accumulator, array) => {
  * //   / \              / \
  * //  0   1            0   1
  */
-const reduce = (iteratee, accumulator, array) => {
-  if (isPromise(accumulator)) {
-    return asyncReduce(iteratee, accumulator, array)
-  } else if (isGenerator(accumulator)) {
-    return generatorReduce(iteratee, accumulator, array)
-  }
-  const length = array == null ? 0 : array.length
-  let idx = 0
-  while (idx < length) {
-    accumulator = iteratee(accumulator, array[idx], idx)
-    if (isPromise(accumulator)) {
-      return asyncReduce(iteratee, accumulator, slice(idx + 1, length, array))
-    } else if (isGenerator(accumulator)) {
-      return generatorReduce(iteratee, accumulator, slice(idx + 1, length, array))
+const reduce = curry(
+  defn('reduce', (iteratee, accumulator, collection) => {
+    if (isPromise(collection)) {
+      return collection.then((resolvedCollection) =>
+        reduce(iteratee, accumulator, resolvedCollection)
+      )
     }
-    idx += 1
-  }
-  return accumulator
-}
+
+    if (isArrayLike(collection)) {
+      return arrayReduce(iteratee, accumulator, collection)
+    }
+    return arrayReduce(
+      (accum, key) => iteratee(accum, collection[key], key),
+      accumulator,
+      keys(collection)
+    )
+  })
+)
 
 export default reduce
