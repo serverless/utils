@@ -15,6 +15,7 @@ const fs = require('./fs')
 const ip = require('./ip')
 const lang = require('./lang')
 const path = require('./path')
+const resolve = require('./resolve')
 
 module.exports = {
   ...common,
@@ -25,5 +26,6 @@ module.exports = {
   ...fs,
   ...ip,
   ...lang,
-  ...path
+  ...path,
+  ...resolve
 }

@@ -42,6 +42,7 @@ describe('index', () => {
       anyAtIndex: expect.any(Function),
       append: expect.any(Function),
       arrayLikeKeys: expect.any(Function),
+      assign: expect.any(Function),
       assoc: expect.any(Function),
       assocIndex: expect.any(Function),
       assocPath: expect.any(Function),
@@ -110,6 +111,8 @@ describe('index', () => {
       last: expect.any(Function),
       map: expect.any(Function),
       mapIndexed: expect.any(Function),
+      merge: expect.any(Function),
+      mergeDeep: expect.any(Function),
 
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // nodeTypes: expect.any(Object),
@@ -203,6 +206,13 @@ describe('index', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
       findPath: expect.any(Function)
+    })
+  })
+
+  test('has resolve methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
+      resolve: expect.any(Function)
     })
   })
 })
