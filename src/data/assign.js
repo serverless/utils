@@ -8,7 +8,7 @@ import isFunction from './isFunction'
  *
  * This method is auto curried to 2 args.
  *
- * @func
+ * @function
  * @since v0.0.9
  * @category data
  * @param {Object} target The target object.

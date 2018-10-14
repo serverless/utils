@@ -10,7 +10,7 @@ import isUndefined from './isUndefined'
  * If prop is a function then it is executed against value as a selector.
  * If prop is undefined then value will be checked for truthiness.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @sig s -> {s: x} -> Boolean

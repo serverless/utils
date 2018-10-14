@@ -6,7 +6,7 @@ import hasProp from './hasProp'
  * Returns whether or not a path exists in an object. Only the object's
  * own properties are checked.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @typedefn Idx = String | Int

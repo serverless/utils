@@ -11,7 +11,7 @@ import keys from './keys'
  *
  * Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category data
  * @param {Function} fn The predicate function.

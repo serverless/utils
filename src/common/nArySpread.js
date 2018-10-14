@@ -3,7 +3,7 @@ import curry from './curry'
 /**
  * Wraps a function of any arity (including nullary) in a function that accepts exactly `n` parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly `n` but still passes all arguments through.
  *
- * @func
+ * @function
  * @since v0.0.4
  * @category common
  * @param {Number} n The desired arity of the new function.

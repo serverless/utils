@@ -6,7 +6,7 @@ import isObject from '../data/isObject'
  *
  * Dispatches to the `resolve` method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.
  *
- * @func
+ * @function
  * @since v0.0.9
  * @category path
  * @sig [String] -> {a} -> String

@@ -7,7 +7,7 @@ import isString from './isString'
  * Returns a new list containing the contents of the given list, followed by
  * the given element.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @param {*} value The value to add to the end of the new list.

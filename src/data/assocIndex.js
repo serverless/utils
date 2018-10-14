@@ -8,7 +8,7 @@ import over from './over'
  * Returns the result of "setting" the portion of the given data structure
  * focused by the given lens to the given value.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @param {number} index The index number to set

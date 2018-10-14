@@ -4,7 +4,7 @@ import isObjectLike from './isObjectLike'
 /**
  * Checks if `value` is likely an `arguments` object.
  *
- * @func
+ * @function
  * @category data
  * @since v0.0.3
  * @param {*} value The value to check.

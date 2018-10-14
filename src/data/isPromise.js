@@ -3,7 +3,7 @@ import isFunction from './isFunction'
 /**
  * Checks whether the given value is a Promise.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @param {*} value The value to check.

@@ -9,7 +9,7 @@ import isPromise from './isPromise'
  *
  * Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category data
  * @param {number|string|Promise<number|string>} separator The string used to separate the elements.

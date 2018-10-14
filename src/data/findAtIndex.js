@@ -11,7 +11,7 @@ import isPromise from './isPromise'
  * Supports async predicates. If a predicate returns a Promise than the entire
  * method will upgrade to async and return a Promise.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @sig (a -> Boolean) -> [a] -> a | undefined

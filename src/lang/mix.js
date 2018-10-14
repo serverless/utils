@@ -23,7 +23,7 @@ const mixClass = (Class, SuperClass) => {
 /**
  * Returns an object with a `with` method that can be used to mix the given class with mixins
  *
- * @func
+ * @function
  * @since v0.0.4
  * @category lang
  * @param {class} SuperClass The class that you want the mixins to extend

@@ -5,7 +5,7 @@ import isUndefined from './isUndefined'
 /**
  * Retrieve the value at a given path.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @typedefn Idx = String | Int

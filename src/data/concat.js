@@ -16,7 +16,7 @@ import toString from './toString'
  *
  * Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category data
  * @param {Array|String|Promise} firstList The first list

@@ -9,7 +9,7 @@ const MAX_INTEGER = 1.7976931348623157e308
 /**
  * Converts `value` to a finite number.
  *
- * @func
+ * @function
  * @since v0.0.7
  * @category data
  * @param {*} value The value to convert.

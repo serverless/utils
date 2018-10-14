@@ -3,7 +3,7 @@ import nth from './nth'
 /**
  * Returns the last element of the given list or string.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @sig [a] -> a | Undefined

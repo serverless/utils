@@ -6,7 +6,7 @@ import isObject from '../data/isObject'
 /**
  * Resolves all async values in an array or object
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category common
  * @param {*} value The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself

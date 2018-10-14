@@ -4,7 +4,7 @@ import isString from '../data/isString'
 /**
  * Finds the first path in the given args.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category path
  * @sig [String] -> {a} -> String

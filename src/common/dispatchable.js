@@ -2,14 +2,16 @@ import isArray from '../data/isArray'
 import isTransformer from '../data/isTransformer'
 
 /**
- * Returns a function that dispatches with different strategies based on the
- * object in list position (last argument). If it is an array, executes [fn].
- * Otherwise, if it has a function with one of the given method names, it will
- * execute that function (functor case). Otherwise, if it is a transformer,
+ * Returns a function that dispatches with different strategies based on the object in list position (last argument). If it is an array, executes [fn].
+ *
+ * Otherwise, if it has a function with one of the given method names, it will execute that function (functor case).
+
+ *Otherwise, if it is a transformer,
  * uses transducer [xf] to return a new transformer (transducer case).
+ *
  * Otherwise, it will default to executing [fn].
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category common
  * @param {Array} methodNames properties to check for a custom implementation

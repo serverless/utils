@@ -1,7 +1,7 @@
 /**
  * Returns a property descriptor for an own property
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category lang
  * @param {object} object The object to get the property from

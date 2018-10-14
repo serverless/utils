@@ -4,7 +4,7 @@ import defn from '../common/defn'
 /**
  * Returns a partial copy of an object omitting the keys specified.
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category data
  * @param {Array} names an array of String property names to omit from the new object
