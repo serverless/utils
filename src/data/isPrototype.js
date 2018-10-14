@@ -4,7 +4,7 @@ const objectProto = Object.prototype
 /**
  * Checks if `value` is likely a prototype object.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @param {*} value The value to check.

@@ -4,7 +4,7 @@ import defn from '../common/defn'
 /**
  * Walk using the given walkee and iteratee functions.
  *
- * @func
+ * @function
  * @since v0.0.4
  * @category data
  * @sig

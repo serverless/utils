@@ -2,16 +2,16 @@ import lookupIp from './lookupIp'
 
 describe('lookupIp', () => {
   test('correctly looks up an ip address', async () => {
-    expect(await lookupIp('139.130.4.5')).toEqual({
-      city: 'Belrose',
-      countryCode: 'AU',
-      country: 'Australia',
-      ip: '139.130.4.5',
-      lat: -33.7333,
-      lng: 151.2167,
-      postalCode: '2085',
-      regionCode: 'NSW',
-      region: 'New South Wales'
+    expect(await lookupIp('3.4.5.6')).toEqual({
+      city: 'Seattle',
+      countryCode: 'US',
+      country: 'United States',
+      ip: '3.4.5.6',
+      lat: 47.6339,
+      lng: -122.3476,
+      postalCode: '98109',
+      regionCode: 'WA',
+      region: 'Washington'
     })
   })
 

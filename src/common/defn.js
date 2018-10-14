@@ -4,12 +4,10 @@ import isObject from '../data/isObject'
 import nArySpread from './nArySpread'
 
 /**
- * Defines a function that will invoke the named function if it exists on the
- * last arg. If the method does not, all args are passed through to the default
- * function.
+ * Defines a function that will invoke the named function if it exists on the last arg. If the method does not, all args are passed through to the default function.
  *
- * @func
- * @since v0.1.0
+ * @function
+ * @since v0.0.3
  * @category common
  * @sig defn(
  *   name: string,

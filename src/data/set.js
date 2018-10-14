@@ -10,7 +10,7 @@ import assoc from './assoc'
  *
  * dispatches to the `set` method of the 3rd argument if available
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @sig String -> a -> {k: v} -> {k: v}

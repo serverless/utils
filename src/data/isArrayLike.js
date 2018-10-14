@@ -5,7 +5,7 @@ import isLength from './isLength'
  * not a function and has a `value.length` that's an integer greater than or
  * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @param {*} value The value to check.

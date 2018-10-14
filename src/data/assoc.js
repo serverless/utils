@@ -12,7 +12,7 @@ import over from './over'
  *
  * Supports path based property selectors 'foo.bar' and functional selectors which performs an over on the entire collection and sets each matching selector to the given value.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @sig String -> a -> {k: v} -> {k: v}

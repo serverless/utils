@@ -4,8 +4,8 @@ import isObject from './isObject'
 /**
  * Checks if `value` is classified as a `Function` object.
  *
- * @func
- * @since 0.3.0
+ * @function
+ * @since v0.0.3
  * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a function, else `false`.

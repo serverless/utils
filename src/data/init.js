@@ -3,7 +3,7 @@ import slice from './slice'
 /**
  * Returns all but the last element of the given list or string.
  *
- * @func
+ * @function
  * @since v0.0.5
  * @category data
  * @sig [a] -> [a]

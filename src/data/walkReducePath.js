@@ -16,7 +16,7 @@ const reducePathWalkee = (pathParts, accum, value, keys, iteratee, recur) => {
 /**
  * Walk reduce the specific path using the given reducer function
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category data
  * @param {*} path The specific path to walk

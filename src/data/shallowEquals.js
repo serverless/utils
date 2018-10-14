@@ -19,7 +19,7 @@ function is(x, y) {
 /**
  * Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category data
  * @param {Array | String | Function} selector The property path to set or functional selector

@@ -3,11 +3,11 @@ import isFunction from './isFunction'
 /**
  * Checks whether the given value is a generator.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
- * @param  {*}  value
- * @returns {Boolean}
+ * @param  {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a generator, else `false`.
  * @example
  *
  * isGenerator((function*() {})())  //=> true

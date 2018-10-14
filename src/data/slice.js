@@ -8,7 +8,7 @@ import defn from '../common/defn'
  * [`Array#slice`](https://mdn.io/Array/slice) to ensure dense arrays are
  * returned.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @param {number} [start=0] The start position. A negative index will be treated as an offset from the end.

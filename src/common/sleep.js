@@ -1,7 +1,7 @@
 /**
  * Sleeps for the given amount of `wait` milliseconds before resolving the returned `Promise`
  *
- * @func
+ * @function
  * @since v0.0.4
  * @category common
  * @sig sleep(

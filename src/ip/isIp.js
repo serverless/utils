@@ -6,7 +6,7 @@ const ipv6Block = /^[0-9A-F]{1,4}$/i
 /**
  * Determines whether the given value is an IP address
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category ip
  * @param {string} value The value to check

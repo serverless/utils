@@ -4,13 +4,13 @@ import defn from '../common/defn'
 /**
  * See if an object (`val`) is an instance of the supplied constructor. This function will check up the inheritance chain, if any.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @sig (* -> {*}) -> a -> boolean
  * @param {Object} constructor A constructor
  * @param {*} value The value to test
- * @return {boolean}
+ * @returns {boolean}
  * @example
  *
  * is(Object, {}); //=> true

@@ -87,8 +87,8 @@ const arrayReduce = (iteratee, accumulator, array) => {
  * doing so, it is up to the user to handle the [`reduced`](#reduced)
  * shortcuting, as this is not implemented by `reduce`.
  *
- * @func
- * @since v0.1.0
+ * @function
+ * @since v0.0.3
  * @category data
  * @sig ((a, b) -> a) -> a -> [b] -> a
  * @param {Function} fn The iterator function. Receives two values, the accumulator and the current element from the array.

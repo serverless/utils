@@ -1,7 +1,7 @@
 /**
  * Checks if `value` is `null` or `undefined`.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @param {*} value The value to check.

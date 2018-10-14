@@ -1,8 +1,10 @@
+import Promise from 'bluebird'
+
 /**
  * Creates a promise with the resolve and reject methods exposed as properties
  * on the promise.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category common
  * @returns {Promise} The promise with exposed methods

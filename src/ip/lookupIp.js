@@ -4,7 +4,7 @@ import isIp from './isIp'
 /**
  * Converts an ip address into an location
  *
- * @func
+ * @function
  * @since v0.0.6
  * @category ip
  * @param {string} ip The ip to lookup

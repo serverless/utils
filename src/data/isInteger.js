@@ -1,12 +1,23 @@
 /**
  * Determine if the passed argument is an integer.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
- * @param {*} n
- * @returns {Boolean}
+ * @param {*} value The value to check.
+ * @returns {Boolean} Returns `true` if `value` is an integer, else `false`.
+ * @example
+ *
+ * isInteger(3) // => true
+ *
+ * isInteger(3.2) // => false
+
+ * isInteger(Number.MIN_VALUE) // => false
+ *
+ * isInteger(Infinity) // => false
+ *
+ * isInteger('3') // => false
  */
-const isInteger = Number.isInteger || ((n) => n << 0 === n)
+const isInteger = Number.isInteger || ((value) => value << 0 === value)
 
 export default isInteger

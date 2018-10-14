@@ -8,7 +8,7 @@ import slice from './slice'
  *
  * Dispatches to the `slice` method of the first argument, if present.
  *
- * @func
+ * @function
  * @since v0.0.5
  * @category data
  * @sig [a] -> [a]

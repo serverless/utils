@@ -8,7 +8,7 @@ import toFinite from './toFinite'
  * **Note:** This method is loosely based on
  * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
  *
- * @func
+ * @function
  * @since v0.0.7
  * @category data
  * @param {*} value The value to convert.

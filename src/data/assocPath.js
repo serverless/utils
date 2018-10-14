@@ -12,7 +12,7 @@ import isNil from './isNil'
  * that path. Note that this copies and flattens prototype properties onto the
  * new object as well. All non-primitive properties are copied by reference.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @typedefn Idx = String | Int

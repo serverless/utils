@@ -2,8 +2,8 @@
  * Checks if `value` is object-like. A value is object-like if it's not `null`
  * and has a `typeof` result of "object".
  *
- * @func
- * @since 0.3.0
+ * @function
+ * @since 0.0.3
  * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is object-like, else `false`.

@@ -1,8 +1,8 @@
 /**
  * Checks if `value` is classified as a `Symbol` primitive or object.
  *
- * @func
- * @since 0.3.0
+ * @function
+ * @since v0.0.3
  * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a transformer, else `false`.

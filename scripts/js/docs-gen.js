@@ -11,6 +11,58 @@ const API_README_PATH = path.resolve(__dirname, '..', '..', 'docs', 'API.md')
 const SRC_PATH = path.resolve(__dirname, '..', '..', 'src')
 const CURRENT_VERSION = pack.version
 const GITHUB_TAG_URL = `https://github.com/serverless/utils/tree/v${CURRENT_VERSION}`
+const REGEX_RETURN_TYPE = /{.*}/s
+const REGEX_PARAM = /({.*})\s*([a-zA-Z0-9$_]*)/s
+
+const escape = (input) =>
+  input
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/\*/g, '&ast;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+
+const toHtml = (value) => escape(value).replace(/(\r\n|\r|\n)/g, '<br />\n')
+
+const parseReturnsString = (string) => {
+  const result = string.match(REGEX_RETURN_TYPE)
+  if (result) {
+    const typesDescription = result[0]
+    return {
+      description: string.slice(result.index + typesDescription.length).trim(),
+      typesDescription: typesDescription.slice(1, typesDescription.length - 1).trim()
+    }
+  }
+  return {}
+}
+
+const parseParamString = (string) => {
+  const result = string.match(REGEX_PARAM)
+  if (result) {
+    const typesDescription = result[1].slice(1, result[1].length - 1).trim()
+    const name = result[2].trim()
+    const description = string.slice(result.index + result[0].length).trim()
+    return {
+      description,
+      name,
+      typesDescription
+    }
+  }
+  return {}
+}
+
+const parseSrcFiles = async (srcFiles) =>
+  Promise.all(
+    map(async (srcFile) => {
+      const fullPath = path.join(SRC_PATH, srcFile)
+      const contents = await fs.readFile(fullPath, 'utf8')
+      return {
+        srcFile,
+        meta: dox.parseComments(contents)
+      }
+    }, srcFiles)
+  )
 
 const findSrcFiles = () =>
   new Promise((resolve, reject) => {
@@ -33,18 +85,6 @@ const findSrcFiles = () =>
       resolve(files)
     })
   })
-
-const parseSrcFiles = async (srcFiles) =>
-  Promise.all(
-    map(async (srcFile) => {
-      const fullPath = path.join(SRC_PATH, srcFile)
-      const contents = await fs.readFile(fullPath, 'utf8')
-      return {
-        srcFile,
-        meta: dox.parseComments(contents)
-      }
-    }, srcFiles)
-  )
 
 const findCategory = (tags) => {
   const categoryTag = find((tag) => tag.type === 'category', tags)
@@ -71,11 +111,43 @@ const findSince = (tags) => {
   return prop('string', sinceTag)
 }
 
-const cleanupTypesDescription = (typesDescription) =>
-  typesDescription
-    .replace(/\*/, '&ast;')
-    .replace(/<a.*?>/, '<code>')
-    .replace(/<\/a>/, '</code>')
+const renderParamsMarkdown = (params) => {
+  let markdown = `**Params**\n`
+  if (!isEmpty(params)) {
+    forEach((param) => {
+      markdown += `<p><code>${param.name}</code>: <code>${toHtml(
+        param.typesDescription
+      )}</code> - ${toHtml(param.description)}</p>\n`
+    }, params)
+    markdown += `\n`
+  } else {
+    markdown += `None\n\n`
+  }
+  return markdown
+}
+
+const renderReturnsMarkdown = (returns) => {
+  let markdown = `**Returns**\n<br />`
+  if (returns.typesDescription) {
+    markdown += `<p><code>${toHtml(returns.typesDescription)}</code> - ${toHtml(
+      returns.description
+    )}</p>\n\n`
+  } else {
+    markdown += '<code>undefined</code>\n\n'
+  }
+  return markdown
+}
+
+const renderExampleMarkdown = (example) => {
+  let markdown = ''
+  if (example) {
+    markdown += `**Example**\n`
+    markdown += '```js\n'
+    markdown += `${example.string.trim()}\n`
+    markdown += '```\n'
+  }
+  return markdown
+}
 
 const renderFunctionMarkdown = ({
   description,
@@ -92,31 +164,9 @@ const renderFunctionMarkdown = ({
   markdown += `[source](${GITHUB_TAG_URL}/src/${srcFile}#L${line})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since ${since}\n`
   markdown += `${description}\n\n`
 
-  markdown += `<b>Params</b><br />\n`
-  if (!isEmpty(params)) {
-    forEach((param) => {
-      markdown += `<p>\`${param.name}\`: ${cleanupTypesDescription(
-        param.typesDescription
-      )} - ${param.description.replace('<p>', '')}\n`
-    }, params)
-    markdown += `\n`
-  } else {
-    markdown += `None\n\n`
-  }
-  markdown += `<b>Returns</b><br />\n`
-  if (returns) {
-    markdown += `<p>${cleanupTypesDescription(
-      returns.typesDescription
-    )}: ${returns.description.replace('<p>', '')}\n\n`
-  } else {
-    markdown += `<code>undefined</code>\n\n`
-  }
-  if (example) {
-    markdown += `<b>Example</b><br />\n`
-    markdown += '```js\n'
-    markdown += `${example.string.trim()}\n`
-    markdown += '```\n'
-  }
+  markdown += renderParamsMarkdown(params)
+  markdown += renderReturnsMarkdown(returns)
+  markdown += renderExampleMarkdown(example)
   markdown += '<br /><br />\n\n'
   return markdown
 }
@@ -130,6 +180,29 @@ const renderCategoryMarkdown = (category) => {
     markdown,
     category.functions
   )
+}
+
+const generateParams = (tags) => {
+  const paramTags = findParams(tags)
+  return map((paramTag) => {
+    const parsed = parseParamString(paramTag.string)
+    return {
+      type: 'param',
+      ...parsed
+    }
+  }, paramTags)
+}
+
+const generateReturns = (tags) => {
+  const returnsTag = findReturns(tags)
+  if (returnsTag) {
+    const parsed = parseReturnsString(returnsTag.string)
+    return {
+      type: 'returns',
+      ...parsed
+    }
+  }
+  return null
 }
 
 const generateFunctionDocs = (meta, srcFile) => {
@@ -147,8 +220,8 @@ const generateFunctionDocs = (meta, srcFile) => {
     example: findExample(meta.tags),
     line: meta.line,
     name: meta.ctx.name,
-    params: findParams(meta.tags),
-    returns: findReturns(meta.tags),
+    params: generateParams(meta.tags),
+    returns: generateReturns(meta.tags),
     since,
     srcFile
   }
