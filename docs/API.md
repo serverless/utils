@@ -151,7 +151,7 @@ apply(Math.max, nums) //=> 42
 
 ### deferredPromise()
 
-[source](https://github.com/serverless/utils/tree/v0.0.8/src/common/deferredPromise.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.8/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Creates a promise with the resolve and reject methods exposed as properties<br />
 on the promise.</p>
 
