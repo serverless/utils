@@ -1,5 +1,6 @@
 import getTag from './getTag'
 import isArguments from './isArguments'
+import isArray from './isArray'
 import isArrayLike from './isArrayLike'
 import isBuffer from './isBuffer'
 import isPrototype from './isPrototype'
@@ -43,7 +44,7 @@ const isEmpty = (value) => {
   }
   if (
     isArrayLike(value) &&
-    (Array.isArray(value) ||
+    (isArray(value) ||
       typeof value == 'string' ||
       typeof value.splice == 'function' ||
       isBuffer(value) ||

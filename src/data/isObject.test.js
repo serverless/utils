@@ -25,6 +25,13 @@ describe('isObject', () => {
     // TODO BRN: Check for ES6 Proxy support
   })
 
+  test('returns true for object versions of native values', () => {
+    expect(isObject(new String('abc'))).toBe(true)
+    expect(isObject(new Number(3.2))).toBe(true)
+    expect(isObject(new Boolean(false))).toBe(true)
+    expect(isObject(new Function('a', 'b', 'return a + b'))).toBe(true)
+  })
+
   test('returns false for all other values', () => {
     expect(isObject(undefined)).toBe(false)
     expect(isObject(null)).toBe(false)

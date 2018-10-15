@@ -23,15 +23,6 @@ describe('index', () => {
     })
   })
 
-  test('has config methods', () => {
-    const mod = require('./')
-    expect(mod).toMatchObject({
-      createConfig: expect.any(Function),
-      getConfig: expect.any(Function),
-      getServerlessrcPath: expect.any(Function)
-    })
-  })
-
   test('has data methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
@@ -111,6 +102,7 @@ describe('index', () => {
       last: expect.any(Function),
       map: expect.any(Function),
       mapIndexed: expect.any(Function),
+      mapObjIndexed: expect.any(Function),
       merge: expect.any(Function),
       mergeDeep: expect.any(Function),
 
@@ -131,14 +123,19 @@ describe('index', () => {
       set: expect.any(Function),
       shallowEquals: expect.any(Function),
       slice: expect.any(Function),
-      split: expect.any(Function),
       sort: expect.any(Function),
+      split: expect.any(Function),
       stringToPath: expect.any(Function),
       tail: expect.any(Function),
+      toFinite: expect.any(Function),
+      toInteger: expect.any(Function),
+      toNumber: expect.any(Function),
+      toObject: expect.any(Function),
       toString: expect.any(Function),
       walk: expect.any(Function),
       walkReduce: expect.any(Function),
-      walkReduceDepthFirst: expect.any(Function)
+      walkReduceDepthFirst: expect.any(Function),
+      walkReducePath: expect.any(Function)
     })
   })
 
