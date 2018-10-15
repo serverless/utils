@@ -3,7 +3,7 @@
  * and has a `typeof` result of "object".
  *
  * @function
- * @since 0.0.3
+ * @since v0.0.3
  * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is object-like, else `false`.

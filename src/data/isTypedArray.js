@@ -12,13 +12,13 @@ const nodeIsTypedArray = nodeTypes && nodeTypes.isTypedArray
  * Checks if `value` is classified as a typed array.
  *
  * @function
- * @since 0.0.3
+ * @since v0.0.3
  * @category data
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
  * @example
  *
- * isTypedArray(new Uint8Array) // => true
+ * isTypedArray(new Uint8Array()) // => true
  *
  * isTypedArray([]) // => false
  */

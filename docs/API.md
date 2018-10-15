@@ -79,6 +79,7 @@
   * [toFinite()](#tofinite)
   * [toInteger()](#tointeger)
   * [toNumber()](#tonumber)
+  * [toObject()](#toobject)
   * [toString()](#tostring)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
@@ -964,7 +965,7 @@ isBuffer(new Uint8Array(2)) // => false
 
 ### isEmpty()
 
-[source](https://github.com/serverless/utils/tree/v0.0.8/src/data/isEmpty.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.8/src/data/isEmpty.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is an empty object, collection, map, or set.</p>
 <p>Objects are considered empty if they have no own enumerable string keyed<br />
 properties.</p>
@@ -1226,7 +1227,7 @@ isObject(null) // => false
 
 ### isObjectLike()
 
-[source](https://github.com/serverless/utils/tree/v0.0.8/src/data/isObjectLike.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.8/src/data/isObjectLike.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code><br />
 and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
@@ -1371,7 +1372,7 @@ isTransformer('abc') // => false
 
 ### isTypedArray()
 
-[source](https://github.com/serverless/utils/tree/v0.0.8/src/data/isTypedArray.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.8/src/data/isTypedArray.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as a typed array.</p>
 
 **Params**
@@ -1382,7 +1383,7 @@ isTransformer('abc') // => false
 
 **Example**
 ```js
-isTypedArray(new Uint8Array) // => true
+isTypedArray(new Uint8Array()) // => true
 
 isTypedArray([]) // => false
 ```
@@ -1761,6 +1762,34 @@ toNumber(Infinity)
 
 toNumber('3.2')
 // => 3.2
+```
+<br /><br />
+
+### toObject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.8/src/data/toObject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+<p>Converts <code>value</code> to a plain object flattening inherited enumerable string<br />
+keyed properties of <code>value</code> to own properties of the plain object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
+
+**Returns**
+<br /><p><code>Object</code> - Returns the converted plain object.</p>
+
+**Example**
+```js
+function Foo() {
+  this.b = 2
+}
+
+Foo.prototype.c = 3
+
+assign({ 'a': 1 }, new Foo)
+// => { 'a': 1, 'b': 2 }
+
+assign({ 'a': 1 }, toObject(new Foo))
+// => { 'a': 1, 'b': 2, 'c': 3 }
 ```
 <br /><br />
 

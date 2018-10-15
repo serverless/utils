@@ -41,15 +41,15 @@ const mixClass = (Class, SuperClass) => {
 const mix = (SuperClass, ...args) => ({
   with: (...mixins) =>
     reduce(
-      (Class, mixin) => {
+      (SClass, mixin) => {
         let NewClass = mixin
         if (isFunction(mixin)) {
-          NewClass = mixin(Class, ...args)
+          NewClass = mixin(SClass, ...args)
         }
         if (isPromise(NewClass)) {
-          return NewClass.then((resolved) => mixClass(resolved, Class))
+          return NewClass.then((resolved) => mixClass(resolved, SClass))
         }
-        return mixClass(NewClass, Class)
+        return mixClass(NewClass, SClass)
       },
       SuperClass,
       mixins
