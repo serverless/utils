@@ -8,7 +8,7 @@ import isObject from '../data/isObject'
  *
  * @function
  * @since v0.0.9
- * @category path
+ * @category common
  * @sig [String] -> {a} -> String
  * @param {...String} values The values to check.
  * @returns {String} The first value found that is a path.

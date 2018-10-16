@@ -13,10 +13,8 @@
   * [dispatchable()](#dispatchable)
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
-  * [sleep()](#sleep)
-- [path methods](#path-methods)
   * [resolve()](#resolve)
-  * [findPath()](#findpath)
+  * [sleep()](#sleep)
 - [data methods](#data-methods)
   * [any()](#any)
   * [anyAtIndex()](#anyatindex)
@@ -96,6 +94,8 @@
 - [lang methods](#lang-methods)
   * [getProperty()](#getproperty)
   * [mix()](#mix)
+- [path methods](#path-methods)
+  * [findPath()](#findpath)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
@@ -275,26 +275,6 @@ takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
 ```
 <br /><br />
 
-### sleep()
-
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/sleep.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Sleeps for the given amount of <code>wait</code> milliseconds before resolving the returned <code>Promise</code></p>
-
-**Params**
-<p><code>wait</code>: <code>number</code> - The number of milliseconds to wait before resoliving the Promise</p>
-
-**Returns**
-<br /><p><code>Promise</code> - Resolves once the given amount of time has ellapsed.</p>
-
-**Example**
-```js
-await sleep(1000)
-// 1000+ milliseconds later
-```
-<br /><br />
-
-## path methods
-
 ### resolve()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/common/resolve.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
@@ -333,20 +313,21 @@ resolve({
 ```
 <br /><br />
 
-### findPath()
+### sleep()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/path/findPath.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Finds the first path in the given args.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/sleep.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Sleeps for the given amount of <code>wait</code> milliseconds before resolving the returned <code>Promise</code></p>
 
 **Params**
-<p><code>values</code>: <code>...String</code> - The values to check.</p>
+<p><code>wait</code>: <code>number</code> - The number of milliseconds to wait before resoliving the Promise</p>
 
 **Returns**
-<br /><p><code>String</code> - The first value found that is a path.</p>
+<br /><p><code>Promise</code> - Resolves once the given amount of time has ellapsed.</p>
 
 **Example**
 ```js
-findPath(null, 0, '/foo', '/bar') // => '/foo'
+await sleep(1000)
+// 1000+ milliseconds later
 ```
 <br /><br />
 
@@ -2177,6 +2158,25 @@ getProperty(o, 'foo')
 ```js
 const mixin = (SuperClass, ...args) => class extends SuperClass { ... }
 class mix(Parent, ...args).with(mixin) { ... }
+```
+<br /><br />
+
+## path methods
+
+### findPath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/path/findPath.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Finds the first path in the given args.</p>
+
+**Params**
+<p><code>values</code>: <code>...String</code> - The values to check.</p>
+
+**Returns**
+<br /><p><code>String</code> - The first value found that is a path.</p>
+
+**Example**
+```js
+findPath(null, 0, '/foo', '/bar') // => '/foo'
 ```
 <br /><br />
 
