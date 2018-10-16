@@ -8,6 +8,7 @@
 - [common methods](#common-methods)
   * [all()](#all)
   * [apply()](#apply)
+  * [complement()](#complement)
   * [deferredPromise()](#deferredpromise)
   * [defn()](#defn)
   * [dispatchable()](#dispatchable)
@@ -32,6 +33,7 @@
   * [filterAtIndex()](#filteratindex)
   * [find()](#find)
   * [findAtIndex()](#findatindex)
+  * [flatten()](#flatten)
   * [get()](#get)
   * [getPath()](#getpath)
   * [getProp()](#getprop)
@@ -75,6 +77,7 @@
   * [reduce()](#reduce)
   * [reduceIndexed()](#reduceindexed)
   * [reduceObjIndexed()](#reduceobjindexed)
+  * [reject()](#reject)
   * [set()](#set)
   * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
@@ -149,6 +152,25 @@ await all(123) //=> 123
 ```js
 const nums = [1, 2, 3, -99, 42, 6, 7]
 apply(Math.max, nums) //=> 42
+```
+<br /><br />
+
+### complement()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/complement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>returns a new function that logically nots the returned value and returns that as the result.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to complement</p>
+
+**Returns**
+<br /><p><code>Function</code> - The complemented function</p>
+
+**Example**
+```js
+const isEven = (value) => value % 2 === 0
+const isOdd = complement(isEven)
+isOdd(1) //=> true
 ```
 <br /><br />
 
@@ -536,18 +558,16 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns the result of concatenating the given lists or strings.</p>
-<p>Note: <code>concat</code> expects both arguments to be of the same type,<br />
-unlike the native <code>Array.prototype.concat</code> method. It will throw<br />
-an error if you <code>concat</code> an Array with a non-Array value.</p>
+<p>Note: <code>concat</code> expects both arguments to be of the same type, unlike the native <code>Array.prototype.concat</code> method. It will throw an error if you <code>concat</code> an Array with a non-Array value.</p>
 <p>Dispatches to the <code>concat</code> method of the first argument, if present.</p>
 <p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
 
 **Params**
-<p><code>firstList</code>: <code>Array|String|Promise</code> - The first list</p>
-<p><code>secondList</code>: <code>Array|String|Promise</code> - The second list</p>
+<p><code>firstList</code>: <code>Array|string|Promise</code> - The first list</p>
+<p><code>secondList</code>: <code>Array|string|Promise</code> - The second list</p>
 
 **Returns**
-<br /><p><code>Array|String</code> - A list consisting of the elements of `firstList` followed by the elements of `secondList`.</p>
+<br /><p><code>Array|string</code> - A list consisting of the elements of `firstList` followed by the elements of `secondList`.</p>
 
 **Example**
 ```js
@@ -609,7 +629,7 @@ any(lessThan2)([1, 2]) //=> true
 
 ### filter()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/filter.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/filter.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
 <p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -706,6 +726,24 @@ method will upgrade to async and return a Promise.</p>
 const xs = [{a: 1}, {a: 2}, {a: 3}];
 findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
 findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
+```
+<br /><br />
+
+### flatten()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/flatten.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns a new list by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
+
+**Params**
+<p><code>list</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The flattened list.</p>
+
+**Example**
+```js
+flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 ```
 <br /><br />
 
@@ -1645,6 +1683,28 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 **Returns**
 <br /><p><code>&ast;</code> - The final, accumulated value.</p>
 
+<br /><br />
+
+### reject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/reject.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>The complement of <a href="#filter"><code>filter</code></a>.</p>
+
+**Params**
+<p><code>predicate</code>: <code>Function</code> - </p>
+<p><code>filterable</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>&ast;</code> - </p>
+
+**Example**
+```js
+isOdd = (n) => n % 2 === 1
+
+reject(isOdd, [1, 2, 3, 4]) //=> [2, 4]
+
+reject(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
+```
 <br /><br />
 
 ### set()

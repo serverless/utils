@@ -10,6 +10,7 @@ describe('index', () => {
     expect(mod).toMatchObject({
       all: expect.any(Function),
       apply: expect.any(Function),
+      complement: expect.any(Function),
       curry: expect.any(Function),
       curryN: expect.any(Function),
       deferredPromise: expect.any(Function),
@@ -51,6 +52,7 @@ describe('index', () => {
       find: expect.any(Function),
       findAtIndex: expect.any(Function),
       first: expect.any(Function),
+      flatten: expect.any(Function),
       forEach: expect.any(Function),
       forEachIndexed: expect.any(Function),
       forEachObjIndexed: expect.any(Function),
@@ -118,6 +120,7 @@ describe('index', () => {
       reduce: expect.any(Function),
       reduceIndexed: expect.any(Function),
       reduceObjIndexed: expect.any(Function),
+      reject: expect.any(Function),
 
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // root: expect.any(Object),

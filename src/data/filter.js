@@ -8,6 +8,8 @@ import join from './join'
 import keys from './keys'
 import pick from './pick'
 
+// TODO BRN: Improve this method to maintain the original array in memory when no changes are made
+
 /**
  * Takes a predicate and a `Filterable`, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate. Filterable objects include plain objects or any object that has a filter method such as `Array`.
  *
