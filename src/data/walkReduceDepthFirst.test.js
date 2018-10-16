@@ -29,4 +29,24 @@ describe('#walkReduceDepthFirst()', () => {
       []
     ])
   })
+
+  test('resolves values before sending them to the iterator and then proceeds along the resolved value for walk', () => {
+    const result = walkReduceDepthFirst(
+      (accum, value, keys) => {
+        accum.push(keys)
+        return accum
+      },
+      [],
+      {
+        a: {
+          b: {
+            valueOf() {
+              return { c: 'c' }
+            }
+          }
+        }
+      }
+    )
+    expect(result).toEqual([['a', 'b', 'c'], ['a', 'b'], ['a'], []])
+  })
 })

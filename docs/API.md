@@ -1981,8 +1981,9 @@ console.log(result)
 
 ### walkReduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReduce.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReduce.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk reduce using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
 **Params**
 <p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
@@ -2018,8 +2019,9 @@ walkReduce(
 
 ### walkReduceDepthFirst()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReduceDepthFirst.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReduceDepthFirst.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk depth first and reduce using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
 **Params**
 <p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
@@ -2062,8 +2064,9 @@ walkReduceDepthFirst(
 
 ### walkReducePath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReducePath.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReducePath.js#L18)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Walk reduce the specific path using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
 **Params**
 <p><code>path</code>: <code>&ast;</code> - The specific path to walk</p>
