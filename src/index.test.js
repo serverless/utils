@@ -19,6 +19,7 @@ describe('index', () => {
       memoizeWith: expect.any(Function),
       nAry: expect.any(Function),
       nArySpread: expect.any(Function),
+      resolve: expect.any(Function),
       sleep: expect.any(Function)
     })
   })
@@ -203,13 +204,6 @@ describe('index', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
       findPath: expect.any(Function)
-    })
-  })
-
-  test('has resolve methods', () => {
-    const mod = require('./')
-    expect(mod).toMatchObject({
-      resolve: expect.any(Function)
     })
   })
 })
