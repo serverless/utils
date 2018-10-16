@@ -136,10 +136,12 @@ describe('index', () => {
       toNumber: expect.any(Function),
       toObject: expect.any(Function),
       toString: expect.any(Function),
+      uniq: expect.any(Function),
       walk: expect.any(Function),
       walkReduce: expect.any(Function),
       walkReduceDepthFirst: expect.any(Function),
-      walkReducePath: expect.any(Function)
+      walkReducePath: expect.any(Function),
+      without: expect.any(Function)
     })
   })
 
