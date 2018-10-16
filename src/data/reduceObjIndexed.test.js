@@ -24,4 +24,28 @@ describe('reduceObjIndexed', () => {
     expect(reducer).toHaveBeenNthCalledWith(3, '', 'bop', 'bim')
     expect(result).toBe('')
   })
+
+  test('reduce object of functions', () => {
+    const object = {
+      async foo() {
+        return 'foo'
+      },
+      async bam() {
+        return 'bam'
+      },
+      async bim() {
+        return 'bop'
+      }
+    }
+    const reducer = (acc, method, name) => {
+      acc.prototype[name] = method
+      return acc
+    }
+    const result = reduceObjIndexed(reducer, class {}, object)
+    expect(result.prototype).toEqual({
+      foo: expect.any(Function),
+      bam: expect.any(Function),
+      bim: expect.any(Function)
+    })
+  })
 })

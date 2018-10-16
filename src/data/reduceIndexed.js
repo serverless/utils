@@ -1,6 +1,6 @@
 import addIndex from './addIndex'
 import reduce from './reduce'
 
-const reduceIndexed = addIndex(reduce)
+const reduceIndexed = reduce
 
 export default reduceIndexed
