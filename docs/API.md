@@ -13,6 +13,7 @@
   * [dispatchable()](#dispatchable)
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
+  * [resolve()](#resolve)
   * [sleep()](#sleep)
 - [data methods](#data-methods)
   * [any()](#any)
@@ -72,6 +73,8 @@
   * [omit()](#omit)
   * [pick()](#pick)
   * [reduce()](#reduce)
+  * [reduceIndexed()](#reduceindexed)
+  * [reduceObjIndexed()](#reduceobjindexed)
   * [set()](#set)
   * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
@@ -93,7 +96,6 @@
   * [mix()](#mix)
 - [path methods](#path-methods)
   * [findPath()](#findpath)
-  * [resolve()](#resolve)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
@@ -270,6 +272,44 @@ const curriedTakesTwoArgs = curry(takesTwoArgs)
 // auto currying works as expected
 const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
 takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
+```
+<br /><br />
+
+### resolve()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/resolve.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+<p>Resolves a value to its valueOf.</p>
+<p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
+
+**Params**
+<p><code>values</code>: <code>...String</code> - The values to check.</p>
+
+**Returns**
+<br /><p><code>String</code> - The first value found that is a path.</p>
+
+**Example**
+```js
+resolve('foo') // => 'foo'
+
+resolve({
+ valueOf: () => 'bar'
+}) //=> bar
+
+resolve({
+ resolve: () => 'bar'
+}) //=> bar
+
+resolve({
+  resolve: () => ({
+    valueOf: () => 'bar'
+  })
+}) //=> bar
+
+resolve({
+  resolve: () => ({
+    resolve: () => 'bar'
+  })
+}) //=> bar
 ```
 <br /><br />
 
@@ -1548,25 +1588,16 @@ await pick(
 ### reduce()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/reduce.js#L70)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns a single item by iterating through the list, successively calling<br />
-the iterator function and passing it an accumulator value and the current<br />
-value from the array, and then passing the result to the next call.</p>
-<p>The iterator function receives two values: <em>(acc, value)</em>. It may use<br />
-<a href="#reduced"><code>reduced</code></a> to shortcut the iteration.</p>
-<p>The arguments' order of <a href="#reduceRight"><code>reduceRight</code></a>'s iterator function<br />
-is <em>(value, acc)</em>.</p>
-<p>Note: <code>reduce</code> does not skip deleted or unassigned indices (sparse<br />
-arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details<br />
-on this behavior, see:<br />
+<p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.</p>
+<p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
+<p>Note: <code>reduce</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details  on this behavior, see:<br />
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description</p>
-<p>Dispatches to the <code>reduce</code> method of the third argument, if present. When<br />
-doing so, it is up to the user to handle the <a href="#reduced"><code>reduced</code></a><br />
-shortcuting, as this is not implemented by <code>reduce</code>.</p>
+<p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
 
 **Params**
-<p><code>fn</code>: <code>Function</code> - The iterator function. Receives two values, the accumulator and the current element from the array.</p>
-<p><code>acc</code>: <code>&ast;</code> - The accumulator value.</p>
-<p><code>list</code>: <code>Array</code> - The list to iterate over.</p>
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
 
 **Returns**
 <br /><p><code>&ast;</code> - The final, accumulated value.</p>
@@ -1584,6 +1615,36 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 //   / \              / \
 //  0   1            0   1
 ```
+<br /><br />
+
+### reduceIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/reduceIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Alias for <a href="#reduce">reduce</a> method</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+<br /><br />
+
+### reduceObjIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/reduceObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Alias for <a href="#reduce">reduce</a> method</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
 <br /><br />
 
 ### set()
@@ -2116,44 +2177,6 @@ class mix(Parent, ...args).with(mixin) { ... }
 **Example**
 ```js
 findPath(null, 0, '/foo', '/bar') // => '/foo'
-```
-<br /><br />
-
-### resolve()
-
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/resolve/resolve.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
-<p>Resolves a value to its valueOf.</p>
-<p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
-
-**Params**
-<p><code>values</code>: <code>...String</code> - The values to check.</p>
-
-**Returns**
-<br /><p><code>String</code> - The first value found that is a path.</p>
-
-**Example**
-```js
-resolve('foo') // => 'foo'
-
-resolve({
- valueOf: () => 'bar'
-}) //=> bar
-
-resolve({
- resolve: () => 'bar'
-}) //=> bar
-
-resolve({
-  resolve: () => ({
-    valueOf: () => 'bar'
-  })
-}) //=> bar
-
-resolve({
-  resolve: () => ({
-    resolve: () => 'bar'
-  })
-}) //=> bar
 ```
 <br /><br />
 

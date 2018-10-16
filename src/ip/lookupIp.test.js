@@ -1,4 +1,20 @@
 import lookupIp from './lookupIp'
+jest.mock('../fetch/fetch', () =>
+  jest.fn(() => ({
+    status: 200,
+    json: () => ({
+      city: 'Seattle',
+      country_code: 'US',
+      country_name: 'United States',
+      ip: '3.4.5.6',
+      latitude: 47.6339,
+      longitude: -122.3476,
+      zip_code: '98109',
+      region_code: 'WA',
+      region_name: 'Washington'
+    })
+  }))
+)
 
 describe('lookupIp', () => {
   test('correctly looks up an ip address', async () => {

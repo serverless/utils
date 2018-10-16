@@ -1,10 +1,16 @@
-import curry from '../common/curry'
-import keys from './keys'
-import prop from './prop'
 import reduce from './reduce'
 
-const reduceObjIndexed = curry((reducer, accum, obj) =>
-  reduce((acc, key) => reducer(acc, prop(key, obj), key), accum, keys(obj))
-)
+/**
+ * Alias for [reduce](#reduce) method
+ *
+ * @function
+ * @since v0.0.3
+ * @category data
+ * @param {Function} fn The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.
+ * @param {*} accumulator The accumulator value.
+ * @param {Array|string|Object|Promise} collection The collection to iterate over.
+ * @returns {*} The final, accumulated value.
+ */
+const reduceObjIndexed = reduce
 
 export default reduceObjIndexed
