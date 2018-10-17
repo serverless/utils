@@ -45,9 +45,14 @@
   * [is()](#is)
   * [isArguments()](#isarguments)
   * [isArray()](#isarray)
+  * [isArrayBuffer()](#isarraybuffer)
   * [isArrayLike()](#isarraylike)
+  * [isBoolean()](#isboolean)
   * [isBuffer()](#isbuffer)
+  * [isDate()](#isdate)
+  * [isElement()](#iselement)
   * [isEmpty()](#isempty)
+  * [isError()](#iserror)
   * [isFunction()](#isfunction)
   * [isGenerator()](#isgenerator)
   * [isGeneratorFunction()](#isgeneratorfunction)
@@ -55,6 +60,7 @@
   * [isInteger()](#isinteger)
   * [isIterable()](#isiterable)
   * [isMap()](#ismap)
+  * [isNativeObject()](#isnativeobject)
   * [isNil()](#isnil)
   * [isNull()](#isnull)
   * [isNumber()](#isnumber)
@@ -63,11 +69,15 @@
   * [isPlainObject()](#isplainobject)
   * [isPromise()](#ispromise)
   * [isPrototype()](#isprototype)
+  * [isRegExp()](#isregexp)
+  * [isSet()](#isset)
   * [isString()](#isstring)
   * [isSymbol()](#issymbol)
   * [isTransformer()](#istransformer)
   * [isTypedArray()](#istypedarray)
   * [isUndefined()](#isundefined)
+  * [isWeakMap()](#isweakmap)
+  * [isWeakSet()](#isweakset)
   * [join()](#join)
   * [keys()](#keys)
   * [last()](#last)
@@ -997,6 +1007,27 @@ isArray(noop) // => false
 ```
 <br /><br />
 
+### isArrayBuffer()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isArrayBuffer.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as an <code>ArrayBuffer</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an array buffer, else `false`.</p>
+
+**Example**
+```js
+isArrayBuffer(new ArrayBuffer(2))
+// => true
+
+isArrayBuffer(new Array(2))
+// => false
+```
+<br /><br />
+
 ### isArrayLike()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isArrayLike.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -1022,6 +1053,27 @@ isArrayLike(Function) // => false
 ```
 <br /><br />
 
+### isBoolean()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isBoolean.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a boolean primitive or object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a boolean, else `false`.</p>
+
+**Example**
+```js
+isBoolean(false)
+// => true
+
+isBoolean(null)
+// => false
+```
+<br /><br />
+
 ### isBuffer()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isBuffer.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -1038,6 +1090,48 @@ isArrayLike(Function) // => false
 isBuffer(new Buffer(2)) // => true
 
 isBuffer(new Uint8Array(2)) // => false
+```
+<br /><br />
+
+### isDate()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isDate.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>Date</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a date object, else `false`.</p>
+
+**Example**
+```js
+isDate(new Date)
+// => true
+
+isDate('Mon April 23 2012')
+// => false
+```
+<br /><br />
+
+### isElement()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isElement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is likely a DOM element.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a DOM element, else `false`.</p>
+
+**Example**
+```js
+isElement(document.body)
+// => true
+
+isElement('<body>')
+// => false
 ```
 <br /><br />
 
@@ -1070,6 +1164,27 @@ isEmpty([1, 2, 3]) // => false
 isEmpty('abc') // => false
 
 isEmpty({ 'a': 1 })  // => false
+```
+<br /><br />
+
+### isError()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isError.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is an <code>Error</code>, <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>, <code>SyntaxError</code>, <code>TypeError</code>, or <code>URIError</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an error object, else `false`.</p>
+
+**Example**
+```js
+isError(new Error)
+// => true
+
+isError(Error)
+// => false
 ```
 <br /><br />
 
@@ -1213,6 +1328,31 @@ isMap(new WeakMap) // => false
 ```
 <br /><br />
 
+### isNativeObject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isNativeObject.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is native JavaScript object instance.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a native JS object instance</p>
+
+**Example**
+```js
+isNativeObject(new WeakSet())
+// => true
+
+isNativeObject({})
+// => false
+
+class MyObject {}
+isNativeObject(new MyObject())
+// => false
+```
+<br /><br />
+
 ### isNil()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isNil.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -1306,8 +1446,7 @@ isObject(null) // => false
 ### isObjectLike()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isObjectLike.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code><br />
-and has a <code>typeof</code> result of &quot;object&quot;.</p>
+<p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code> and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
 **Params**
 <p><code>value</code>: <code>&ast;</code> - The value to check.</p>
@@ -1387,6 +1526,48 @@ isPromise({ then: () => {} }) //=> true
 **Returns**
 <br /><p><code>boolean</code> - Returns `true` if `value` is a prototype, else `false`.</p>
 
+<br /><br />
+
+### isRegExp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isRegExp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>RegExp</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a regexp, else `false`.</p>
+
+**Example**
+```js
+isRegExp(/abc/)
+// => true
+
+isRegExp('/abc/')
+// => false
+```
+<br /><br />
+
+### isSet()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isSet.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>Set</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a set, else `false`.</p>
+
+**Example**
+```js
+isSet(new Set())
+// => true
+
+isSet(new WeakSet())
+// => false
+```
 <br /><br />
 
 ### isString()
@@ -1483,6 +1664,48 @@ isTypedArray([]) // => false
 isUndefined(void 0) // => true
 
 isUndefined(null) // => false
+```
+<br /><br />
+
+### isWeakMap()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isWeakMap.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>WeakMap</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a weak map, else `false`.</p>
+
+**Example**
+```js
+isWeakMap(new WeakMap())
+// => true
+
+isWeakMap(new Map())
+// => false
+```
+<br /><br />
+
+### isWeakSet()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isWeakSet.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>WeakSet</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a weak set, else `false`.</p>
+
+**Example**
+```js
+isWeakSet(new WeakSet())
+// => true
+
+isWeakSet(new Set())
+// => false
 ```
 <br /><br />
 

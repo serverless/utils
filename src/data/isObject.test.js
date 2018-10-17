@@ -29,6 +29,7 @@ describe('isObject', () => {
     expect(isObject(new String('abc'))).toBe(true)
     expect(isObject(new Number(3.2))).toBe(true)
     expect(isObject(new Boolean(false))).toBe(true)
+    expect(isObject(new Date())).toBe(true)
     expect(isObject(new Function('a', 'b', 'return a + b'))).toBe(true)
   })
 
