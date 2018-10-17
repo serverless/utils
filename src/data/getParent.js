@@ -1,48 +1,45 @@
 import curry from '../common/curry'
 import defn from '../common/defn'
 import castPath from './castPath'
-import getPath from './getPath'
+import getParentPath from './getParentPath'
 import isArray from './isArray'
 import isFunction from './isFunction'
 import isUndefined from './isUndefined'
 
 /**
- * Retrieve the value at a given path.
+ * Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.
  *
  * Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.
  *
  *
  *
  * @function
- * @since v0.0.3
+ * @since v0.0.10
  * @category data
  * @param {Array|string|number|Function} path The path to use.
- * @param {Object} value The value to retrieve the nested property from.
+ * @param {Object} value The value to retrieve the parent property value from.
  * @returns {*} The data at `path`.
  * @example
  *
- * get(['a', 'b'], {a: {b: 2}})
- * //=> 2
+ * getParent(['a', 'b'], {a: {b: 2}})
+ * //=> {b: 2}
  *
- * get(['a', 'b'], {c: {b: 2}})
+ * getParent(['a', 'b'], {c: {b: 2}})
  * //=> undefined
  *
- * get('a', {a: {b: 2}})
- * //=> { b: 2 }
+ * getParent('a', {a: {b: 2}})
+ * //=> {a: {b: 2}}
  *
- * get('a.b', {a: {b: 2}})
- * //=> 2
+ * getParent('a.b', {a: {b: 2}})
+ * //=> {b: 2}
  *
- * get('a[0]', {a: [ 1, 2 ]})
- * //=> 1
- *
- * get('[0]', [ 1, 2 ])
- * //=> 1
+ * getParent('a[0]', {a: [ 1, 2 ]})
+ * //=> [ 1, 2 ]
  */
-const get = curry(
-  defn('get', (selector, value) => {
+const getParent = curry(
+  defn('getParent', (selector, value) => {
     if (isUndefined(selector)) {
-      return value
+      return undefined // has no parent since there's no path parts
     }
     if (isFunction(selector)) {
       return selector(value)
@@ -51,8 +48,8 @@ const get = curry(
     if (!isArray(selector)) {
       parts = castPath(selector, value)
     }
-    return getPath(parts, value)
+    return getParentPath(parts, value)
   })
 )
 
-export default get
+export default getParent

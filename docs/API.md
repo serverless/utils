@@ -26,6 +26,7 @@
   * [assocIndex()](#associndex)
   * [assocPath()](#assocpath)
   * [assocProp()](#assocprop)
+  * [compact()](#compact)
   * [concat()](#concat)
   * [every()](#every)
   * [everyAtIndex()](#everyatindex)
@@ -35,6 +36,7 @@
   * [findAtIndex()](#findatindex)
   * [flatten()](#flatten)
   * [get()](#get)
+  * [getParent()](#getparent)
   * [getPath()](#getpath)
   * [getProp()](#getprop)
   * [has()](#has)
@@ -564,6 +566,24 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 ```
 <br /><br />
 
+### compact()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/compact.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Creates an array with all undefined values removed.</p>
+
+**Params**
+<p><code>array</code>: <code>Array</code> - The array to compact.</p>
+
+**Returns**
+<br /><p><code>Array</code> - Returns the new array of filtered values.</p>
+
+**Example**
+```js
+compact([0, 1, false, 2, null, '', 3, undefined])
+// => [0, 1, false, 2, null, '', 3]
+```
+<br /><br />
+
 ### concat()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
@@ -772,14 +792,61 @@ flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
 
 **Example**
 ```js
-getPath(['a', 'b'], {a: {b: 2}}); //=> 2
-getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
+get(['a', 'b'], {a: {b: 2}})
+//=> 2
+
+get(['a', 'b'], {c: {b: 2}})
+//=> undefined
+
+get('a', {a: {b: 2}})
+//=> { b: 2 }
+
+get('a.b', {a: {b: 2}})
+//=> 2
+
+get('a[0]', {a: [ 1, 2 ]})
+//=> 1
+
+get('[0]', [ 1, 2 ])
+//=> 1
+```
+<br /><br />
+
+### getParent()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getParent.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
+<p>Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.</p>
+
+**Params**
+<p><code>path</code>: <code>Array|string|number|Function</code> - The path to use.</p>
+<p><code>value</code>: <code>Object</code> - The value to retrieve the parent property value from.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The data at `path`.</p>
+
+**Example**
+```js
+getParent(['a', 'b'], {a: {b: 2}})
+//=> {b: 2}
+
+getParent(['a', 'b'], {c: {b: 2}})
+//=> undefined
+
+getParent('a', {a: {b: 2}})
+//=> {a: {b: 2}}
+
+getParent('a.b', {a: {b: 2}})
+//=> {b: 2}
+
+getParent('a[0]', {a: [ 1, 2 ]})
+//=> [ 1, 2 ]
 ```
 <br /><br />
 
 ### getPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getPath.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Retrieve the value at a given path.</p>
 
 **Params**
@@ -798,7 +865,7 @@ getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
 
 ### getProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getProp.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a function that when supplied an object returns the indicated<br />
 property of that object, if it exists.</p>
 
