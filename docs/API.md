@@ -9,9 +9,11 @@
   * [all()](#all)
   * [apply()](#apply)
   * [complement()](#complement)
+  * [compose()](#compose)
   * [deferredPromise()](#deferredpromise)
   * [defn()](#defn)
   * [dispatchable()](#dispatchable)
+  * [identity()](#identity)
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
   * [resolve()](#resolve)
@@ -83,12 +85,14 @@
   * [join()](#join)
   * [keys()](#keys)
   * [last()](#last)
+  * [length()](#length)
   * [nth()](#nth)
   * [omit()](#omit)
   * [pick()](#pick)
   * [reduce()](#reduce)
   * [reduceIndexed()](#reduceindexed)
   * [reduceObjIndexed()](#reduceobjindexed)
+  * [reduceRight()](#reduceright)
   * [reject()](#reject)
   * [set()](#set)
   * [shallowEquals()](#shallowequals)
@@ -99,6 +103,7 @@
   * [toNumber()](#tonumber)
   * [toObject()](#toobject)
   * [toString()](#tostring)
+  * [union()](#union)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
@@ -186,6 +191,28 @@ isOdd(1) //=> true
 ```
 <br /><br />
 
+### compose()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/compose.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Performs right-to-left function composition. The rightmost function may have any arity; the remaining functions must be unary.</p>
+<p><strong>Note:</strong> The result of compose is not automatically curried.</p>
+
+**Params**
+<p><code></code>: <code>...Function</code> - ...functions The functions to compose</p>
+
+**Returns**
+<br /><p><code>Function</code> - </p>
+
+**Example**
+```js
+const classyGreeting = (firstName, lastName) => "The name's " + lastName + ", " + firstName + " " + lastName
+const yellGreeting = compose(toUpper, classyGreeting)
+ yellGreeting('James', 'Bond') //=> "THE NAME'S BOND, JAMES BOND"
+
+compose(Math.abs, add(1), multiply(2))(-4) //=> 7
+```
+<br /><br />
+
 ### deferredPromise()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -250,6 +277,28 @@ uses transducer [xf] to return a new transformer (transducer case).</p>
 **Returns**
 <br /><p><code>Function</code> - A function that dispatches on object in list position</p>
 
+<br /><br />
+
+### identity()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/identity.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>A function that does nothing but return the parameter supplied to it. Good as a default or placeholder function.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to return.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The input value.</p>
+
+**Example**
+```js
+identity(1)
+//=> 1
+
+const obj = {}
+identity(obj) === obj
+//=> true
+```
 <br /><br />
 
 ### nAry()
@@ -1845,6 +1894,24 @@ last(''); //=> ''
 ```
 <br /><br />
 
+### length()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/length.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns the number of elements in the array by returning <code>list.length</code>.</p>
+
+**Params**
+<p><code>list</code>: <code>&ast;</code> - The array like value to inspect.</p>
+
+**Returns**
+<br /><p><code>Number</code> - The length of the list.</p>
+
+**Example**
+```js
+length([]) //=> 0
+length([1, 2, 3]) //=> 3
+```
+<br /><br />
+
 ### nth()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/nth.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
@@ -1973,6 +2040,40 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 **Returns**
 <br /><p><code>&ast;</code> - The final, accumulated value.</p>
 
+<br /><br />
+
+### reduceRight()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/reduceRight.js#L63)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value,  the current value and the index or key from the collection, and then passing the result to the next call.</p>
+<p>Similar to <a href="#reduce"><code>reduce</code></a>, except moves through the input list from the right to the left.</p>
+<p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
+<p>Supports async reducers. This method will automatically upgrade to async if given an async reducer.</p>
+<p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
+<p>Note: <code>reduceRight</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduceRight</code> method. For more details on this behavior, see:<br />
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight#Description</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+**Example**
+```js
+reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
+//    -               -2
+//   / \              / \
+//  1   -            1   3
+//     / \              / \
+//    2   -     ==>    2  -1
+//       / \              / \
+//      3   -            3   4
+//         / \              / \
+//        4   0            4   0
+```
 <br /><br />
 
 ### reject()
@@ -2225,6 +2326,25 @@ toString(-0)
 
 toString([1, 2, 3])
 // => '1,2,3'
+```
+<br /><br />
+
+### union()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/union.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Combines two lists into a set (i.e. no duplicates) composed of the elements<br />
+of each list.</p>
+
+**Params**
+<p><code>firstList</code>: <code>Array</code> - The first list.</p>
+<p><code>secondList</code>: <code>Array</code> - The second list.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The first and second lists concatenated, with duplicates removed.</p>
+
+**Example**
+```js
+union([1, 2, 3], [2, 3, 4]) //=> [1, 2, 3, 4]
 ```
 <br /><br />
 

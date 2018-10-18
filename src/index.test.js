@@ -16,6 +16,7 @@ describe('index', () => {
       deferredPromise: expect.any(Function),
       defn: expect.any(Function),
       dispatchable: expect.any(Function),
+      identity: expect.any(Function),
       memoize: expect.any(Function),
       memoizeWith: expect.any(Function),
       nAry: expect.any(Function),
