@@ -29,6 +29,7 @@ import toString from './toString'
  * await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5, 6, 1, 2, 3]
  */
 const concat = curry((firstList, secondList) => {
+  // TODO BRN: Add support for concatenating more than one list
   if (isPromise(firstList)) {
     return firstList.then((resolvedFirstList) => concat(resolvedFirstList, secondList))
   }
