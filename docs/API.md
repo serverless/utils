@@ -39,6 +39,7 @@
   * [flatten()](#flatten)
   * [get()](#get)
   * [getParent()](#getparent)
+  * [getParentPath()](#getparentpath)
   * [getPath()](#getpath)
   * [getProp()](#getprop)
   * [has()](#has)
@@ -893,6 +894,25 @@ getParent('a[0]', {a: [ 1, 2 ]})
 ```
 <br /><br />
 
+### getParentPath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getParentPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
+
+**Params**
+<p><code>path</code>: <code>Array</code> - The path to use.</p>
+<p><code>value</code>: <code>&ast;</code> - The value to retrieve the nested property from.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The data at `path`.</p>
+
+**Example**
+```js
+getParentPath(['a', 'b'], {a: {b: 2}}); //=> {b: 2}
+getParentPath(['a', 'b'], {c: {b: 2}}); //=> undefined
+```
+<br /><br />
+
 ### getPath()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -915,8 +935,7 @@ getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
 ### getProp()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns a function that when supplied an object returns the indicated<br />
-property of that object, if it exists.</p>
+<p>Returns a function that when supplied an object returns the indicated  property of that object, if it exists.</p>
 
 **Params**
 <p><code>prop</code>: <code>string|number|Function</code> - The property name or property selector</p>
