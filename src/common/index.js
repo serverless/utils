@@ -1,6 +1,7 @@
 export { default as all } from './all'
 export { default as apply } from './apply'
 export { default as complement } from './complement'
+export { default as compose } from './compose'
 export { default as curry } from './curry'
 export { default as curryN } from './curryN'
 export { default as deferredPromise } from './deferredPromise'
