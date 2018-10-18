@@ -1,3 +1,4 @@
+import resolve from '../common/resolve'
 import concat from './concat'
 import forEachIndexed from './forEachIndexed'
 import forEachObjIndexed from './forEachObjIndexed'
@@ -7,6 +8,7 @@ import walk from './walk'
 
 const reduceWalkee = (accum, value, keys, iteratee, recur) => {
   let result = iteratee(accum, value, keys)
+  value = resolve(value)
   if (isArray(value)) {
     forEachIndexed((child, childIndex) => {
       const newKeys = concat(keys, [childIndex])
@@ -23,6 +25,8 @@ const reduceWalkee = (accum, value, keys, iteratee, recur) => {
 
 /**
  * Walk reduce using the given reducer function
+ *
+ * NOTE: This method will resolve values during the walk before iterating and walking them.
  *
  * @function
  * @since v0.0.4

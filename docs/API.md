@@ -8,9 +8,12 @@
 - [common methods](#common-methods)
   * [all()](#all)
   * [apply()](#apply)
+  * [complement()](#complement)
+  * [compose()](#compose)
   * [deferredPromise()](#deferredpromise)
   * [defn()](#defn)
   * [dispatchable()](#dispatchable)
+  * [identity()](#identity)
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
   * [resolve()](#resolve)
@@ -25,6 +28,7 @@
   * [assocIndex()](#associndex)
   * [assocPath()](#assocpath)
   * [assocProp()](#assocprop)
+  * [compact()](#compact)
   * [concat()](#concat)
   * [every()](#every)
   * [everyAtIndex()](#everyatindex)
@@ -32,7 +36,10 @@
   * [filterAtIndex()](#filteratindex)
   * [find()](#find)
   * [findAtIndex()](#findatindex)
+  * [flatten()](#flatten)
   * [get()](#get)
+  * [getParent()](#getparent)
+  * [getParentPath()](#getparentpath)
   * [getPath()](#getpath)
   * [getProp()](#getprop)
   * [has()](#has)
@@ -43,9 +50,14 @@
   * [is()](#is)
   * [isArguments()](#isarguments)
   * [isArray()](#isarray)
+  * [isArrayBuffer()](#isarraybuffer)
   * [isArrayLike()](#isarraylike)
+  * [isBoolean()](#isboolean)
   * [isBuffer()](#isbuffer)
+  * [isDate()](#isdate)
+  * [isElement()](#iselement)
   * [isEmpty()](#isempty)
+  * [isError()](#iserror)
   * [isFunction()](#isfunction)
   * [isGenerator()](#isgenerator)
   * [isGeneratorFunction()](#isgeneratorfunction)
@@ -53,6 +65,7 @@
   * [isInteger()](#isinteger)
   * [isIterable()](#isiterable)
   * [isMap()](#ismap)
+  * [isNativeObject()](#isnativeobject)
   * [isNil()](#isnil)
   * [isNull()](#isnull)
   * [isNumber()](#isnumber)
@@ -61,20 +74,27 @@
   * [isPlainObject()](#isplainobject)
   * [isPromise()](#ispromise)
   * [isPrototype()](#isprototype)
+  * [isRegExp()](#isregexp)
+  * [isSet()](#isset)
   * [isString()](#isstring)
   * [isSymbol()](#issymbol)
   * [isTransformer()](#istransformer)
   * [isTypedArray()](#istypedarray)
   * [isUndefined()](#isundefined)
+  * [isWeakMap()](#isweakmap)
+  * [isWeakSet()](#isweakset)
   * [join()](#join)
   * [keys()](#keys)
   * [last()](#last)
+  * [length()](#length)
   * [nth()](#nth)
   * [omit()](#omit)
   * [pick()](#pick)
   * [reduce()](#reduce)
   * [reduceIndexed()](#reduceindexed)
   * [reduceObjIndexed()](#reduceobjindexed)
+  * [reduceRight()](#reduceright)
+  * [reject()](#reject)
   * [set()](#set)
   * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
@@ -84,6 +104,7 @@
   * [toNumber()](#tonumber)
   * [toObject()](#toobject)
   * [toString()](#tostring)
+  * [union()](#union)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
@@ -152,6 +173,47 @@ apply(Math.max, nums) //=> 42
 ```
 <br /><br />
 
+### complement()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/complement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>returns a new function that logically nots the returned value and returns that as the result.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to complement</p>
+
+**Returns**
+<br /><p><code>Function</code> - The complemented function</p>
+
+**Example**
+```js
+const isEven = (value) => value % 2 === 0
+const isOdd = complement(isEven)
+isOdd(1) //=> true
+```
+<br /><br />
+
+### compose()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/compose.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Performs right-to-left function composition. The rightmost function may have any arity; the remaining functions must be unary.</p>
+<p><strong>Note:</strong> The result of compose is not automatically curried.</p>
+
+**Params**
+<p><code></code>: <code>...Function</code> - ...functions The functions to compose</p>
+
+**Returns**
+<br /><p><code>Function</code> - </p>
+
+**Example**
+```js
+const classyGreeting = (firstName, lastName) => "The name's " + lastName + ", " + firstName + " " + lastName
+const yellGreeting = compose(toUpper, classyGreeting)
+ yellGreeting('James', 'Bond') //=> "THE NAME'S BOND, JAMES BOND"
+
+compose(Math.abs, add(1), multiply(2))(-4) //=> 7
+```
+<br /><br />
+
 ### deferredPromise()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -216,6 +278,28 @@ uses transducer [xf] to return a new transformer (transducer case).</p>
 **Returns**
 <br /><p><code>Function</code> - A function that dispatches on object in list position</p>
 
+<br /><br />
+
+### identity()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/common/identity.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>A function that does nothing but return the parameter supplied to it. Good as a default or placeholder function.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to return.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The input value.</p>
+
+**Example**
+```js
+identity(1)
+//=> 1
+
+const obj = {}
+identity(obj) === obj
+//=> true
+```
 <br /><br />
 
 ### nAry()
@@ -532,22 +616,38 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 ```
 <br /><br />
 
+### compact()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/compact.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Creates an array with all undefined values removed.</p>
+
+**Params**
+<p><code>array</code>: <code>Array</code> - The array to compact.</p>
+
+**Returns**
+<br /><p><code>Array</code> - Returns the new array of filtered values.</p>
+
+**Example**
+```js
+compact([0, 1, false, 2, null, '', 3, undefined])
+// => [0, 1, false, 2, null, '', 3]
+```
+<br /><br />
+
 ### concat()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns the result of concatenating the given lists or strings.</p>
-<p>Note: <code>concat</code> expects both arguments to be of the same type,<br />
-unlike the native <code>Array.prototype.concat</code> method. It will throw<br />
-an error if you <code>concat</code> an Array with a non-Array value.</p>
+<p>Note: <code>concat</code> expects both arguments to be of the same type, unlike the native <code>Array.prototype.concat</code> method. It will throw an error if you <code>concat</code> an Array with a non-Array value.</p>
 <p>Dispatches to the <code>concat</code> method of the first argument, if present.</p>
 <p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
 
 **Params**
-<p><code>firstList</code>: <code>Array|String|Promise</code> - The first list</p>
-<p><code>secondList</code>: <code>Array|String|Promise</code> - The second list</p>
+<p><code>firstList</code>: <code>Array|string|Promise</code> - The first list</p>
+<p><code>secondList</code>: <code>Array|string|Promise</code> - The second list</p>
 
 **Returns**
-<br /><p><code>Array|String</code> - A list consisting of the elements of `firstList` followed by the elements of `secondList`.</p>
+<br /><p><code>Array|string</code> - A list consisting of the elements of `firstList` followed by the elements of `secondList`.</p>
 
 **Example**
 ```js
@@ -609,7 +709,7 @@ any(lessThan2)([1, 2]) //=> true
 
 ### filter()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/filter.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/filter.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
 <p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -709,6 +809,24 @@ findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
 ```
 <br /><br />
 
+### flatten()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/flatten.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns a new list by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
+
+**Params**
+<p><code>list</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The flattened list.</p>
+
+**Example**
+```js
+flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+```
+<br /><br />
+
 ### get()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/get.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -724,14 +842,80 @@ findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
 
 **Example**
 ```js
-getPath(['a', 'b'], {a: {b: 2}}); //=> 2
-getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
+get(['a', 'b'], {a: {b: 2}})
+//=> 2
+
+get(['a', 'b'], {c: {b: 2}})
+//=> undefined
+
+get('a', {a: {b: 2}})
+//=> { b: 2 }
+
+get('a.b', {a: {b: 2}})
+//=> 2
+
+get('a[0]', {a: [ 1, 2 ]})
+//=> 1
+
+get('[0]', [ 1, 2 ])
+//=> 1
+```
+<br /><br />
+
+### getParent()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getParent.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
+<p>Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.</p>
+
+**Params**
+<p><code>path</code>: <code>Array|string|number|Function</code> - The path to use.</p>
+<p><code>value</code>: <code>Object</code> - The value to retrieve the parent property value from.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The data at `path`.</p>
+
+**Example**
+```js
+getParent(['a', 'b'], {a: {b: 2}})
+//=> {b: 2}
+
+getParent(['a', 'b'], {c: {b: 2}})
+//=> undefined
+
+getParent('a', {a: {b: 2}})
+//=> {a: {b: 2}}
+
+getParent('a.b', {a: {b: 2}})
+//=> {b: 2}
+
+getParent('a[0]', {a: [ 1, 2 ]})
+//=> [ 1, 2 ]
+```
+<br /><br />
+
+### getParentPath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getParentPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
+
+**Params**
+<p><code>path</code>: <code>Array</code> - The path to use.</p>
+<p><code>value</code>: <code>&ast;</code> - The value to retrieve the nested property from.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The data at `path`.</p>
+
+**Example**
+```js
+getParentPath(['a', 'b'], {a: {b: 2}}); //=> {b: 2}
+getParentPath(['a', 'b'], {c: {b: 2}}); //=> undefined
 ```
 <br /><br />
 
 ### getPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getPath.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Retrieve the value at a given path.</p>
 
 **Params**
@@ -750,9 +934,8 @@ getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
 
 ### getProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getProp.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns a function that when supplied an object returns the indicated<br />
-property of that object, if it exists.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns a function that when supplied an object returns the indicated  property of that object, if it exists.</p>
 
 **Params**
 <p><code>prop</code>: <code>string|number|Function</code> - The property name or property selector</p>
@@ -959,6 +1142,27 @@ isArray(noop) // => false
 ```
 <br /><br />
 
+### isArrayBuffer()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isArrayBuffer.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as an <code>ArrayBuffer</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an array buffer, else `false`.</p>
+
+**Example**
+```js
+isArrayBuffer(new ArrayBuffer(2))
+// => true
+
+isArrayBuffer(new Array(2))
+// => false
+```
+<br /><br />
+
 ### isArrayLike()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isArrayLike.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -984,6 +1188,27 @@ isArrayLike(Function) // => false
 ```
 <br /><br />
 
+### isBoolean()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isBoolean.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a boolean primitive or object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a boolean, else `false`.</p>
+
+**Example**
+```js
+isBoolean(false)
+// => true
+
+isBoolean(null)
+// => false
+```
+<br /><br />
+
 ### isBuffer()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isBuffer.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -1000,6 +1225,48 @@ isArrayLike(Function) // => false
 isBuffer(new Buffer(2)) // => true
 
 isBuffer(new Uint8Array(2)) // => false
+```
+<br /><br />
+
+### isDate()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isDate.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>Date</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a date object, else `false`.</p>
+
+**Example**
+```js
+isDate(new Date)
+// => true
+
+isDate('Mon April 23 2012')
+// => false
+```
+<br /><br />
+
+### isElement()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isElement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is likely a DOM element.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a DOM element, else `false`.</p>
+
+**Example**
+```js
+isElement(document.body)
+// => true
+
+isElement('<body>')
+// => false
 ```
 <br /><br />
 
@@ -1032,6 +1299,27 @@ isEmpty([1, 2, 3]) // => false
 isEmpty('abc') // => false
 
 isEmpty({ 'a': 1 })  // => false
+```
+<br /><br />
+
+### isError()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isError.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is an <code>Error</code>, <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>, <code>SyntaxError</code>, <code>TypeError</code>, or <code>URIError</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an error object, else `false`.</p>
+
+**Example**
+```js
+isError(new Error)
+// => true
+
+isError(Error)
+// => false
 ```
 <br /><br />
 
@@ -1175,6 +1463,31 @@ isMap(new WeakMap) // => false
 ```
 <br /><br />
 
+### isNativeObject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isNativeObject.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is native JavaScript object instance.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a native JS object instance</p>
+
+**Example**
+```js
+isNativeObject(new WeakSet())
+// => true
+
+isNativeObject({})
+// => false
+
+class MyObject {}
+isNativeObject(new MyObject())
+// => false
+```
+<br /><br />
+
 ### isNil()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isNil.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -1268,8 +1581,7 @@ isObject(null) // => false
 ### isObjectLike()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isObjectLike.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code><br />
-and has a <code>typeof</code> result of &quot;object&quot;.</p>
+<p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code> and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
 **Params**
 <p><code>value</code>: <code>&ast;</code> - The value to check.</p>
@@ -1349,6 +1661,48 @@ isPromise({ then: () => {} }) //=> true
 **Returns**
 <br /><p><code>boolean</code> - Returns `true` if `value` is a prototype, else `false`.</p>
 
+<br /><br />
+
+### isRegExp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isRegExp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>RegExp</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a regexp, else `false`.</p>
+
+**Example**
+```js
+isRegExp(/abc/)
+// => true
+
+isRegExp('/abc/')
+// => false
+```
+<br /><br />
+
+### isSet()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isSet.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>Set</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a set, else `false`.</p>
+
+**Example**
+```js
+isSet(new Set())
+// => true
+
+isSet(new WeakSet())
+// => false
+```
 <br /><br />
 
 ### isString()
@@ -1448,6 +1802,48 @@ isUndefined(null) // => false
 ```
 <br /><br />
 
+### isWeakMap()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isWeakMap.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>WeakMap</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a weak map, else `false`.</p>
+
+**Example**
+```js
+isWeakMap(new WeakMap())
+// => true
+
+isWeakMap(new Map())
+// => false
+```
+<br /><br />
+
+### isWeakSet()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/isWeakSet.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>WeakSet</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a weak set, else `false`.</p>
+
+**Example**
+```js
+isWeakSet(new WeakSet())
+// => true
+
+isWeakSet(new Set())
+// => false
+```
+<br /><br />
+
 ### join()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/join.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
@@ -1514,6 +1910,24 @@ last([]) //=> undefined
 
 last('abc') //=> 'c'
 last(''); //=> ''
+```
+<br /><br />
+
+### length()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/length.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns the number of elements in the array by returning <code>list.length</code>.</p>
+
+**Params**
+<p><code>list</code>: <code>&ast;</code> - The array like value to inspect.</p>
+
+**Returns**
+<br /><p><code>Number</code> - The length of the list.</p>
+
+**Example**
+```js
+length([]) //=> 0
+length([1, 2, 3]) //=> 3
 ```
 <br /><br />
 
@@ -1645,6 +2059,62 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 **Returns**
 <br /><p><code>&ast;</code> - The final, accumulated value.</p>
 
+<br /><br />
+
+### reduceRight()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/reduceRight.js#L63)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value,  the current value and the index or key from the collection, and then passing the result to the next call.</p>
+<p>Similar to <a href="#reduce"><code>reduce</code></a>, except moves through the input list from the right to the left.</p>
+<p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
+<p>Supports async reducers. This method will automatically upgrade to async if given an async reducer.</p>
+<p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
+<p>Note: <code>reduceRight</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduceRight</code> method. For more details on this behavior, see:<br />
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight#Description</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+**Example**
+```js
+reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
+//    -               -2
+//   / \              / \
+//  1   -            1   3
+//     / \              / \
+//    2   -     ==>    2  -1
+//       / \              / \
+//      3   -            3   4
+//         / \              / \
+//        4   0            4   0
+```
+<br /><br />
+
+### reject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/reject.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>The complement of <a href="#filter"><code>filter</code></a>.</p>
+
+**Params**
+<p><code>predicate</code>: <code>Function</code> - </p>
+<p><code>filterable</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>&ast;</code> - </p>
+
+**Example**
+```js
+isOdd = (n) => n % 2 === 1
+
+reject(isOdd, [1, 2, 3, 4]) //=> [2, 4]
+
+reject(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
+```
 <br /><br />
 
 ### set()
@@ -1878,6 +2348,25 @@ toString([1, 2, 3])
 ```
 <br /><br />
 
+### union()
+
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/union.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Combines two lists into a set (i.e. no duplicates) composed of the elements<br />
+of each list.</p>
+
+**Params**
+<p><code>firstList</code>: <code>Array</code> - The first list.</p>
+<p><code>secondList</code>: <code>Array</code> - The second list.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The first and second lists concatenated, with duplicates removed.</p>
+
+**Example**
+```js
+union([1, 2, 3], [2, 3, 4]) //=> [1, 2, 3, 4]
+```
+<br /><br />
+
 ### walk()
 
 [source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walk.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
@@ -1921,8 +2410,9 @@ console.log(result)
 
 ### walkReduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReduce.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReduce.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk reduce using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
 **Params**
 <p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
@@ -1958,8 +2448,9 @@ walkReduce(
 
 ### walkReduceDepthFirst()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReduceDepthFirst.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReduceDepthFirst.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk depth first and reduce using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
 **Params**
 <p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
@@ -2002,8 +2493,9 @@ walkReduceDepthFirst(
 
 ### walkReducePath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReducePath.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.9/src/data/walkReducePath.js#L18)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Walk reduce the specific path using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
 **Params**
 <p><code>path</code>: <code>&ast;</code> - The specific path to walk</p>

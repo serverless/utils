@@ -21,12 +21,26 @@ import isUndefined from './isUndefined'
  * @returns {*} The data at `path`.
  * @example
  *
- * getPath(['a', 'b'], {a: {b: 2}}); //=> 2
- * getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
+ * get(['a', 'b'], {a: {b: 2}})
+ * //=> 2
+ *
+ * get(['a', 'b'], {c: {b: 2}})
+ * //=> undefined
+ *
+ * get('a', {a: {b: 2}})
+ * //=> { b: 2 }
+ *
+ * get('a.b', {a: {b: 2}})
+ * //=> 2
+ *
+ * get('a[0]', {a: [ 1, 2 ]})
+ * //=> 1
+ *
+ * get('[0]', [ 1, 2 ])
+ * //=> 1
  */
-const get = defn(
-  'get',
-  curry((selector, value) => {
+const get = curry(
+  defn('get', (selector, value) => {
     if (isUndefined(selector)) {
       return value
     }

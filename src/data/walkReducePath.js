@@ -1,9 +1,11 @@
+import resolve from '../common/resolve'
 import append from './append'
 import castPath from './castPath'
 import isObject from './isObject'
 import walk from './walk'
 
 const reducePathWalkee = (pathParts, accum, value, keys, iteratee, recur) => {
+  value = resolve(value)
   let result = iteratee(accum, value, keys)
   if (pathParts.length > keys.length && isObject(value)) {
     const nextKey = pathParts[keys.length]
@@ -15,6 +17,8 @@ const reducePathWalkee = (pathParts, accum, value, keys, iteratee, recur) => {
 
 /**
  * Walk reduce the specific path using the given reducer function
+ *
+ * NOTE: This method will resolve values during the walk before iterating and walking them.
  *
  * @function
  * @since v0.0.6

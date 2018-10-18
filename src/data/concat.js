@@ -8,9 +8,7 @@ import toString from './toString'
 /**
  * Returns the result of concatenating the given lists or strings.
  *
- * Note: `concat` expects both arguments to be of the same type,
- * unlike the native `Array.prototype.concat` method. It will throw
- * an error if you `concat` an Array with a non-Array value.
+ * Note: `concat` expects both arguments to be of the same type, unlike the native `Array.prototype.concat` method. It will throw an error if you `concat` an Array with a non-Array value.
  *
  * Dispatches to the `concat` method of the first argument, if present.
  *
@@ -19,9 +17,9 @@ import toString from './toString'
  * @function
  * @since v0.0.6
  * @category data
- * @param {Array|String|Promise} firstList The first list
- * @param {Array|String|Promise} secondList The second list
- * @returns {Array|String} A list consisting of the elements of `firstList` followed by the elements of `secondList`.
+ * @param {Array|string|Promise} firstList The first list
+ * @param {Array|string|Promise} secondList The second list
+ * @returns {Array|string} A list consisting of the elements of `firstList` followed by the elements of `secondList`.
  *
  * @example
  *
@@ -31,6 +29,7 @@ import toString from './toString'
  * await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5, 6, 1, 2, 3]
  */
 const concat = curry((firstList, secondList) => {
+  // TODO BRN: Add support for concatenating more than one list
   if (isPromise(firstList)) {
     return firstList.then((resolvedFirstList) => concat(resolvedFirstList, secondList))
   }

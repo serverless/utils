@@ -1,11 +1,11 @@
 import curry from '../common/curry'
+import defn from '../common/defn'
 import isFunction from './isFunction'
 import isNil from './isNil'
 import isUndefined from './isUndefined'
 
 /**
- * Returns a function that when supplied an object returns the indicated
- * property of that object, if it exists.
+ * Returns a function that when supplied an object returns the indicated  property of that object, if it exists.
  *
  * @function
  * @since v0.0.3
@@ -27,20 +27,22 @@ import isUndefined from './isUndefined'
  *   get(prop) { return this[prop] }
  * }) //=> 'bar'
  */
-const getProp = curry((prop, value) => {
-  if (isUndefined(prop)) {
-    return value
-  }
-  if (isFunction(prop)) {
-    return prop(value)
-  }
-  if (isNil(value)) {
-    return undefined
-  }
-  if (isFunction(value.get)) {
-    return value.get(prop)
-  }
-  return value[prop]
-})
+const getProp = curry(
+  defn('getProp', (prop, value) => {
+    if (isUndefined(prop)) {
+      return value
+    }
+    if (isFunction(prop)) {
+      return prop(value)
+    }
+    if (isNil(value)) {
+      return undefined
+    }
+    if (isFunction(value.get)) {
+      return value.get(prop)
+    }
+    return value[prop]
+  })
+)
 
 export default getProp
