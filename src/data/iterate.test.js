@@ -52,4 +52,46 @@ describe('iterate', () => {
     },
     10000
   )
+
+  test('iterates an async iterator until done is true', async () => {
+    const values = ['a', 'b', 'c', 'd', null, 'f']
+    let idx = -1
+    const iterator = {
+      next: async () =>
+        new Promise((resolve) => {
+          idx += 1
+          setTimeout(() => {
+            if (idx >= values.length) {
+              return resolve({
+                done: true
+              })
+            }
+            return resolve({
+              value: values[idx],
+              index: idx,
+              kdx: idx,
+              done: false
+            })
+          }, 0)
+        })
+    }
+    const acc = []
+    const result = iterate((next) => {
+      acc.push(next)
+      return {
+        ...next,
+        done: !next.value,
+        value: acc
+      }
+    }, iterator)
+    expect(result).toBeInstanceOf(Promise)
+
+    expect(await result).toEqual([
+      { value: 'a', kdx: 0, index: 0, done: false },
+      { value: 'b', kdx: 1, index: 1, done: false },
+      { value: 'c', kdx: 2, index: 2, done: false },
+      { value: 'd', kdx: 3, index: 3, done: false },
+      { value: null, kdx: 4, index: 4, done: false }
+    ])
+  })
 })
