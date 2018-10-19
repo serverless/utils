@@ -1,7 +1,7 @@
-const symIterator = typeof Symbol !== 'undefined' ? Symbol.iterator : '@@iterator'
+import { SYMBOL_ITERATOR } from '../constants'
 
 /**
- * Checks if `value` implements the iterator symbol
+ * Checks if `value` implements the iterator symbol or is iterable
  *
  * @function
  * @since v0.0.3
@@ -10,12 +10,18 @@ const symIterator = typeof Symbol !== 'undefined' ? Symbol.iterator : '@@iterato
  * @returns {boolean} Returns `true` if `value` is iterable, else `false`.
  * @example
  *
- * isIterable(new Map) //=> true
+ * isIterable('abc')
+ * //=> true
  *
- * isIterable({}) //=> false
+ * isIterable(new Map())
+ * //=> true
  *
- * isIterable([]) //=> true
+ * isIterable({})
+ * //=> false
+ *
+ * isIterable([])
+ * //=> true
  */
-const isIterable = (value) => value != null && value[symIterator] != null
+const isIterable = (value) => value != null && value[SYMBOL_ITERATOR] != null
 
 export default isIterable

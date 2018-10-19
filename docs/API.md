@@ -5,7 +5,7 @@
 * A number of our data methods have async support built in. They will automatically upgrade to async methods when an async iteratee is used.
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
-- [common methods](#common-methods)
+- [common](#common)
   * [all()](#all)
   * [apply()](#apply)
   * [complement()](#complement)
@@ -14,14 +14,24 @@
   * [defn()](#defn)
   * [dispatchable()](#dispatchable)
   * [identity()](#identity)
+  * [isOp()](#isop)
+  * [isResolved()](#isresolved)
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
+  * [pipe()](#pipe)
   * [resolve()](#resolve)
+  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
+  * [resolveWith()](#resolvewith)
   * [sleep()](#sleep)
-- [data methods](#data-methods)
+- [constants](#constants)
+  * [MAX_SAFE_INTEGER](#max_safe_integer)
+  * [SYMBOL_ITERATOR](#symbol_iterator)
+- [data](#data)
   * [any()](#any)
   * [anyAtIndex()](#anyatindex)
   * [append()](#append)
+  * [arrayIterator()](#arrayiterator)
+  * [arrayIteratorAtIndex()](#arrayiteratoratindex)
   * [arrayLikeKeys()](#arraylikekeys)
   * [assign()](#assign)
   * [assoc()](#assoc)
@@ -37,6 +47,9 @@
   * [find()](#find)
   * [findAtIndex()](#findatindex)
   * [flatten()](#flatten)
+  * [forEach()](#foreach)
+  * [forEachIndexed()](#foreachindexed)
+  * [forEachObjIndexed()](#foreachobjindexed)
   * [get()](#get)
   * [getParent()](#getparent)
   * [getParentPath()](#getparentpath)
@@ -83,11 +96,15 @@
   * [isUndefined()](#isundefined)
   * [isWeakMap()](#isweakmap)
   * [isWeakSet()](#isweakset)
+  * [iterate()](#iterate)
+  * [iterator()](#iterator)
   * [join()](#join)
   * [keys()](#keys)
   * [last()](#last)
   * [length()](#length)
   * [nth()](#nth)
+  * [objectIterator()](#objectiterator)
+  * [objectKeys()](#objectkeys)
   * [omit()](#omit)
   * [pick()](#pick)
   * [reduce()](#reduce)
@@ -109,18 +126,18 @@
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
   * [walkReducePath()](#walkreducepath)
-- [ip methods](#ip-methods)
+- [ip](#ip)
   * [isIp()](#isip)
   * [lookupIp()](#lookupip)
-- [lang methods](#lang-methods)
+- [lang](#lang)
   * [getProperty()](#getproperty)
   * [mix()](#mix)
-- [path methods](#path-methods)
+- [path](#path)
   * [findPath()](#findpath)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
-## common methods
+## common
 
 ### all()
 
@@ -302,6 +319,64 @@ identity(obj) === obj
 ```
 <br /><br />
 
+### isOp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/common/isOp.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Determines if the value is an op.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>boolean</code> - </p>
+
+**Example**
+```js
+isOp({
+  ['@@redux-saga/IO']: 'op'
+})
+//=> true
+```
+<br /><br />
+
+### isResolved()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/common/isResolved.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Determines if the value is a resolvable value.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>boolean</code> - </p>
+
+**Example**
+```js
+isResolved({
+  ['@@redux-saga/IO']: 'op'
+})
+//=> false
+
+isResolved((function* () {})())
+//=> false
+
+isResolved(new Promise(() => {})))
+//=> false
+
+isResolved({ resolve: () => 'foo' })
+//=> false
+
+isResolved(null)
+//=> true
+
+isResolved(undefined)
+//=> true
+
+isResolved('abc')
+//=> true
+```
+<br /><br />
+
 ### nAry()
 
 [source](https://github.com/serverless/utils/tree/v0.0.10/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -359,6 +434,28 @@ takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
 ```
 <br /><br />
 
+### pipe()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/common/pipe.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Performs left-to-right function composition. The leftmost function may have<br />
+any arity; the remaining functions must be unary.</p>
+<p>In some libraries this function is named <code>sequence</code>.</p>
+<p><strong>Note:</strong> The result of pipe is not automatically curried.</p>
+
+**Params**
+<p><code>functions</code>: <code>...Function</code> - </p>
+
+**Returns**
+<br /><p><code>Function</code> - </p>
+
+**Example**
+```js
+const f = pipe(Math.pow, negate, inc)
+
+f(3, 4) // -(3^4) + 1
+```
+<br /><br />
+
 ### resolve()
 
 [source](https://github.com/serverless/utils/tree/v0.0.10/src/common/resolve.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
@@ -397,6 +494,51 @@ resolve({
 ```
 <br /><br />
 
+### resolveToGeneratorWith()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/common/resolveToGeneratorWith.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the generator&#39;s resolution</p>
+<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
+
+**Returns**
+<br /><p><code>Generator</code> - </p>
+
+**Example**
+```js
+const generator = resolveToGeneratorWith(
+  (resolvedValue) => //=> 'foo'
+  'foo'
+)
+generator.next() //=> { done: true } triggers the fn method
+```
+<br /><br />
+
+### resolveWith()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/common/resolveWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Resolves a value to the given method.</p>
+<p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
+<p>If the value to be resolved is a generator, this method will return a generator.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the generator&#39;s resolution</p>
+<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
+
+**Returns**
+<br /><p><code>Generator</code> - </p>
+
+**Example**
+```js
+resolveWith(
+  (resolvedValue) => 'bar' // resolvedValue == 'foo'
+  'foo'
+) //=> 'bar'
+```
+<br /><br />
+
 ### sleep()
 
 [source](https://github.com/serverless/utils/tree/v0.0.10/src/common/sleep.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
@@ -415,7 +557,29 @@ await sleep(1000)
 ```
 <br /><br />
 
-## data methods
+## constants
+
+### MAX_SAFE_INTEGER
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>This constant represents the maximum safe integer in JavaScript (2^53 - 1).</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER">MAX_SAFE_INTEGER</a> for more information.</p>
+
+**Type**: `{number}`
+
+<br /><br />
+
+### SYMBOL_ITERATOR
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
+
+**Type**: `{Symbol}`
+
+<br /><br />
+
+## data
 
 ### any()
 
@@ -488,6 +652,73 @@ the given element.</p>
 append('tests', ['write', 'more']) //=> ['write', 'more', 'tests']
 append('tests', []) //=> ['tests']
 append(['tests'], ['write', 'more']) //=> ['write', 'more', ['tests']]
+```
+<br /><br />
+
+### arrayIterator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/arrayIterator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>Returns iterator for an array like value.</p>
+
+**Params**
+<p><code>arrayLike</code>: <code>&ast;</code> - The array like value to create an iterator for.</p>
+
+**Returns**
+<br /><p><code>Iterator</code> - A new iterator for the given array like value</p>
+
+**Example**
+```js
+arrayIterator(['write', 'more'])
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+// }
+arrayIterator('tests')
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+// }
+```
+<br /><br />
+
+### arrayIteratorAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/arrayIteratorAtIndex.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>Returns iterator for an array like value starting at the given index. If no index is supplied it defualts to 0.</p>
+
+**Params**
+<p><code>arrayLike</code>: <code>&ast;</code> - The array like value to create an iterator for.</p>
+<p><code>index</code>: <code>&ast;</code> - The index to start at.</p>
+
+**Returns**
+<br /><p><code>Iterator</code> - A new iterator for the given array like value</p>
+
+**Example**
+```js
+arrayIteratorAtIndex(['write', 'more', 'tests'])
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+// }
+
+iter.next()
+//=> { value: 'write', index: 0, kdx: 0, done: false }
+
+arrayIteratorAtIndex(['write', 'more', 'tests'], 1)
+iter.next()
+//=> { value: 'more', index: 1, kdx: 1, done: false }
 ```
 <br /><br />
 
@@ -825,6 +1056,65 @@ findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
 flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
 //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 ```
+<br /><br />
+
+### forEach()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/forEach.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Iterate over a collection calling a provided function <code>fn</code> for each element in the collection .</p>
+<p><code>fn</code> receives two arguments: <em>(value, kdx)</em></p>
+<p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
+<p>Note: <code>forEach</code> does not skip deleted or unassigned indices (sparse<br />
+arrays), unlike the native <code>Array.prototype.forEach</code> method. For more<br />
+details on this behavior, see:<br />
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach#Description</p>
+<p>Also note that, unlike <code>Array.prototype.forEach</code>, this <code>forEach</code> returns<br />
+the original value. In some libraries this function is named <code>each</code>.</p>
+<p>Dispatches to the <code>forEach</code> method of the second argument, if present.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The original collection.</p>
+
+**Example**
+```js
+const printXPlusFive = x => console.log(x + 5);
+forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
+// logs 6
+// logs 7
+// logs 8
+```
+<br /><br />
+
+### forEachIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/forEachIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Alias for <a href="#forEach">forEach</a> method</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The original collection.</p>
+
+<br /><br />
+
+### forEachObjIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/forEachObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Alias for <a href="#forEach">forEach</a> method</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The original collection.</p>
+
 <br /><br />
 
 ### get()
@@ -1386,7 +1676,7 @@ isGeneratorFunction(function() {})   //=> false
 
 ### isIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/isIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/isIndex.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is a valid array-like index.</p>
 
 **Params**
@@ -1396,11 +1686,22 @@ isGeneratorFunction(function() {})   //=> false
 **Returns**
 <br /><p><code>boolean</code> - Returns `true` if `value` is a valid index, else `false`.</p>
 
+**Example**
+```js
+isIndex(0)
+//=> true
+
+isIndex(1)
+//=> true
+
+isIndex(-1)
+//=> false
+```
 <br /><br />
 
 ### isInteger()
 
-[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/isInteger.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/isInteger.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Determine if the passed argument is an integer.</p>
 
 **Params**
@@ -1413,11 +1714,15 @@ isGeneratorFunction(function() {})   //=> false
 ```js
 isInteger(3) // => true
 
+isInteger(new Number(3)) // => true
+
 isInteger(3.2) // => false
 
 isInteger(Number.MIN_VALUE) // => false
 
 isInteger(Infinity) // => false
+
+isInteger(NaN) // => false
 
 isInteger('3') // => false
 ```
@@ -1426,7 +1731,7 @@ isInteger('3') // => false
 ### isIterable()
 
 [source](https://github.com/serverless/utils/tree/v0.0.10/src/data/isIterable.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> implements the iterator symbol</p>
+<p>Checks if <code>value</code> implements the iterator symbol or is iterable</p>
 
 **Params**
 <p><code>value</code>: <code>&ast;</code> - The value to check.</p>
@@ -1436,11 +1741,17 @@ isInteger('3') // => false
 
 **Example**
 ```js
-isIterable(new Map) //=> true
+isIterable('abc')
+//=> true
 
-isIterable({}) //=> false
+isIterable(new Map())
+//=> true
 
-isIterable([]) //=> true
+isIterable({})
+//=> false
+
+isIterable([])
+//=> true
 ```
 <br /><br />
 
@@ -1844,6 +2155,55 @@ isWeakSet(new Set())
 ```
 <br /><br />
 
+### iterate()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/iterate.js#L42)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>This method iterates over the given collection or iterator in series. If the iterate method Returns done: true then the iteration will complete</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iteratee Function</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection or iterator to iterate over</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final value returned when the iteratee returns done or `undefined`</p>
+
+**Example**
+```js
+iterate((value, kdx) => {
+  if (value === 'b') {
+    return { done: true, value: kdx }
+  }
+  return { done: false }
+}, ['a', 'b', 'c'])
+//=> 1
+```
+<br /><br />
+
+### iterator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/iterator.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>This method generates an iterator for the given value</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iteratee Function</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection or iterator to iterate over</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final value returned when the iteratee returns done or `undefined`</p>
+
+**Example**
+```js
+iterator(['a', 'b', 'c'])
+//=> { next: () => { value: string, index: number, kdx: umber, done: boolean }}
+
+iterator('abc')
+//=> { next: () => { value: string, index: number, kdx: umber, done: boolean }}
+
+iterator({ a: 1, b: 2, c: 3 })
+//=> { next: () => { value: number, key: string, kdx: string, done: boolean }}
+```
+<br /><br />
+
 ### join()
 
 [source](https://github.com/serverless/utils/tree/v0.0.10/src/data/join.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
@@ -1956,6 +2316,56 @@ nth(3, 'abc') //=> ''
 ```
 <br /><br />
 
+### objectIterator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/objectIterator.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>Returns iterator for an object's keys and values.</p>
+
+**Params**
+<p><code>object</code>: <code>&ast;</code> - The array object to create an iterator for.</p>
+
+**Returns**
+<br /><p><code>Iterator</code> - A new iterator for the given object&#39;s keys and values</p>
+
+**Example**
+```js
+objectIterator({ write: 'more', tests: 'asap' })
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: string,
+//     key: string
+//   })
+// }
+
+iter.next()
+//=> { value: 'more', key: 'write', kdx: 'write', done: false }
+iter.next()
+//=> { value: 'asap', key: 'tests', kdx: 'tests', done: false }
+iter.next()
+//=> { done: true }
+```
+<br /><br />
+
+### objectKeys()
+
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/objectKeys.js#L34)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>Returns a list containing the names of all the enumerable own properties of the supplied object.<br />
+Note that the order of the output array is not guaranteed to be consistent across different JS platforms.</p>
+
+**Params**
+<p><code>obj</code>: <code>Object</code> - The object to extract properties from</p>
+
+**Returns**
+<br /><p><code>Array</code> - An array of the object&#39;s own properties.</p>
+
+**Example**
+```js
+objectKeys({a: 1, b: 2, c: 3}) //=> ['a', 'b', 'c']
+```
+<br /><br />
+
 ### omit()
 
 [source](https://github.com/serverless/utils/tree/v0.0.10/src/data/omit.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
@@ -2004,6 +2414,7 @@ await pick(
 [source](https://github.com/serverless/utils/tree/v0.0.10/src/data/reduce.js#L70)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.</p>
 <p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
+<p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
 <p>Note: <code>reduce</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details  on this behavior, see:<br />
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description</p>
 <p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
@@ -2533,7 +2944,7 @@ walkReducePath(
 ```
 <br /><br />
 
-## ip methods
+## ip
 
 ### isIp()
 
@@ -2596,7 +3007,7 @@ await lookupIp('139.130.4.5')
 ```
 <br /><br />
 
-## lang methods
+## lang
 
 ### getProperty()
 
@@ -2653,7 +3064,7 @@ class mix(Parent, ...args).with(mixin) { ... }
 ```
 <br /><br />
 
-## path methods
+## path
 
 ### findPath()
 

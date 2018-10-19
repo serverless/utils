@@ -8,6 +8,7 @@ const nodeIsDate = nodeTypes && nodeTypes.isDate
 /**
  * Checks if `value` is classified as a `Date` object.
  *
+ * @function
  * @since 0.0.10
  * @category data
  * @param {*} value The value to check.

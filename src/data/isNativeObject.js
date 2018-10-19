@@ -5,6 +5,7 @@ import isTypedArray from './isTypedArray'
 /**
  * Checks if `value` is native JavaScript object instance.
  *
+ * @function
  * @since 0.0.10
  * @category data
  * @param {*} value The value to check.

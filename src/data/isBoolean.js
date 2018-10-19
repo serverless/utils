@@ -4,6 +4,7 @@ import isObjectLike from './isObjectLike'
 /**
  * Checks if `value` is classified as a boolean primitive or object.
  *
+ * @function
  * @since 0.0.10
  * @category data
  * @param {*} value The value to check.

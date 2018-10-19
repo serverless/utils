@@ -111,6 +111,16 @@ const findSince = (tags) => {
   return prop('string', sinceTag)
 }
 
+const findFunction = (tags) => {
+  const functionTag = find((tag) => tag.type === 'function', tags)
+  return functionTag
+}
+
+const findType = (tags) => {
+  const typeTag = find((tag) => tag.type === 'type', tags)
+  return typeTag
+}
+
 const renderParamsMarkdown = (params) => {
   let markdown = `**Params**\n`
   if (!isEmpty(params)) {
@@ -128,7 +138,7 @@ const renderParamsMarkdown = (params) => {
 
 const renderReturnsMarkdown = (returns) => {
   let markdown = `**Returns**\n<br />`
-  if (returns.typesDescription) {
+  if (returns != null && returns.typesDescription) {
     markdown += `<p><code>${toHtml(returns.typesDescription)}</code> - ${toHtml(
       returns.description
     )}</p>\n\n`
@@ -171,14 +181,33 @@ const renderFunctionMarkdown = ({
   return markdown
 }
 
+const renderValueMarkdown = ({ description, example, line, name, type, since, srcFile }) => {
+  let markdown = `### ${name}\n\n`
+  // console.log('meta:', JSON.stringify(data, null, 2))
+  markdown += `[source](${GITHUB_TAG_URL}/src/${srcFile}#L${line})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since ${since}\n`
+  markdown += `${description}\n\n`
+
+  markdown += `**Type**: \`${type}\`\n\n`
+  markdown += renderExampleMarkdown(example)
+  markdown += '<br /><br />\n\n'
+  return markdown
+}
+
 const renderCategoryMarkdown = (category) => {
-  const markdown = `## ${category.name} methods\n\n`
-  return reduce(
+  let markdown = `## ${category.name}\n\n`
+  markdown = reduce(
     (accMarkdown, fn) => {
       return accMarkdown + renderFunctionMarkdown(fn)
     },
     markdown,
     category.functions
+  )
+  return reduce(
+    (accMarkdown, value) => {
+      return accMarkdown + renderValueMarkdown(value)
+    },
+    markdown,
+    category.values
   )
 }
 
@@ -227,21 +256,75 @@ const generateFunctionDocs = (meta, srcFile) => {
   }
 }
 
+const generateValueDocs = (meta, srcFile) => {
+  const category = findCategory(meta.tags)
+  if (!category) {
+    throw new Error(`Source file ${srcFile} did not declare a @category tag`)
+  }
+  const since = findSince(meta.tags)
+  if (!since) {
+    throw new Error(`Source file ${srcFile} did not declare a @since tag`)
+  }
+  const typeTag = findType(meta.tags)
+  return {
+    category,
+    description: meta.description.full,
+    example: findExample(meta.tags),
+    line: meta.line,
+    name: meta.ctx.name,
+    type: typeTag.string,
+    since,
+    srcFile
+  }
+}
+
+const getType = (tags) => {
+  const functionTag = findFunction(tags)
+  if (functionTag) {
+    return 'function'
+  }
+  const typeTag = findType(tags)
+  if (typeTag) {
+    return typeTag.string
+  }
+  return undefined
+}
+
+const getCategory = (name, categories) => {
+  let category = prop(name, categories)
+  if (!category) {
+    category = {
+      name,
+      functions: [],
+      values: []
+    }
+  }
+  return category
+}
+
 const generateCategoryDocs = (srcData) =>
   reduce(
     (categories, data) => {
       forEach((meta) => {
         if (meta.ctx && !isEmpty(meta.tags)) {
-          const fnDocs = generateFunctionDocs(meta, data.srcFile)
-          let category = prop(fnDocs.category, categories)
-          if (!category) {
-            category = {
-              name: fnDocs.category,
-              functions: []
-            }
+          const type = getType(meta.tags)
+          if (!type) {
+            throw new Error(
+              `Source file ${data.srcFile} did not declare a @function tag or a @type tag`
+            )
           }
-          category = assoc('functions', append(fnDocs, category.functions), category)
-          categories = assoc(fnDocs.category, category, categories)
+
+          if (type === 'function') {
+            const fnDocs = generateFunctionDocs(meta, data.srcFile)
+            let category = getCategory(fnDocs.category, categories)
+            category = assoc('functions', append(fnDocs, category.functions), category)
+            categories = assoc(fnDocs.category, category, categories)
+          } else {
+            const valueDocs = generateValueDocs(meta, data.srcFile)
+            let category = getCategory(valueDocs.category, categories)
+            category = assoc('values', append(valueDocs, category.values), category)
+            categories = assoc(valueDocs.category, category, categories)
+          }
         }
       }, data.meta)
       return categories

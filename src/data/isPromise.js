@@ -16,6 +16,6 @@ import isFunction from './isFunction'
  *
  * isPromise({ then: () => {} }) //=> true
  */
-const isPromise = (value) => value && isFunction(value.then)
+const isPromise = (value) => value != null && isFunction(value.then)
 
 export default isPromise

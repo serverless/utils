@@ -31,6 +31,7 @@ import isObject from '../data/isObject'
  * await all(123) //=> 123
  */
 const all = async (value) => {
+  // TODO BRN: add support for more than one parameter
   if (isArray(value)) {
     return Promise.all(value)
   } else if (isObject(value) && !isFunction(value)) {

@@ -5,6 +5,7 @@ import isPlainObject from './isPlainObject'
 /**
  * Checks if `value` is an `Error`, `EvalError`, `RangeError`, `ReferenceError`, `SyntaxError`, `TypeError`, or `URIError` object.
  *
+ * @function
  * @since 0.0.10
  * @category data
  * @param {*} value The value to check.
