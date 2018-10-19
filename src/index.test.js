@@ -35,6 +35,8 @@ describe('index', () => {
   test('has constants', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
+      HAS_ARGS_ENUM_BUG: expect.any(Boolean),
+      HAS_OBJECT_ENUM_BUG: expect.any(Boolean),
       MAX_SAFE_INTEGER: expect.any(Number),
       SYMBOL_ITERATOR: expect.anything()
     })

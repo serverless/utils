@@ -1,9 +1,7 @@
+import { HAS_ARGS_ENUM_BUG, HAS_OBJECT_ENUM_BUG } from '../constants'
 import curry from '../common/curry'
 import hasProp from './hasProp'
 import isArguments from './isArguments'
-
-// cover IE < 9 keys issues
-const hasEnumBug = !{ toString: null }.propertyIsEnumerable('toString')
 
 const nonEnumerableProps = [
   'constructor',
@@ -14,11 +12,6 @@ const nonEnumerableProps = [
   'hasOwnProperty',
   'toLocaleString'
 ]
-
-// Safari bug
-const hasArgsEnumBug = (function() {
-  return arguments.propertyIsEnumerable('length')
-})()
 
 const contains = (list, item) => {
   let idx = 0
@@ -45,7 +38,7 @@ const contains = (list, item) => {
  * objectKeys({a: 1, b: 2, c: 3}) //=> ['a', 'b', 'c']
  */
 const objectKeys =
-  typeof Object.keys === 'function' && !hasArgsEnumBug
+  typeof Object.keys === 'function' && !HAS_ARGS_ENUM_BUG
     ? curry((obj) => {
         return Object(obj) !== obj ? [] : Object.keys(obj)
       })
@@ -56,13 +49,13 @@ const objectKeys =
         let prop
         let nIdx
         const ks = []
-        const checkArgsLength = hasArgsEnumBug && isArguments(obj)
+        const checkArgsLength = HAS_ARGS_ENUM_BUG && isArguments(obj)
         for (prop in obj) {
           if (hasProp(prop, obj) && (!checkArgsLength || prop !== 'length')) {
             ks[ks.length] = prop
           }
         }
-        if (hasEnumBug) {
+        if (HAS_OBJECT_ENUM_BUG) {
           nIdx = nonEnumerableProps.length - 1
           while (nIdx >= 0) {
             prop = nonEnumerableProps[nIdx]

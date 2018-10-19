@@ -2350,7 +2350,7 @@ iter.next()
 
 ### objectKeys()
 
-[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/objectKeys.js#L34)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.10/src/data/objectKeys.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns a list containing the names of all the enumerable own properties of the supplied object.<br />
 Note that the order of the output array is not guaranteed to be consistent across different JS platforms.</p>
 
