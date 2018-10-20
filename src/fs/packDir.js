@@ -1,15 +1,17 @@
 import archiver from 'archiver'
-import { createWriteStream } from 'fs-extra'
+import { createWriteStream, createReadStream } from 'fs-extra'
 import path from 'path'
 import contains from '../data/contains'
 import last from '../data/last'
 import split from '../data/split'
+import isEmpty from '../data/isEmpty'
+import forEach from '../data/forEach'
 import readFileIfExists from './readFileIfExists'
 
 const VALID_FORMATS = ['zip', 'tar']
 const isValidFormat = (format) => contains(format, VALID_FORMATS)
 
-const packDir = async (inputDirPath, outputFilePath) => {
+const packDir = async (inputDirPath, outputFilePath, append = []) => {
   const format = last(split('.', outputFilePath))
 
   if (!isValidFormat(format)) {
@@ -25,6 +27,14 @@ const packDir = async (inputDirPath, outputFilePath) => {
 
     output.on('open', () => {
       archive.pipe(output)
+
+      if (!isEmpty(append)) {
+        forEach((file) => {
+          const stream = createReadStream(file)
+          archive.append(stream, { name: path.basename(file) })
+        }, append)
+      }
+
       archive.glob(
         '**/*',
         {
