@@ -161,6 +161,7 @@ describe('index', () => {
       walkReduce: expect.any(Function),
       walkReduceDepthFirst: expect.any(Function),
       walkReducePath: expect.any(Function),
+      whereEq: expect.any(Function),
       without: expect.any(Function)
     })
   })
