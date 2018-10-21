@@ -183,7 +183,6 @@ const renderFunctionMarkdown = ({
 
 const renderValueMarkdown = ({ description, example, line, name, type, since, srcFile }) => {
   let markdown = `### ${name}\n\n`
-  // console.log('meta:', JSON.stringify(data, null, 2))
   markdown += `[source](${GITHUB_TAG_URL}/src/${srcFile}#L${line})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since ${since}\n`
   markdown += `${description}\n\n`
 

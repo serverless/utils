@@ -1,2 +1,2 @@
 set -e
-jest . "$@"
+jest "$@"
