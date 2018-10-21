@@ -40,6 +40,7 @@ npm run docs:gen
 ```
 - Commit files changes with new version numbers. Replace Xs with new version number.
 ```sh
+git add -A
 git commit -m"Releasing vX.X.X"
 git push origin release-vX.X.X
 ```
