@@ -5,7 +5,7 @@ import isString from './isString'
  * Returns the nth element of the given list or string. If n is negative the
  * element at index length + n is returned.
  *
- * @func
+ * @function
  * @since v0.0.5
  * @category data
  * @sig Number -> String -> String

@@ -1,3 +1,5 @@
+import isNumber from './isNumber'
+
 /**
  * Determine if the passed argument is an integer.
  *
@@ -10,14 +12,18 @@
  *
  * isInteger(3) // => true
  *
+ * isInteger(new Number(3)) // => true
+ *
  * isInteger(3.2) // => false
 
  * isInteger(Number.MIN_VALUE) // => false
  *
  * isInteger(Infinity) // => false
  *
+ * isInteger(NaN) // => false
+ *
  * isInteger('3') // => false
  */
-const isInteger = Number.isInteger || ((value) => value << 0 === value)
+const isInteger = (value) => isNumber(value) && value << 0 == value
 
 export default isInteger

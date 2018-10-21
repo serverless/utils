@@ -7,6 +7,7 @@ if (!global._babelPolyfill) {
 // require('source-map-support/register')
 
 const common = require('./common')
+const constants = require('./constants')
 const data = require('./data')
 const error = require('./error')
 const fetch = require('./fetch')
@@ -17,6 +18,7 @@ const path = require('./path')
 
 module.exports = {
   ...common,
+  ...constants,
   ...data,
   ...error,
   ...fetch,

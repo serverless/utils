@@ -31,6 +31,7 @@ describe('isArray', () => {
     expect(isArray(new Boolean(true))).toBe(false)
     expect(isArray(new Date())).toBe(false)
     expect(isArray(new Error())).toBe(false)
+    expect(isArray(new Map())).toBe(false)
     expect(isArray(new Number(1))).toBe(false)
     expect(isArray(new Promise(() => {}))).toBe(false)
     expect(isArray(new Proxy({}, {}))).toBe(false)

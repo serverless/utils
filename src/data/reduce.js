@@ -72,6 +72,7 @@ const arrayReduce = (iteratee, accumulator, array) => {
  *
  * The iterator function receives three values: *(acc, value, kdx)*.
  *
+ * This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.
  *
  * Note: `reduce` does not skip deleted or unassigned indices (sparse arrays), unlike the native `Array.prototype.reduce` method. For more details  on this behavior, see:
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description

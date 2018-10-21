@@ -18,12 +18,27 @@ describe('index', () => {
       defn: expect.any(Function),
       dispatchable: expect.any(Function),
       identity: expect.any(Function),
+      isOp: expect.any(Function),
+      isResolved: expect.any(Function),
       memoize: expect.any(Function),
       memoizeWith: expect.any(Function),
       nAry: expect.any(Function),
       nArySpread: expect.any(Function),
-      resolve: expect.any(Function),
+      isOp: expect.any(Function),
+      pipe: expect.any(Function),
+      resolveToGeneratorWith: expect.any(Function),
+      resolveWith: expect.any(Function),
       sleep: expect.any(Function)
+    })
+  })
+
+  test('has constants', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
+      HAS_ARGS_ENUM_BUG: expect.any(Boolean),
+      HAS_OBJECT_ENUM_BUG: expect.any(Boolean),
+      MAX_SAFE_INTEGER: expect.any(Number),
+      SYMBOL_ITERATOR: expect.anything()
     })
   })
 
@@ -36,6 +51,8 @@ describe('index', () => {
       any: expect.any(Function),
       anyAtIndex: expect.any(Function),
       append: expect.any(Function),
+      arrayIterator: expect.any(Function),
+      arrayIteratorAtIndex: expect.any(Function),
       arrayLikeKeys: expect.any(Function),
       assign: expect.any(Function),
       assoc: expect.any(Function),
@@ -117,6 +134,8 @@ describe('index', () => {
       isUrl: expect.any(Function),
       isWeakMap: expect.any(Function),
       isWeakSet: expect.any(Function),
+      iterate: expect.any(Function),
+      iterator: expect.any(Function),
       join: expect.any(Function),
       keys: expect.any(Function),
       last: expect.any(Function),
@@ -130,6 +149,8 @@ describe('index', () => {
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // nodeTypes: expect.any(Object),
       nth: expect.any(Function),
+      objectIterator: expect.any(Function),
+      objectKeys: expect.any(Function),
       omit: expect.any(Function),
       over: expect.any(Function),
       pick: expect.any(Function),

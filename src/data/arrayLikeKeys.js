@@ -9,7 +9,7 @@ const { hasOwnProperty } = Object.prototype
 /**
  * Creates an array of the enumerable property names of the array-like `value`.
  *
- * @func
+ * @function
  * @since v0.0.3
  * @category data
  * @param {*} value The value to query.
