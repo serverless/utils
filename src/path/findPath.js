@@ -1,5 +1,7 @@
+import isString from '../base/isString'
 import find from '../data/find'
-import isString from '../data/isString'
+
+const findString = find(isString)
 
 /**
  * Finds the first path in the given args.
@@ -14,6 +16,6 @@ import isString from '../data/isString'
  *
  * findPath(null, 0, '/foo', '/bar') // => '/foo'
  */
-const findPath = (...values) => find(isString)(values)
+const findPath = (...values) => findString(values)
 
 export default findPath

@@ -1,6 +1,8 @@
 import fse from 'fs-extra'
 import path from 'path'
-import { append, concat, reduce } from 'ramda'
+import append from '../data/append'
+import concat from '../data/concat'
+import reduce from '../data/reduce'
 
 const walkDirSync = (dirPath) => {
   const list = fse.readdirSync(dirPath)

@@ -1,4 +1,4 @@
-import defn from '../common/defn'
+import isFunction from './isFunction'
 import isObject from './isObject'
 import isPromise from './isPromise'
 import isSymbol from './isSymbol'
@@ -43,9 +43,12 @@ const freeParseInt = parseInt
  * toNumber('3.2')
  * // => 3.2
  */
-const toNumber = defn('toNumber', (value) => {
+const toNumber = (value) => {
   if (isPromise(value)) {
     return value.then((resolvedValue) => toNumber(resolvedValue))
+  }
+  if (value != null && isFunction(value.toNumber)) {
+    return value.toNumber()
   }
   if (typeof value == 'number') {
     return value
@@ -67,6 +70,6 @@ const toNumber = defn('toNumber', (value) => {
     : reIsBadHex.test(value)
       ? NAN
       : +value
-})
+}
 
 export default toNumber

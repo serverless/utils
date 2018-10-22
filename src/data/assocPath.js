@@ -1,10 +1,10 @@
+import isArray from '../base/isArray'
+import isInteger from '../base/isInteger'
+import isNil from '../base/isNil'
 import curry from '../common/curry'
 import assocIndex from './assocIndex'
 import assocProp from './assocProp'
 import has from './has'
-import isArray from './isArray'
-import isInteger from './isInteger'
-import isNil from './isNil'
 
 /**
  * Makes a shallow clone of an object, setting or overriding the nodes required

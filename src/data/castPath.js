@@ -1,6 +1,6 @@
-import isArray from './isArray'
-import isKey from './isKey'
-import isString from './isString'
+import isArray from '../base/isArray'
+import isKey from '../base/isKey'
+import isString from '../base/isString'
 import stringToPath from './stringToPath'
 
 const castPath = (value, object) => {

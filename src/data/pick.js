@@ -1,6 +1,6 @@
+import isPromise from '../base/isPromise'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import isPromise from './isPromise'
 
 /**
  * Returns a partial copy of an object containing only the keys specified. If

@@ -1,6 +1,6 @@
-import isFunction from '../data/isFunction'
-import isGenerator from '../data/isGenerator'
-import isPromise from '../data/isPromise'
+import isFunction from '../base/isFunction'
+import isGenerator from '../base/isGenerator'
+import isPromise from '../base/isPromise'
 import isOp from './isOp'
 
 /**

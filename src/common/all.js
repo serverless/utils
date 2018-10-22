@@ -1,7 +1,10 @@
 import Promise from 'bluebird'
-import isArray from '../data/isArray'
-import isFunction from '../data/isFunction'
-import isObject from '../data/isObject'
+import isArray from '../base/isArray'
+import isFunction from '../base/isFunction'
+import isIterator from '../base/isIterator'
+import isObject from '../base/isObject'
+import isPromise from '../base/isPromise'
+import iterate from '../data/iterate'
 
 /**
  * Resolves all async values in an array or object
@@ -30,13 +33,37 @@ import isObject from '../data/isObject'
  * await all('abc') //=> 'abc'
  * await all(123) //=> 123
  */
-const all = async (value) => {
+const all = (value) => {
   // TODO BRN: add support for more than one parameter
-  if (isArray(value)) {
-    return Promise.all(value)
+  // TODO BRN: add support for generators
+  // TODO BRN: add support for async iterators
+  let result
+  if (isArray(value) || isIterator(value)) {
+    result = []
   } else if (isObject(value) && !isFunction(value)) {
-    return Promise.props(value)
+    result = {}
+  } else {
+    return value
   }
+  let resolveAsync = false
+  iterate((next) => {
+    if (next.done) {
+      return next
+    }
+    result[next.kdx] = next.value
+    if (isPromise(next.value)) {
+      resolveAsync = true
+    }
+  }, value)
+
+  if (resolveAsync) {
+    if (isArray(result)) {
+      return Promise.all(result)
+    } else if (isObject(result)) {
+      return Promise.props(result)
+    }
+  }
+
   return value
 }
 

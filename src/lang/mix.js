@@ -1,5 +1,5 @@
-import isFunction from '../data/isFunction'
-import isPromise from '../data/isPromise'
+import isFunction from '../base/isFunction'
+import isPromise from '../base/isPromise'
 import reduce from '../data/reduce'
 import reduceObjIndexed from '../data/reduceObjIndexed'
 

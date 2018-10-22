@@ -1,10 +1,10 @@
+import isArray from '../base/isArray'
+import isFunction from '../base/isFunction'
+import isUndefined from '../base/isUndefined'
 import curry from '../common/curry'
 import always from './always'
 import assocPath from './assocPath'
 import castPath from './castPath'
-import isArray from './isArray'
-import isFunction from './isFunction'
-import isUndefined from './isUndefined'
 import over from './over'
 
 /**

@@ -1,7 +1,7 @@
+import isFunction from '../base/isFunction'
+import isPromise from '../base/isPromise'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import isFunction from './isFunction'
-import isPromise from './isPromise'
 
 /**
  * Returns a string made by inserting the `separator` between each element and

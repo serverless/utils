@@ -1,10 +1,10 @@
 import { SYMBOL_ITERATOR } from '../constants'
-import arrayIterator from './arrayIterator'
-import isArrayLike from './isArrayLike'
-import isIterable from './isIterable'
-import isIterator from './isIterator'
-import isObjectLike from './isObjectLike'
-import objectIterator from './objectIterator'
+import arrayIterator from '../base/arrayIterator'
+import isArrayLike from '../base/isArrayLike'
+import isIterable from '../base/isIterable'
+import isIterator from '../base/isIterator'
+import isObjectLike from '../base/isObjectLike'
+import objectIterator from '../base/objectIterator'
 
 /**
  * This method generates an iterator for the given value

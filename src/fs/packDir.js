@@ -1,10 +1,10 @@
 import archiver from 'archiver'
 import { createWriteStream, createReadStream } from 'fs-extra'
 import path from 'path'
+import isEmpty from '../base/isEmpty'
 import contains from '../data/contains'
 import last from '../data/last'
 import split from '../data/split'
-import isEmpty from '../data/isEmpty'
 import forEach from '../data/forEach'
 import readFileIfExists from './readFileIfExists'
 

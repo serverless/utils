@@ -1,5 +1,5 @@
+import isUndefined from '../base/isUndefined'
 import defn from '../common/defn'
-import isUndefined from './isUndefined'
 import reject from './reject'
 
 /**

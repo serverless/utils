@@ -1,4 +1,4 @@
-import defn from '../common/defn'
+import isFunction from './isFunction'
 import isPromise from './isPromise'
 import toFinite from './toFinite'
 
@@ -27,14 +27,17 @@ import toFinite from './toFinite'
  * toInteger('3.2')
  * // => 3
  */
-const toInteger = defn('toInteger', (value) => {
+const toInteger = (value) => {
   if (isPromise(value)) {
     return value.then((resolvedValue) => toInteger(resolvedValue))
+  }
+  if (value != null && isFunction(value.toInteger)) {
+    return value.toInteger()
   }
   const result = toFinite(value)
   const remainder = result % 1
 
   return remainder ? result - remainder : result
-})
+}
 
 export default toInteger

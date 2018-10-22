@@ -1,4 +1,4 @@
-import isPromise from '../data/isPromise'
+import isPromise from '../base/isPromise'
 import curry from './curry'
 import isResolved from './isResolved'
 import resolve from './resolve'
