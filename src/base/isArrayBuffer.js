@@ -10,7 +10,7 @@ const nodeIsArrayBuffer = nodeTypes && nodeTypes.isArrayBuffer
  *
  * @function
  * @since 0.0.10
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is an array buffer, else `false`.
  * @example

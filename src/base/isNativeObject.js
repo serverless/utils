@@ -7,7 +7,7 @@ import isTypedArray from './isTypedArray'
  *
  * @function
  * @since 0.0.10
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a native JS object instance
  * @example

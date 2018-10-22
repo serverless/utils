@@ -5,7 +5,7 @@ import { SYMBOL_ITERATOR } from '../constants'
  *
  * @function
  * @since v0.0.3
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is iterable, else `false`.
  * @example

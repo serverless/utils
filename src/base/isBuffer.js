@@ -21,7 +21,7 @@ const nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined
  *
  * @function
  * @since v0.0.3
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
  * @example

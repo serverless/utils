@@ -8,7 +8,7 @@ const reIsUint = /^(?:0|[1-9]\d*)$/
  *
  * @function
  * @since v0.0.3
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @param {number} length [=MAX_SAFE_INTEGER] The upper bounds of a valid index.
  * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.

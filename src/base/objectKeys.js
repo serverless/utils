@@ -29,7 +29,7 @@ const contains = (list, item) => {
  *
  * @function
  * @since v0.0.11
- * @category data
+ * @category base
  * @param {Object} obj The object to extract properties from
  * @returns {Array} An array of the object's own properties.
  * @example

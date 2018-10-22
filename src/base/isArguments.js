@@ -5,7 +5,7 @@ import isObjectLike from './isObjectLike'
  * Checks if `value` is likely an `arguments` object.
  *
  * @function
- * @category data
+ * @category base
  * @since v0.0.3
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is an `arguments` object, else `false`.

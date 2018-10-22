@@ -5,7 +5,7 @@
 * A number of our data methods have async support built in. They will automatically upgrade to async methods when an async iteratee is used.
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
-- [data](#data)
+- [base](#base)
   * [arrayIterator()](#arrayiterator)
   * [arrayIteratorAtIndex()](#arrayiteratoratindex)
   * [arrayLikeKeys()](#arraylikekeys)
@@ -51,6 +51,28 @@
   * [toNumber()](#tonumber)
   * [toObject()](#toobject)
   * [toString()](#tostring)
+- [common](#common)
+  * [all()](#all)
+  * [apply()](#apply)
+  * [complement()](#complement)
+  * [compose()](#compose)
+  * [deferredPromise()](#deferredpromise)
+  * [defn()](#defn)
+  * [dispatchable()](#dispatchable)
+  * [identity()](#identity)
+  * [isOp()](#isop)
+  * [isResolved()](#isresolved)
+  * [nAry()](#nary)
+  * [nArySpread()](#naryspread)
+  * [pipe()](#pipe)
+  * [resolve()](#resolve)
+  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
+  * [resolveWith()](#resolvewith)
+  * [sleep()](#sleep)
+- [constants](#constants)
+  * [MAX_SAFE_INTEGER](#max_safe_integer)
+  * [SYMBOL_ITERATOR](#symbol_iterator)
+- [data](#data)
   * [any()](#any)
   * [anyAtIndex()](#anyatindex)
   * [append()](#append)
@@ -106,27 +128,6 @@
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
   * [walkReducePath()](#walkreducepath)
-- [common](#common)
-  * [all()](#all)
-  * [apply()](#apply)
-  * [complement()](#complement)
-  * [compose()](#compose)
-  * [deferredPromise()](#deferredpromise)
-  * [defn()](#defn)
-  * [dispatchable()](#dispatchable)
-  * [identity()](#identity)
-  * [isOp()](#isop)
-  * [isResolved()](#isresolved)
-  * [nAry()](#nary)
-  * [nArySpread()](#naryspread)
-  * [pipe()](#pipe)
-  * [resolve()](#resolve)
-  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
-  * [resolveWith()](#resolvewith)
-  * [sleep()](#sleep)
-- [constants](#constants)
-  * [MAX_SAFE_INTEGER](#max_safe_integer)
-  * [SYMBOL_ITERATOR](#symbol_iterator)
 - [ip](#ip)
   * [isIp()](#isip)
   * [lookupIp()](#lookupip)
@@ -138,7 +139,7 @@
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
-## data
+## base
 
 ### arrayIterator()
 
@@ -1169,6 +1170,450 @@ toString([1, 2, 3])
 // => '1,2,3'
 ```
 <br /><br />
+
+## common
+
+### all()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/all.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Resolves all async values in an array or object</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The array or object with its values resolved</p>
+
+**Example**
+```js
+const nums = [
+  1,
+  Promise.resolve(2),
+  (async () => 3)()
+]
+await all(nums) //=> [ 1, 2, 3 ]
+
+const keyed = {
+  a: 1,
+  b: Promise.resolve(2),
+  c: (async () => 3)()
+}
+await all(keyed) //=> { a: 1, b: 2, c: 3 }
+
+await all('abc') //=> 'abc'
+await all(123) //=> 123
+```
+<br /><br />
+
+### apply()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/apply.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Applies function <code>fn</code> to the argument list <code>args</code>. This is useful for creating a fixed-arity function from a variadic function. <code>fn</code> should be a bound function if context is significant.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function which will be called with `args`</p>
+<p><code>args</code>: <code>Array</code> - The arguments to call `fn` with</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The result, equivalent to `fn(...args)`</p>
+
+**Example**
+```js
+const nums = [1, 2, 3, -99, 42, 6, 7]
+apply(Math.max, nums) //=> 42
+```
+<br /><br />
+
+### complement()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/complement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>returns a new function that logically nots the returned value and returns that as the result.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to complement</p>
+
+**Returns**
+<br /><p><code>Function</code> - The complemented function</p>
+
+**Example**
+```js
+const isEven = (value) => value % 2 === 0
+const isOdd = complement(isEven)
+isOdd(1) //=> true
+```
+<br /><br />
+
+### compose()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/compose.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Performs right-to-left function composition. The rightmost function may have any arity; the remaining functions must be unary.</p>
+<p><strong>Note:</strong> The result of compose is not automatically curried.</p>
+
+**Params**
+<p><code></code>: <code>...Function</code> - ...functions The functions to compose</p>
+
+**Returns**
+<br /><p><code>Function</code> - </p>
+
+**Example**
+```js
+const classyGreeting = (firstName, lastName) => "The name's " + lastName + ", " + firstName + " " + lastName
+const yellGreeting = compose(toUpper, classyGreeting)
+ yellGreeting('James', 'Bond') //=> "THE NAME'S BOND, JAMES BOND"
+
+compose(Math.abs, add(1), multiply(2))(-4) //=> 7
+```
+<br /><br />
+
+### deferredPromise()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Creates a promise with the resolve and reject methods exposed as properties<br />
+on the promise.</p>
+
+**Params**
+None
+
+**Returns**
+<br /><p><code>Promise</code> - The promise with exposed methods</p>
+
+**Example**
+```js
+const promise = deferredPromise()
+// ... do something async then eventually resolve the promise
+promise.resolve(someValue)
+```
+<br /><br />
+
+### defn()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/defn.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Defines a function that will invoke the named function if it exists on the last arg. If the method does not, all args are passed through to the default function.</p>
+
+**Params**
+<p><code>name</code>: <code>string</code> - The name of the method to call if it exists</p>
+<p><code>defaultFn</code>: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
+
+**Returns**
+<br /><p><code>Function</code> - The wrapped function</p>
+
+**Example**
+```js
+const get = defn('get', (prop, value) => value[prop])
+get('a', { a: 'foo' }) //=> 'foo'
+
+const obj = {
+  props: {
+    a: 'bar'
+  }
+  get: (prop) => obj.props[prop]
+}
+get('a', obj) //=> 'bar'
+```
+<br /><br />
+
+### dispatchable()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/dispatchable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a function that dispatches with different strategies based on the object in list position (last argument). If it is an array, executes [fn].</p>
+<p>Otherwise, if it has a function with one of the given method names, it will execute that function (functor case).</p>
+<p>Otherwise, if it is a transformer,<br />
+uses transducer [xf] to return a new transformer (transducer case).</p>
+<p>Otherwise, it will default to executing [fn].</p>
+
+**Params**
+<p><code>methodNames</code>: <code>Array</code> - properties to check for a custom implementation</p>
+<p><code>xf</code>: <code>Function</code> - transducer to initialize if object is transformer</p>
+<p><code>fn</code>: <code>Function</code> - default ramda implementation</p>
+
+**Returns**
+<br /><p><code>Function</code> - A function that dispatches on object in list position</p>
+
+<br /><br />
+
+### identity()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/identity.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>A function that does nothing but return the parameter supplied to it. Good as a default or placeholder function.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to return.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The input value.</p>
+
+**Example**
+```js
+identity(1)
+//=> 1
+
+const obj = {}
+identity(obj) === obj
+//=> true
+```
+<br /><br />
+
+### isOp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/isOp.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Determines if the value is an op.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>boolean</code> - </p>
+
+**Example**
+```js
+isOp({
+  ['@@redux-saga/IO']: 'op'
+})
+//=> true
+```
+<br /><br />
+
+### isResolved()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/isResolved.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Determines if the value is a resolvable value.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>boolean</code> - </p>
+
+**Example**
+```js
+isResolved({
+  ['@@redux-saga/IO']: 'op'
+})
+//=> false
+
+isResolved((function* () {})())
+//=> false
+
+isResolved(new Promise(() => {})))
+//=> false
+
+isResolved({ resolve: () => 'foo' })
+//=> false
+
+isResolved(null)
+//=> true
+
+isResolved(undefined)
+//=> true
+
+isResolved('abc')
+//=> true
+```
+<br /><br />
+
+### nAry()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
+
+**Params**
+<p><code>n</code>: <code>Number</code> - The desired arity of the new function.</p>
+<p><code>fn</code>: <code>Function</code> - The function to wrap.</p>
+
+**Returns**
+<br /><p><code>Function</code> - A new function wrapping `fn`. The new function is guaranteed to be of arity `n`.</p>
+
+**Example**
+```js
+const takesTwoArgs = (a, b) => [a, b]
+
+takesTwoArgs.length //=> 2
+takesTwoArgs(1, 2) //=> [1, 2]
+
+const takesOneArg = nAry(1, takesTwoArgs)
+takesOneArg.length //=> 1
+// Only `n` arguments are passed to the wrapped function
+takesOneArg(1, 2) //=> [1, undefined]
+```
+<br /><br />
+
+### nArySpread()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
+
+**Params**
+<p><code>n</code>: <code>Number</code> - The desired arity of the new function.</p>
+<p><code>fn</code>: <code>Function</code> - The function to wrap.</p>
+
+**Returns**
+<br /><p><code>Function</code> - A new function wrapping `fn`. The new function is guaranteed to be of parameter length `n`.</p>
+
+**Example**
+```js
+const takesNArgs = (...args) => [ ...args ]
+
+takesNArgs.length //=> 0
+takesNArgs(1, 2) //=> [1, 2]
+
+const takesTwoArgs = nArySpread(2, takesNArgs)
+takesTwoArgs.length //=> 2
+// All arguments are passed to the wrapped function
+takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
+
+const curriedTakesTwoArgs = curry(takesTwoArgs)
+// auto currying works as expected
+const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
+takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
+```
+<br /><br />
+
+### pipe()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/pipe.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Performs left-to-right function composition. The leftmost function may have<br />
+any arity; the remaining functions must be unary.</p>
+<p>In some libraries this function is named <code>sequence</code>.</p>
+<p><strong>Note:</strong> The result of pipe is not automatically curried.</p>
+
+**Params**
+<p><code>functions</code>: <code>...Function</code> - </p>
+
+**Returns**
+<br /><p><code>Function</code> - </p>
+
+**Example**
+```js
+const f = pipe(Math.pow, negate, inc)
+
+f(3, 4) // -(3^4) + 1
+```
+<br /><br />
+
+### resolve()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolve.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+<p>Resolves a value to its valueOf.</p>
+<p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
+
+**Params**
+<p><code>values</code>: <code>...String</code> - The values to check.</p>
+
+**Returns**
+<br /><p><code>String</code> - The first value found that is a path.</p>
+
+**Example**
+```js
+resolve('foo') // => 'foo'
+
+resolve({
+ valueOf: () => 'bar'
+}) //=> bar
+
+resolve({
+ resolve: () => 'bar'
+}) //=> bar
+
+resolve({
+  resolve: () => ({
+    valueOf: () => 'bar'
+  })
+}) //=> bar
+
+resolve({
+  resolve: () => ({
+    resolve: () => 'bar'
+  })
+}) //=> bar
+```
+<br /><br />
+
+### resolveToGeneratorWith()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolveToGeneratorWith.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the generator&#39;s resolution</p>
+<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
+
+**Returns**
+<br /><p><code>Generator</code> - </p>
+
+**Example**
+```js
+const generator = resolveToGeneratorWith(
+  (resolvedValue) => //=> 'foo'
+  'foo'
+)
+generator.next() //=> { done: true } triggers the fn method
+```
+<br /><br />
+
+### resolveWith()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolveWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Resolves a value to the given method.</p>
+<p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
+<p>If the value to be resolved is a generator, this method will return a generator.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the generator&#39;s resolution</p>
+<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
+
+**Returns**
+<br /><p><code>Generator</code> - </p>
+
+**Example**
+```js
+resolveWith(
+  (resolvedValue) => 'bar' // resolvedValue == 'foo'
+  'foo'
+) //=> 'bar'
+```
+<br /><br />
+
+### sleep()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/sleep.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Sleeps for the given amount of <code>wait</code> milliseconds before resolving the returned <code>Promise</code></p>
+
+**Params**
+<p><code>wait</code>: <code>number</code> - The number of milliseconds to wait before resoliving the Promise</p>
+
+**Returns**
+<br /><p><code>Promise</code> - Resolves once the given amount of time has ellapsed.</p>
+
+**Example**
+```js
+await sleep(1000)
+// 1000+ milliseconds later
+```
+<br /><br />
+
+## constants
+
+### MAX_SAFE_INTEGER
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>This constant represents the maximum safe integer in JavaScript (2^53 - 1).</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER">MAX_SAFE_INTEGER</a> for more information.</p>
+
+**Type**: `{number}`
+
+<br /><br />
+
+### SYMBOL_ITERATOR
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
+
+**Type**: `{Symbol}`
+
+<br /><br />
+
+## data
 
 ### any()
 
@@ -2547,448 +2992,6 @@ walkReducePath(
 //   ['a', 'c', 'd']
 // ]
 ```
-<br /><br />
-
-## common
-
-### all()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/all.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Resolves all async values in an array or object</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The array or object with its values resolved</p>
-
-**Example**
-```js
-const nums = [
-  1,
-  Promise.resolve(2),
-  (async () => 3)()
-]
-await all(nums) //=> [ 1, 2, 3 ]
-
-const keyed = {
-  a: 1,
-  b: Promise.resolve(2),
-  c: (async () => 3)()
-}
-await all(keyed) //=> { a: 1, b: 2, c: 3 }
-
-await all('abc') //=> 'abc'
-await all(123) //=> 123
-```
-<br /><br />
-
-### apply()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/apply.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Applies function <code>fn</code> to the argument list <code>args</code>. This is useful for creating a fixed-arity function from a variadic function. <code>fn</code> should be a bound function if context is significant.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function which will be called with `args`</p>
-<p><code>args</code>: <code>Array</code> - The arguments to call `fn` with</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The result, equivalent to `fn(...args)`</p>
-
-**Example**
-```js
-const nums = [1, 2, 3, -99, 42, 6, 7]
-apply(Math.max, nums) //=> 42
-```
-<br /><br />
-
-### complement()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/complement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>returns a new function that logically nots the returned value and returns that as the result.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to complement</p>
-
-**Returns**
-<br /><p><code>Function</code> - The complemented function</p>
-
-**Example**
-```js
-const isEven = (value) => value % 2 === 0
-const isOdd = complement(isEven)
-isOdd(1) //=> true
-```
-<br /><br />
-
-### compose()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/compose.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>Performs right-to-left function composition. The rightmost function may have any arity; the remaining functions must be unary.</p>
-<p><strong>Note:</strong> The result of compose is not automatically curried.</p>
-
-**Params**
-<p><code></code>: <code>...Function</code> - ...functions The functions to compose</p>
-
-**Returns**
-<br /><p><code>Function</code> - </p>
-
-**Example**
-```js
-const classyGreeting = (firstName, lastName) => "The name's " + lastName + ", " + firstName + " " + lastName
-const yellGreeting = compose(toUpper, classyGreeting)
- yellGreeting('James', 'Bond') //=> "THE NAME'S BOND, JAMES BOND"
-
-compose(Math.abs, add(1), multiply(2))(-4) //=> 7
-```
-<br /><br />
-
-### deferredPromise()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Creates a promise with the resolve and reject methods exposed as properties<br />
-on the promise.</p>
-
-**Params**
-None
-
-**Returns**
-<br /><p><code>Promise</code> - The promise with exposed methods</p>
-
-**Example**
-```js
-const promise = deferredPromise()
-// ... do something async then eventually resolve the promise
-promise.resolve(someValue)
-```
-<br /><br />
-
-### defn()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/defn.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Defines a function that will invoke the named function if it exists on the last arg. If the method does not, all args are passed through to the default function.</p>
-
-**Params**
-<p><code>name</code>: <code>string</code> - The name of the method to call if it exists</p>
-<p><code>defaultFn</code>: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
-
-**Returns**
-<br /><p><code>Function</code> - The wrapped function</p>
-
-**Example**
-```js
-const get = defn('get', (prop, value) => value[prop])
-get('a', { a: 'foo' }) //=> 'foo'
-
-const obj = {
-  props: {
-    a: 'bar'
-  }
-  get: (prop) => obj.props[prop]
-}
-get('a', obj) //=> 'bar'
-```
-<br /><br />
-
-### dispatchable()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/dispatchable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Returns a function that dispatches with different strategies based on the object in list position (last argument). If it is an array, executes [fn].</p>
-<p>Otherwise, if it has a function with one of the given method names, it will execute that function (functor case).</p>
-<p>Otherwise, if it is a transformer,<br />
-uses transducer [xf] to return a new transformer (transducer case).</p>
-<p>Otherwise, it will default to executing [fn].</p>
-
-**Params**
-<p><code>methodNames</code>: <code>Array</code> - properties to check for a custom implementation</p>
-<p><code>xf</code>: <code>Function</code> - transducer to initialize if object is transformer</p>
-<p><code>fn</code>: <code>Function</code> - default ramda implementation</p>
-
-**Returns**
-<br /><p><code>Function</code> - A function that dispatches on object in list position</p>
-
-<br /><br />
-
-### identity()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/identity.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>A function that does nothing but return the parameter supplied to it. Good as a default or placeholder function.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to return.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The input value.</p>
-
-**Example**
-```js
-identity(1)
-//=> 1
-
-const obj = {}
-identity(obj) === obj
-//=> true
-```
-<br /><br />
-
-### isOp()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/isOp.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Determines if the value is an op.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - </p>
-
-**Returns**
-<br /><p><code>boolean</code> - </p>
-
-**Example**
-```js
-isOp({
-  ['@@redux-saga/IO']: 'op'
-})
-//=> true
-```
-<br /><br />
-
-### isResolved()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/isResolved.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Determines if the value is a resolvable value.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - </p>
-
-**Returns**
-<br /><p><code>boolean</code> - </p>
-
-**Example**
-```js
-isResolved({
-  ['@@redux-saga/IO']: 'op'
-})
-//=> false
-
-isResolved((function* () {})())
-//=> false
-
-isResolved(new Promise(() => {})))
-//=> false
-
-isResolved({ resolve: () => 'foo' })
-//=> false
-
-isResolved(null)
-//=> true
-
-isResolved(undefined)
-//=> true
-
-isResolved('abc')
-//=> true
-```
-<br /><br />
-
-### nAry()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
-
-**Params**
-<p><code>n</code>: <code>Number</code> - The desired arity of the new function.</p>
-<p><code>fn</code>: <code>Function</code> - The function to wrap.</p>
-
-**Returns**
-<br /><p><code>Function</code> - A new function wrapping `fn`. The new function is guaranteed to be of arity `n`.</p>
-
-**Example**
-```js
-const takesTwoArgs = (a, b) => [a, b]
-
-takesTwoArgs.length //=> 2
-takesTwoArgs(1, 2) //=> [1, 2]
-
-const takesOneArg = nAry(1, takesTwoArgs)
-takesOneArg.length //=> 1
-// Only `n` arguments are passed to the wrapped function
-takesOneArg(1, 2) //=> [1, undefined]
-```
-<br /><br />
-
-### nArySpread()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
-
-**Params**
-<p><code>n</code>: <code>Number</code> - The desired arity of the new function.</p>
-<p><code>fn</code>: <code>Function</code> - The function to wrap.</p>
-
-**Returns**
-<br /><p><code>Function</code> - A new function wrapping `fn`. The new function is guaranteed to be of parameter length `n`.</p>
-
-**Example**
-```js
-const takesNArgs = (...args) => [ ...args ]
-
-takesNArgs.length //=> 0
-takesNArgs(1, 2) //=> [1, 2]
-
-const takesTwoArgs = nArySpread(2, takesNArgs)
-takesTwoArgs.length //=> 2
-// All arguments are passed to the wrapped function
-takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
-
-const curriedTakesTwoArgs = curry(takesTwoArgs)
-// auto currying works as expected
-const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
-takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
-```
-<br /><br />
-
-### pipe()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/pipe.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Performs left-to-right function composition. The leftmost function may have<br />
-any arity; the remaining functions must be unary.</p>
-<p>In some libraries this function is named <code>sequence</code>.</p>
-<p><strong>Note:</strong> The result of pipe is not automatically curried.</p>
-
-**Params**
-<p><code>functions</code>: <code>...Function</code> - </p>
-
-**Returns**
-<br /><p><code>Function</code> - </p>
-
-**Example**
-```js
-const f = pipe(Math.pow, negate, inc)
-
-f(3, 4) // -(3^4) + 1
-```
-<br /><br />
-
-### resolve()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolve.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
-<p>Resolves a value to its valueOf.</p>
-<p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
-
-**Params**
-<p><code>values</code>: <code>...String</code> - The values to check.</p>
-
-**Returns**
-<br /><p><code>String</code> - The first value found that is a path.</p>
-
-**Example**
-```js
-resolve('foo') // => 'foo'
-
-resolve({
- valueOf: () => 'bar'
-}) //=> bar
-
-resolve({
- resolve: () => 'bar'
-}) //=> bar
-
-resolve({
-  resolve: () => ({
-    valueOf: () => 'bar'
-  })
-}) //=> bar
-
-resolve({
-  resolve: () => ({
-    resolve: () => 'bar'
-  })
-}) //=> bar
-```
-<br /><br />
-
-### resolveToGeneratorWith()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolveToGeneratorWith.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the generator&#39;s resolution</p>
-<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
-
-**Returns**
-<br /><p><code>Generator</code> - </p>
-
-**Example**
-```js
-const generator = resolveToGeneratorWith(
-  (resolvedValue) => //=> 'foo'
-  'foo'
-)
-generator.next() //=> { done: true } triggers the fn method
-```
-<br /><br />
-
-### resolveWith()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolveWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Resolves a value to the given method.</p>
-<p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
-<p>If the value to be resolved is a generator, this method will return a generator.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the generator&#39;s resolution</p>
-<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
-
-**Returns**
-<br /><p><code>Generator</code> - </p>
-
-**Example**
-```js
-resolveWith(
-  (resolvedValue) => 'bar' // resolvedValue == 'foo'
-  'foo'
-) //=> 'bar'
-```
-<br /><br />
-
-### sleep()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/sleep.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Sleeps for the given amount of <code>wait</code> milliseconds before resolving the returned <code>Promise</code></p>
-
-**Params**
-<p><code>wait</code>: <code>number</code> - The number of milliseconds to wait before resoliving the Promise</p>
-
-**Returns**
-<br /><p><code>Promise</code> - Resolves once the given amount of time has ellapsed.</p>
-
-**Example**
-```js
-await sleep(1000)
-// 1000+ milliseconds later
-```
-<br /><br />
-
-## constants
-
-### MAX_SAFE_INTEGER
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>This constant represents the maximum safe integer in JavaScript (2^53 - 1).</p>
-<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER">MAX_SAFE_INTEGER</a> for more information.</p>
-
-**Type**: `{number}`
-
-<br /><br />
-
-### SYMBOL_ITERATOR
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
-<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
-
-**Type**: `{Symbol}`
-
 <br /><br />
 
 ## ip

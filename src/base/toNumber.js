@@ -26,7 +26,7 @@ const freeParseInt = parseInt
  *
  * @function
  * @since v0.0.7
- * @category data
+ * @category base
  * @param {*} value The value to process.
  * @returns {number} Returns the number.
  * @example

@@ -5,7 +5,7 @@ import getTag from './getTag'
  *
  * @function
  * @since 0.0.3
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
  * @example

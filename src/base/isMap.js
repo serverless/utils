@@ -10,7 +10,7 @@ const nodeIsMap = nodeTypes && nodeTypes.isMap
  *
  * @function
  * @since v0.0.3
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a map, else `false`.
  * @example

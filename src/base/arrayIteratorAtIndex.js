@@ -6,7 +6,7 @@ import toString from './toString'
  *
  * @function
  * @since v0.0.11
- * @category data
+ * @category base
  * @param {*} arrayLike The array like value to create an iterator for.
  * @param {*} index The index to start at.
  * @return {Iterator} A new iterator for the given array like value

@@ -5,7 +5,7 @@ import isFunction from './isFunction'
  *
  * @function
  * @since v0.0.9
- * @category data
+ * @category base
  * @param {*} value The value to convert.
  * @returns {Object} Returns the converted plain object.
  * @example

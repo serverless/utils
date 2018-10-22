@@ -14,7 +14,7 @@ const symbolToString = symbolProto ? symbolProto.toString : undefined
  *
  * @function
  * @since 0.0.6
- * @category data
+ * @category base
  * @param {*} value The value to convert.
  * @returns {string} Returns the converted string.
  * @example
