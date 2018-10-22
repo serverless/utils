@@ -1,9 +1,9 @@
+import isArray from '../base/isArray'
+import isUndefined from '../base/isUndefined'
 import curry from '../common/curry'
 import defn from '../common/defn'
 import compact from './compact'
 import getProp from './getProp'
-import isArray from './isArray'
-import isUndefined from './isUndefined'
 
 /**
  * Retrieve the value at a given path.

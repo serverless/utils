@@ -1,8 +1,8 @@
+import isArrayLike from '../base/isArrayLike'
+import isGenerator from '../base/isGenerator'
+import isPromise from '../base/isPromise'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import isArrayLike from './isArrayLike'
-import isGenerator from './isGenerator'
-import isPromise from './isPromise'
 import keys from './keys'
 import slice from './slice'
 

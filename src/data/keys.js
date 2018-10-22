@@ -1,8 +1,8 @@
-import arrayLikeKeys from './arrayLikeKeys'
+import arrayLikeKeys from '../base/arrayLikeKeys'
+import isArrayLike from '../base/isArrayLike'
+import isMap from '../base/isMap'
+import objectKeys from '../base/objectKeys'
 import concat from './concat'
-import isArrayLike from './isArrayLike'
-import isMap from './isMap'
-import objectKeys from './objectKeys'
 
 /**
  * Returns the keys of the given collection.

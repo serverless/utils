@@ -1,9 +1,9 @@
+import isArray from '../base/isArray'
+import isFunction from '../base/isFunction'
+import isPromise from '../base/isPromise'
+import isString from '../base/isString'
+import toString from '../base/toString'
 import curry from '../common/curry'
-import isArray from './isArray'
-import isFunction from './isFunction'
-import isPromise from './isPromise'
-import isString from './isString'
-import toString from './toString'
 
 /**
  * Returns the result of concatenating the given lists or strings.

@@ -1,6 +1,6 @@
+import isPromise from '../base/isPromise'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import isPromise from './isPromise'
 
 /**
  * Returns the first element of the list which matches the predicate, or

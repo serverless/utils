@@ -1,7 +1,6 @@
 import isArray from './isArray'
 import isPromise from './isPromise'
 import isSymbol from './isSymbol'
-import map from './map'
 
 /** Used as references for various `Number` constants. */
 const INFINITY = 1 / 0
@@ -42,7 +41,7 @@ const toString = (value) => {
   }
   if (isArray(value)) {
     // Recursively convert values (susceptible to call stack limits).
-    return `${map((other) => (other == null ? other : toString(other)), value)}`
+    return `${value.map((other) => (other == null ? other : toString(other)))}`
   }
   if (isSymbol(value)) {
     return symbolToString ? symbolToString.call(value) : ''

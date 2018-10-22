@@ -1,5 +1,5 @@
+import isString from '../base/isString'
 import curry from '../common/curry'
-import isString from './isString'
 
 /**
  * Returns the nth element of the given list or string. If n is negative the

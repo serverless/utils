@@ -1,4 +1,4 @@
-import defn from '../common/defn'
+import isFunction from './isFunction'
 import isPromise from './isPromise'
 import toNumber from './toNumber'
 
@@ -28,9 +28,12 @@ const MAX_INTEGER = 1.7976931348623157e308
  * toFinite('3.2')
  * // => 3.2
  */
-const toFinite = defn('toFinite', (value) => {
+const toFinite = (value) => {
   if (isPromise(value)) {
     return value.then((resolvedValue) => toFinite(resolvedValue))
+  }
+  if (value != null && isFunction(value.toFinite)) {
+    return value.toFinite()
   }
   if (!value) {
     return value === 0 ? value : 0
@@ -41,6 +44,6 @@ const toFinite = defn('toFinite', (value) => {
     return sign * MAX_INTEGER
   }
   return value === value ? value : 0
-})
+}
 
 export default toFinite

@@ -1,8 +1,8 @@
+import isFunction from '../base/isFunction'
+import isMap from '../base/isMap'
+import isUndefined from '../base/isUndefined'
 import curry from '../common/curry'
 import always from './always'
-import isFunction from './isFunction'
-import isMap from './isMap'
-import isUndefined from './isUndefined'
 import over from './over'
 
 /**

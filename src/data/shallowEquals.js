@@ -1,4 +1,4 @@
-const { hasOwnProperty } = Object.prototype
+import objectHasOwnProperty from '../base/objectHasOwnProperty'
 
 /**
  * inlined Object.is polyfill to avoid requiring consumers ship their own
@@ -49,7 +49,7 @@ const shallowEquals = (objA, objB) => {
 
   // Test for A's keys different from B.
   for (let i = 0; i < keysA.length; i++) {
-    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+    if (!objectHasOwnProperty(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
       return false
     }
   }

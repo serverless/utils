@@ -1,6 +1,6 @@
-import isArray from '../data/isArray'
-import isFunction from '../data/isFunction'
-import isObject from '../data/isObject'
+import isArray from '../base/isArray'
+import isFunction from '../base/isFunction'
+import isObject from '../base/isObject'
 import nArySpread from './nArySpread'
 
 /**

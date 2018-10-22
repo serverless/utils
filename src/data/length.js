@@ -1,5 +1,5 @@
+import isArrayLike from '../base/isArrayLike'
 import defn from '../common/defn'
-import isArrayLike from './isArrayLike'
 
 /**
  * Returns the number of elements in the array by returning `list.length`.

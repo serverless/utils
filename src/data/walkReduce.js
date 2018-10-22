@@ -1,9 +1,9 @@
+import isArray from '../base/isArray'
+import isObject from '../base/isObject'
 import resolve from '../common/resolve'
 import concat from './concat'
 import forEachIndexed from './forEachIndexed'
 import forEachObjIndexed from './forEachObjIndexed'
-import isArray from './isArray'
-import isObject from './isObject'
 import walk from './walk'
 
 const reduceWalkee = (accum, value, keys, iteratee, recur) => {

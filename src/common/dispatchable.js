@@ -1,5 +1,5 @@
-import isArray from '../data/isArray'
-import isTransformer from '../data/isTransformer'
+import isArray from '../base/isArray'
+import isTransformer from '../base/isTransformer'
 
 /**
  * Returns a function that dispatches with different strategies based on the object in list position (last argument). If it is an array, executes [fn].

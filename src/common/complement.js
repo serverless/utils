@@ -1,5 +1,5 @@
-import isFunction from '../data/isFunction'
-import isPromise from '../data/isPromise'
+import isFunction from '../base/isFunction'
+import isPromise from '../base/isPromise'
 
 /**
  * returns a new function that logically nots the returned value and returns that as the result.

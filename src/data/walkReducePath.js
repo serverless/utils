@@ -1,7 +1,7 @@
+import isObject from '../base/isObject'
 import resolve from '../common/resolve'
 import append from './append'
 import castPath from './castPath'
-import isObject from './isObject'
 import walk from './walk'
 
 const reducePathWalkee = (pathParts, accum, value, keys, iteratee, recur) => {

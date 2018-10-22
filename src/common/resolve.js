@@ -1,5 +1,5 @@
-import isFunction from '../data/isFunction'
-import isObject from '../data/isObject'
+import isFunction from '../base/isFunction'
+import isObject from '../base/isObject'
 
 /**
  * Resolves a value to its valueOf.

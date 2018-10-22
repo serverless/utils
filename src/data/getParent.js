@@ -1,10 +1,10 @@
+import isArray from '../base/isArray'
+import isFunction from '../base/isFunction'
+import isUndefined from '../base/isUndefined'
 import curry from '../common/curry'
 import defn from '../common/defn'
 import castPath from './castPath'
 import getParentPath from './getParentPath'
-import isArray from './isArray'
-import isFunction from './isFunction'
-import isUndefined from './isUndefined'
 
 /**
  * Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.

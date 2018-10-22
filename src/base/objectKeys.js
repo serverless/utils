@@ -1,7 +1,6 @@
 import { HAS_ARGS_ENUM_BUG, HAS_OBJECT_ENUM_BUG } from '../constants'
-import curry from '../common/curry'
-import hasProp from './hasProp'
 import isArguments from './isArguments'
+import objectHasOwnProperty from './objectHasOwnProperty'
 
 const nonEnumerableProps = [
   'constructor',
@@ -39,10 +38,10 @@ const contains = (list, item) => {
  */
 const objectKeys =
   typeof Object.keys === 'function' && !HAS_ARGS_ENUM_BUG
-    ? curry((obj) => {
+    ? (obj) => {
         return Object(obj) !== obj ? [] : Object.keys(obj)
-      })
-    : curry((obj) => {
+      }
+    : (obj) => {
         if (Object(obj) !== obj) {
           return []
         }
@@ -51,7 +50,7 @@ const objectKeys =
         const ks = []
         const checkArgsLength = HAS_ARGS_ENUM_BUG && isArguments(obj)
         for (prop in obj) {
-          if (hasProp(prop, obj) && (!checkArgsLength || prop !== 'length')) {
+          if (objectHasOwnProperty(obj, prop) && (!checkArgsLength || prop !== 'length')) {
             ks[ks.length] = prop
           }
         }
@@ -59,13 +58,13 @@ const objectKeys =
           nIdx = nonEnumerableProps.length - 1
           while (nIdx >= 0) {
             prop = nonEnumerableProps[nIdx]
-            if (hasProp(prop, obj) && !contains(ks, prop)) {
+            if (objectHasOwnProperty(obj, prop) && !contains(ks, prop)) {
               ks[ks.length] = prop
             }
             nIdx -= 1
           }
         }
         return ks
-      })
+      }
 
 export default objectKeys

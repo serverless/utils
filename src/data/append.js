@@ -1,7 +1,7 @@
+import isString from '../base/isString'
 import curry from '../common/curry'
 import defn from '../common/defn'
 import concat from './concat'
-import isString from './isString'
 
 /**
  * Returns a new list containing the contents of the given list, followed by
