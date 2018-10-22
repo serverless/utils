@@ -20,7 +20,7 @@ const GeneratorFunction = generatorFunc ? getProto(generatorFunc) : {}
  *
  * @function
  * @since v0.0.3
- * @category data
+ * @category base
  * @param  {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a generator function, else `false`.
  * @example

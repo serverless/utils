@@ -11,7 +11,7 @@ const MAX_INTEGER = 1.7976931348623157e308
  *
  * @function
  * @since v0.0.7
- * @category data
+ * @category base
  * @param {*} value The value to convert.
  * @returns {number} Returns the converted number.
  * @example

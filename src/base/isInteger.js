@@ -5,7 +5,7 @@ import isNumber from './isNumber'
  *
  * @function
  * @since v0.0.3
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @returns {Boolean} Returns `true` if `value` is an integer, else `false`.
  * @example

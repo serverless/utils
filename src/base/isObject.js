@@ -5,7 +5,7 @@
  *
  * @function
  * @since 0.0.3
- * @category data
+ * @category base
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is an object, else `false`.
  * @example

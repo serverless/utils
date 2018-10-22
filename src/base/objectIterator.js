@@ -8,7 +8,7 @@ import objectKeys from './objectKeys'
  *
  * @function
  * @since v0.0.11
- * @category data
+ * @category base
  * @param {*} object The array object to create an iterator for.
  * @return {Iterator} A new iterator for the given object's keys and values
  * @example

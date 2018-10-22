@@ -11,7 +11,7 @@ const { hasOwnProperty } = Object.prototype
  *
  * @function
  * @since v0.0.3
- * @category data
+ * @category base
  * @param {*} value The value to query.
  * @param {boolean} inherited Specify returning inherited property names.
  * @returns {Array} Returns the array of property names.
