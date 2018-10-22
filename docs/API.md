@@ -101,6 +101,7 @@
   * [slice()](#slice)
   * [tail()](#tail)
   * [union()](#union)
+  * [values()](#values)
   * [walk()](#walk)
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
@@ -1984,26 +1985,30 @@ await join(Promise.resolve('|'), Promise.resolve([1, 2, 3]))    //=> '1|2|3'
 
 ### keys()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/keys.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the keys of the given collection.</p>
-<p>Supports objects, Maps and array like values. If given an array like value, the indexes will be returned.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/keys.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns the keys of the given collection in an Array.</p>
+<p>Supports objects, Maps and array like values. If given an array like value, the indexes will be returned in string form.</p>
+<p>This method supports Promise values. If given a Promise it will return a Promise that will resolve to the keys of the resolved value of the Promise.</p>
+<p>Dispatches to the <code>keys</code> method of the <code>collection</code> if present (except on Map). If a <code>Map</code> is received an array of the <code>Map</code>'s keys will be returned.</p>
 
 **Params**
 <p><code>collection</code>: <code>&ast;</code> - The collection to get the keys from</p>
 
 **Returns**
-<br /><p><code>&ast;</code> - The keys of the given collection</p>
+<br /><p><code>Array&lt;string&gt;|Promise&lt;Array&lt;string&gt;&gt;</code> - The keys of the given collection</p>
 
 **Example**
 ```js
 keys({ foo: 'bar', 'baz': 'bat', bim: 'bop' }) //=> ['foo', 'baz', 'bim']
 keys({}) //=> []
 
-keys(['fi', 'fo', 'fum']) //=> [ 0, 1, 2 ]
+keys(['fi', 'fo', 'fum']) //=> [ '0', '1', '2' ]
 keys([]) //=> []
 
-keys('abc') //=> [0, 1, 2]
+keys('abc') //=> ['0', '1', '2']
 keys('') //=> []
+
+await keys(Promise.resolve({ a: 1, b: 2 }) //=> ['a', 'b']
 ```
 <br /><br />
 
@@ -2345,6 +2350,36 @@ of each list.</p>
 **Example**
 ```js
 union([1, 2, 3], [2, 3, 4]) //=> [1, 2, 3, 4]
+```
+<br /><br />
+
+### values()
+
+[source](https://github.com/serverless/utils/tree/v0.0.11/src/data/values.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.12
+<p>Returns an array of all the values of the given collection.</p>
+<p>Note that the order of the output array is not guaranteed across different JS platforms.</p>
+<p>Supports objects, Maps and array like values.</p>
+<p>This method supports Promise values. If given a Promise it will return a Promise that will resolve to the values of the resolved value of the Promise.</p>
+<p>Dispatches to the <code>values</code> method of the <code>collection</code> if present (except on <code>Map</code>). If a <code>Map</code> is received an array of the <code>Map</code>'s keys will be returned.</p>
+
+**Params**
+<p><code>collection</code>: <code>&ast;</code> - The collection to extract values from</p>
+
+**Returns**
+<br /><p><code>Array&lt;&ast;&gt;|Promise&lt;Array&lt;&ast;&gt;&gt;</code> - An array of the values of the `collection`</p>
+
+**Example**
+```js
+values({a: 1, b: 2, c: 3}) //=> [1, 2, 3]
+values({}) //=> []
+
+values(['fi', 'fo', 'fum']) //=> [ 'fi', 'fo', 'fum' ]
+values([]) //=> []
+
+values('abc') //=> ['a', 'b', 'c']
+values('') //=> []
+
+await values(Promise.resolve({ a: 1, b: 2 }) //=> [1, 2]
 ```
 <br /><br />
 
@@ -2813,7 +2848,7 @@ takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
 
 ### pipe()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/pipe.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/pipe.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Performs left-to-right function composition. The leftmost function may have<br />
 any arity; the remaining functions must be unary.</p>
 <p>In some libraries this function is named <code>sequence</code>.</p>

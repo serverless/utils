@@ -186,6 +186,7 @@ describe('index', () => {
       tail: expect.any(Function),
       uniq: expect.any(Function),
       union: expect.any(Function),
+      values: expect.any(Function),
       walk: expect.any(Function),
       walkReduce: expect.any(Function),
       walkReduceDepthFirst: expect.any(Function),
