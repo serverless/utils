@@ -5,6 +5,7 @@ import reduce from '../data/reduce'
 import tail from '../data/tail'
 import identity from './identity'
 
+// TODO BRN: This method is important at a fundamental level. Need to rewrite this to not depend upon data methods.
 /**
  * Performs left-to-right function composition. The leftmost function may have
  * any arity; the remaining functions must be unary.
