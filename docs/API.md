@@ -2355,7 +2355,7 @@ union([1, 2, 3], [2, 3, 4]) //=> [1, 2, 3, 4]
 
 ### values()
 
-[source](https://github.com/serverless/utils/tree/v0.0.11/src/data/values.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.12
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/values.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.12
 <p>Returns an array of all the values of the given collection.</p>
 <p>Note that the order of the output array is not guaranteed across different JS platforms.</p>
 <p>Supports objects, Maps and array like values.</p>
