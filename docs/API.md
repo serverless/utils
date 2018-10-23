@@ -880,9 +880,15 @@ isString(1) // => false
 
 **Example**
 ```js
-isSymbol(Symbol.iterator) // => true
+isSymbol(Symbol.iterator)
+// => true
+isSymbol(Symbol('abc'))
+// => true
+isSymbol(Symbol.for('abc'))
+// => true
 
-isSymbol('abc') // => false
+isSymbol('abc')
+// => false
 ```
 <br /><br />
 

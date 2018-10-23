@@ -41,6 +41,20 @@ describe('reduce', () => {
     expect(result).toBe('')
   })
 
+  test('reduces over objects symbols', () => {
+    const symA = Symbol('a')
+    const symB = Symbol.for('b')
+    const object = {
+      [symA]: 'a',
+      [symB]: 'b'
+    }
+    const reducer = jest.fn((acc, value) => value)
+    const result = reduce(reducer, 'c', object)
+    expect(reducer).toHaveBeenNthCalledWith(1, 'c', 'a', symA)
+    expect(reducer).toHaveBeenNthCalledWith(2, 'a', 'b', symB)
+    expect(result).toBe('b')
+  })
+
   test('reduce object of functions', () => {
     const object = {
       async foo() {

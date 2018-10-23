@@ -38,6 +38,7 @@ describe('isArray', () => {
     expect(isArray(new Set())).toBe(false)
     expect(isArray(new String('abc'))).toBe(false)
     expect(isArray(Symbol('abc'))).toBe(false)
+    expect(isArray(Symbol.for('def'))).toBe(false)
     expect(isArray(new WeakMap())).toBe(false)
     expect(isArray(new WeakSet())).toBe(false)
   })

@@ -10,9 +10,15 @@ import getTag from './getTag'
  * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
  * @example
  *
- * isSymbol(Symbol.iterator) // => true
+ * isSymbol(Symbol.iterator)
+ * // => true
+ * isSymbol(Symbol('abc'))
+ * // => true
+ * isSymbol(Symbol.for('abc'))
+ * // => true
  *
- * isSymbol('abc') // => false
+ * isSymbol('abc')
+ * // => false
  */
 const isSymbol = (value) => {
   const type = typeof value
