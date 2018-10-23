@@ -8,6 +8,7 @@ describe('index', () => {
   test('has base methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
+      arrayConcat: expect.any(Function),
       arrayIterator: expect.any(Function),
       arrayIteratorAtIndex: expect.any(Function),
       arrayLikeKeys: expect.any(Function),
@@ -59,6 +60,7 @@ describe('index', () => {
 
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // nodeTypes: expect.any(Object),
+      objectGetOwnPropertySymbols: expect.any(Function),
       objectHasOwnProperty: expect.any(Function),
       objectIterator: expect.any(Function),
       objectKeys: expect.any(Function),
@@ -66,6 +68,7 @@ describe('index', () => {
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // root: expect.any(Object),
 
+      reflectOwnKeys: expect.any(Function),
       toFinite: expect.any(Function),
       toInteger: expect.any(Function),
       toNumber: expect.any(Function),

@@ -95,7 +95,12 @@ describe('objectIterator', () => {
   })
 
   test('creates an iterator for the object', () => {
-    const iterator = objectIterator({ foo: 'bar', bim: 'bop' })
+    const symBan = Symbol('ban')
+    const iterator = objectIterator({
+      foo: 'bar',
+      bim: 'bop',
+      [symBan]: 'ana'
+    })
     let next = { done: false }
     const accum = []
     while (!next.done) {
@@ -105,6 +110,7 @@ describe('objectIterator', () => {
     expect(accum).toEqual([
       { value: 'bar', key: 'foo', kdx: 'foo', done: false },
       { value: 'bop', key: 'bim', kdx: 'bim', done: false },
+      { value: 'ana', key: symBan, kdx: symBan, done: false },
       { done: true }
     ])
   })

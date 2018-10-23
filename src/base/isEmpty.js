@@ -5,6 +5,7 @@ import isArrayLike from './isArrayLike'
 import isBuffer from './isBuffer'
 import isPrototype from './isPrototype'
 import isTypedArray from './isTypedArray'
+import objectKeys from './objectKeys'
 
 /** Used to check objects for own properties. */
 const { hasOwnProperty } = Object.prototype
@@ -58,7 +59,7 @@ const isEmpty = (value) => {
     return !value.size
   }
   if (isPrototype(value)) {
-    return !Object.keys(value).length
+    return !objectKeys(value).length
   }
   for (const key in value) {
     if (hasOwnProperty.call(value, key)) {

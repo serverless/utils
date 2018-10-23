@@ -2,9 +2,8 @@ import arrayLikeKeys from '../base/arrayLikeKeys'
 import isArrayLike from '../base/isArrayLike'
 import isFunction from '../base/isFunction'
 import isMap from '../base/isMap'
-import objectKeys from '../base/objectKeys'
+import reflectOwnKeys from '../base/reflectOwnKeys'
 import resolveWith from '../common/resolveWith'
-import concat from './concat'
 
 /**
  * Returns the keys of the given collection in an Array.
@@ -46,17 +45,7 @@ const keys = resolveWith((collection) => {
     return collection.keys()
   }
 
-  if (typeof Reflect !== 'undefined' && typeof Reflect.ownKeys === 'function') {
-    return Reflect.ownKeys(collection)
-  }
-
-  let ownKeys = objectKeys(collection)
-
-  if (typeof Object.getOwnPropertySymbols === 'function') {
-    ownKeys = concat(ownKeys, Object.getOwnPropertySymbols(collection))
-  }
-
-  return ownKeys
+  return reflectOwnKeys(collection)
 })
 
 export default keys

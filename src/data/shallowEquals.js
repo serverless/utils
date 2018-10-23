@@ -1,4 +1,5 @@
 import objectHasOwnProperty from '../base/objectHasOwnProperty'
+import objectKeys from '../base/objectKeys'
 
 /**
  * inlined Object.is polyfill to avoid requiring consumers ship their own
@@ -40,8 +41,8 @@ const shallowEquals = (objA, objB) => {
     return false
   }
 
-  const keysA = Object.keys(objA)
-  const keysB = Object.keys(objB)
+  const keysA = objectKeys(objA)
+  const keysB = objectKeys(objB)
 
   if (keysA.length !== keysB.length) {
     return false

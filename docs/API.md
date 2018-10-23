@@ -394,7 +394,7 @@ isElement('<body>')
 
 ### isEmpty()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/isEmpty.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/isEmpty.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is an empty object, collection, map, or set.</p>
 <p>Objects are considered empty if they have no own enumerable string keyed<br />
 properties.</p>
@@ -991,6 +991,7 @@ isWeakSet(new Set())
 
 [source](https://github.com/serverless/utils/tree/v0.0.12/src/base/objectIterator.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns iterator for an object's keys and values.</p>
+<p>Note, iterates over object's own keys and symbols</p>
 
 **Params**
 <p><code>object</code>: <code>&ast;</code> - The array object to create an iterator for.</p>
@@ -1000,7 +1001,11 @@ isWeakSet(new Set())
 
 **Example**
 ```js
-objectIterator({ write: 'more', tests: 'asap' })
+objectIterator({
+  write: 'more',
+  tests: 'asap',
+  [Symbol('like')]: 'now'
+})
 //=> {
 //   next: () => ({
 //     value: *,
@@ -1014,6 +1019,8 @@ iter.next()
 //=> { value: 'more', key: 'write', kdx: 'write', done: false }
 iter.next()
 //=> { value: 'asap', key: 'tests', kdx: 'tests', done: false }
+iter.next()
+//=> { value: 'now', key: Symbol('like'), kdx: Symbol('like'), done: false }
 iter.next()
 //=> { done: true }
 ```
@@ -2430,7 +2437,7 @@ await join(Promise.resolve('|'), Promise.resolve([1, 2, 3]))    //=> '1|2|3'
 
 ### keys()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/keys.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/keys.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the keys of the given collection in an Array.</p>
 <p>Supports objects, Maps and array like values. If given an array like value, the indexes will be returned in string form.</p>
 <p>This method supports Promise values. If given a Promise it will return a Promise that will resolve to the keys of the resolved value of the Promise.</p>
@@ -2709,7 +2716,7 @@ set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
 
 ### shallowEquals()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/shallowEquals.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/shallowEquals.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.</p>
 
 **Params**
