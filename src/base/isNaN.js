@@ -19,9 +19,6 @@ import isNumber from './isNumber'
  * // => true
  *
  * isNaN(undefined)
- * // => true
- *
- * isNaN(undefined)
  * // => false
  */
 const isNaN = (value) => {

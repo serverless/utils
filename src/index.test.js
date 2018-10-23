@@ -31,6 +31,7 @@ describe('index', () => {
       isGenerator: expect.any(Function),
       isGeneratorFunction: expect.any(Function),
       isIndex: expect.any(Function),
+      isInfinity: expect.any(Function),
       isInteger: expect.any(Function),
       isIterable: expect.any(Function),
       isIterator: expect.any(Function),

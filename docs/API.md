@@ -23,6 +23,7 @@
   * [isGenerator()](#isgenerator)
   * [isGeneratorFunction()](#isgeneratorfunction)
   * [isIndex()](#isindex)
+  * [isInfinity()](#isinfinity)
   * [isInteger()](#isinteger)
   * [isIterable()](#isiterable)
   * [isMap()](#ismap)
@@ -532,6 +533,36 @@ isIndex(-1)
 ```
 <br /><br />
 
+### isInfinity()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/isInfinity.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Checks if <code>value</code> is <code>Infinity</code> or <code>-Infinity</code>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is `Infinity` or `-Infinity`, else `false`.</p>
+
+**Example**
+```js
+isInfinity(Infinity)
+// => true
+
+isInfinity(-Infinity)
+// => true
+
+isInfinity(new Number(Infinity))
+// => true
+
+isInfinity(undefined)
+// => false
+
+isInfinity(123)
+// => false
+```
+<br /><br />
+
 ### isInteger()
 
 [source](https://github.com/serverless/utils/tree/v0.0.12/src/base/isInteger.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -625,9 +656,6 @@ isNaN(NaN)
 // => true
 
 isNaN(new Number(NaN))
-// => true
-
-isNaN(undefined)
 // => true
 
 isNaN(undefined)
