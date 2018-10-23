@@ -26,6 +26,7 @@
   * [isInteger()](#isinteger)
   * [isIterable()](#isiterable)
   * [isMap()](#ismap)
+  * [isNaN()](#isnan)
   * [isNativeObject()](#isnativeobject)
   * [isNil()](#isnil)
   * [isNull()](#isnull)
@@ -603,6 +604,34 @@ isIterable([])
 isMap(new Map) // => true
 
 isMap(new WeakMap) // => false
+```
+<br /><br />
+
+### isNaN()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/isNaN.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Checks if <code>value</code> is <code>NaN</code>.</p>
+<p><strong>Note:</strong> This method is based on <a href="https://mdn.io/Number/isNaN"><code>Number.isNaN</code></a> and is not the same as global <a href="https://mdn.io/isNaN"><code>isNaN</code></a> which returns <code>true</code> for <code>undefined</code> and other non-number values.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is `NaN`, else `false`.</p>
+
+**Example**
+```js
+isNaN(NaN)
+// => true
+
+isNaN(new Number(NaN))
+// => true
+
+isNaN(undefined)
+// => true
+
+isNaN(undefined)
+// => false
 ```
 <br /><br />
 

@@ -37,6 +37,7 @@ describe('index', () => {
       isKey: expect.any(Function),
       isLength: expect.any(Function),
       isMap: expect.any(Function),
+      isNaN: expect.any(Function),
       isNativeObject: expect.any(Function),
       isNil: expect.any(Function),
       isNull: expect.any(Function),
@@ -60,6 +61,8 @@ describe('index', () => {
 
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // nodeTypes: expect.any(Object),
+
+      objectCreate: expect.any(Function),
       objectGetOwnPropertySymbols: expect.any(Function),
       objectHasOwnProperty: expect.any(Function),
       objectIterator: expect.any(Function),
