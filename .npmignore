@@ -24,9 +24,24 @@ npm-debug.log
 #mac
 .DS_Store
 
+# appveyor
+.appveyor.yml
+
+# babel
+.babelrc
+babel.config.js
+
+# codecov
+.codecov.yml
+
 # docker
+dbuild
+dexec
 docker-compose.yml
 Dockerfile
+
+# editorconfig
+.editorconfig
 
 # eslint
 .eslintcache
@@ -45,21 +60,22 @@ __tests__
 tests
 *.test.js
 
+# lintstaged
+.lintstagedrc.json
+
 # prettier
 .prettierignore
 prettier.config.js
 
-#development
-.appveyor.yml
-.babelrc
-.codecov.yml
-.editorconfig
-.github
-.lintstagedrc.json
+# travis
 .travis.yml
+
+
+# development
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 DEVELOPMENT.md
+RELEASE.md
 docs
 examples
 scripts
