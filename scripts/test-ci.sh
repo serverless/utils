@@ -1,3 +1,3 @@
 set -e
-npm test
+jest . --runInBand --forceExit --colors
 codecov
