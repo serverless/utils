@@ -11,8 +11,8 @@ const API_README_PATH = path.resolve(__dirname, '..', '..', 'docs', 'API.md')
 const SRC_PATH = path.resolve(__dirname, '..', '..', 'src')
 const CURRENT_VERSION = pack.version
 const GITHUB_TAG_URL = `https://github.com/serverless/utils/tree/v${CURRENT_VERSION}`
-const REGEX_RETURN_TYPE = /{.*}/s
-const REGEX_PARAM = /({.*})\s*([a-zA-Z0-9$_]*)/s
+const REGEX_RETURN_TYPE = /\{.*\}/s
+const REGEX_PARAM = /(\{.*\})\s*([a-zA-Z0-9$_]*)/s
 
 const escape = (input) =>
   input
