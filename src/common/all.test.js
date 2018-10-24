@@ -1,10 +1,23 @@
 import all from './all'
 
 describe('all', () => {
-  test('resolves all async values in an array', async () => {
-    const result = await all(['a', Promise.resolve('b'), (async () => 'c')()])
+  test("resolves a Promise to its value and then resolves the value's values", async () => {
+    const result = await all(
+      Promise.resolve(['a', Promise.resolve('b'), (async () => 'c')(), { resolve: () => 'd' }])
+    )
 
-    expect(result).toEqual(['a', 'b', 'c'])
+    expect(result).toEqual(['a', 'b', 'c', 'd'])
+  })
+
+  test('resolves all async values in an array', async () => {
+    const result = await all([
+      'a',
+      Promise.resolve('b'),
+      (async () => 'c')(),
+      { resolve: () => 'd' }
+    ])
+
+    expect(result).toEqual(['a', 'b', 'c', 'd'])
   })
 
   test('resolves all async values in an object', async () => {

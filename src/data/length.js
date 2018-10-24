@@ -1,4 +1,5 @@
 import isArrayLike from '../base/isArrayLike'
+import curry from '../common/curry'
 import defn from '../common/defn'
 
 /**
@@ -14,11 +15,13 @@ import defn from '../common/defn'
  * length([]) //=> 0
  * length([1, 2, 3]) //=> 3
  */
-const length = defn('length', (list) => {
-  if (!isArrayLike(list)) {
-    throw new TypeError(`length method expects list to be ArrayLike. Instead received ${list}`)
-  }
-  return list.length
-})
+const length = curry(
+  defn('length', (list) => {
+    if (!isArrayLike(list)) {
+      throw new TypeError(`length method expects list to be ArrayLike. Instead received ${list}`)
+    }
+    return list.length
+  })
+)
 
 export default length

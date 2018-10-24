@@ -3,6 +3,7 @@ import isArrayLike from '../base/isArrayLike'
 import isFunction from '../base/isFunction'
 import isMap from '../base/isMap'
 import reflectOwnKeys from '../base/reflectOwnKeys'
+import curry from '../common/curry'
 import resolveWith from '../common/resolveWith'
 
 /**
@@ -32,20 +33,22 @@ import resolveWith from '../common/resolveWith'
  *
  * await keys(Promise.resolve({ a: 1, b: 2 }) //=> ['a', 'b']
  */
-const keys = resolveWith((collection) => {
-  if (isArrayLike(collection)) {
-    return arrayLikeKeys(collection)
-  }
+const keys = curry(
+  resolveWith((collection) => {
+    if (isArrayLike(collection)) {
+      return arrayLikeKeys(collection)
+    }
 
-  if (isMap(collection)) {
-    return Array.from(collection.keys())
-  }
+    if (isMap(collection)) {
+      return Array.from(collection.keys())
+    }
 
-  if (collection != null && isFunction(collection.keys)) {
-    return collection.keys()
-  }
+    if (collection != null && isFunction(collection.keys)) {
+      return collection.keys()
+    }
 
-  return reflectOwnKeys(collection)
-})
+    return reflectOwnKeys(collection)
+  })
+)
 
 export default keys

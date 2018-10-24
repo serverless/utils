@@ -25,7 +25,6 @@ describe('index', () => {
       isBuffer: expect.any(Function),
       isDate: expect.any(Function),
       isElement: expect.any(Function),
-      isEmpty: expect.any(Function),
       isError: expect.any(Function),
       isFunction: expect.any(Function),
       isGenerator: expect.any(Function),
@@ -84,7 +83,9 @@ describe('index', () => {
   test('has common methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
+      __: expect.any(Object),
       all: expect.any(Function),
+      allWith: expect.any(Function),
       apply: expect.any(Function),
       complement: expect.any(Function),
       compose: expect.any(Function),
@@ -100,6 +101,7 @@ describe('index', () => {
       memoizeWith: expect.any(Function),
       nAry: expect.any(Function),
       nArySpread: expect.any(Function),
+      nth: expect.any(Function),
       isOp: expect.any(Function),
       pipe: expect.any(Function),
       resolveToGeneratorWith: expect.any(Function),
@@ -121,7 +123,6 @@ describe('index', () => {
   test('has data methods', () => {
     const mod = require('./')
     expect(mod).toMatchObject({
-      __: expect.any(Object),
       addIndex: expect.any(Function),
       always: expect.any(Function),
       any: expect.any(Function),
@@ -177,10 +178,10 @@ describe('index', () => {
       mapObjIndexed: expect.any(Function),
       merge: expect.any(Function),
       mergeDeep: expect.any(Function),
-      nth: expect.any(Function),
       omit: expect.any(Function),
       over: expect.any(Function),
       pick: expect.any(Function),
+      prepend: expect.any(Function),
       prop: expect.any(Function),
       propOr: expect.any(Function),
       reduce: expect.any(Function),
@@ -264,6 +265,16 @@ describe('index', () => {
       defineProperty: expect.any(Function),
       getProperty: expect.any(Function),
       mix: expect.any(Function)
+    })
+  })
+
+  test('has logic methods', () => {
+    const mod = require('./')
+    expect(mod).toMatchObject({
+      and: expect.any(Function),
+      isEmpty: expect.any(Function),
+      not: expect.any(Function),
+      or: expect.any(Function)
     })
   })
 

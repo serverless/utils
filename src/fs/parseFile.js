@@ -1,9 +1,10 @@
 import YAML from 'js-yaml'
-import { merge } from 'ramda'
+import curryN from '../common/curryN'
+import merge from '../data/merge'
 import isJsonPath from './isJsonPath'
 import isYamlPath from './isYamlPath'
 
-const parseFile = (filePath, contents, options) => {
+const parseFile = curryN(2, (filePath, contents, options = {}) => {
   if (isJsonPath(filePath)) {
     return JSON.parse(contents)
   } else if (isYamlPath(filePath)) {
@@ -12,6 +13,6 @@ const parseFile = (filePath, contents, options) => {
     return contents.toString().split('\n')
   }
   return contents.toString().trim()
-}
+})
 
 export default parseFile

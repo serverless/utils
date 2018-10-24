@@ -1,3 +1,4 @@
+import __ from './__'
 import isOp from './isOp'
 
 describe('isOp', () => {
@@ -25,5 +26,14 @@ describe('isOp', () => {
     expect(isOp([])).toBe(false)
     expect(isOp({})).toBe(false)
     expect(isOp(() => {})).toBe(false)
+  })
+
+  test('curries method with placeholder', () => {
+    const testOp = isOp(__)
+    expect(
+      testOp({
+        ['@@redux-saga/IO']: 'op'
+      })
+    ).toBe(true)
   })
 })

@@ -1,3 +1,4 @@
+import curry from '../common/curry'
 import defn from '../common/defn'
 import assoc from './assoc'
 
@@ -24,6 +25,6 @@ import assoc from './assoc'
  * set('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
  * set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
  */
-const set = defn('set', assoc)
+const set = curry(defn('set', assoc))
 
 export default set

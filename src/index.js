@@ -15,6 +15,7 @@ const fetch = require('./fetch')
 const fs = require('./fs')
 const ip = require('./ip')
 const lang = require('./lang')
+const logic = require('./logic')
 const path = require('./path')
 
 module.exports = {
@@ -27,5 +28,6 @@ module.exports = {
   ...fs,
   ...ip,
   ...lang,
+  ...logic,
   ...path
 }

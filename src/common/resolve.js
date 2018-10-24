@@ -1,5 +1,6 @@
 import isFunction from '../base/isFunction'
 import isObject from '../base/isObject'
+import curry from './curry'
 
 /**
  * Resolves a value to its valueOf.
@@ -36,7 +37,7 @@ import isObject from '../base/isObject'
  *   })
  * }) //=> bar
  */
-const resolve = (value) => {
+const resolve = curry((value) => {
   if (isObject(value)) {
     if (isFunction(value.resolve)) {
       return resolve(value.resolve())
@@ -46,6 +47,6 @@ const resolve = (value) => {
     }
   }
   return value
-}
+})
 
 export default resolve

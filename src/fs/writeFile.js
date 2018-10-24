@@ -1,6 +1,7 @@
 import fse from 'fs-extra'
 import YAML from 'js-yaml'
 import path from 'path'
+import curryN from '../common/curryN'
 import isJsonPath from './isJsonPath'
 import isYamlPath from './isYamlPath'
 
@@ -14,9 +15,9 @@ const formatContents = (filePath, contents, options) => {
   return contents
 }
 
-const writeFile = async (filePath, contents = '', options = {}) => {
+const writeFile = curryN(1, async (filePath, contents = '', options = {}) => {
   await fse.mkdirs(path.dirname(filePath))
   return fse.writeFile(filePath, formatContents(filePath, contents, options))
-}
+})
 
 export default writeFile

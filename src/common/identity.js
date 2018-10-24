@@ -1,3 +1,6 @@
+// import curry from './curry'
+
+// TODO BRN: Only add support for placeholders, do not curry
 /**
  * A function that does nothing but return the parameter supplied to it. Good as a default or placeholder function.
  *
@@ -14,8 +17,11 @@
  * const obj = {}
  * identity(obj) === obj
  * //=> true
+
+ * identity()
+ * //=> undefined
  */
-const identity = function(value) {
+const identity = (value) => {
   return value
 }
 

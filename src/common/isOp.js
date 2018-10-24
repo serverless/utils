@@ -1,3 +1,5 @@
+import curry from './curry'
+
 /**
  * Determines if the value is an op.
  *
@@ -13,6 +15,6 @@
  * })
  * //=> true
  */
-const isOp = (value) => !!(value && value['@@redux-saga/IO'])
+const isOp = curry((value) => !!(value && value['@@redux-saga/IO']))
 
 export default isOp

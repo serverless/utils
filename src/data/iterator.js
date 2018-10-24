@@ -5,7 +5,9 @@ import isIterable from '../base/isIterable'
 import isIterator from '../base/isIterator'
 import isObjectLike from '../base/isObjectLike'
 import objectIterator from '../base/objectIterator'
+import curry from '../common/curry'
 
+// TODO BRN: Move this to the common folder
 /**
  * This method generates an iterator for the given value
  *
@@ -26,7 +28,7 @@ import objectIterator from '../base/objectIterator'
  * iterator({ a: 1, b: 2, c: 3 })
  * //=> { next: () => { value: number, key: string, kdx: string, done: boolean }}
  */
-const iterator = (value) => {
+const iterator = curry((value) => {
   if (isIterator(value)) {
     return value
   }
@@ -42,6 +44,6 @@ const iterator = (value) => {
   throw new Error(
     `iterator method expected to receive an iterable value. Instead the method was given ${value}.`
   )
-}
+})
 
 export default iterator

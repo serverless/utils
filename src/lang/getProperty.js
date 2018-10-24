@@ -1,3 +1,5 @@
+import curry from '../common/curry'
+
 /**
  * Returns a property descriptor for an own property
  *
@@ -25,6 +27,6 @@
  * //   set: undefined
  * // }
  */
-const getProperty = (object, prop) => Object.getOwnPropertyDescriptor(object, prop)
+const getProperty = curry((object, prop) => Object.getOwnPropertyDescriptor(object, prop))
 
 export default getProperty

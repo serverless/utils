@@ -1,8 +1,11 @@
 import isFunction from '../base/isFunction'
 import isPromise from '../base/isPromise'
+import curry from './curry'
 
 /**
  * returns a new function that logically nots the returned value and returns that as the result.
+ *
+ * Auto-curried for placeholder support
  *
  * @function
  * @since v0.0.10
@@ -15,7 +18,7 @@ import isPromise from '../base/isPromise'
  * const isOdd = complement(isEven)
  * isOdd(1) //=> true
  */
-const complement = (fn) => {
+const complement = curry((fn) => {
   if (!isFunction(fn)) {
     throw new TypeError(`Expected 'fn' parameter to be a function. Instead received ${fn}.`)
   }
@@ -26,6 +29,6 @@ const complement = (fn) => {
     }
     return !result
   }
-}
+})
 
 export default complement

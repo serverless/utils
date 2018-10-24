@@ -1,3 +1,4 @@
+import curry from '../common/curry'
 import isResolved from '../common/isResolved'
 import resolveWith from '../common/resolveWith'
 import getProp from './getProp'
@@ -39,6 +40,7 @@ const doSeriesIteration = (fn, iter) => {
   }
 }
 
+// TODO BRN: Move this to the common folder
 /**
  * This method iterates over the given collection or iterator in **series**. If the `iteratee` method returns `{ done: true }` then the iteration will complete.
  *
@@ -72,6 +74,6 @@ const doSeriesIteration = (fn, iter) => {
  * }), ['a', 'b', 'c'])
  * //=> 1
  */
-const iterate = (iteratee, collection) => doSeriesIteration(iteratee, iterator(collection))
+const iterate = curry((iteratee, collection) => doSeriesIteration(iteratee, iterator(collection)))
 
 export default iterate

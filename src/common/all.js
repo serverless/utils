@@ -1,13 +1,18 @@
-import Promise from 'bluebird'
+import BdPromise from 'bluebird'
 import isArray from '../base/isArray'
 import isFunction from '../base/isFunction'
 import isIterator from '../base/isIterator'
 import isObject from '../base/isObject'
 import isPromise from '../base/isPromise'
 import iterate from '../data/iterate'
+import curry from './curry'
+import resolve from './resolve'
+import resolveWith from './resolveWith'
 
 /**
  * Resolves all async values in an array or object
+ *
+ * Auto curried for placeholder support.
  *
  * @function
  * @since v0.0.6
@@ -33,38 +38,43 @@ import iterate from '../data/iterate'
  * await all('abc') //=> 'abc'
  * await all(123) //=> 123
  */
-const all = (value) => {
-  // TODO BRN: add support for more than one parameter
-  // TODO BRN: add support for generators
-  // TODO BRN: add support for async iterators
-  let result
-  if (isArray(value) || isIterator(value)) {
-    result = []
-  } else if (isObject(value) && !isFunction(value)) {
-    result = {}
-  } else {
+const all = curry(
+  resolveWith((value) => {
+    // TODO BRN: add support for generators
+    // TODO BRN: add support for async iterators
+    let result
+    if (isArray(value) || isIterator(value)) {
+      result = []
+    } else if (isObject(value) && !isFunction(value)) {
+      result = {}
+    } else {
+      return value
+    }
+    let resolveAsync = false
+
+    // TODO BRN: This needs to be piped and returned in order to support generators and async iterators
+    iterate((next) => {
+      if (next.done) {
+        return next
+      }
+      const nextValue = resolve(next.value)
+      result[next.kdx] = nextValue
+      if (isPromise(nextValue)) {
+        resolveAsync = true
+      }
+    }, value)
+
+    // TODO BRN: These methods won't resolve values after the promise has been resolved and won't resolve generators
+    if (resolveAsync) {
+      if (isArray(result)) {
+        return Promise.all(result)
+      } else if (isObject(result)) {
+        return Promise.resolve(BdPromise.props(result))
+      }
+    }
+
     return value
-  }
-  let resolveAsync = false
-  iterate((next) => {
-    if (next.done) {
-      return next
-    }
-    result[next.kdx] = next.value
-    if (isPromise(next.value)) {
-      resolveAsync = true
-    }
-  }, value)
-
-  if (resolveAsync) {
-    if (isArray(result)) {
-      return Promise.all(result)
-    } else if (isObject(result)) {
-      return Promise.props(result)
-    }
-  }
-
-  return value
-}
+  })
+)
 
 export default all

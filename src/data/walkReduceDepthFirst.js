@@ -1,5 +1,6 @@
 import isArray from '../base/isArray'
 import isObject from '../base/isObject'
+import curry from '../common/curry'
 import resolve from '../common/resolve'
 import concat from './concat'
 import forEachIndexed from './forEachIndexed'
@@ -64,7 +65,8 @@ const walkee = (accum, value, keys, iteratee, recur) => {
  *   []
  * ]
  */
-const walkReduceDepthFirst = (iteratee, accum, collection) =>
+const walkReduceDepthFirst = curry((iteratee, accum, collection) =>
   walk(walkee, iteratee, accum, collection, [])
+)
 
 export default walkReduceDepthFirst

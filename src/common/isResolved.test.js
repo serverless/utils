@@ -1,3 +1,4 @@
+import __ from './__'
 import isResolved from './isResolved'
 
 describe('isResolved', () => {
@@ -39,5 +40,10 @@ describe('isResolved', () => {
     expect(isResolved([])).toBe(true)
     expect(isResolved({})).toBe(true)
     expect(isResolved(() => {})).toBe(true)
+  })
+
+  test('curries method with placeholder', () => {
+    const testResolved = isResolved(__)
+    expect(testResolved(null)).toBe(true)
   })
 })

@@ -1,5 +1,5 @@
 const { hasOwnProperty } = Object.prototype
 
-const objectHasOwnProperty = (obj, prop) => hasOwnProperty.call(obj, prop)
+const objectHasOwnProperty = (object, prop) => hasOwnProperty.call(object, prop)
 
 export default objectHasOwnProperty
