@@ -8,6 +8,7 @@ install:
   - ps: Install-Product node $env:NODEJS_VERSION
   - set PATH=%APPDATA%\npm;%PATH%
   - cmd: appveyor-retry npm install
+  - cmd: npm run setup:ci
 
 test_script:
   - node --version
