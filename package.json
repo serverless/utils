@@ -17,17 +17,17 @@
   },
   "homepage": "https://github.com/serverless/utils#readme",
   "scripts": {
-    "build": "./scripts/build.sh",
-    "clean": "./scripts/clean.sh",
-    "cleanse": "./scripts/cleanse.sh",
-    "docs:gen": "./scripts/docs-gen.sh",
-    "lint": "./scripts/lint.sh",
-    "lint:staged": "./scripts/lint-staged.sh",
-    "setup": "./scripts/setup.sh",
-    "setup:ci": "./scripts/setup-ci.sh",
-    "test": "./scripts/test.sh",
-    "test:ci": "./scripts/test-ci.sh",
-    "watch": "./scripts/watch.sh"
+    "build": "bash ./scripts/build.sh",
+    "clean": "bash ./scripts/clean.sh",
+    "cleanse": "bash ./scripts/cleanse.sh",
+    "docs:gen": "bash ./scripts/docs-gen.sh",
+    "lint": "bash ./scripts/lint.sh",
+    "lint:staged": "bash ./scripts/lint-staged.sh",
+    "setup": "bash ./scripts/setup.sh",
+    "setup:ci": "bash ./scripts/setup-ci.sh",
+    "test": "bash ./scripts/test.sh",
+    "test:ci": "bash ./scripts/test-ci.sh",
+    "watch": "bash ./scripts/watch.sh"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
