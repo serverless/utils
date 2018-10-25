@@ -1,6 +1,7 @@
 import isArray from '../base/isArray'
 import isFunction from '../base/isFunction'
 import isMap from '../base/isMap'
+import curry from '../common/curry'
 import resolveWith from '../common/resolveWith'
 import getProp from './getProp'
 import keys from './keys'
@@ -34,22 +35,24 @@ import keys from './keys'
  *
  * await values(Promise.resolve({ a: 1, b: 2 }) //=> [1, 2]
  */
-const values = resolveWith((collection) => {
-  if (isMap(collection)) {
-    return Array.from(collection.values())
-  }
-  if (collection != null && !isArray(collection) && isFunction(collection.values)) {
-    return collection.values()
-  }
-  const props = keys(collection)
-  const { length } = props
-  const vals = []
-  let idx = 0
-  while (idx < length) {
-    vals[idx] = getProp(props[idx], collection)
-    idx += 1
-  }
-  return vals
-})
+const values = curry(
+  resolveWith((collection) => {
+    if (isMap(collection)) {
+      return Array.from(collection.values())
+    }
+    if (collection != null && !isArray(collection) && isFunction(collection.values)) {
+      return collection.values()
+    }
+    const props = keys(collection)
+    const { length } = props
+    const vals = []
+    let idx = 0
+    while (idx < length) {
+      vals[idx] = getProp(props[idx], collection)
+      idx += 1
+    }
+    return vals
+  })
+)
 
 export default values

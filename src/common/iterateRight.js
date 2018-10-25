@@ -1,44 +1,43 @@
-import isResolved from '../common/isResolved'
-import resolveWith from '../common/resolveWith'
-import getProp from './getProp'
+import isFunction from '../base/isFunction'
+import curry from './curry'
+import isResolved from './isResolved'
 import iterator from './iterator'
-
-const getDone = getProp('done')
-const getValue = getProp('value')
+import resolveWith from './resolveWith'
 
 const resolveNext = (next, fn, iter, recur) =>
   resolveWith((resolvedNext) => {
-    if (getDone(resolvedNext)) {
-      return getValue(resolvedNext)
+    if (resolvedNext.done) {
+      return resolvedNext.value
     }
     return recur(fn, iter)
   }, next)
 
-const doSeriesIteration = (fn, iter) => {
+const doReverseSeriesIteration = (fn, iter) => {
   while (true) {
-    let next = iter.next()
+    let next = iter.previous()
     if (!isResolved(next)) {
       return resolveWith((resolvedNext) => {
         next = fn(resolvedNext)
         if (!isResolved(next)) {
-          return resolveNext(next, fn, iter, doSeriesIteration)
+          return resolveNext(next, fn, iter, doReverseSeriesIteration)
         }
-        if (getDone(next)) {
-          return getValue(next)
+        if (next.done) {
+          return next.value
         }
-        return doSeriesIteration(fn, iter)
+        return doReverseSeriesIteration(fn, iter)
       }, next)
     }
     next = fn(next)
     if (!isResolved(next)) {
-      return resolveNext(next, fn, iter, doSeriesIteration)
+      return resolveNext(next, fn, iter, doReverseSeriesIteration)
     }
-    if (getDone(next)) {
-      return getValue(next)
+    if (next.done) {
+      return next.value
     }
   }
 }
 
+// TODO BRN: Move this to the common folder
 /**
  * This method iterates over the given collection or iterator in **series**. If the `iteratee` method returns `{ done: true }` then the iteration will complete.
  *
@@ -48,13 +47,13 @@ const doSeriesIteration = (fn, iter) => {
  *
  * @function
  * @since v0.0.11
- * @category data
+ * @category common
  * @param {Function} iteratee The iteratee Function
  * @param  {*} collection The collection or iterator to iterate over
  * @returns {*} The final value returned when the iteratee returns done or `undefined`
  * @example
  *
- * iterate((value, kdx) => {
+ * iterateRight((value, kdx) => {
  *   if (value === 'b') {
  *     return { done: true, value: kdx }
  *   }
@@ -62,7 +61,7 @@ const doSeriesIteration = (fn, iter) => {
  * }, ['a', 'b', 'c'])
  * //=> 1
  *
- * iterate(async (value, kdx) => new Promise((resolve, reject) => {
+ * iterateRight(async (value, kdx) => new Promise((resolve, reject) => {
  *   setTimeout(() => {
  *     if (value === 'b') {
  *       return resolve({ done: true, value: kdx })
@@ -72,6 +71,14 @@ const doSeriesIteration = (fn, iter) => {
  * }), ['a', 'b', 'c'])
  * //=> 1
  */
-const iterate = (iteratee, collection) => doSeriesIteration(iteratee, iterator(collection))
+const iterateRight = curry((iteratee, collection) => {
+  const iter = iterator(collection, iterator.END)
+  if (!isFunction(iter.previous)) {
+    throw new Error(
+      `iterateRight expects an iterator that can be run in reverse order using a 'previous' method. Instead received ${iter}`
+    )
+  }
+  return doReverseSeriesIteration(iteratee, iter)
+})
 
-export default iterate
+export default iterateRight

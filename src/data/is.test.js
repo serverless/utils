@@ -1,3 +1,4 @@
+import __ from '../common/__'
 import is from './is'
 
 describe('is', () => {
@@ -10,5 +11,35 @@ describe('is', () => {
     expect(is(Object, new String(''))).toBe(true)
     expect(is(Object, 's')).toBe(false)
     expect(is(Number, {})).toBe(false)
+  })
+
+  test('curries method', () => {
+    const isObject = is(Object)
+    expect(isObject({})).toBe(true)
+  })
+
+  test('curries method with placeholder', () => {
+    const isP = is(__)
+    const isObject = isP(Object)
+    expect(isObject({})).toBe(true)
+  })
+
+  test('does not resolve values', () => {
+    expect(
+      is(Object, {
+        resolve: () => 123
+      })
+    ).toBe(true)
+  })
+
+  test('dispatches to is method of object', () => {
+    expect(
+      is(String, {
+        is: (Constructor) => {
+          expect(Constructor).toBe(String)
+          return new String('foo') instanceof Constructor
+        }
+      })
+    ).toBe(true)
   })
 })

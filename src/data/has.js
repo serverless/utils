@@ -24,9 +24,8 @@ import hasPath from './hasPath'
  * has('a.b', {a: {c: 2}})               // => false
  * has([], {})                           // => true
  */
-const has = defn(
-  'has',
-  curry((selector, value) => {
+const has = curry(
+  defn('has', (selector, value) => {
     if (isUndefined(selector)) {
       return !!value
     }

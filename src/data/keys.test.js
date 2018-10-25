@@ -5,6 +5,11 @@ describe('keys', () => {
     expect(keys({ foo: 'bar', bim: 'bop' })).toEqual(['foo', 'bim'])
   })
 
+  test('supports Symbols as keys', () => {
+    const sym = Symbol('abc')
+    expect(keys({ [sym]: 'bar' })).toEqual([sym])
+  })
+
   test('returns an empty array of keys for an empty object', () => {
     expect(keys({})).toEqual([])
   })

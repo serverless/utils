@@ -41,6 +41,20 @@ describe('reduce', () => {
     expect(result).toBe('')
   })
 
+  test('reduces over objects symbols', () => {
+    const symA = Symbol('a')
+    const symB = Symbol.for('b')
+    const object = {
+      [symA]: 'a',
+      [symB]: 'b'
+    }
+    const reducer = jest.fn((acc, value) => value)
+    const result = reduce(reducer, 'c', object)
+    expect(reducer).toHaveBeenNthCalledWith(1, 'c', 'a', symA)
+    expect(reducer).toHaveBeenNthCalledWith(2, 'a', 'b', symB)
+    expect(result).toBe('b')
+  })
+
   test('reduce object of functions', () => {
     const object = {
       async foo() {
@@ -63,5 +77,24 @@ describe('reduce', () => {
       bam: expect.any(Function),
       bim: expect.any(Function)
     })
+  })
+
+  test('upgrades to a Promise when an async iteratee is used', async () => {
+    const array = ['a', 'b', 'c']
+    let result = reduce(
+      (acc, val, index) =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            acc.push([val, index])
+            resolve(acc)
+          }, 0)
+        }),
+      [],
+      array
+    )
+
+    expect(result).toBeInstanceOf(Promise)
+    result = await result
+    expect(result).toEqual([['a', 0], ['b', 1], ['c', 2]])
   })
 })

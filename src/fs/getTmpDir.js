@@ -2,8 +2,9 @@ import crypto from 'crypto'
 import fse from 'fs-extra'
 import os from 'os'
 import path from 'path'
+import curry from '../common/curry'
 
-const getTmpDir = async () => {
+const getTmpDir = curry(async () => {
   const tmpDirPath = path.join(
     os.tmpdir(),
     'tmpdirs-serverless',
@@ -13,6 +14,6 @@ const getTmpDir = async () => {
   await fse.ensureDir(tmpDirPath)
 
   return tmpDirPath
-}
+})
 
 export default getTmpDir

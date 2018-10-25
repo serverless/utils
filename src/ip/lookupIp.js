@@ -1,3 +1,4 @@
+import curry from '../common/curry'
 import fetch from '../fetch/fetch'
 import isIp from './isIp'
 
@@ -34,7 +35,7 @@ import isIp from './isIp'
  * //   regionCode: 'NSW'
  * // }
  */
-const lookupIp = async (ip) => {
+const lookupIp = curry(async (ip) => {
   if (!isIp(ip)) {
     throw new Error(`Expected an IP address. Instead received ${ip}`)
   }
@@ -56,6 +57,6 @@ const lookupIp = async (ip) => {
     region: body.region_name,
     regionCode: body.region_code
   }
-}
+})
 
 export default lookupIp

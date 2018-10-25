@@ -1,9 +1,9 @@
 import isArray from '../base/isArray'
 import isFunction from '../base/isFunction'
-import isPromise from '../base/isPromise'
 import isString from '../base/isString'
 import toString from '../base/toString'
 import curry from '../common/curry'
+import defn from '../common/defn'
 
 /**
  * Returns the result of concatenating the given lists or strings.
@@ -28,30 +28,26 @@ import curry from '../common/curry'
  * concat([], []) //=> []
  * await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5, 6, 1, 2, 3]
  */
-const concat = curry((firstList, secondList) => {
-  // TODO BRN: Add support for concatenating more than one list
-  if (isPromise(firstList)) {
-    return firstList.then((resolvedFirstList) => concat(resolvedFirstList, secondList))
-  }
-  if (isPromise(secondList)) {
-    return secondList.then((resolvedSecondList) => concat(firstList, resolvedSecondList))
-  }
-  if (isArray(firstList)) {
-    if (isArray(secondList)) {
+const concat = curry(
+  defn('concat', (firstList, secondList) => {
+    // TODO BRN: Add support for concatenating more than one list
+    if (isArray(firstList)) {
+      if (isArray(secondList)) {
+        return firstList.concat(secondList)
+      }
+      throw new TypeError(`${toString(secondList)} is not an array`)
+    }
+    if (isString(firstList)) {
+      if (isString(secondList)) {
+        return firstList + secondList
+      }
+      throw new TypeError(`${toString(secondList)} is not a string`)
+    }
+    if (firstList != null && isFunction(firstList.concat)) {
       return firstList.concat(secondList)
     }
-    throw new TypeError(`${toString(secondList)} is not an array`)
-  }
-  if (isString(firstList)) {
-    if (isString(secondList)) {
-      return firstList + secondList
-    }
-    throw new TypeError(`${toString(secondList)} is not a string`)
-  }
-  if (firstList != null && isFunction(firstList.concat)) {
-    return firstList.concat(secondList)
-  }
-  throw new TypeError(`${toString(firstList)} does not have a method named "concat"`)
-})
+    throw new TypeError(`${toString(firstList)} does not have a method named "concat"`)
+  })
+)
 
 export default concat

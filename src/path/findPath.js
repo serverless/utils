@@ -1,4 +1,5 @@
 import isString from '../base/isString'
+import curryN from '../common/curryN'
 import find from '../data/find'
 
 const findString = find(isString)
@@ -16,6 +17,6 @@ const findString = find(isString)
  *
  * findPath(null, 0, '/foo', '/bar') // => '/foo'
  */
-const findPath = (...values) => findString(values)
+const findPath = curryN(1, (...values) => findString(values))
 
 export default findPath

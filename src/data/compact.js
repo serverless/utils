@@ -1,4 +1,5 @@
 import isUndefined from '../base/isUndefined'
+import curry from '../common/curry'
 import defn from '../common/defn'
 import reject from './reject'
 
@@ -15,6 +16,6 @@ import reject from './reject'
  * compact([0, 1, false, 2, null, '', 3, undefined])
  * // => [0, 1, false, 2, null, '', 3]
  */
-const compact = defn('compact', (array) => reject(isUndefined, array))
+const compact = curry(defn('compact', reject(isUndefined)))
 
 export default compact

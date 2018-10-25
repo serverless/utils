@@ -1,4 +1,5 @@
 import isString from '../base/isString'
+import curry from '../common/curry'
 
 const ipv4Maybe = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/
 const ipv6Block = /^[0-9A-F]{1,4}$/i
@@ -21,7 +22,7 @@ const ipv6Block = /^[0-9A-F]{1,4}$/i
  * isIp('2001:db8:abcd:0012:0000:0000:0000:0000', 4) //=> false
  * isIp('2001:db8:abcd:0012:0000:0000:0000:0000', 6) //=> true
  */
-const isIp = (value, version = '') => {
+const isIp = curry((value, version = '') => {
   if (!isString(value)) {
     return false
   }
@@ -85,6 +86,6 @@ const isIp = (value, version = '') => {
     return length === expectedNumberOfBlocks
   }
   return false
-}
+})
 
 export default isIp

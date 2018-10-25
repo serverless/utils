@@ -17,6 +17,16 @@ describe('forEach', () => {
     expect(result).toBe(object)
   })
 
+  test('forEach value in object with symbols as keys', () => {
+    const symA = Symbol('a')
+    const symB = Symbol('b')
+    const object = { [symA]: 'valueA', [symB]: 'valueB' }
+    const acc = []
+    const result = forEach((val, key) => acc.push([val, key]), object)
+    expect(acc).toEqual([['valueA', symA], ['valueB', symB]])
+    expect(result).toBe(object)
+  })
+
   test('upgrades to a Promise when an async iteratee is used', async () => {
     const array = ['a', 'b', 'c']
     const acc = []

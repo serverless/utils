@@ -1,45 +1,44 @@
 import isArray from '../base/isArray'
-import isTransformer from '../base/isTransformer'
+import isFunction from '../base/isFunction'
+import isObject from '../base/isObject'
+import nArySpread from './nArySpread'
 
 /**
  * Returns a function that dispatches with different strategies based on the object in list position (last argument). If it is an array, executes [fn].
- *
- * Otherwise, if it has a function with one of the given method names, it will execute that function (functor case).
-
- *Otherwise, if it is a transformer,
- * uses transducer [xf] to return a new transformer (transducer case).
  *
  * Otherwise, it will default to executing [fn].
  *
  * @function
  * @since v0.0.6
  * @category common
- * @param {Array} methodNames properties to check for a custom implementation
- * @param {Function} xf transducer to initialize if object is transformer
- * @param {Function} fn default ramda implementation
+ * @param {string} name The name of the method to call if it exists
+ * @param {Function} fn The default function to execute if the named one does not exist on the last arg
  * @returns {Function} A function that dispatches on object in list position
+ * @example
+ * const get = dispatchable('get', (prop, value) => value[prop])
+ * get('a', { a: 'foo' }) //=> 'foo'
+ *
+ * const obj = {
+ *   props: {
+ *     a: 'bar'
+ *   }
+ *   get: (prop) => obj.props[prop]
+ * }
+ * get('a', obj) //=> 'bar'
  */
-const dispatchable = (methodNames, xf, fn) =>
-  function() {
-    if (arguments.length === 0) {
-      return fn()
+const dispatchable = (name, fn) => {
+  const arity = fn.length
+  const override = function(...args) {
+    if (args.length === 0) {
+      return fn.apply(this)
     }
-    const args = Array.prototype.slice.call(arguments, 0)
-    const obj = args.pop()
-    if (!isArray(obj)) {
-      let idx = 0
-      while (idx < methodNames.length) {
-        if (typeof obj[methodNames[idx]] === 'function') {
-          return obj[methodNames[idx]].apply(obj, args)
-        }
-        idx += 1
-      }
-      if (isTransformer(obj)) {
-        const transducer = xf.apply(null, args)
-        return transducer(obj)
-      }
+    const obj = args[args.length - 1]
+    if (!isArray(obj) && isObject(obj) && isFunction(obj[name]) && obj !== this) {
+      return obj[name](...args)
     }
-    return fn.apply(this, arguments)
+    return fn.apply(this, args)
   }
+  return nArySpread(arity, override)
+}
 
 export default dispatchable

@@ -1,5 +1,5 @@
 import isString from '../base/isString'
-import curry from '../common/curry'
+import curry from './curry'
 
 /**
  * Returns the nth element of the given list or string. If n is negative the
@@ -7,7 +7,7 @@ import curry from '../common/curry'
  *
  * @function
  * @since v0.0.5
- * @category data
+ * @category common
  * @sig Number -> String -> String
  * @param {number} offset The offset from the 0 index to select from. If negative it will be subtracted from length
  * @param {*} collection The collection to select from

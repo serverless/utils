@@ -6,16 +6,22 @@ describe('index', () => {
   })
 
   test('has base methods', () => {
-    const mod = require('./')
+    const mod = require('./base')
     expect(mod).toMatchObject({
-      arrayIterator: expect.any(Function),
-      arrayIteratorAtIndex: expect.any(Function),
+      arrayConcat: expect.any(Function),
+      arrayFlatten: expect.any(Function),
+      arrayLikeIterator: expect.any(Function),
       arrayLikeKeys: expect.any(Function),
+      arrayLikeReduce: expect.any(Function),
+      arrayLikeReduceRight: expect.any(Function),
+      arrayLikeSlice: expect.any(Function),
       baseGetTag: expect.any(Function),
 
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // freeGlobal: expect.any(Object),
+
       getTag: expect.any(Function),
+      indexEndOffset: expect.any(Function),
       isArguments: expect.any(Function),
       isArray: expect.any(Function),
       isArrayBuffer: expect.any(Function),
@@ -24,18 +30,19 @@ describe('index', () => {
       isBuffer: expect.any(Function),
       isDate: expect.any(Function),
       isElement: expect.any(Function),
-      isEmpty: expect.any(Function),
       isError: expect.any(Function),
       isFunction: expect.any(Function),
       isGenerator: expect.any(Function),
       isGeneratorFunction: expect.any(Function),
       isIndex: expect.any(Function),
+      isInfinity: expect.any(Function),
       isInteger: expect.any(Function),
       isIterable: expect.any(Function),
       isIterator: expect.any(Function),
       isKey: expect.any(Function),
       isLength: expect.any(Function),
       isMap: expect.any(Function),
+      isNaN: expect.any(Function),
       isNativeObject: expect.any(Function),
       isNil: expect.any(Function),
       isNull: expect.any(Function),
@@ -59,6 +66,9 @@ describe('index', () => {
 
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // nodeTypes: expect.any(Object),
+
+      objectCreate: expect.any(Function),
+      objectGetOwnPropertySymbols: expect.any(Function),
       objectHasOwnProperty: expect.any(Function),
       objectIterator: expect.any(Function),
       objectKeys: expect.any(Function),
@@ -66,6 +76,7 @@ describe('index', () => {
       // NOTE BRN: This is commented out because it causes an extremely long diff to happen in Jest
       // root: expect.any(Object),
 
+      reflectOwnKeys: expect.any(Function),
       toFinite: expect.any(Function),
       toInteger: expect.any(Function),
       toNumber: expect.any(Function),
@@ -75,9 +86,11 @@ describe('index', () => {
   })
 
   test('has common methods', () => {
-    const mod = require('./')
+    const mod = require('./common')
     expect(mod).toMatchObject({
+      __: expect.any(Object),
       all: expect.any(Function),
+      allWith: expect.any(Function),
       apply: expect.any(Function),
       complement: expect.any(Function),
       compose: expect.any(Function),
@@ -89,10 +102,14 @@ describe('index', () => {
       identity: expect.any(Function),
       isOp: expect.any(Function),
       isResolved: expect.any(Function),
+      iterate: expect.any(Function),
+      iterateRight: expect.any(Function),
+      iterator: expect.any(Function),
       memoize: expect.any(Function),
       memoizeWith: expect.any(Function),
       nAry: expect.any(Function),
       nArySpread: expect.any(Function),
+      nth: expect.any(Function),
       isOp: expect.any(Function),
       pipe: expect.any(Function),
       resolveToGeneratorWith: expect.any(Function),
@@ -102,7 +119,7 @@ describe('index', () => {
   })
 
   test('has constants', () => {
-    const mod = require('./')
+    const mod = require('./constants')
     expect(mod).toMatchObject({
       HAS_ARGS_ENUM_BUG: expect.any(Boolean),
       HAS_OBJECT_ENUM_BUG: expect.any(Boolean),
@@ -112,9 +129,8 @@ describe('index', () => {
   })
 
   test('has data methods', () => {
-    const mod = require('./')
+    const mod = require('./data')
     expect(mod).toMatchObject({
-      __: expect.any(Object),
       addIndex: expect.any(Function),
       always: expect.any(Function),
       any: expect.any(Function),
@@ -155,21 +171,23 @@ describe('index', () => {
       head: expect.any(Function),
       init: expect.any(Function),
       is: expect.any(Function),
-      iterate: expect.any(Function),
-      iterator: expect.any(Function),
       join: expect.any(Function),
       keys: expect.any(Function),
       last: expect.any(Function),
       length: expect.any(Function),
+      lens: expect.any(Function),
+      lensIndex: expect.any(Function),
+      lensPath: expect.any(Function),
+      lensProp: expect.any(Function),
       map: expect.any(Function),
       mapIndexed: expect.any(Function),
       mapObjIndexed: expect.any(Function),
       merge: expect.any(Function),
       mergeDeep: expect.any(Function),
-      nth: expect.any(Function),
       omit: expect.any(Function),
       over: expect.any(Function),
       pick: expect.any(Function),
+      prepend: expect.any(Function),
       prop: expect.any(Function),
       propOr: expect.any(Function),
       reduce: expect.any(Function),
@@ -197,7 +215,7 @@ describe('index', () => {
   })
 
   test('has error methods', () => {
-    const mod = require('./')
+    const mod = require('./error')
     expect(mod).toMatchObject({
       createException: expect.any(Function),
       error: expect.any(Function),
@@ -207,14 +225,14 @@ describe('index', () => {
   })
 
   test('has fetch methods', () => {
-    const mod = require('./')
+    const mod = require('./fetch')
     expect(mod).toMatchObject({
       fetch: expect.any(Function)
     })
   })
 
   test('has fs methods', () => {
-    const mod = require('./')
+    const mod = require('./fs')
     expect(mod).toMatchObject({
       copyDirContentsSync: expect.any(Function),
       dirExists: expect.any(Function),
@@ -238,7 +256,7 @@ describe('index', () => {
   })
 
   test('has ip methods', () => {
-    const mod = require('./')
+    const mod = require('./ip')
     expect(mod).toMatchObject({
       isIp: expect.any(Function),
       lookupIp: expect.any(Function)
@@ -246,7 +264,7 @@ describe('index', () => {
   })
 
   test('has lang methods', () => {
-    const mod = require('./')
+    const mod = require('./lang')
     expect(mod).toMatchObject({
       assignProperties: expect.any(Function),
       cloneProperties: expect.any(Function),
@@ -256,8 +274,18 @@ describe('index', () => {
     })
   })
 
+  test('has logic methods', () => {
+    const mod = require('./logic')
+    expect(mod).toMatchObject({
+      and: expect.any(Function),
+      isEmpty: expect.any(Function),
+      not: expect.any(Function),
+      or: expect.any(Function)
+    })
+  })
+
   test('has path methods', () => {
-    const mod = require('./')
+    const mod = require('./path')
     expect(mod).toMatchObject({
       findPath: expect.any(Function)
     })

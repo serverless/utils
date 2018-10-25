@@ -27,7 +27,7 @@ import keys from './keys'
  * await every(async (value) => equals3(value), [3, 3, 3]) //=> true
  */
 const every = curry(
-  defn(['every'], (fn, collection) => {
+  defn('every', (fn, collection) => {
     if (isArrayLike(collection)) {
       return everyAtIndex(fn, 0, collection)
     }

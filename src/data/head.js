@@ -1,4 +1,4 @@
-import nth from './nth'
+import nth from '../common/nth'
 
 /**
  * Returns the first element of the given list or string.

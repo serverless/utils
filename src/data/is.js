@@ -1,5 +1,5 @@
 import curry from '../common/curry'
-import defn from '../common/defn'
+import dispatchable from '../common/dispatchable'
 
 /**
  * See if an object (`val`) is an instance of the supplied constructor. This function will check up the inheritance chain, if any.
@@ -23,7 +23,7 @@ import defn from '../common/defn'
  * is(Number, {}); //=> false
  */
 const is = curry(
-  defn('is', (construtor, value) => {
+  dispatchable('is', (construtor, value) => {
     return (value != null && value.constructor === construtor) || value instanceof construtor
   })
 )

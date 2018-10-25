@@ -1,4 +1,6 @@
-const generateStackTrace = (message, shift = 3) => {
+import curryN from '../common/curryN'
+
+const generateStackTrace = curryN(1, (message, shift = 3) => {
   let callstack = []
 
   // NOTE BRN: See more info about this line https://code.google.com/p/v8/wiki/JavaScriptStackTraceApi
@@ -13,6 +15,6 @@ const generateStackTrace = (message, shift = 3) => {
     callstack.shift()
   }
   return `${message}\n ${callstack.join('\n')}`
-}
+})
 
 export default generateStackTrace

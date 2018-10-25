@@ -11,6 +11,28 @@ describe('defn', () => {
     expect(result).toBe('baz')
   })
 
+  test('maintains context of function', () => {
+    const test = {
+      func: defn('test', function() {
+        expect(this).toBe(test)
+        return 'baz'
+      })
+    }
+    expect(test.func()).toBe('baz')
+  })
+
+  test('resolves Promises before passing them to function', async () => {
+    const test = defn('test', (arg1, arg2) => {
+      expect(arg1).toBe(123)
+      expect(arg2).toBe('foo')
+      return 'baz'
+    })
+
+    const result = test(Promise.resolve(123), (async () => 'foo')())
+    expect(result).toBeInstanceOf(Promise)
+    expect(await result).toBe('baz')
+  })
+
   test('calls default function in case of no implementation', () => {
     const obj = {}
     const test = defn('test', (arg1, arg2, arg3) => {

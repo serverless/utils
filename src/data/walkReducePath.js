@@ -1,4 +1,5 @@
 import isObject from '../base/isObject'
+import curry from '../common/curry'
 import resolve from '../common/resolve'
 import append from './append'
 import castPath from './castPath'
@@ -53,7 +54,8 @@ const reducePathWalkee = (pathParts, accum, value, keys, iteratee, recur) => {
  * //   ['a', 'c', 'd']
  * // ]
  */
-const walkReducePath = (iteratee, path, accum, collection) =>
+const walkReducePath = curry((iteratee, path, accum, collection) =>
   walk(reducePathWalkee, iteratee, castPath(path), accum, collection, [])
+)
 
 export default walkReducePath

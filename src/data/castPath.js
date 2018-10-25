@@ -1,9 +1,10 @@
 import isArray from '../base/isArray'
 import isKey from '../base/isKey'
 import isString from '../base/isString'
+import curryN from '../common/curryN'
 import stringToPath from './stringToPath'
 
-const castPath = (value, object) => {
+const castPath = curryN(1, (value, object = {}) => {
   if (isArray(value)) {
     return value
   }
@@ -11,6 +12,6 @@ const castPath = (value, object) => {
     return [value]
   }
   return stringToPath(value)
-}
+})
 
 export default castPath

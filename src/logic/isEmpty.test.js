@@ -1,3 +1,4 @@
+import __ from '../common/__'
 import isEmpty from './isEmpty'
 
 describe('isEmpty', () => {
@@ -102,5 +103,16 @@ describe('isEmpty', () => {
     Test.prototype.foo = function() {}
     const test = new Test()
     expect(isEmpty(Object.getPrototypeOf(test))).toBe(false)
+  })
+
+  test('identifies empty prototype as empty', () => {
+    function Test() {}
+    const test = new Test()
+    expect(isEmpty(Object.getPrototypeOf(test))).toBe(true)
+  })
+
+  test('curries with a placeholder', () => {
+    const test = isEmpty(__)
+    expect(test([])).toBe(true)
   })
 })

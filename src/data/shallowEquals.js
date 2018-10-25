@@ -1,4 +1,6 @@
 import objectHasOwnProperty from '../base/objectHasOwnProperty'
+import objectKeys from '../base/objectKeys'
+import curry from '../common/curry'
 
 /**
  * inlined Object.is polyfill to avoid requiring consumers ship their own
@@ -31,7 +33,7 @@ function is(x, y) {
  * shallowEquals({ a: 1, b: 2, c: undefined }, { a: 1, b: 2, c: undefined }) //=> true
  * shallowEquals({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }) //=> false
  */
-const shallowEquals = (objA, objB) => {
+const shallowEquals = curry((objA, objB) => {
   if (is(objA, objB)) {
     return true
   }
@@ -40,8 +42,8 @@ const shallowEquals = (objA, objB) => {
     return false
   }
 
-  const keysA = Object.keys(objA)
-  const keysB = Object.keys(objB)
+  const keysA = objectKeys(objA)
+  const keysB = objectKeys(objB)
 
   if (keysA.length !== keysB.length) {
     return false
@@ -55,6 +57,6 @@ const shallowEquals = (objA, objB) => {
   }
 
   return true
-}
+})
 
 export default shallowEquals

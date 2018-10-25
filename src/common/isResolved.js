@@ -2,6 +2,7 @@ import isFunction from '../base/isFunction'
 import isGenerator from '../base/isGenerator'
 import isPromise from '../base/isPromise'
 import isOp from './isOp'
+import curry from './curry'
 
 /**
  * Determines if the value is a resolvable value.
@@ -36,10 +37,12 @@ import isOp from './isOp'
  * isResolved('abc')
  * //=> true
  */
-const isResolved = (value) =>
-  !isGenerator(value) &&
-  !isPromise(value) &&
-  !isOp(value) &&
-  !(value != null && isFunction(value.resolve))
+const isResolved = curry(
+  (value) =>
+    !isGenerator(value) &&
+    !isPromise(value) &&
+    !isOp(value) &&
+    !(value != null && isFunction(value.resolve))
+)
 
 export default isResolved

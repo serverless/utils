@@ -14,10 +14,15 @@ import resolveToGeneratorWith from './resolveToGeneratorWith'
  * @function
  * @since 0.0.11
  * @category common
- * @param {Function} fn The function to execute at the end of the generator's resolution
+ * @param {Function} fn The function to execute at the end of the resolution
  * @param {*} value The value to resolve with the generator
  * @returns {Generator}
  * @example
+ *
+ * await resolveWith(
+ *   (resolvedValue) => 'bar' // resolvedValue == 'foo'
+ *   Promise.resolve('foo')
+ * ) //=> 'bar'
  *
  * resolveWith(
  *   (resolvedValue) => 'bar' // resolvedValue == 'foo'

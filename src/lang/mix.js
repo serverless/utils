@@ -1,5 +1,6 @@
 import isFunction from '../base/isFunction'
 import isPromise from '../base/isPromise'
+import curry from '../common/curry'
 import reduce from '../data/reduce'
 import reduceObjIndexed from '../data/reduceObjIndexed'
 
@@ -38,7 +39,7 @@ const mixClass = (Class, SuperClass) => {
  * const mixin = (SuperClass, ...args) => class extends SuperClass { ... }
  * class mix(Parent, ...args).with(mixin) { ... }
  */
-const mix = (SuperClass, ...args) => ({
+const mix = curry((SuperClass, ...args) => ({
   with: (...mixins) =>
     reduce(
       (SClass, mixin) => {
@@ -54,6 +55,6 @@ const mix = (SuperClass, ...args) => ({
       SuperClass,
       mixins
     )
-})
+}))
 
 export default mix

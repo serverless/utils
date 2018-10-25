@@ -1,17 +1,18 @@
 import archiver from 'archiver'
 import { createWriteStream, createReadStream } from 'fs-extra'
 import path from 'path'
-import isEmpty from '../base/isEmpty'
+import curryN from '../common/curryN'
 import contains from '../data/contains'
 import last from '../data/last'
 import split from '../data/split'
 import forEach from '../data/forEach'
+import isEmpty from '../logic/isEmpty'
 import readFileIfExists from './readFileIfExists'
 
 const VALID_FORMATS = ['zip', 'tar']
 const isValidFormat = (format) => contains(format, VALID_FORMATS)
 
-const packDir = async (inputDirPath, outputFilePath, append = []) => {
+const packDir = curryN(2, async (inputDirPath, outputFilePath, append = []) => {
   const format = last(split('.', outputFilePath))
 
   if (!isValidFormat(format)) {
@@ -49,6 +50,6 @@ const packDir = async (inputDirPath, outputFilePath, append = []) => {
     archive.on('error', (err) => reject(err))
     output.on('close', () => resolve(outputFilePath))
   })
-}
+})
 
 export default packDir

@@ -2,9 +2,9 @@ import arrayLikeKeys from '../base/arrayLikeKeys'
 import isArrayLike from '../base/isArrayLike'
 import isFunction from '../base/isFunction'
 import isMap from '../base/isMap'
-import objectKeys from '../base/objectKeys'
+import reflectOwnKeys from '../base/reflectOwnKeys'
+import curry from '../common/curry'
 import resolveWith from '../common/resolveWith'
-import concat from './concat'
 
 /**
  * Returns the keys of the given collection in an Array.
@@ -33,30 +33,22 @@ import concat from './concat'
  *
  * await keys(Promise.resolve({ a: 1, b: 2 }) //=> ['a', 'b']
  */
-const keys = resolveWith((collection) => {
-  if (isArrayLike(collection)) {
-    return arrayLikeKeys(collection)
-  }
+const keys = curry(
+  resolveWith((collection) => {
+    if (isArrayLike(collection)) {
+      return arrayLikeKeys(collection)
+    }
 
-  if (isMap(collection)) {
-    return Array.from(collection.keys())
-  }
+    if (isMap(collection)) {
+      return Array.from(collection.keys())
+    }
 
-  if (collection != null && isFunction(collection.keys)) {
-    return collection.keys()
-  }
+    if (collection != null && isFunction(collection.keys)) {
+      return collection.keys()
+    }
 
-  if (typeof Reflect !== 'undefined' && typeof Reflect.ownKeys === 'function') {
-    return Reflect.ownKeys(collection)
-  }
-
-  let ownKeys = objectKeys(collection)
-
-  if (typeof Object.getOwnPropertySymbols === 'function') {
-    ownKeys = concat(ownKeys, Object.getOwnPropertySymbols(collection))
-  }
-
-  return ownKeys
-})
+    return reflectOwnKeys(collection)
+  })
+)
 
 export default keys

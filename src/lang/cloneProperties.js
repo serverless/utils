@@ -1,3 +1,4 @@
+import curry from '../common/curry'
 import forEach from '../data/forEach'
 import keys from '../data/keys'
 import defineProperty from './defineProperty'
@@ -8,13 +9,13 @@ import getProperty from './getProperty'
  *
  *
  */
-const cloneProperties = (source) => {
+const cloneProperties = curry((source) => {
   const copy = {}
   forEach((key) => {
     const descriptor = getProperty(source, key)
     defineProperty(copy, key, descriptor)
   }, keys(source))
   return copy
-}
+})
 
 export default cloneProperties

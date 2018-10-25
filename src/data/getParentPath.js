@@ -1,6 +1,6 @@
-import isEmpty from '../base/isEmpty'
 import curry from '../common/curry'
 import defn from '../common/defn'
+import isEmpty from '../logic/isEmpty'
 import compact from './compact'
 import getPath from './getPath'
 import init from './init'

@@ -1,3 +1,5 @@
+import curry from './curry'
+
 /**
  * Sleeps for the given amount of `wait` milliseconds before resolving the returned `Promise`
  *
@@ -14,6 +16,6 @@
  * await sleep(1000)
  * // 1000+ milliseconds later
  */
-const sleep = async (wait) => new Promise((resolve) => setTimeout(() => resolve(), wait))
+const sleep = curry(async (wait) => new Promise((resolve) => setTimeout(() => resolve(), wait)))
 
 export default sleep

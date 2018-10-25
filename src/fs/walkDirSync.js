@@ -1,10 +1,11 @@
 import fse from 'fs-extra'
 import path from 'path'
+import curry from '../common/curry'
 import append from '../data/append'
 import concat from '../data/concat'
 import reduce from '../data/reduce'
 
-const walkDirSync = (dirPath) => {
+const walkDirSync = curry((dirPath) => {
   const list = fse.readdirSync(dirPath)
   return reduce(
     (filePaths, filePathParam) => {
@@ -18,6 +19,6 @@ const walkDirSync = (dirPath) => {
     [],
     list
   )
-}
+})
 
 export default walkDirSync

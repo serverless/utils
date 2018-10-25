@@ -1,8 +1,6 @@
-import flatten from '../data/flatten'
-import head from '../data/head'
-import length from '../data/length'
-import reduce from '../data/reduce'
-import tail from '../data/tail'
+import arrayFlatten from '../base/arrayFlatten'
+import arrayLikeReduce from '../base/arrayLikeReduce'
+import arrayLikeSlice from '../base/arrayLikeSlice'
 import identity from './identity'
 
 // TODO BRN: This method is important at a fundamental level. Need to rewrite this to not depend upon data methods.
@@ -26,20 +24,20 @@ import identity from './identity'
  * f(3, 4) // -(3^4) + 1
  */
 const pipe = (...functions) => {
-  functions = flatten(functions)
-  const size = length(functions)
-  if (size === 0) {
+  functions = arrayFlatten(functions)
+  const { length } = functions
+  if (length === 0) {
     return identity
   }
 
-  if (size === 1) {
-    return head(functions)
+  if (length === 1) {
+    return functions[0]
   }
 
-  const firstFunc = head(functions)
-  const rest = tail(functions)
+  const firstFunc = functions[0]
+  const rest = arrayLikeSlice(functions, 1)
 
-  return (...args) => reduce((piped, func) => func(piped), firstFunc(...args), rest)
+  return (...args) => arrayLikeReduce(rest, firstFunc(...args), (piped, func) => func(piped))
 }
 
 export default pipe

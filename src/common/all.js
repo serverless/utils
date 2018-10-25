@@ -1,13 +1,15 @@
-import Promise from 'bluebird'
 import isArray from '../base/isArray'
 import isFunction from '../base/isFunction'
 import isIterator from '../base/isIterator'
 import isObject from '../base/isObject'
-import isPromise from '../base/isPromise'
-import iterate from '../data/iterate'
+import curry from './curry'
+import iterate from './iterate'
+import resolveWith from './resolveWith'
 
 /**
  * Resolves all async values in an array or object
+ *
+ * Auto curried for placeholder support.
  *
  * @function
  * @since v0.0.6
@@ -33,38 +35,30 @@ import iterate from '../data/iterate'
  * await all('abc') //=> 'abc'
  * await all(123) //=> 123
  */
-const all = (value) => {
-  // TODO BRN: add support for more than one parameter
-  // TODO BRN: add support for generators
-  // TODO BRN: add support for async iterators
-  let result
-  if (isArray(value) || isIterator(value)) {
-    result = []
-  } else if (isObject(value) && !isFunction(value)) {
-    result = {}
-  } else {
-    return value
-  }
-  let resolveAsync = false
-  iterate((next) => {
-    if (next.done) {
-      return next
+const all = curry(
+  resolveWith((value) => {
+    let result
+    if (isArray(value) || isIterator(value)) {
+      result = []
+    } else if (isObject(value) && !isFunction(value)) {
+      result = {}
+    } else {
+      return value
     }
-    result[next.kdx] = next.value
-    if (isPromise(next.value)) {
-      resolveAsync = true
-    }
-  }, value)
 
-  if (resolveAsync) {
-    if (isArray(result)) {
-      return Promise.all(result)
-    } else if (isObject(result)) {
-      return Promise.props(result)
-    }
-  }
-
-  return value
-}
+    return iterate((next) => {
+      if (next.done) {
+        return {
+          ...next,
+          value: result
+        }
+      }
+      return resolveWith((nextValue) => {
+        result[next.kdx] = nextValue
+        return next
+      }, next.value)
+    }, value)
+  })
+)
 
 export default all

@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-underscore-dangle
 if (!global._babelPolyfill) {
   // eslint-disable-next-line global-require
-  require('babel-polyfill')
+  require('@babel/polyfill')
 }
 // eslint-disable-next-line global-require
 // require('source-map-support/register')
@@ -15,6 +15,7 @@ const fetch = require('./fetch')
 const fs = require('./fs')
 const ip = require('./ip')
 const lang = require('./lang')
+const logic = require('./logic')
 const path = require('./path')
 
 module.exports = {
@@ -27,5 +28,6 @@ module.exports = {
   ...fs,
   ...ip,
   ...lang,
+  ...logic,
   ...path
 }
