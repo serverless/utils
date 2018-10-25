@@ -1,5 +1,5 @@
 import curry from '../common/curry'
-import resolveWith from '../common/resolveWith'
+import defn from '../common/defn'
 
 /**
  * A function that returns the `!` of its argument. It will return `true` when passed false-y value, and `false` when passed a truth-y one.
@@ -18,6 +18,6 @@ import resolveWith from '../common/resolveWith'
  * not(0) //=> true
  * not(1) //=> false
  */
-const not = curry(resolveWith((value) => !value))
+const not = curry(defn('not', (value) => !value))
 
 export default not

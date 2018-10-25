@@ -1,6 +1,5 @@
-import isArray from '../base/isArray'
-import isFunction from '../base/isFunction'
-import isObject from '../base/isObject'
+import allWith from './allWith'
+import dispatchable from './dispatchable'
 import nArySpread from './nArySpread'
 
 /**
@@ -11,10 +10,10 @@ import nArySpread from './nArySpread'
  * @category common
  * @sig defn(
  *   name: string,
- *   defaultFn: (*) => any
+ *   fn: (*) => any
  * ): (...args: any[], last: any) => last[name] ? last[name](...args) : defaultFn(...args)
  * @param {string} name The name of the method to call if it exists
- * @param {Function} defaultFn The default function to execute if the named one does not exist on the last arg
+ * @param {Function} fn The default function to execute if the named one does not exist on the last arg
  * @returns {Function} The wrapped function
  * @example
  *
@@ -29,17 +28,11 @@ import nArySpread from './nArySpread'
  * }
  * get('a', obj) //=> 'bar'
  */
-const defn = (name, defaultFn) => {
-  const arity = defaultFn.length
+const defn = (name, fn) => {
+  const arity = fn.length
+  const dispatcher = dispatchable(name, fn)
   const override = function(...args) {
-    if (args.length === 0) {
-      return defaultFn.apply(this)
-    }
-    const obj = args[args.length - 1]
-    if (!isArray(obj) && isObject(obj) && isFunction(obj[name]) && obj !== this) {
-      return obj[name](...args)
-    }
-    return defaultFn.apply(this, args)
+    return allWith((resolvedArgs) => dispatcher.apply(this, resolvedArgs), args)
   }
   return nArySpread(arity, override)
 }

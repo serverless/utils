@@ -1,9 +1,6 @@
-import flatten from '../data/flatten'
-import head from '../data/head'
-import init from '../data/init'
-import last from '../data/last'
-import length from '../data/length'
-import reduceRight from '../data/reduceRight'
+import arrayFlatten from '../base/arrayFlatten'
+import arrayLikeReduceRight from '../base/arrayLikeReduceRight'
+import arrayLikeSlice from '../base/arrayLikeSlice'
 import identity from './identity'
 
 /**
@@ -14,31 +11,33 @@ import identity from './identity'
  * @function
  * @since v0.0.10
  * @category common
- * @param {...Function} ...functions The functions to compose
+ * @param {...Function} functions The functions to compose
  * @returns {Function}
  * @example
  *
  * const classyGreeting = (firstName, lastName) => "The name's " + lastName + ", " + firstName + " " + lastName
  * const yellGreeting = compose(toUpper, classyGreeting)
- *  yellGreeting('James', 'Bond') //=> "THE NAME'S BOND, JAMES BOND"
+ * yellGreeting('James', 'Bond')
+ * //=> "THE NAME'S BOND, JAMES BOND"
  *
  * compose(Math.abs, add(1), multiply(2))(-4) //=> 7
  */
-const compose = (...funcs) => {
-  funcs = flatten(funcs)
-  const size = length(funcs)
-  if (size === 0) {
+const compose = (...functions) => {
+  functions = arrayFlatten(functions)
+  const { length } = functions
+  if (length === 0) {
     return identity
   }
 
-  if (size === 1) {
-    return head(funcs)
+  if (length === 1) {
+    return functions[0]
   }
 
-  const lastFunc = last(funcs)
-  const rest = init(funcs)
+  const lastFunc = functions[length - 1]
+  const rest = arrayLikeSlice(functions, 0, length - 1)
 
-  return (...args) => reduceRight((composed, func) => func(composed), lastFunc(...args), rest)
+  return (...args) =>
+    arrayLikeReduceRight(rest, lastFunc(...args), (composed, func) => func(composed))
 }
 
 export default compose

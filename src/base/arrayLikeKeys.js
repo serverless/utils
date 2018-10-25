@@ -2,9 +2,7 @@ import isArguments from './isArguments'
 import isBuffer from './isBuffer'
 import isIndex from './isIndex'
 import isTypedArray from './isTypedArray'
-
-/** Used to check objects for own properties. */
-const { hasOwnProperty } = Object.prototype
+import objectHasOwnProperty from './objectHasOwnProperty'
 
 /**
  * Creates an array of the enumerable property names of the array-like `value`.
@@ -30,7 +28,7 @@ const arrayLikeKeys = (value, inherited) => {
   }
   for (const key in value) {
     if (
-      (inherited || hasOwnProperty.call(value, key)) &&
+      (inherited || objectHasOwnProperty(value, key)) &&
       !(
         skipIndexes &&
         // Safari 9 has enumerable `arguments.length` in strict mode.

@@ -1,71 +1,7 @@
-import isArrayLike from '../base/isArrayLike'
-import isGenerator from '../base/isGenerator'
-import isPromise from '../base/isPromise'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import keys from './keys'
-import slice from './slice'
-
-const generatorReduce = function*(iteratee, accumulator, array) {
-  if (isGenerator(accumulator)) {
-    accumulator = yield* accumulator
-  } else if (isPromise(accumulator)) {
-    accumulator = yield accumulator
-  }
-  const length = array == null ? 0 : array.length
-  let idx = 0
-  while (idx < length) {
-    accumulator = iteratee(accumulator, array[idx], idx)
-    if (isGenerator(accumulator)) {
-      accumulator = yield* accumulator
-    } else if (isPromise(accumulator)) {
-      accumulator = yield accumulator
-    }
-    idx += 1
-  }
-  return accumulator
-}
-
-const asyncReduce = async (iteratee, accumulator, array) => {
-  if (isPromise(accumulator)) {
-    accumulator = await accumulator
-  } else if (isGenerator(accumulator)) {
-    return generatorReduce(iteratee, accumulator, array)
-  }
-  const length = array == null ? 0 : array.length
-  let idx = 0
-  while (idx < length) {
-    accumulator = iteratee(accumulator, array[idx], idx)
-    if (isPromise(accumulator)) {
-      accumulator = await accumulator
-    } else if (isGenerator(accumulator)) {
-      return generatorReduce(iteratee, accumulator, slice(idx + 1, length, array))
-    }
-    idx += 1
-  }
-  return accumulator
-}
-
-const arrayReduce = (iteratee, accumulator, array) => {
-  if (isPromise(accumulator)) {
-    return asyncReduce(iteratee, accumulator, array)
-  } else if (isGenerator(accumulator)) {
-    return generatorReduce(iteratee, accumulator, array)
-  }
-
-  const length = array == null ? 0 : array.length
-  let idx = 0
-  while (idx < length) {
-    accumulator = iteratee(accumulator, array[idx], idx)
-    if (isPromise(accumulator)) {
-      return asyncReduce(iteratee, accumulator, slice(idx + 1, length, array))
-    } else if (isGenerator(accumulator)) {
-      return generatorReduce(iteratee, accumulator, slice(idx + 1, length, array))
-    }
-    idx += 1
-  }
-  return accumulator
-}
+import iterate from '../common/iterate'
+import pipe from '../common/pipe'
 
 /**
  * Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.
@@ -82,7 +18,7 @@ const arrayReduce = (iteratee, accumulator, array) => {
  * @function
  * @since v0.0.3
  * @category data
- * @param {Function} fn The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.
+ * @param {Function} iteratee The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.
  * @param {*} accumulator The accumulator value.
  * @param {Array|string|Object|Promise} collection The collection to iterate over.
  * @returns {*} The final, accumulated value.
@@ -101,19 +37,28 @@ const arrayReduce = (iteratee, accumulator, array) => {
  */
 const reduce = curry(
   defn('reduce', (iteratee, accumulator, collection) => {
-    if (isPromise(collection)) {
-      return collection.then((resolvedCollection) =>
-        reduce(iteratee, accumulator, resolvedCollection)
-      )
-    }
-
-    if (isArrayLike(collection)) {
-      return arrayReduce(iteratee, accumulator, collection)
-    }
-    return arrayReduce(
-      (accum, key) => iteratee(accum, collection[key], key),
-      accumulator,
-      keys(collection)
+    let accum = accumulator
+    return iterate(
+      (next) =>
+        pipe(
+          (pNext) => {
+            if (pNext.done) {
+              return accum
+            }
+            return iteratee(accum, pNext.value, pNext.kdx)
+          },
+          (nextAccum) => {
+            accum = nextAccum
+            if (next.done) {
+              return {
+                ...next,
+                value: accum
+              }
+            }
+            return next
+          }
+        )(next),
+      collection
     )
   })
 )

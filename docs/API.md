@@ -6,9 +6,11 @@
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [base](#base)
-  * [arrayIterator()](#arrayiterator)
-  * [arrayIteratorAtIndex()](#arrayiteratoratindex)
+  * [arrayConcat()](#arrayconcat)
+  * [arrayLikeIterator()](#arraylikeiterator)
   * [arrayLikeKeys()](#arraylikekeys)
+  * [arrayLikeSlice()](#arraylikeslice)
+  * [indexEndOffset()](#indexendoffset)
   * [isArguments()](#isarguments)
   * [isArray()](#isarray)
   * [isArrayBuffer()](#isarraybuffer)
@@ -52,30 +54,8 @@
   * [toNumber()](#tonumber)
   * [toObject()](#toobject)
   * [toString()](#tostring)
-- [common](#common)
-  * [all()](#all)
-  * [allWith()](#allwith)
-  * [apply()](#apply)
-  * [complement()](#complement)
-  * [compose()](#compose)
-  * [deferredPromise()](#deferredpromise)
-  * [defn()](#defn)
-  * [dispatchable()](#dispatchable)
-  * [identity()](#identity)
-  * [isOp()](#isop)
-  * [isResolved()](#isresolved)
-  * [nAry()](#nary)
-  * [nArySpread()](#naryspread)
-  * [nth()](#nth)
-  * [pipe()](#pipe)
-  * [resolve()](#resolve)
-  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
-  * [resolveWith()](#resolvewith)
-  * [sleep()](#sleep)
-- [constants](#constants)
-  * [MAX_SAFE_INTEGER](#max_safe_integer)
-  * [SYMBOL_ITERATOR](#symbol_iterator)
 - [data](#data)
+  * [arrayFlatten()](#arrayflatten)
   * [any()](#any)
   * [anyAtIndex()](#anyatindex)
   * [append()](#append)
@@ -107,12 +87,13 @@
   * [head()](#head)
   * [init()](#init)
   * [is()](#is)
-  * [iterate()](#iterate)
-  * [iterator()](#iterator)
   * [join()](#join)
   * [keys()](#keys)
   * [last()](#last)
   * [length()](#length)
+  * [map()](#map)
+  * [mapIndexed()](#mapindexed)
+  * [mapObjIndexed()](#mapobjindexed)
   * [omit()](#omit)
   * [pick()](#pick)
   * [prepend()](#prepend)
@@ -131,6 +112,32 @@
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
   * [walkReducePath()](#walkreducepath)
+- [common](#common)
+  * [all()](#all)
+  * [allWith()](#allwith)
+  * [apply()](#apply)
+  * [complement()](#complement)
+  * [compose()](#compose)
+  * [deferredPromise()](#deferredpromise)
+  * [defn()](#defn)
+  * [dispatchable()](#dispatchable)
+  * [identity()](#identity)
+  * [isOp()](#isop)
+  * [isResolved()](#isresolved)
+  * [iterate()](#iterate)
+  * [iterateRight()](#iterateright)
+  * [iterator()](#iterator)
+  * [nAry()](#nary)
+  * [nArySpread()](#naryspread)
+  * [nth()](#nth)
+  * [pipe()](#pipe)
+  * [resolve()](#resolve)
+  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
+  * [resolveWith()](#resolvewith)
+  * [sleep()](#sleep)
+- [constants](#constants)
+  * [MAX_SAFE_INTEGER](#max_safe_integer)
+  * [SYMBOL_ITERATOR](#symbol_iterator)
 - [fetch](#fetch)
   * [fetch()](#fetch)
 - [ip](#ip)
@@ -151,44 +158,35 @@
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
 ## base
 
-### arrayIterator()
+### arrayConcat()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/arrayIterator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
-<p>Returns iterator for an array like value.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/arrayConcat.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Concat an array with two or more arrays. This method does not change the existing arrays, but instead returns a new array.</p>
 
 **Params**
-<p><code>arrayLike</code>: <code>&ast;</code> - The array like value to create an iterator for.</p>
+<p><code>array</code>: <code>Array</code> - The array concat with the given values</p>
+<p><code>values</code>: <code>...&ast;</code> - The values to concat to the array</p>
 
 **Returns**
-<br /><p><code>Iterator</code> - A new iterator for the given array like value</p>
+<br /><p><code>Array</code> - A new array with the values concatenated</p>
 
 **Example**
 ```js
-arrayIterator(['write', 'more'])
-//=> {
-//   next: () => ({
-//     value: *,
-//     done: boolean,
-//     kdx: integer,
-//     index: integer
-//   })
-// }
-arrayIterator('tests')
-//=> {
-//   next: () => ({
-//     value: *,
-//     done: boolean,
-//     kdx: integer,
-//     index: integer
-//   })
-// }
+arrayConcat(['a', 'b', 'c'], [1, 2, 3])
+//=> ['a', 'b', 'c', 1, 2, 3]
+
+arrayConcat([1, 2, 3], [4, 5, 6], [7, 8, 9])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+arrayConcat(['a', 'b', 'c'], 1, [2, 3])
+//=> ['a', 'b', 'c', 1, 2, 3]
 ```
 <br /><br />
 
-### arrayIteratorAtIndex()
+### arrayLikeIterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/arrayIteratorAtIndex.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
-<p>Returns iterator for an array like value starting at the given index. If no index is supplied it defualts to 0.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/arrayLikeIterator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>Returns iterator for an array like value.</p>
 
 **Params**
 <p><code>arrayLike</code>: <code>&ast;</code> - The array like value to create an iterator for.</p>
@@ -199,7 +197,22 @@ arrayIterator('tests')
 
 **Example**
 ```js
-arrayIteratorAtIndex(['write', 'more', 'tests'])
+arrayLikeIterator(['write', 'more'])
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   }),
+//   previous: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+// }
+arrayLikeIterator('tests')
 //=> {
 //   next: () => ({
 //     value: *,
@@ -207,20 +220,19 @@ arrayIteratorAtIndex(['write', 'more', 'tests'])
 //     kdx: integer,
 //     index: integer
 //   })
+//   previous: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
 // }
-
-iter.next()
-//=> { value: 'write', index: 0, kdx: 0, done: false }
-
-arrayIteratorAtIndex(['write', 'more', 'tests'], 1)
-iter.next()
-//=> { value: 'more', index: 1, kdx: 1, done: false }
 ```
 <br /><br />
 
 ### arrayLikeKeys()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/arrayLikeKeys.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/arrayLikeKeys.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Creates an array of the enumerable property names of the array-like <code>value</code>.</p>
 
 **Params**
@@ -230,6 +242,51 @@ iter.next()
 **Returns**
 <br /><p><code>Array</code> - Returns the array of property names.</p>
 
+<br /><br />
+
+### arrayLikeSlice()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/arrayLikeSlice.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Returns a shallow copy of a portion of an array into a new array object selected from begin to end (end not included). The original array will not be modified.</p>
+
+**Params**
+<p><code>arrayLike</code>: <code>Array</code> - The array like value to slice values from</p>
+<p><code>start</code>: <code>number</code> - [=0] Zero-based index at which to begin extraction. A negative index will be treated as an offset from the end.</p>
+<p><code>end</code>: <code>number</code> - [=array.length] Zero-based index before which to end extraction. `arrayLikeSlice` extracts up to but not including end.</p>
+
+**Returns**
+<br /><p><code>Array</code> - A new array with the extraced values</p>
+
+**Example**
+```js
+arrayLikeSlice(['a', 'b', 'c'], 0, 2)
+//=> ['a', 'b']
+```
+<br /><br />
+
+### indexEndOffset()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/indexEndOffset.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Generate a start index with an offset where if the start is less than 0 it will return an offset from the length of <code>length + start</code></p>
+
+**Params**
+<p><code>start</code>: <code>number</code> - The start index</p>
+<p><code>length</code>: <code>number</code> - The length of the list</p>
+
+**Returns**
+<br /><p><code>number</code> - A starting index</p>
+
+**Example**
+```js
+indexEndOffset(0, 2)
+// => 0
+
+indexEndOffset(3, 2)
+// => 2
+
+indexEndOffset(-1, 3)
+// => 2
+```
 <br /><br />
 
 ### isArguments()
@@ -1217,527 +1274,25 @@ toString([1, 2, 3])
 ```
 <br /><br />
 
-## common
-
-### all()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/all.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Resolves all async values in an array or object</p>
-<p>Auto curried for placeholder support.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The array or object with its values resolved</p>
-
-**Example**
-```js
-const nums = [
-  1,
-  Promise.resolve(2),
-  (async () => 3)()
-]
-await all(nums) //=> [ 1, 2, 3 ]
-
-const keyed = {
-  a: 1,
-  b: Promise.resolve(2),
-  c: (async () => 3)()
-}
-await all(keyed) //=> { a: 1, b: 2, c: 3 }
-
-await all('abc') //=> 'abc'
-await all(123) //=> 123
-```
-<br /><br />
-
-### allWith()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/allWith.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Resolves all async values in an array or object and executes the given with the result</p>
-<p>Auto curried for placeholder support.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the resolution</p>
-<p><code>value</code>: <code>&ast;</code> - The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The array or object with its values resolved</p>
-
-**Example**
-```js
-const nums = [
-  1,
-  Promise.resolve(2),
-  (async () => 3)()
-]
-await allWith(
-  (resolvedNums) => 'foo', // [ 1, 2, 3 ]
-  nums
-) // => 'foo'
-
-const keyed = {
-  a: 1,
-  b: Promise.resolve(2),
-  c: (async () => 3)()
-}
-
-await allWith(
-  (resolvedNums) => 'foo', // { a: 1, b: 2, c: 3 }
-  keyed
-) // => 'foo'
-
-allWith(
-  (resolvedNums) => 'foo', // [ 1, 2, 3 ]
-  [ 1, 2, 3 ]
-) // => 'foo'
-```
-<br /><br />
-
-### apply()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/apply.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Applies function <code>fn</code> to the argument list <code>args</code>. This is useful for creating a fixed-arity function from a variadic function. <code>fn</code> should be a bound function if context is significant.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function which will be called with `args`</p>
-<p><code>args</code>: <code>Array</code> - The arguments to call `fn` with</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The result, equivalent to `fn(...args)`</p>
-
-**Example**
-```js
-const nums = [1, 2, 3, -99, 42, 6, 7]
-apply(Math.max, nums) //=> 42
-```
-<br /><br />
-
-### complement()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/complement.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>returns a new function that logically nots the returned value and returns that as the result.</p>
-<p>Auto-curried for placeholder support</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to complement</p>
-
-**Returns**
-<br /><p><code>Function</code> - The complemented function</p>
-
-**Example**
-```js
-const isEven = (value) => value % 2 === 0
-const isOdd = complement(isEven)
-isOdd(1) //=> true
-```
-<br /><br />
-
-### compose()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/compose.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>Performs right-to-left function composition. The rightmost function may have any arity; the remaining functions must be unary.</p>
-<p><strong>Note:</strong> The result of compose is not automatically curried.</p>
-
-**Params**
-<p><code></code>: <code>...Function</code> - ...functions The functions to compose</p>
-
-**Returns**
-<br /><p><code>Function</code> - </p>
-
-**Example**
-```js
-const classyGreeting = (firstName, lastName) => "The name's " + lastName + ", " + firstName + " " + lastName
-const yellGreeting = compose(toUpper, classyGreeting)
- yellGreeting('James', 'Bond') //=> "THE NAME'S BOND, JAMES BOND"
-
-compose(Math.abs, add(1), multiply(2))(-4) //=> 7
-```
-<br /><br />
-
-### deferredPromise()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Creates a promise with the resolve and reject methods exposed as properties<br />
-on the promise.</p>
-
-**Params**
-None
-
-**Returns**
-<br /><p><code>Promise</code> - The promise with exposed methods</p>
-
-**Example**
-```js
-const promise = deferredPromise()
-// ... do something async then eventually resolve the promise
-promise.resolve(someValue)
-```
-<br /><br />
-
-### defn()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/defn.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Defines a function that will invoke the named function if it exists on the last arg. If the method does not, all args are passed through to the default function.</p>
-
-**Params**
-<p><code>name</code>: <code>string</code> - The name of the method to call if it exists</p>
-<p><code>defaultFn</code>: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
-
-**Returns**
-<br /><p><code>Function</code> - The wrapped function</p>
-
-**Example**
-```js
-const get = defn('get', (prop, value) => value[prop])
-get('a', { a: 'foo' }) //=> 'foo'
-
-const obj = {
-  props: {
-    a: 'bar'
-  }
-  get: (prop) => obj.props[prop]
-}
-get('a', obj) //=> 'bar'
-```
-<br /><br />
-
-### dispatchable()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/dispatchable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Returns a function that dispatches with different strategies based on the object in list position (last argument). If it is an array, executes [fn].</p>
-<p>Otherwise, if it has a function with one of the given method names, it will execute that function (functor case).</p>
-<p>Otherwise, if it is a transformer,<br />
-uses transducer [xf] to return a new transformer (transducer case).</p>
-<p>Otherwise, it will default to executing [fn].</p>
-
-**Params**
-<p><code>methodNames</code>: <code>Array</code> - properties to check for a custom implementation</p>
-<p><code>xf</code>: <code>Function</code> - transducer to initialize if object is transformer</p>
-<p><code>fn</code>: <code>Function</code> - default ramda implementation</p>
-
-**Returns**
-<br /><p><code>Function</code> - A function that dispatches on object in list position</p>
-
-<br /><br />
-
-### identity()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/identity.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>A function that does nothing but return the parameter supplied to it. Good as a default or placeholder function.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to return.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The input value.</p>
-
-**Example**
-```js
-identity(1)
-//=> 1
-
-const obj = {}
-identity(obj) === obj
-//=> true
-
-identity()
-//=> undefined
-```
-<br /><br />
-
-### isOp()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/isOp.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Determines if the value is an op.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - </p>
-
-**Returns**
-<br /><p><code>boolean</code> - </p>
-
-**Example**
-```js
-isOp({
-  ['@@redux-saga/IO']: 'op'
-})
-//=> true
-```
-<br /><br />
-
-### isResolved()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/isResolved.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Determines if the value is a resolvable value.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - </p>
-
-**Returns**
-<br /><p><code>boolean</code> - </p>
-
-**Example**
-```js
-isResolved({
-  ['@@redux-saga/IO']: 'op'
-})
-//=> false
-
-isResolved((function* () {})())
-//=> false
-
-isResolved(new Promise(() => {})))
-//=> false
-
-isResolved({ resolve: () => 'foo' })
-//=> false
-
-isResolved(null)
-//=> true
-
-isResolved(undefined)
-//=> true
-
-isResolved('abc')
-//=> true
-```
-<br /><br />
-
-### nAry()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
-
-**Params**
-<p><code>n</code>: <code>Number</code> - The desired arity of the new function.</p>
-<p><code>fn</code>: <code>Function</code> - The function to wrap.</p>
-
-**Returns**
-<br /><p><code>Function</code> - A new function wrapping `fn`. The new function is guaranteed to be of arity `n`.</p>
-
-**Example**
-```js
-const takesTwoArgs = (a, b) => [a, b]
-
-takesTwoArgs.length //=> 2
-takesTwoArgs(1, 2) //=> [1, 2]
-
-const takesOneArg = nAry(1, takesTwoArgs)
-takesOneArg.length //=> 1
-// Only `n` arguments are passed to the wrapped function
-takesOneArg(1, 2) //=> [1, undefined]
-```
-<br /><br />
-
-### nArySpread()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
-
-**Params**
-<p><code>n</code>: <code>Number</code> - The desired arity of the new function.</p>
-<p><code>fn</code>: <code>Function</code> - The function to wrap.</p>
-
-**Returns**
-<br /><p><code>Function</code> - A new function wrapping `fn`. The new function is guaranteed to be of parameter length `n`.</p>
-
-**Example**
-```js
-const takesNArgs = (...args) => [ ...args ]
-
-takesNArgs.length //=> 0
-takesNArgs(1, 2) //=> [1, 2]
-
-const takesTwoArgs = nArySpread(2, takesNArgs)
-takesTwoArgs.length //=> 2
-// All arguments are passed to the wrapped function
-takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
-
-const curriedTakesTwoArgs = curry(takesTwoArgs)
-// auto currying works as expected
-const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
-takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
-```
-<br /><br />
-
-### nth()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nth.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
-<p>Returns the nth element of the given list or string. If n is negative the<br />
-element at index length + n is returned.</p>
-
-**Params**
-<p><code>offset</code>: <code>number</code> - The offset from the 0 index to select from. If negative it will be subtracted from length</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to select from</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The value at the nth index</p>
-
-**Example**
-```js
-const list = ['foo', 'bar', 'baz', 'quux']
-nth(1, list) //=> 'bar'
-nth(-1, list) //=> 'quux'
-nth(-99, list) //=> undefined
-
-nth(2, 'abc') //=> 'c'
-nth(3, 'abc') //=> ''
-```
-<br /><br />
-
-### pipe()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/pipe.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Performs left-to-right function composition. The leftmost function may have<br />
-any arity; the remaining functions must be unary.</p>
-<p>In some libraries this function is named <code>sequence</code>.</p>
-<p><strong>Note:</strong> The result of pipe is not automatically curried.</p>
-
-**Params**
-<p><code>functions</code>: <code>...Function</code> - </p>
-
-**Returns**
-<br /><p><code>Function</code> - </p>
-
-**Example**
-```js
-const f = pipe(Math.pow, negate, inc)
-
-f(3, 4) // -(3^4) + 1
-```
-<br /><br />
-
-### resolve()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolve.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
-<p>Resolves a value to its valueOf.</p>
-<p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
-
-**Params**
-<p><code>values</code>: <code>...String</code> - The values to check.</p>
-
-**Returns**
-<br /><p><code>String</code> - The first value found that is a path.</p>
-
-**Example**
-```js
-resolve('foo') // => 'foo'
-
-resolve({
- valueOf: () => 'bar'
-}) //=> bar
-
-resolve({
- resolve: () => 'bar'
-}) //=> bar
-
-resolve({
-  resolve: () => ({
-    valueOf: () => 'bar'
-  })
-}) //=> bar
-
-resolve({
-  resolve: () => ({
-    resolve: () => 'bar'
-  })
-}) //=> bar
-```
-<br /><br />
-
-### resolveToGeneratorWith()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolveToGeneratorWith.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the generator&#39;s resolution</p>
-<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
-
-**Returns**
-<br /><p><code>Generator</code> - </p>
-
-**Example**
-```js
-const generator = resolveToGeneratorWith(
-  (resolvedValue) => //=> 'foo'
-  'foo'
-)
-generator.next() //=> { done: true } triggers the fn method
-```
-<br /><br />
-
-### resolveWith()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolveWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>Resolves a value to the given method.</p>
-<p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
-<p>If the value to be resolved is a generator, this method will return a generator.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the resolution</p>
-<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
-
-**Returns**
-<br /><p><code>Generator</code> - </p>
-
-**Example**
-```js
-await resolveWith(
-  (resolvedValue) => 'bar' // resolvedValue == 'foo'
-  Promise.resolve('foo')
-) //=> 'bar'
-
-resolveWith(
-  (resolvedValue) => 'bar' // resolvedValue == 'foo'
-  'foo'
-) //=> 'bar'
-```
-<br /><br />
-
-### sleep()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/sleep.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Sleeps for the given amount of <code>wait</code> milliseconds before resolving the returned <code>Promise</code></p>
-
-**Params**
-<p><code>wait</code>: <code>number</code> - The number of milliseconds to wait before resoliving the Promise</p>
-
-**Returns**
-<br /><p><code>Promise</code> - Resolves once the given amount of time has ellapsed.</p>
-
-**Example**
-```js
-await sleep(1000)
-// 1000+ milliseconds later
-```
-<br /><br />
-
-## constants
-
-### MAX_SAFE_INTEGER
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>This constant represents the maximum safe integer in JavaScript (2^53 - 1).</p>
-<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER">MAX_SAFE_INTEGER</a> for more information.</p>
-
-**Type**: `{number}`
-
-<br /><br />
-
-### SYMBOL_ITERATOR
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
-<p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
-<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
-
-**Type**: `{Symbol}`
-
-<br /><br />
-
 ## data
+
+### arrayFlatten()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/base/arrayFlatten.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Returns a new array by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
+
+**Params**
+<p><code>array</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The flattened list.</p>
+
+**Example**
+```js
+arrayFlatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+```
+<br /><br />
 
 ### any()
 
@@ -2119,15 +1674,15 @@ findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
 
 ### flatten()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/flatten.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/flatten.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Returns a new list by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
 <p>This method automatically upgrades to async. If a Promise is given as the list this method will resolve the promise as the list and return a Promise that resolves to the flattened list.</p>
 
 **Params**
-<p><code>list</code>: <code>Array|Promise&lt;Array&gt;</code> - The array to consider.</p>
+<p><code>array</code>: <code>Array|Promise&lt;Array&gt;</code> - The array to consider.</p>
 
 **Returns**
-<br /><p><code>Array|Promise&lt;Array&gt;</code> - The flattened list.</p>
+<br /><p><code>Array|Promise&lt;Array&gt;</code> - The flattened array.</p>
 
 **Example**
 ```js
@@ -2468,67 +2023,6 @@ is(Number, {}); //=> false
 ```
 <br /><br />
 
-### iterate()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/iterate.js#L44)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
-<p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
-<p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
-<p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>iteratee</code>: <code>Function</code> - The iteratee Function</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection or iterator to iterate over</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final value returned when the iteratee returns done or `undefined`</p>
-
-**Example**
-```js
-iterate((value, kdx) => {
-  if (value === 'b') {
-    return { done: true, value: kdx }
-  }
-  return { done: false }
-}, ['a', 'b', 'c'])
-//=> 1
-
-iterate(async (value, kdx) => new Promise((resolve, reject) => {
-  setTimeout(() => {
-    if (value === 'b') {
-      return resolve({ done: true, value: kdx })
-    }
-    return resolve({ done: false })
-  }, 0)
-}), ['a', 'b', 'c'])
-//=> 1
-```
-<br /><br />
-
-### iterator()
-
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/iterator.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
-<p>This method generates an iterator for the given value</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The iteratee Function</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection or iterator to iterate over</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final value returned when the iteratee returns done or `undefined`</p>
-
-**Example**
-```js
-iterator(['a', 'b', 'c'])
-//=> { next: () => { value: string, index: number, kdx: umber, done: boolean }}
-
-iterator('abc')
-//=> { next: () => { value: string, index: number, kdx: umber, done: boolean }}
-
-iterator({ a: 1, b: 2, c: 3 })
-//=> { next: () => { value: number, key: string, kdx: string, done: boolean }}
-```
-<br /><br />
-
 ### join()
 
 [source](https://github.com/serverless/utils/tree/v0.0.12/src/data/join.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
@@ -2620,6 +2114,59 @@ length([1, 2, 3]) //=> 3
 ```
 <br /><br />
 
+### map()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/map.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Takes a function and a <a href="https://github.com/fantasyland/fantasy-land#functor">functor</a>, applies the function to each of the functor's values, and returns  a functor of the same shape.</p>
+<p>Provides suitable <code>map</code> implementations for <code>Array</code> and <code>Object</code>,<br />
+so this function may be applied to <code>[1, 2, 3]</code> or <code>{x: 1, y: 2, z: 3}</code>.</p>
+<p>Dispatches to the <code>map</code> method of the second argument, if present.</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The new collection.</p>
+
+**Example**
+```js
+const double = x => x * 2
+
+map(double, [1, 2, 3]) //=> [2, 4, 6]
+
+map(double, {x: 1, y: 2, z: 3}) //=> {x: 2, y: 4, z: 6}
+```
+<br /><br />
+
+### mapIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/mapIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Alias for <a href="#map">map</a> method</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The new collection.</p>
+
+<br /><br />
+
+### mapObjIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/mapObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Alias for <a href="#map">map</a> method</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The new collection.</p>
+
+<br /><br />
+
 ### omit()
 
 [source](https://github.com/serverless/utils/tree/v0.0.12/src/data/omit.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
@@ -2686,7 +2233,7 @@ prepend('write', ' more tests') //=> 'write more tests'
 
 ### reduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/reduce.js#L70)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/reduce.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.</p>
 <p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
 <p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
@@ -2695,7 +2242,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 <p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
 
 **Params**
-<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
 <p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
 <p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
 
@@ -2749,7 +2296,7 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 
 ### reduceRight()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/reduceRight.js#L63)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/reduceRight.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value,  the current value and the index or key from the collection, and then passing the result to the next call.</p>
 <p>Similar to <a href="#reduce"><code>reduce</code></a>, except moves through the input list from the right to the left.</p>
 <p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
@@ -2849,19 +2396,19 @@ shallowEquals({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }) //=> false
 
 ### slice()
 
-[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/slice.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Creates a slice of <code>array</code> from <code>start</code> up to, but not including, <code>end</code>.</p>
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/data/slice.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Creates a slice of <code>arrayLike</code> from <code>start</code> up to, but not including, <code>end</code>.</p>
 <p><strong>Note:</strong> This method is used instead of<br />
-<a href="https://mdn.io/Array/slice"><code>Array#slice</code></a> to ensure dense arrays are<br />
-returned.</p>
+<a href="https://mdn.io/Array/slice"><code>Array#slice</code></a> to ensure dense arrays are returned.</p>
+<p>This method</p>
 
 **Params**
 <p><code></code>: <code>number</code> - [start=0] The start position. A negative index will be treated as an offset from the end.</p>
 <p><code></code>: <code>number</code> - [end=array.length] The end position. A negative index will be treated as an offset from the end.</p>
-<p><code>array</code>: <code>Array</code> - The array to slice.</p>
+<p><code>arrayLike</code>: <code>Array|string</code> - The array like value to slice.</p>
 
 **Returns**
-<br /><p><code>Array</code> - Returns the slice of `array`.</p>
+<br /><p><code>Array|string</code> - Returns the slice of `arrayLike`.</p>
 
 **Example**
 ```js
@@ -2869,6 +2416,11 @@ const array = [1, 2, 3, 4]
 
 slice(2, Infinity, array)
 // => [3, 4]
+
+const string = 'abcd'
+
+slice(0, 2, string)
+// => 'ab'
 ```
 <br /><br />
 
@@ -3112,6 +2664,633 @@ walkReducePath(
 //   ['a', 'c', 'd']
 // ]
 ```
+<br /><br />
+
+## common
+
+### all()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/all.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Resolves all async values in an array or object</p>
+<p>Auto curried for placeholder support.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The array or object with its values resolved</p>
+
+**Example**
+```js
+const nums = [
+  1,
+  Promise.resolve(2),
+  (async () => 3)()
+]
+await all(nums) //=> [ 1, 2, 3 ]
+
+const keyed = {
+  a: 1,
+  b: Promise.resolve(2),
+  c: (async () => 3)()
+}
+await all(keyed) //=> { a: 1, b: 2, c: 3 }
+
+await all('abc') //=> 'abc'
+await all(123) //=> 123
+```
+<br /><br />
+
+### allWith()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/allWith.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Resolves all async values in an array or object and executes the given with the result</p>
+<p>Auto curried for placeholder support.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the resolution</p>
+<p><code>value</code>: <code>&ast;</code> - The array or object whose values should be resolved. If value is not an object or array, the value is simply resolved to itself</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The array or object with its values resolved</p>
+
+**Example**
+```js
+const nums = [
+  1,
+  Promise.resolve(2),
+  (async () => 3)()
+]
+await allWith(
+  (resolvedNums) => 'foo', // [ 1, 2, 3 ]
+  nums
+) // => 'foo'
+
+const keyed = {
+  a: 1,
+  b: Promise.resolve(2),
+  c: (async () => 3)()
+}
+
+await allWith(
+  (resolvedNums) => 'foo', // { a: 1, b: 2, c: 3 }
+  keyed
+) // => 'foo'
+
+allWith(
+  (resolvedNums) => 'foo', // [ 1, 2, 3 ]
+  [ 1, 2, 3 ]
+) // => 'foo'
+```
+<br /><br />
+
+### apply()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/apply.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Applies function <code>fn</code> to the argument list <code>args</code>. This is useful for creating a fixed-arity function from a variadic function. <code>fn</code> should be a bound function if context is significant.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function which will be called with `args`</p>
+<p><code>args</code>: <code>Array</code> - The arguments to call `fn` with</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The result, equivalent to `fn(...args)`</p>
+
+**Example**
+```js
+const nums = [1, 2, 3, -99, 42, 6, 7]
+apply(Math.max, nums) //=> 42
+```
+<br /><br />
+
+### complement()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/complement.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>returns a new function that logically nots the returned value and returns that as the result.</p>
+<p>Auto-curried for placeholder support</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to complement</p>
+
+**Returns**
+<br /><p><code>Function</code> - The complemented function</p>
+
+**Example**
+```js
+const isEven = (value) => value % 2 === 0
+const isOdd = complement(isEven)
+isOdd(1) //=> true
+```
+<br /><br />
+
+### compose()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/compose.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Performs right-to-left function composition. The rightmost function may have any arity; the remaining functions must be unary.</p>
+<p><strong>Note:</strong> The result of compose is not automatically curried.</p>
+
+**Params**
+<p><code>functions</code>: <code>...Function</code> - The functions to compose</p>
+
+**Returns**
+<br /><p><code>Function</code> - </p>
+
+**Example**
+```js
+const classyGreeting = (firstName, lastName) => "The name's " + lastName + ", " + firstName + " " + lastName
+const yellGreeting = compose(toUpper, classyGreeting)
+yellGreeting('James', 'Bond')
+//=> "THE NAME'S BOND, JAMES BOND"
+
+compose(Math.abs, add(1), multiply(2))(-4) //=> 7
+```
+<br /><br />
+
+### deferredPromise()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Creates a promise with the resolve and reject methods exposed as properties<br />
+on the promise.</p>
+
+**Params**
+None
+
+**Returns**
+<br /><p><code>Promise</code> - The promise with exposed methods</p>
+
+**Example**
+```js
+const promise = deferredPromise()
+// ... do something async then eventually resolve the promise
+promise.resolve(someValue)
+```
+<br /><br />
+
+### defn()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/defn.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Defines a function that will invoke the named function if it exists on the last arg. If the method does not, all args are passed through to the default function.</p>
+
+**Params**
+<p><code>name</code>: <code>string</code> - The name of the method to call if it exists</p>
+<p><code>fn</code>: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
+
+**Returns**
+<br /><p><code>Function</code> - The wrapped function</p>
+
+**Example**
+```js
+const get = defn('get', (prop, value) => value[prop])
+get('a', { a: 'foo' }) //=> 'foo'
+
+const obj = {
+  props: {
+    a: 'bar'
+  }
+  get: (prop) => obj.props[prop]
+}
+get('a', obj) //=> 'bar'
+```
+<br /><br />
+
+### dispatchable()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/dispatchable.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a function that dispatches with different strategies based on the object in list position (last argument). If it is an array, executes [fn].</p>
+<p>Otherwise, it will default to executing [fn].</p>
+
+**Params**
+<p><code>name</code>: <code>string</code> - The name of the method to call if it exists</p>
+<p><code>fn</code>: <code>Function</code> - The default function to execute if the named one does not exist on the last arg</p>
+
+**Returns**
+<br /><p><code>Function</code> - A function that dispatches on object in list position</p>
+
+**Example**
+```js
+const get = dispatchable('get', (prop, value) => value[prop])
+get('a', { a: 'foo' }) //=> 'foo'
+
+const obj = {
+  props: {
+    a: 'bar'
+  }
+  get: (prop) => obj.props[prop]
+}
+get('a', obj) //=> 'bar'
+```
+<br /><br />
+
+### identity()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/identity.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>A function that does nothing but return the parameter supplied to it. Good as a default or placeholder function.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to return.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The input value.</p>
+
+**Example**
+```js
+identity(1)
+//=> 1
+
+const obj = {}
+identity(obj) === obj
+//=> true
+
+identity()
+//=> undefined
+```
+<br /><br />
+
+### isOp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/isOp.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Determines if the value is an op.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>boolean</code> - </p>
+
+**Example**
+```js
+isOp({
+  ['@@redux-saga/IO']: 'op'
+})
+//=> true
+```
+<br /><br />
+
+### isResolved()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/isResolved.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Determines if the value is a resolvable value.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>boolean</code> - </p>
+
+**Example**
+```js
+isResolved({
+  ['@@redux-saga/IO']: 'op'
+})
+//=> false
+
+isResolved((function* () {})())
+//=> false
+
+isResolved(new Promise(() => {})))
+//=> false
+
+isResolved({ resolve: () => 'foo' })
+//=> false
+
+isResolved(null)
+//=> true
+
+isResolved(undefined)
+//=> true
+
+isResolved('abc')
+//=> true
+```
+<br /><br />
+
+### iterate()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/iterate.js#L40)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
+<p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
+<p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The iteratee Function</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection or iterator to iterate over</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final value returned when the iteratee returns done or `undefined`</p>
+
+**Example**
+```js
+iterate((value, kdx) => {
+  if (value === 'b') {
+    return { done: true, value: kdx }
+  }
+  return { done: false }
+}, ['a', 'b', 'c'])
+//=> 1
+
+iterate(async (value, kdx) => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (value === 'b') {
+      return resolve({ done: true, value: kdx })
+    }
+    return resolve({ done: false })
+  }, 0)
+}), ['a', 'b', 'c'])
+//=> 1
+```
+<br /><br />
+
+### iterateRight()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/iterateRight.js#L41)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
+<p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
+<p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The iteratee Function</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection or iterator to iterate over</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final value returned when the iteratee returns done or `undefined`</p>
+
+**Example**
+```js
+iterateRight((value, kdx) => {
+  if (value === 'b') {
+    return { done: true, value: kdx }
+  }
+  return { done: false }
+}, ['a', 'b', 'c'])
+//=> 1
+
+iterateRight(async (value, kdx) => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (value === 'b') {
+      return resolve({ done: true, value: kdx })
+    }
+    return resolve({ done: false })
+  }, 0)
+}), ['a', 'b', 'c'])
+//=> 1
+```
+<br /><br />
+
+### iterator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/iterator.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>This method generates an iterator for the given value</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iteratee Function</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection or iterator to iterate over</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final value returned when the iteratee returns done or `undefined`</p>
+
+**Example**
+```js
+iterator(['a', 'b', 'c'])
+//=> { next: () => { value: string, index: number, kdx: umber, done: boolean }}
+
+iterator('abc')
+//=> { next: () => { value: string, index: number, kdx: umber, done: boolean }}
+
+iterator({ a: 1, b: 2, c: 3 })
+//=> { next: () => { value: number, key: string, kdx: string, done: boolean }}
+```
+<br /><br />
+
+### nAry()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
+
+**Params**
+<p><code>n</code>: <code>Number</code> - The desired arity of the new function.</p>
+<p><code>fn</code>: <code>Function</code> - The function to wrap.</p>
+
+**Returns**
+<br /><p><code>Function</code> - A new function wrapping `fn`. The new function is guaranteed to be of arity `n`.</p>
+
+**Example**
+```js
+const takesTwoArgs = (a, b) => [a, b]
+
+takesTwoArgs.length //=> 2
+takesTwoArgs(1, 2) //=> [1, 2]
+
+const takesOneArg = nAry(1, takesTwoArgs)
+takesOneArg.length //=> 1
+// Only `n` arguments are passed to the wrapped function
+takesOneArg(1, 2) //=> [1, undefined]
+```
+<br /><br />
+
+### nArySpread()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
+
+**Params**
+<p><code>n</code>: <code>Number</code> - The desired arity of the new function.</p>
+<p><code>fn</code>: <code>Function</code> - The function to wrap.</p>
+
+**Returns**
+<br /><p><code>Function</code> - A new function wrapping `fn`. The new function is guaranteed to be of parameter length `n`.</p>
+
+**Example**
+```js
+const takesNArgs = (...args) => [ ...args ]
+
+takesNArgs.length //=> 0
+takesNArgs(1, 2) //=> [1, 2]
+
+const takesTwoArgs = nArySpread(2, takesNArgs)
+takesTwoArgs.length //=> 2
+// All arguments are passed to the wrapped function
+takesTwoArgs(1, 2, 3) //=> [1, 2, 3]
+
+const curriedTakesTwoArgs = curry(takesTwoArgs)
+// auto currying works as expected
+const takesAtLeastOneMoreArg = curriedTakesTwoArgs(3)
+takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
+```
+<br /><br />
+
+### nth()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/nth.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+<p>Returns the nth element of the given list or string. If n is negative the<br />
+element at index length + n is returned.</p>
+
+**Params**
+<p><code>offset</code>: <code>number</code> - The offset from the 0 index to select from. If negative it will be subtracted from length</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to select from</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The value at the nth index</p>
+
+**Example**
+```js
+const list = ['foo', 'bar', 'baz', 'quux']
+nth(1, list) //=> 'bar'
+nth(-1, list) //=> 'quux'
+nth(-99, list) //=> undefined
+
+nth(2, 'abc') //=> 'c'
+nth(3, 'abc') //=> ''
+```
+<br /><br />
+
+### pipe()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/pipe.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Performs left-to-right function composition. The leftmost function may have<br />
+any arity; the remaining functions must be unary.</p>
+<p>In some libraries this function is named <code>sequence</code>.</p>
+<p><strong>Note:</strong> The result of pipe is not automatically curried.</p>
+
+**Params**
+<p><code>functions</code>: <code>...Function</code> - </p>
+
+**Returns**
+<br /><p><code>Function</code> - </p>
+
+**Example**
+```js
+const f = pipe(Math.pow, negate, inc)
+
+f(3, 4) // -(3^4) + 1
+```
+<br /><br />
+
+### resolve()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolve.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+<p>Resolves a value to its valueOf.</p>
+<p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
+
+**Params**
+<p><code>values</code>: <code>...String</code> - The values to check.</p>
+
+**Returns**
+<br /><p><code>String</code> - The first value found that is a path.</p>
+
+**Example**
+```js
+resolve('foo') // => 'foo'
+
+resolve({
+ valueOf: () => 'bar'
+}) //=> bar
+
+resolve({
+ resolve: () => 'bar'
+}) //=> bar
+
+resolve({
+  resolve: () => ({
+    valueOf: () => 'bar'
+  })
+}) //=> bar
+
+resolve({
+  resolve: () => ({
+    resolve: () => 'bar'
+  })
+}) //=> bar
+```
+<br /><br />
+
+### resolveToGeneratorWith()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolveToGeneratorWith.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the generator&#39;s resolution</p>
+<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
+
+**Returns**
+<br /><p><code>Generator</code> - </p>
+
+**Example**
+```js
+const generator = resolveToGeneratorWith(
+  (resolvedValue) => //=> 'foo'
+  'foo'
+)
+generator.next() //=> { done: true } triggers the fn method
+```
+<br /><br />
+
+### resolveWith()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/resolveWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>Resolves a value to the given method.</p>
+<p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
+<p>If the value to be resolved is a generator, this method will return a generator.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute at the end of the resolution</p>
+<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
+
+**Returns**
+<br /><p><code>Generator</code> - </p>
+
+**Example**
+```js
+await resolveWith(
+  (resolvedValue) => 'bar' // resolvedValue == 'foo'
+  Promise.resolve('foo')
+) //=> 'bar'
+
+resolveWith(
+  (resolvedValue) => 'bar' // resolvedValue == 'foo'
+  'foo'
+) //=> 'bar'
+```
+<br /><br />
+
+### sleep()
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/common/sleep.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Sleeps for the given amount of <code>wait</code> milliseconds before resolving the returned <code>Promise</code></p>
+
+**Params**
+<p><code>wait</code>: <code>number</code> - The number of milliseconds to wait before resoliving the Promise</p>
+
+**Returns**
+<br /><p><code>Promise</code> - Resolves once the given amount of time has ellapsed.</p>
+
+**Example**
+```js
+await sleep(1000)
+// 1000+ milliseconds later
+```
+<br /><br />
+
+## constants
+
+### MAX_SAFE_INTEGER
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>This constant represents the maximum safe integer in JavaScript (2^53 - 1).</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER">MAX_SAFE_INTEGER</a> for more information.</p>
+
+**Type**: `{number}`
+
+<br /><br />
+
+### SYMBOL_ITERATOR
+
+[source](https://github.com/serverless/utils/tree/v0.0.12/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+<p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
+
+**Type**: `{Symbol}`
+
 <br /><br />
 
 ## fetch

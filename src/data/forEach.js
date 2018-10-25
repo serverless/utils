@@ -1,7 +1,7 @@
 import curry from '../common/curry'
 import defn from '../common/defn'
+import iterate from '../common/iterate'
 import pipe from '../common/pipe'
-import iterate from './iterate'
 
 /**
  * Iterate over a collection calling a provided function `fn` for each element in the collection .

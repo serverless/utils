@@ -1,5 +1,5 @@
-import allWith from '../common/allWith'
-import curryN from '../common/curryN'
+import curry from '../common/curry'
+import defn from '../common/defn'
 
 /**
  * Returns `true` if one or both of its arguments are `true`. Returns `false` if both arguments are `false`.
@@ -22,5 +22,6 @@ import curryN from '../common/curryN'
  * or(false, false) //=> false
  * await or(Promise.resolve(false), false) //=> false
  */
-const or = curryN(2, (...values) => allWith(([valueA, valueB]) => valueA || valueB, values))
+const or = curry(defn('or', (valueA, valueB) => valueA || valueB))
+
 export default or

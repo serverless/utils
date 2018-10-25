@@ -1,3 +1,4 @@
+import __ from '../common/__'
 import flatten from './flatten'
 
 describe('flatten', () => {
@@ -9,16 +10,22 @@ describe('flatten', () => {
   test('handles empty array', () => {
     const result = flatten([])
     expect(result).toEqual([])
-  }),
-    test('handles strings', () => {
-      const result = flatten(['foo', 'bar', ['baz', ['bim', 'bop']]])
-      expect(result).toEqual(['foo', 'bar', 'baz', 'bim', 'bop'])
-    })
+  })
+
+  test('handles strings', () => {
+    const result = flatten(['foo', 'bar', ['baz', ['bim', 'bop']]])
+    expect(result).toEqual(['foo', 'bar', 'baz', 'bim', 'bop'])
+  })
 
   test('upgrades to promise when given a Promise', async () => {
     let result = flatten(Promise.resolve(['foo', ['bar', [1, 'baz']]]))
     expect(result).toBeInstanceOf(Promise)
     result = await result
     expect(result).toEqual(['foo', 'bar', 1, 'baz'])
+  })
+
+  test('curries method with a placeholder', () => {
+    const flattenP = flatten(__)
+    expect(flattenP([123, 'bar', ['baz']])).toEqual([123, 'bar', 'baz'])
   })
 })

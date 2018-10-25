@@ -1,4 +1,4 @@
-import arrayIterator from './arrayIterator'
+import arrayLikeIterator from './arrayLikeIterator'
 import isObject from './isObject'
 import reflectOwnKeys from './reflectOwnKeys'
 import toString from './toString'
@@ -38,16 +38,28 @@ import toString from './toString'
  * iter.next()
  * //=> { done: true }
  */
-const objectIterator = (object) => {
+const objectIterator = (object, start = 'START') => {
   if (!isObject(object)) {
     throw new TypeError(
       `objectIterator expected object to be an Object. Instead received ${toString(object)}`
     )
   }
-  const keyIterator = arrayIterator(reflectOwnKeys(object))
+  const keyIterator = arrayLikeIterator(reflectOwnKeys(object), start)
   return {
     next: () => {
       const { done, value } = keyIterator.next()
+      if (done) {
+        return { done, value }
+      }
+      return {
+        done,
+        kdx: value,
+        key: value,
+        value: object[value]
+      }
+    },
+    previous: () => {
+      const { done, value } = keyIterator.previous()
       if (done) {
         return { done, value }
       }

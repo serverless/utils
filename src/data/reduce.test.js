@@ -78,4 +78,23 @@ describe('reduce', () => {
       bim: expect.any(Function)
     })
   })
+
+  test('upgrades to a Promise when an async iteratee is used', async () => {
+    const array = ['a', 'b', 'c']
+    let result = reduce(
+      (acc, val, index) =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            acc.push([val, index])
+            resolve(acc)
+          }, 0)
+        }),
+      [],
+      array
+    )
+
+    expect(result).toBeInstanceOf(Promise)
+    result = await result
+    expect(result).toEqual([['a', 0], ['b', 1], ['c', 2]])
+  })
 })

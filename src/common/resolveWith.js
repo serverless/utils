@@ -28,7 +28,6 @@ import resolveToGeneratorWith from './resolveToGeneratorWith'
  *   (resolvedValue) => 'bar' // resolvedValue == 'foo'
  *   'foo'
  * ) //=> 'bar'
- *
  */
 const resolveWith = curry((fn, value) => {
   value = resolve(value)

@@ -1,12 +1,9 @@
-import BdPromise from 'bluebird'
 import isArray from '../base/isArray'
 import isFunction from '../base/isFunction'
 import isIterator from '../base/isIterator'
 import isObject from '../base/isObject'
-import isPromise from '../base/isPromise'
-import iterate from '../data/iterate'
 import curry from './curry'
-import resolve from './resolve'
+import iterate from './iterate'
 import resolveWith from './resolveWith'
 
 /**
@@ -40,8 +37,6 @@ import resolveWith from './resolveWith'
  */
 const all = curry(
   resolveWith((value) => {
-    // TODO BRN: add support for generators
-    // TODO BRN: add support for async iterators
     let result
     if (isArray(value) || isIterator(value)) {
       result = []
@@ -50,30 +45,19 @@ const all = curry(
     } else {
       return value
     }
-    let resolveAsync = false
 
-    // TODO BRN: This needs to be piped and returned in order to support generators and async iterators
-    iterate((next) => {
+    return iterate((next) => {
       if (next.done) {
+        return {
+          ...next,
+          value: result
+        }
+      }
+      return resolveWith((nextValue) => {
+        result[next.kdx] = nextValue
         return next
-      }
-      const nextValue = resolve(next.value)
-      result[next.kdx] = nextValue
-      if (isPromise(nextValue)) {
-        resolveAsync = true
-      }
+      }, next.value)
     }, value)
-
-    // TODO BRN: These methods won't resolve values after the promise has been resolved and won't resolve generators
-    if (resolveAsync) {
-      if (isArray(result)) {
-        return Promise.all(result)
-      } else if (isObject(result)) {
-        return Promise.resolve(BdPromise.props(result))
-      }
-    }
-
-    return value
   })
 )
 

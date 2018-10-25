@@ -24,10 +24,20 @@ describe('all', () => {
     const result = await all({
       a: 1,
       b: Promise.resolve(2),
-      c: (async () => 3)()
+      c: (async () => 3)(),
+      d: { resolve: () => 4 }
     })
 
-    expect(result).toEqual({ a: 1, b: 2, c: 3 })
+    expect(result).toEqual({ a: 1, b: 2, c: 3, d: 4 })
+  })
+
+  test('resolves non async values in an object', async () => {
+    const result = await all({
+      a: 1,
+      b: { resolve: () => 2 }
+    })
+
+    expect(result).toEqual({ a: 1, b: 2 })
   })
 
   test('resolves any other value to itself', () => {

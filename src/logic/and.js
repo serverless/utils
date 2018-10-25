@@ -1,5 +1,5 @@
-import allWith from '../common/allWith'
-import curryN from '../common/curryN'
+import curry from '../common/curry'
+import defn from '../common/defn'
 
 /**
  * Returns `true` if both arguments are `true`; `false` otherwise.
@@ -22,6 +22,6 @@ import curryN from '../common/curryN'
  * and(false, false) //=> false
  * await and(Promise.resolve(false), false) //=> false
  */
-const and = curryN(2, (...values) => allWith(([valueA, valueB]) => valueA && valueB, values))
+const and = curry(defn('and', (valueA, valueB) => valueA && valueB))
 
 export default and
