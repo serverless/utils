@@ -1,5 +1,4 @@
 import isFunction from '../base/isFunction'
-import isPromise from '../base/isPromise'
 import curry from '../common/curry'
 import defn from '../common/defn'
 
@@ -24,12 +23,6 @@ import defn from '../common/defn'
  */
 const join = curry(
   defn('join', (seperator, list) => {
-    if (isPromise(seperator)) {
-      return seperator.then((resolvedSeperator) => join(resolvedSeperator, list))
-    }
-    if (isPromise(list)) {
-      return list.then((resolvedList) => join(seperator, resolvedList))
-    }
     if (list != null && isFunction(list.join)) {
       return list.join(seperator)
     }

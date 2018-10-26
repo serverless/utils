@@ -1,10 +1,22 @@
 import isString from '../base/isString'
 import curry from '../common/curry'
-import defn from '../common/defn'
+import dispatchable from '../common/dispatchable'
+import resolveWith from '../common/resolveWith'
 import concat from './concat'
+
+const dispatcher = dispatchable('append', (value, arrayLike) => {
+  if (isString(arrayLike)) {
+    return concat(arrayLike, value)
+  }
+  return concat(arrayLike, [value])
+})
 
 /**
  * Returns a new list containing the contents of the given list, followed by the given value.
+ *
+ * This method dispatches to the `append` method of the `arrayLike` argument if it exists.
+ *
+ * This method will auto upgrade to async and resolve the `arrayLike` value if the `arrayLike` value is a Promise.
  *
  * @function
  * @since v0.0.3
@@ -19,13 +31,8 @@ import concat from './concat'
  * append(['tests'], ['write', 'more']) //=> ['write', 'more', ['tests']]
  * append('tests', 'write more ') //=> 'write more tests'
  */
-const append = curry(
-  defn('append', (value, arrayLike) => {
-    if (isString(arrayLike)) {
-      return concat(arrayLike, value)
-    }
-    return concat(arrayLike, [value])
-  })
+const append = curry((value, arrayLike) =>
+  resolveWith((resolvedArrayLike) => dispatcher(value, resolvedArrayLike), arrayLike)
 )
 
 export default append

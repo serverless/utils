@@ -7,6 +7,7 @@
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [base](#base)
   * [arrayConcat()](#arrayconcat)
+  * [arrayFlatten()](#arrayflatten)
   * [arrayLikeIterator()](#arraylikeiterator)
   * [arrayLikeKeys()](#arraylikekeys)
   * [arrayLikeSlice()](#arraylikeslice)
@@ -54,8 +55,33 @@
   * [toNumber()](#tonumber)
   * [toObject()](#toobject)
   * [toString()](#tostring)
+- [common](#common)
+  * [all()](#all)
+  * [allWith()](#allwith)
+  * [apply()](#apply)
+  * [complement()](#complement)
+  * [compose()](#compose)
+  * [deferredPromise()](#deferredpromise)
+  * [defn()](#defn)
+  * [dispatchable()](#dispatchable)
+  * [identity()](#identity)
+  * [isOp()](#isop)
+  * [isResolved()](#isresolved)
+  * [iterate()](#iterate)
+  * [iterateRight()](#iterateright)
+  * [iterator()](#iterator)
+  * [nAry()](#nary)
+  * [nArySpread()](#naryspread)
+  * [nth()](#nth)
+  * [pipe()](#pipe)
+  * [resolve()](#resolve)
+  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
+  * [resolveWith()](#resolvewith)
+  * [sleep()](#sleep)
+- [constants](#constants)
+  * [MAX_SAFE_INTEGER](#max_safe_integer)
+  * [SYMBOL_ITERATOR](#symbol_iterator)
 - [data](#data)
-  * [arrayFlatten()](#arrayflatten)
   * [any()](#any)
   * [anyAtIndex()](#anyatindex)
   * [append()](#append)
@@ -112,32 +138,6 @@
   * [walkReduce()](#walkreduce)
   * [walkReduceDepthFirst()](#walkreducedepthfirst)
   * [walkReducePath()](#walkreducepath)
-- [common](#common)
-  * [all()](#all)
-  * [allWith()](#allwith)
-  * [apply()](#apply)
-  * [complement()](#complement)
-  * [compose()](#compose)
-  * [deferredPromise()](#deferredpromise)
-  * [defn()](#defn)
-  * [dispatchable()](#dispatchable)
-  * [identity()](#identity)
-  * [isOp()](#isop)
-  * [isResolved()](#isresolved)
-  * [iterate()](#iterate)
-  * [iterateRight()](#iterateright)
-  * [iterator()](#iterator)
-  * [nAry()](#nary)
-  * [nArySpread()](#naryspread)
-  * [nth()](#nth)
-  * [pipe()](#pipe)
-  * [resolve()](#resolve)
-  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
-  * [resolveWith()](#resolvewith)
-  * [sleep()](#sleep)
-- [constants](#constants)
-  * [MAX_SAFE_INTEGER](#max_safe_integer)
-  * [SYMBOL_ITERATOR](#symbol_iterator)
 - [fetch](#fetch)
   * [fetch()](#fetch)
 - [ip](#ip)
@@ -180,6 +180,24 @@ arrayConcat([1, 2, 3], [4, 5, 6], [7, 8, 9])
 
 arrayConcat(['a', 'b', 'c'], 1, [2, 3])
 //=> ['a', 'b', 'c', 1, 2, 3]
+```
+<br /><br />
+
+### arrayFlatten()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/base/arrayFlatten.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Returns a new array by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
+
+**Params**
+<p><code>array</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The flattened list.</p>
+
+**Example**
+```js
+arrayFlatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 ```
 <br /><br />
 
@@ -1274,1398 +1292,6 @@ toString([1, 2, 3])
 ```
 <br /><br />
 
-## data
-
-### arrayFlatten()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/base/arrayFlatten.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Returns a new array by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
-
-**Params**
-<p><code>array</code>: <code>Array</code> - The array to consider.</p>
-
-**Returns**
-<br /><p><code>Array</code> - The flattened list.</p>
-
-**Example**
-```js
-arrayFlatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
-//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-```
-<br /><br />
-
-### any()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/any.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns <code>true</code> if at least one of elements of the collection match the predicate, <code>false</code> otherwise.</p>
-<p>Dispatches to the <code>any</code> method of the collection argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
-
-**Returns**
-<br /><p><code>Boolean</code> - `true` if the predicate is satisfied by at least one element, `false` otherwise.</p>
-
-**Example**
-```js
-const lessThan0 = flip(lt)(0)
-const lessThan2 = flip(lt)(2)
-any(lessThan0)([1, 2]) //=> false
-any(lessThan2)([1, 2]) //=> true
-any(lessThan2)({ a: 1, b: 2 }) //=> true
-
-await any(async (value) => lessThan2(value), [1, 2]) //=> true
-```
-<br /><br />
-
-### anyAtIndex()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/anyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns <code>true</code> if at least one of elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
-<p>Dispatches to the <code>anyAtIndex</code> method of the list argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
-<p><code>index</code>: <code>Integer</code> - The index to start at.</p>
-<p><code>list</code>: <code>Array</code> - The array to consider.</p>
-
-**Returns**
-<br /><p><code>Boolean</code> - `true` if the predicate is satisfied by at least one element, `false`<br />
-        otherwise.</p>
-
-**Example**
-```js
-const lessThan0 = flip(lt)(0)
-const lessThan2 = flip(lt)(2)
-anyAtIndex(lessThan0, 0, [3, 2, 1]) //=> false
-anyAtIndex(lessThan2, 1, [3, 2, 1]) //=> true
-
-await anyAtIndex(async (value) => lessThan2(value), 0, [1, 2]) //=> true
-```
-<br /><br />
-
-### append()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/append.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns a new list containing the contents of the given list, followed by the given value.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to add to the end of the new list.</p>
-<p><code>arrayLike</code>: <code>Array|string</code> - The array like value of elements to add a new item to.</p>
-
-**Returns**
-<br /><p><code>Array|string</code> - A new array or string containing the elements of the old list followed by `value`.</p>
-
-**Example**
-```js
-append('tests', ['write', 'more']) //=> ['write', 'more', 'tests']
-append('tests', []) //=> ['tests']
-append(['tests'], ['write', 'more']) //=> ['write', 'more', ['tests']]
-append('tests', 'write more ') //=> 'write more tests'
-```
-<br /><br />
-
-### assign()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assign.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
-<p>The assign() method is used to copy the values of all enumerable own properties from one or more source objects to a target object. It will return the target object.</p>
-<p>Dispatches to the <code>assign</code> method of the first parameter if it exists.</p>
-<p>This method is auto curried to 2 args.</p>
-
-**Params**
-<p><code>target</code>: <code>Object</code> - The target object.</p>
-<p><code>sources</code>: <code>...Object</code> - The source object(s).</p>
-
-**Returns**
-<br /><p><code>Object</code> - The target object</p>
-
-**Example**
-```js
-const  o1 = { a: 1, b: 1, c: 1 }
-const o2 = { b: 2, c: 2 }
-const o3 = { c: 3 }
-
-assign({}, o1, o2, o3)  //=> { a: 1, b: 2, c: 3 }
-```
-<br /><br />
-
-### assoc()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assoc.js#L10)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
-<p>Supports path based property selectors 'foo.bar' and functional selectors which performs an over on the entire collection and sets each matching selector to the given value.</p>
-
-**Params**
-<p><code>selector</code>: <code>Array | String | Function</code> - The property path to set or functional selector</p>
-<p><code>value</code>: <code>&ast;</code> - The new value</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to clone and assign the new value</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - A new collection equivalent to the original except for the changed selector path.</p>
-
-**Example**
-```js
-assoc('c', 3, {a: 1, b: 2})          //=> {a: 1, b: 2, c: 3}
-assoc('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
-assoc([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
-```
-<br /><br />
-
-### assocIndex()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assocIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
-focused by the given lens to the given value.</p>
-
-**Params**
-<p><code>index</code>: <code>number</code> - The index number to set</p>
-<p><code>val</code>: <code>&ast;</code> - The new value</p>
-<p><code>arr</code>: <code>Array</code> - The array to clone</p>
-
-**Returns**
-<br /><p><code>Array</code> - A new array equivalent to the original except for the changed index.</p>
-
-**Example**
-```js
-assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']
-```
-<br /><br />
-
-### assocPath()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assocPath.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Makes a shallow clone of an object, setting or overriding the nodes required<br />
-to create the given path, and placing the specific value at the tail end of<br />
-that path. Note that this copies and flattens prototype properties onto the<br />
-new object as well. All non-primitive properties are copied by reference.</p>
-
-**Params**
-<p><code>path</code>: <code>Array</code> - the path to set</p>
-<p><code>value</code>: <code>&ast;</code> - The new value</p>
-<p><code>collection</code>: <code>Object|Array|Map</code> - The object, array or map to clone</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - A new collection equivalent to the original except along the specified path.</p>
-
-**Example**
-```js
-assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
-
-// Any missing or non-object keys in path will be overridden
-assocPath(['a', 0, 'c'], 42, {a: 5}); //=> {a: [{c: 42}]}
-```
-<br /><br />
-
-### assocProp()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assocProp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
-focused by the given lens to the given value.</p>
-
-**Params**
-<p><code>prop</code>: <code>String</code> - The property name to set</p>
-<p><code>val</code>: <code>&ast;</code> - The new value</p>
-<p><code>obj</code>: <code>Object|Map</code> - The object to clone</p>
-
-**Returns**
-<br /><p><code>Object</code> - A new object equivalent to the original except for the changed property.</p>
-
-**Example**
-```js
-assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-```
-<br /><br />
-
-### compact()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/compact.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Creates an array with all undefined values removed.</p>
-
-**Params**
-<p><code>array</code>: <code>Array</code> - The array to compact.</p>
-
-**Returns**
-<br /><p><code>Array</code> - Returns the new array of filtered values.</p>
-
-**Example**
-```js
-compact([0, 1, false, 2, null, '', 3, undefined])
-// => [0, 1, false, 2, null, '', 3]
-```
-<br /><br />
-
-### concat()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Returns the result of concatenating the given lists or strings.</p>
-<p>Note: <code>concat</code> expects both arguments to be of the same type, unlike the native <code>Array.prototype.concat</code> method. It will throw an error if you <code>concat</code> an Array with a non-Array value.</p>
-<p>Dispatches to the <code>concat</code> method of the first argument, if present.</p>
-<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>firstList</code>: <code>Array|string|Promise</code> - The first list</p>
-<p><code>secondList</code>: <code>Array|string|Promise</code> - The second list</p>
-
-**Returns**
-<br /><p><code>Array|string</code> - A list consisting of the elements of `firstList` followed by the elements of `secondList`.</p>
-
-**Example**
-```js
-concat('ABC', 'DEF') // 'ABCDEF'
-concat([4, 5, 6], [1, 2, 3]) //=> [4, 5, 6, 1, 2, 3]
-concat([], []) //=> []
-await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5, 6, 1, 2, 3]
-```
-<br /><br />
-
-### every()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/every.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Returns <code>true</code> if all elements of the list match the predicate, <code>false</code> if there are any that don't.</p>
-<p>Dispatches to the <code>every</code> method of the second argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - `true` if the predicate is satisfied by every value, `false` otherwise.</p>
-
-**Example**
-```js
-const equals3 = equals(3)
-every(equals3, [3, 3, 3, 3]) //=> true
-every(equals3, [3, 3, 1, 3]) //=> false
-every(equals3, { a: 3, b: 3, c: 3}) //=> true
-
-await every(async (value) => equals3(value), [3, 3, 3]) //=> true
-```
-<br /><br />
-
-### everyAtIndex()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/everyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Returns <code>true</code> if all elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
-<p>Dispatches to the <code>everyAtIndex</code> method of the list argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
-<p><code>index</code>: <code>Integer</code> - The index to start at.</p>
-<p><code>list</code>: <code>Array</code> - The array to consider.</p>
-
-**Returns**
-<br /><p><code>Boolean</code> - `true` if the predicate is satisfied by at least one element, `false`  otherwise.</p>
-
-**Example**
-```js
-const lessThan0 = flip(lt)(0)
-const lessThan2 = flip(lt)(2)
-any(lessThan0)([1, 2]) //=> false
-any(lessThan2)([1, 2]) //=> true
-```
-<br /><br />
-
-### filter()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/filter.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
-<p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The filtered collection</p>
-
-**Example**
-```js
-const isEven = n => n % 2 === 0;
-
-filter(isEven, [1, 2, 3, 4]) //=> [2, 4]
-filter(isEven, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
-
-await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
-```
-<br /><br />
-
-### filterAtIndex()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/filterAtIndex.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate starting from the given index. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
-<p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
-<p><code>index</code>: <code>Integer</code> - The index to start at.</p>
-<p><code>list</code>: <code>Array</code> - The array to consider.</p>
-
-**Returns**
-<br /><p><code>Array</code> - The filtered list</p>
-
-**Example**
-```js
-const isEven = n => n % 2 === 0;
-
-filterAtIndex(isEven, 0, [1, 2, 3, 4]) //=> [2, 4]
-filterAtIndex(isEven, 2, [1, 2, 3, 4]) //=> [4]
-
-await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
-```
-<br /><br />
-
-### find()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/find.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the first element of the collection which matches the predicate, or<br />
-<code>undefined</code> if no element matches.</p>
-<p>Dispatches to the <code>find</code> method of the collection argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
-method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The predicate function used to determine if the element is the<br />
-       desired one.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
-
-**Returns**
-<br /><p><code>Object</code> - The element found, or `undefined`.</p>
-
-**Example**
-```js
-const xs = [{a: 1}, {a: 2}, {a: 3}];
-find(propEq('a', 2))(xs); //=> {a: 2}
-find(propEq('a', 4))(xs); //=> undefined
-```
-<br /><br />
-
-### findAtIndex()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/findAtIndex.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the first element of the list which matches the predicate, or<br />
-<code>undefined</code> if no element matches starting at the given index.</p>
-<p>Dispatches to the <code>findAtIndex</code> method of the last argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
-method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The predicate function used to determine if the element is the<br />
-       desired one.</p>
-<p><code>index</code>: <code>Integer</code> - The index to start at.</p>
-<p><code>list</code>: <code>Array</code> - The array to consider.</p>
-
-**Returns**
-<br /><p><code>&ast;|Promise</code> - The element found, or `undefined`.</p>
-
-**Example**
-```js
-const xs = [{a: 1}, {a: 2}, {a: 3}];
-findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
-findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
-```
-<br /><br />
-
-### flatten()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/flatten.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>Returns a new list by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
-<p>This method automatically upgrades to async. If a Promise is given as the list this method will resolve the promise as the list and return a Promise that resolves to the flattened list.</p>
-
-**Params**
-<p><code>array</code>: <code>Array|Promise&lt;Array&gt;</code> - The array to consider.</p>
-
-**Returns**
-<br /><p><code>Array|Promise&lt;Array&gt;</code> - The flattened array.</p>
-
-**Example**
-```js
-flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
-//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-```
-<br /><br />
-
-### forEach()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/forEach.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
-<p>Iterate over a collection calling a provided function <code>fn</code> for each element in the collection .</p>
-<p><code>fn</code> receives two arguments: <em>(value, kdx)</em></p>
-<p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
-<p>Note: <code>forEach</code> does not skip deleted or unassigned indices (sparse<br />
-arrays), unlike the native <code>Array.prototype.forEach</code> method. For more<br />
-details on this behavior, see:<br />
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach#Description</p>
-<p>Also note that, unlike <code>Array.prototype.forEach</code>, this <code>forEach</code> returns<br />
-the original value. In some libraries this function is named <code>each</code>.</p>
-<p>Dispatches to the <code>forEach</code> method of the second argument, if present.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The original collection.</p>
-
-**Example**
-```js
-const printXPlusFive = x => console.log(x + 5);
-forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
-// logs 6
-// logs 7
-// logs 8
-```
-<br /><br />
-
-### forEachIndexed()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/forEachIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
-<p>Alias for <a href="#forEach">forEach</a> method</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The original collection.</p>
-
-<br /><br />
-
-### forEachObjIndexed()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/forEachObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
-<p>Alias for <a href="#forEach">forEach</a> method</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The original collection.</p>
-
-<br /><br />
-
-### get()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/get.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Retrieve the value at a given path.</p>
-<p>Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.</p>
-
-**Params**
-<p><code>path</code>: <code>Array|string|number|Function</code> - The path to use.</p>
-<p><code>value</code>: <code>Object</code> - The value to retrieve the nested property from.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The data at `path`.</p>
-
-**Example**
-```js
-get(['a', 'b'], {a: {b: 2}})
-//=> 2
-
-get(['a', 'b'], {c: {b: 2}})
-//=> undefined
-
-get('a', {a: {b: 2}})
-//=> { b: 2 }
-
-get('a.b', {a: {b: 2}})
-//=> 2
-
-get('a[0]', {a: [ 1, 2 ]})
-//=> 1
-
-get('[0]', [ 1, 2 ])
-//=> 1
-```
-<br /><br />
-
-### getParent()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/getParent.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
-<p>Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.</p>
-
-**Params**
-<p><code>path</code>: <code>Array|string|number|Function</code> - The path to use.</p>
-<p><code>value</code>: <code>Object</code> - The value to retrieve the parent property value from.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The data at `path`.</p>
-
-**Example**
-```js
-getParent(['a', 'b'], {a: {b: 2}})
-//=> {b: 2}
-
-getParent(['a', 'b'], {c: {b: 2}})
-//=> undefined
-
-getParent('a', {a: {b: 2}})
-//=> {a: {b: 2}}
-
-getParent('a.b', {a: {b: 2}})
-//=> {b: 2}
-
-getParent('a[0]', {a: [ 1, 2 ]})
-//=> [ 1, 2 ]
-```
-<br /><br />
-
-### getParentPath()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/getParentPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
-
-**Params**
-<p><code>path</code>: <code>Array</code> - The path to use.</p>
-<p><code>value</code>: <code>&ast;</code> - The value to retrieve the nested property from.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The data at `path`.</p>
-
-**Example**
-```js
-getParentPath(['a', 'b'], {a: {b: 2}}); //=> {b: 2}
-getParentPath(['a', 'b'], {c: {b: 2}}); //=> undefined
-```
-<br /><br />
-
-### getPath()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/getPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Retrieve the value at a given path.</p>
-
-**Params**
-<p><code>path</code>: <code>Array</code> - The path to use.</p>
-<p><code>obj</code>: <code>Object</code> - The object to retrieve the nested property from.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The data at `path`.</p>
-
-**Example**
-```js
-getPath(['a', 'b'], {a: {b: 2}}); //=> 2
-getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
-```
-<br /><br />
-
-### getProp()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns a function that when supplied an object returns the indicated  property of that object, if it exists.</p>
-
-**Params**
-<p><code>prop</code>: <code>string|number|Function</code> - The property name or property selector</p>
-<p><code>value</code>: <code>Object</code> - The value to query</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The value at the given property</p>
-
-**Example**
-```js
-getProp('x', {x: 100}) //=> 100
-getProp('x', {})       //=> undefined
-getProp(undefined, {})  //=> {}
-getProp(1, ['foo', 'bar'])  //=> 'bar'
-getProp((value) => value[0], ['foo', 'bar'])  //=> 'foo'
-getProp('foo', {
-  foo: 'bar',
-  get(prop) { return this[prop] }
-}) //=> 'bar'
-```
-<br /><br />
-
-### has()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/has.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns whether or not a path exists in an object. Only the object's<br />
-own properties are checked.</p>
-
-**Params**
-<p><code>selector</code>: <code>Array|String</code> - The selector to use.</p>
-<p><code>value</code>: <code>Object</code> - The value to check the path in.</p>
-
-**Returns**
-<br /><p><code>Boolean</code> - Whether the selector exists.</p>
-
-**Example**
-```js
-has(['a', 'b'], {a: {b: 2}})          // => true
-has(['a', 'b'], {a: {b: undefined}})  // => true
-has('a.b', {a: {c: 2}})               // => false
-has([], {})                           // => true
-```
-<br /><br />
-
-### hasPath()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/hasPath.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns whether or not a path exists in an object. Only the object's<br />
-own properties are checked.</p>
-
-**Params**
-<p><code>path</code>: <code>Array</code> - The path to use.</p>
-<p><code>obj</code>: <code>Object</code> - The object to check the path in.</p>
-
-**Returns**
-<br /><p><code>Boolean</code> - Whether the path exists.</p>
-
-**Example**
-```js
-hasPath(['a', 'b'], {a: {b: 2}})          // => true
-hasPath(['a', 'b'], {a: {b: undefined}})  // => true
-hasPath('a.b', {a: {c: 2}})               // => false
-hasPath([], {})                           // => true
-```
-<br /><br />
-
-### hasProp()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/hasProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns whether or not an object has an own property with the specified name</p>
-<p>If prop is a function then it is executed against value as a selector.<br />
-If prop is undefined then value will be checked for truthiness.</p>
-
-**Params**
-<p><code>prop</code>: <code>String | Function</code> - The name of the property to check for.</p>
-<p><code>value</code>: <code>Object | Map</code> - The value to query.</p>
-
-**Returns**
-<br /><p><code>Boolean</code> - Whether the property exists.</p>
-
-**Example**
-```js
-hasProp('name', {name: 'philipp'})  //=> true
-hasProp('name', {})                 //=> false
-
-hasProp(undefined, {})            //=> true
-hasProp(undefined, null)          //=> false
-
-hasProp((value) => value.name, { name: 'eslam'})     //=> true
-hasProp((value) => value.birthday, { name: 'raees'}) //=> false
-```
-<br /><br />
-
-### head()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/head.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
-<p>Returns the first element of the given list or string.</p>
-
-**Params**
-<p><code>list</code>: <code>Array|String</code> - The list to get the first element from</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The first element in the given list</p>
-
-**Example**
-```js
-head(['fi', 'fo', 'fum']) //=> 'fi'
-head([]) //=> undefined
-
-head('abc') //=> 'a'
-head('') //=> ''
-```
-<br /><br />
-
-### init()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/init.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
-<p>Returns all but the last element of the given list or string.</p>
-
-**Params**
-<p><code>list</code>: <code>&ast;</code> - The list to select from</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - A new array or string of all but the last element in the list</p>
-
-**Example**
-```js
-init([1, 2, 3])  //=> [1, 2]
-init([1, 2])     //=> [1]
-init([1])        //=> []
-init([]);         //=> []
-
-init('abc')  //=> 'ab'
-init('ab')   //=> 'a'
-init('a')    //=> ''
-init('')     //=> ''
-```
-<br /><br />
-
-### is()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/is.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>See if an object (<code>val</code>) is an instance of the supplied constructor. This function will check up the inheritance chain, if any.</p>
-
-**Params**
-<p><code>constructor</code>: <code>Object</code> - A constructor</p>
-<p><code>value</code>: <code>&ast;</code> - The value to test</p>
-
-**Returns**
-<br /><p><code>boolean</code> - </p>
-
-**Example**
-```js
-is(Object, {}); //=> true
-is(Number, 1); //=> true
-is(Object, 1); //=> false
-is(String, 's'); //=> true
-is(String, new String('')); //=> true
-is(Object, new String('')); //=> true
-is(Object, 's'); //=> false
-is(Number, {}); //=> false
-```
-<br /><br />
-
-### join()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/join.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Returns a string made by inserting the <code>separator</code> between each element and<br />
-concatenating all the elements into a single string.</p>
-<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>separator</code>: <code>number|string|Promise&lt;number|string&gt;</code> - The string used to separate the elements.</p>
-<p><code>list</code>: <code>Array|Promise&lt;Array&gt;</code> - The list of elements to join into a string.</p>
-
-**Returns**
-<br /><p><code>string|Promise&lt;string&gt;</code> - The string made by concatenating `list` with `separator`.</p>
-
-**Example**
-```js
-const spacer = join(' ')
-spacer(['a', 2, 3.4])   //=> 'a 2 3.4'
-join('|', [1, 2, 3])    //=> '1|2|3'
-await join(Promise.resolve('|'), Promise.resolve([1, 2, 3]))    //=> '1|2|3'
-```
-<br /><br />
-
-### keys()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/keys.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the keys of the given collection in an Array.</p>
-<p>Supports objects, Maps and array like values. If given an array like value, the indexes will be returned in string form.</p>
-<p>This method supports Promise values. If given a Promise it will return a Promise that will resolve to the keys of the resolved value of the Promise.</p>
-<p>Dispatches to the <code>keys</code> method of the <code>collection</code> if present (except on Map). If a <code>Map</code> is received an array of the <code>Map</code>'s keys will be returned.</p>
-
-**Params**
-<p><code>collection</code>: <code>&ast;</code> - The collection to get the keys from</p>
-
-**Returns**
-<br /><p><code>Array&lt;string&gt;|Promise&lt;Array&lt;string&gt;&gt;</code> - The keys of the given collection</p>
-
-**Example**
-```js
-keys({ foo: 'bar', 'baz': 'bat', bim: 'bop' }) //=> ['foo', 'baz', 'bim']
-keys({}) //=> []
-
-keys(['fi', 'fo', 'fum']) //=> [ '0', '1', '2' ]
-keys([]) //=> []
-
-keys('abc') //=> ['0', '1', '2']
-keys('') //=> []
-
-await keys(Promise.resolve({ a: 1, b: 2 }) //=> ['a', 'b']
-```
-<br /><br />
-
-### last()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/last.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the last element of the given list or string.</p>
-
-**Params**
-<p><code>list</code>: <code>&ast;</code> - The list to get the last element from</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The last element of the given list or string</p>
-
-**Example**
-```js
-last(['fi', 'fo', 'fum']) //=> 'fum'
-last([]) //=> undefined
-
-last('abc') //=> 'c'
-last(''); //=> ''
-```
-<br /><br />
-
-### length()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/length.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>Returns the number of elements in the array by returning <code>list.length</code>.</p>
-
-**Params**
-<p><code>list</code>: <code>&ast;</code> - The array like value to inspect.</p>
-
-**Returns**
-<br /><p><code>Number</code> - The length of the list.</p>
-
-**Example**
-```js
-length([]) //=> 0
-length([1, 2, 3]) //=> 3
-```
-<br /><br />
-
-### map()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/map.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Takes a function and a <a href="https://github.com/fantasyland/fantasy-land#functor">functor</a>, applies the function to each of the functor's values, and returns  a functor of the same shape.</p>
-<p>Provides suitable <code>map</code> implementations for <code>Array</code> and <code>Object</code>,<br />
-so this function may be applied to <code>[1, 2, 3]</code> or <code>{x: 1, y: 2, z: 3}</code>.</p>
-<p>Dispatches to the <code>map</code> method of the second argument, if present.</p>
-
-**Params**
-<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The new collection.</p>
-
-**Example**
-```js
-const double = x => x * 2
-
-map(double, [1, 2, 3]) //=> [2, 4, 6]
-
-map(double, {x: 1, y: 2, z: 3}) //=> {x: 2, y: 4, z: 6}
-```
-<br /><br />
-
-### mapIndexed()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/mapIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Alias for <a href="#map">map</a> method</p>
-
-**Params**
-<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The new collection.</p>
-
-<br /><br />
-
-### mapObjIndexed()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/mapObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Alias for <a href="#map">map</a> method</p>
-
-**Params**
-<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The new collection.</p>
-
-<br /><br />
-
-### omit()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/omit.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Returns a partial copy of an object omitting the keys specified.</p>
-
-**Params**
-<p><code>names</code>: <code>Array</code> - an array of String property names to omit from the new object</p>
-<p><code>obj</code>: <code>Object</code> - The object to copy from</p>
-
-**Returns**
-<br /><p><code>Object</code> - A new object with properties from `names` not on it.</p>
-
-**Example**
-```js
-omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, c: 3}
-```
-<br /><br />
-
-### pick()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/pick.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Returns a partial copy of an object containing only the keys specified. If<br />
-the key does not exist, the property is ignored.</p>
-<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
-
-**Params**
-<p><code>names</code>: <code>Array|Promise&lt;Array&gt;</code> - an array of String property names to copy onto a new object</p>
-<p><code>object</code>: <code>Object|Promise&lt;Object&gt;</code> - The object to copy from</p>
-
-**Returns**
-<br /><p><code>Object|Promise&lt;Object&gt;</code> - A new object with only properties from `names` on it.</p>
-
-**Example**
-```js
-pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {a: 1, d: 4}
-pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}) //=> {a: 1}
-await pick(
-  Promise.resolve(['a', 'd']),
-  Promise.resolve({a: 1, b: 2, c: 3, d: 4})
-) //=> {a: 1, d: 4}
-```
-<br /><br />
-
-### prepend()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/prepend.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns a new list with the given element at the front, followed by the contents of the list.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to add to the end of the new list.</p>
-<p><code>arrayLike</code>: <code>Array|string</code> - The array like value of elements to prepend a new item to.</p>
-
-**Returns**
-<br /><p><code>Array|string</code> - A new array or string containing the elements of the old list prepended with `value`.</p>
-
-**Example**
-```js
-prepend('write', ['more', 'tests']) //=> ['write', 'more', 'tests']
-prepend('write', []) //=> ['write']
-prepend(['write'], ['more', 'tests']) //=> ['write', 'more', ['tests']]
-prepend('write', ' more tests') //=> 'write more tests'
-```
-<br /><br />
-
-### reduce()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reduce.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.</p>
-<p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
-<p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
-<p>Note: <code>reduce</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details  on this behavior, see:<br />
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description</p>
-<p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
-
-**Params**
-<p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
-<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
-<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final, accumulated value.</p>
-
-**Example**
-```js
-reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
-//          -               -10
-//         / \              / \
-//        -   4           -6   4
-//       / \              / \
-//      -   3   ==>     -3   3
-//     / \              / \
-//    -   2           -1   2
-//   / \              / \
-//  0   1            0   1
-```
-<br /><br />
-
-### reduceIndexed()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reduceIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Alias for <a href="#reduce">reduce</a> method</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
-<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
-<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final, accumulated value.</p>
-
-<br /><br />
-
-### reduceObjIndexed()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reduceObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Alias for <a href="#reduce">reduce</a> method</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
-<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
-<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final, accumulated value.</p>
-
-<br /><br />
-
-### reduceRight()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reduceRight.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value,  the current value and the index or key from the collection, and then passing the result to the next call.</p>
-<p>Similar to <a href="#reduce"><code>reduce</code></a>, except moves through the input list from the right to the left.</p>
-<p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
-<p>Supports async reducers. This method will automatically upgrade to async if given an async reducer.</p>
-<p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
-<p>Note: <code>reduceRight</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduceRight</code> method. For more details on this behavior, see:<br />
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight#Description</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
-<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
-<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final, accumulated value.</p>
-
-**Example**
-```js
-reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
-//    -               -2
-//   / \              / \
-//  1   -            1   3
-//     / \              / \
-//    2   -     ==>    2  -1
-//       / \              / \
-//      3   -            3   4
-//         / \              / \
-//        4   0            4   0
-```
-<br /><br />
-
-### reject()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reject.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>The complement of <a href="#filter"><code>filter</code></a>.</p>
-
-**Params**
-<p><code>predicate</code>: <code>Function</code> - </p>
-<p><code>filterable</code>: <code>&ast;</code> - </p>
-
-**Returns**
-<br /><p><code>&ast;</code> - </p>
-
-**Example**
-```js
-isOdd = (n) => n % 2 === 1
-
-reject(isOdd, [1, 2, 3, 4]) //=> [2, 4]
-
-reject(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
-```
-<br /><br />
-
-### set()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/set.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>This method is an alias for <code>assoc</code></p>
-<p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
-<p>Supports path based property selectors 'foo.bar' and functional selectors which performs an 'over' on the entire collection and sets each matching selector to the given value.</p>
-<p>dispatches to the <code>set</code> method of the 3rd argument if available</p>
-
-**Params**
-<p><code>selector</code>: <code>Array | String | Function</code> - The property path to set or functional selector</p>
-<p><code>value</code>: <code>&ast;</code> - The new value</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to clone and assign the new value</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - A new collection equivalent to the original except for the changed selector path.</p>
-
-**Example**
-```js
-set('c', 3, {a: 1, b: 2})          //=> {a: 1, b: 2, c: 3}
-set('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
-set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
-```
-<br /><br />
-
-### shallowEquals()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/shallowEquals.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.</p>
-
-**Params**
-<p><code>selector</code>: <code>Array | String | Function</code> - The property path to set or functional selector</p>
-<p><code>objA</code>: <code>object</code> - The object to compare to B</p>
-<p><code>objB</code>: <code>object</code> - The object to compare to A</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Whether or not the two objects are shallowly equal</p>
-
-**Example**
-```js
-shallowEquals({ a: 1, b: 2, c: undefined }, { a: 1, b: 2, c: undefined }) //=> true
-shallowEquals({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }) //=> false
-```
-<br /><br />
-
-### slice()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/slice.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Creates a slice of <code>arrayLike</code> from <code>start</code> up to, but not including, <code>end</code>.</p>
-<p><strong>Note:</strong> This method is used instead of<br />
-<a href="https://mdn.io/Array/slice"><code>Array#slice</code></a> to ensure dense arrays are returned.</p>
-<p>This method</p>
-
-**Params**
-<p><code></code>: <code>number</code> - [start=0] The start position. A negative index will be treated as an offset from the end.</p>
-<p><code></code>: <code>number</code> - [end=array.length] The end position. A negative index will be treated as an offset from the end.</p>
-<p><code>arrayLike</code>: <code>Array|string</code> - The array like value to slice.</p>
-
-**Returns**
-<br /><p><code>Array|string</code> - Returns the slice of `arrayLike`.</p>
-
-**Example**
-```js
-const array = [1, 2, 3, 4]
-
-slice(2, Infinity, array)
-// => [3, 4]
-
-const string = 'abcd'
-
-slice(0, 2, string)
-// => 'ab'
-```
-<br /><br />
-
-### tail()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/tail.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
-<p>Returns all but the first element of the given list or string (or object<br />
-with a <code>tail</code> method).</p>
-<p>Dispatches to the <code>slice</code> method of the first argument, if present.</p>
-
-**Params**
-<p><code>collection</code>: <code>&ast;</code> - The collection to get the tail of</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The tail of the given collection</p>
-
-**Example**
-```js
-tail([1, 2, 3]);  //=> [2, 3]
-tail([1, 2]);     //=> [2]
-tail([1]);        //=> []
-tail([]);         //=> []
-
-tail('abc');  //=> 'bc'
-tail('ab');   //=> 'b'
-tail('a');    //=> ''
-tail('');     //=> ''
-```
-<br /><br />
-
-### union()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/union.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
-<p>Combines two lists into a set (i.e. no duplicates) composed of the elements<br />
-of each list.</p>
-
-**Params**
-<p><code>firstList</code>: <code>Array</code> - The first list.</p>
-<p><code>secondList</code>: <code>Array</code> - The second list.</p>
-
-**Returns**
-<br /><p><code>Array</code> - The first and second lists concatenated, with duplicates removed.</p>
-
-**Example**
-```js
-union([1, 2, 3], [2, 3, 4]) //=> [1, 2, 3, 4]
-```
-<br /><br />
-
-### values()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/values.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.12
-<p>Returns an array of all the values of the given collection.</p>
-<p>Note that the order of the output array is not guaranteed across different JS platforms.</p>
-<p>Supports objects, Maps and array like values.</p>
-<p>This method supports Promise values. If given a Promise it will return a Promise that will resolve to the values of the resolved value of the Promise.</p>
-<p>Dispatches to the <code>values</code> method of the <code>collection</code> if present (except on <code>Map</code>). If a <code>Map</code> is received an array of the <code>Map</code>'s keys will be returned.</p>
-
-**Params**
-<p><code>collection</code>: <code>&ast;</code> - The collection to extract values from</p>
-
-**Returns**
-<br /><p><code>Array&lt;&ast;&gt;|Promise&lt;Array&lt;&ast;&gt;&gt;</code> - An array of the values of the `collection`</p>
-
-**Example**
-```js
-values({a: 1, b: 2, c: 3}) //=> [1, 2, 3]
-values({}) //=> []
-
-values(['fi', 'fo', 'fum']) //=> [ 'fi', 'fo', 'fum' ]
-values([]) //=> []
-
-values('abc') //=> ['a', 'b', 'c']
-values('') //=> []
-
-await values(Promise.resolve({ a: 1, b: 2 }) //=> [1, 2]
-```
-<br /><br />
-
-### walk()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/walk.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Walk using the given walkee and iteratee functions.</p>
-
-**Params**
-<p><code>walkee</code>: <code>Function</code> - The function responsible for returning the next value in the walk</p>
-<p><code>iteratee</code>: <code>Function</code> - The iterator function.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final value returned by the walk</p>
-
-**Example**
-```js
-const depthFirstWalkee = (value, iteratee, recur) => {
-  if (isObject(value)) {
-    forEachObjIndexed((child) => {
-      recur(child, iteratee)
-    }, value)
-  }
-  iteratee(value, data)
-}
-let result = []
-walk(
-  depthFirstWalkee,
-  (value) => result.push(value),
-  {
-    a: {
-      b: 'b'
-    }
-  }
-)
-console.log(result)
-//=> [
-  'b',
-  { b: 'b' },
-  { a: { b: 'b' } }
-]
-```
-<br /><br />
-
-### walkReduce()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/walkReduce.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Walk reduce using the given reducer function</p>
-<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
-
-**Params**
-<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
-<p><code>accum</code>: <code>&ast;</code> - The accumulator value.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to walk.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final, accumulated value.</p>
-
-**Example**
-```js
-walkReduce(
-  (accum, value, keys) => {
-    if (!isObject(value)) {
-      return accum + toString(value)
-    }
-    return accum
-  },
-  '',
-  {
-    a: {
-      b: 'b',
-      c: {
-        d: 'd'
-      }
-    },
-    e: [ 'e', 'f' ]
-  }
-)
-//=> 'bdef'
-```
-<br /><br />
-
-### walkReduceDepthFirst()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/walkReduceDepthFirst.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Walk depth first and reduce using the given reducer function</p>
-<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
-
-**Params**
-<p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
-<p><code>accum</code>: <code>&ast;</code> - The accumulator value.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to walk.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final, accumulated value.</p>
-
-**Example**
-```js
-walkReduceDepthFirst(
-  (accum, value, keys) => {
-    accum.push(keys)
-    return accum
-  },
-  [],
-  {
-    a: {
-      b: {
-        c: 'c'
-      },
-      d: 'd',
-    },
-    e: [ 'e', 'f' ]
-  }
-)
-//=> [
-  [ 'a', 'b', 'c' ],
-  [ 'a', 'b' ],
-  [ 'a', 'd' ],
-  [ 'a' ],
-  [ 'e', 0 ],
-  [ 'e', 1 ],
-  [ 'e' ],
-  []
-]
-```
-<br /><br />
-
-### walkReducePath()
-
-[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/walkReducePath.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
-<p>Walk reduce the specific path using the given reducer function</p>
-<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
-
-**Params**
-<p><code>path</code>: <code>&ast;</code> - The specific path to walk</p>
-<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
-<p><code>accum</code>: <code>&ast;</code> - The accumulator value.</p>
-<p><code>collection</code>: <code>&ast;</code> - The collection to walk.</p>
-
-**Returns**
-<br /><p><code>&ast;</code> - The final, accumulated value.</p>
-
-**Example**
-```js
-walkReducePath(
-  (accum, value, keys) => {
-    return accum.push(keys)
-  },
-  'a.c.d'
-  [],
-  {
-    a: {
-      b: 'b',
-      c: {
-        d: 'd'
-      }
-    },
-    e: [ 'e', 'f' ]
-  }
-)
-//=> [
-//   [],
-//   ['a'],
-//   ['a', 'c'],
-//   ['a', 'c', 'd']
-// ]
-```
-<br /><br />
-
 ## common
 
 ### all()
@@ -3291,6 +1917,1384 @@ await sleep(1000)
 
 **Type**: `{Symbol}`
 
+<br /><br />
+
+## data
+
+### any()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/any.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns <code>true</code> if at least one of elements of the collection match the predicate, <code>false</code> otherwise.</p>
+<p>Dispatches to the <code>any</code> method of the collection argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
+
+**Returns**
+<br /><p><code>Boolean</code> - `true` if the predicate is satisfied by at least one element, `false` otherwise.</p>
+
+**Example**
+```js
+const lessThan0 = flip(lt)(0)
+const lessThan2 = flip(lt)(2)
+any(lessThan0)([1, 2]) //=> false
+any(lessThan2)([1, 2]) //=> true
+any(lessThan2)({ a: 1, b: 2 }) //=> true
+
+await any(async (value) => lessThan2(value), [1, 2]) //=> true
+```
+<br /><br />
+
+### anyAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/anyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns <code>true</code> if at least one of elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
+<p>Dispatches to the <code>anyAtIndex</code> method of the list argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
+<p><code>index</code>: <code>Integer</code> - The index to start at.</p>
+<p><code>list</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Boolean</code> - `true` if the predicate is satisfied by at least one element, `false`<br />
+        otherwise.</p>
+
+**Example**
+```js
+const lessThan0 = flip(lt)(0)
+const lessThan2 = flip(lt)(2)
+anyAtIndex(lessThan0, 0, [3, 2, 1]) //=> false
+anyAtIndex(lessThan2, 1, [3, 2, 1]) //=> true
+
+await anyAtIndex(async (value) => lessThan2(value), 0, [1, 2]) //=> true
+```
+<br /><br />
+
+### append()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/append.js#L14)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns a new list containing the contents of the given list, followed by the given value.</p>
+<p>This method dispatches to the <code>append</code> method of the <code>arrayLike</code> argument if it exists.</p>
+<p>This method will auto upgrade to async and resolve the <code>arrayLike</code> value if the <code>arrayLike</code> value is a Promise.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to add to the end of the new list.</p>
+<p><code>arrayLike</code>: <code>Array|string</code> - The array like value of elements to add a new item to.</p>
+
+**Returns**
+<br /><p><code>Array|string</code> - A new array or string containing the elements of the old list followed by `value`.</p>
+
+**Example**
+```js
+append('tests', ['write', 'more']) //=> ['write', 'more', 'tests']
+append('tests', []) //=> ['tests']
+append(['tests'], ['write', 'more']) //=> ['write', 'more', ['tests']]
+append('tests', 'write more ') //=> 'write more tests'
+```
+<br /><br />
+
+### assign()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assign.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+<p>The assign() method is used to copy the values of all enumerable own properties from one or more source objects to a target object. It will return the target object.</p>
+<p>Dispatches to the <code>assign</code> method of the first parameter if it exists.</p>
+<p>This method is auto curried to 2 args.</p>
+
+**Params**
+<p><code>target</code>: <code>Object</code> - The target object.</p>
+<p><code>sources</code>: <code>...Object</code> - The source object(s).</p>
+
+**Returns**
+<br /><p><code>Object</code> - The target object</p>
+
+**Example**
+```js
+const  o1 = { a: 1, b: 1, c: 1 }
+const o2 = { b: 2, c: 2 }
+const o3 = { c: 3 }
+
+assign({}, o1, o2, o3)  //=> { a: 1, b: 2, c: 3 }
+```
+<br /><br />
+
+### assoc()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assoc.js#L28)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
+<p>Supports path based property selectors 'foo.bar' and functional selectors which performs an over on the entire collection and sets each matching selector to the given value.</p>
+
+**Params**
+<p><code>selector</code>: <code>Array | String | Function</code> - The property path to set or functional selector</p>
+<p><code>value</code>: <code>&ast;</code> - The new value</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to clone and assign the new value</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - A new collection equivalent to the original except for the changed selector path.</p>
+
+**Example**
+```js
+assoc('c', 3, {a: 1, b: 2})          //=> {a: 1, b: 2, c: 3}
+assoc('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
+assoc([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
+```
+<br /><br />
+
+### assocIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assocIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
+focused by the given lens to the given value.</p>
+
+**Params**
+<p><code>index</code>: <code>number</code> - The index number to set</p>
+<p><code>val</code>: <code>&ast;</code> - The new value</p>
+<p><code>arr</code>: <code>Array</code> - The array to clone</p>
+
+**Returns**
+<br /><p><code>Array</code> - A new array equivalent to the original except for the changed index.</p>
+
+**Example**
+```js
+assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']
+```
+<br /><br />
+
+### assocPath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assocPath.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Makes a shallow clone of an object, setting or overriding the nodes required<br />
+to create the given path, and placing the specific value at the tail end of<br />
+that path. Note that this copies and flattens prototype properties onto the<br />
+new object as well. All non-primitive properties are copied by reference.</p>
+
+**Params**
+<p><code>path</code>: <code>Array</code> - the path to set</p>
+<p><code>value</code>: <code>&ast;</code> - The new value</p>
+<p><code>collection</code>: <code>Object|Array|Map</code> - The object, array or map to clone</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - A new collection equivalent to the original except along the specified path.</p>
+
+**Example**
+```js
+assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+
+// Any missing or non-object keys in path will be overridden
+assocPath(['a', 0, 'c'], 42, {a: 5}); //=> {a: [{c: 42}]}
+```
+<br /><br />
+
+### assocProp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/assocProp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
+focused by the given lens to the given value.</p>
+
+**Params**
+<p><code>prop</code>: <code>String</code> - The property name to set</p>
+<p><code>val</code>: <code>&ast;</code> - The new value</p>
+<p><code>obj</code>: <code>Object|Map</code> - The object to clone</p>
+
+**Returns**
+<br /><p><code>Object</code> - A new object equivalent to the original except for the changed property.</p>
+
+**Example**
+```js
+assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+```
+<br /><br />
+
+### compact()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/compact.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Creates an array with all undefined values removed.</p>
+
+**Params**
+<p><code>array</code>: <code>Array</code> - The array to compact.</p>
+
+**Returns**
+<br /><p><code>Array</code> - Returns the new array of filtered values.</p>
+
+**Example**
+```js
+compact([0, 1, false, 2, null, '', 3, undefined])
+// => [0, 1, false, 2, null, '', 3]
+```
+<br /><br />
+
+### concat()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns the result of concatenating the given lists or strings.</p>
+<p>Note: <code>concat</code> expects both arguments to be of the same type, unlike the native <code>Array.prototype.concat</code> method. It will throw an error if you <code>concat</code> an Array with a non-Array value.</p>
+<p>Dispatches to the <code>concat</code> method of the first argument, if present.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>firstList</code>: <code>Array|string|Promise</code> - The first list</p>
+<p><code>secondList</code>: <code>Array|string|Promise</code> - The second list</p>
+
+**Returns**
+<br /><p><code>Array|string</code> - A list consisting of the elements of `firstList` followed by the elements of `secondList`.</p>
+
+**Example**
+```js
+concat('ABC', 'DEF') // 'ABCDEF'
+concat([4, 5, 6], [1, 2, 3]) //=> [4, 5, 6, 1, 2, 3]
+concat([], []) //=> []
+await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5, 6, 1, 2, 3]
+```
+<br /><br />
+
+### every()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/every.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns <code>true</code> if all elements of the list match the predicate, <code>false</code> if there are any that don't.</p>
+<p>Dispatches to the <code>every</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - `true` if the predicate is satisfied by every value, `false` otherwise.</p>
+
+**Example**
+```js
+const equals3 = equals(3)
+every(equals3, [3, 3, 3, 3]) //=> true
+every(equals3, [3, 3, 1, 3]) //=> false
+every(equals3, { a: 3, b: 3, c: 3}) //=> true
+
+await every(async (value) => equals3(value), [3, 3, 3]) //=> true
+```
+<br /><br />
+
+### everyAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/everyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns <code>true</code> if all elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
+<p>Dispatches to the <code>everyAtIndex</code> method of the list argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
+<p><code>index</code>: <code>Integer</code> - The index to start at.</p>
+<p><code>list</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Boolean</code> - `true` if the predicate is satisfied by at least one element, `false`  otherwise.</p>
+
+**Example**
+```js
+const lessThan0 = flip(lt)(0)
+const lessThan2 = flip(lt)(2)
+any(lessThan0)([1, 2]) //=> false
+any(lessThan2)([1, 2]) //=> true
+```
+<br /><br />
+
+### filter()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/filter.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
+<p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The filtered collection</p>
+
+**Example**
+```js
+const isEven = n => n % 2 === 0;
+
+filter(isEven, [1, 2, 3, 4]) //=> [2, 4]
+filter(isEven, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
+
+await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
+```
+<br /><br />
+
+### filterAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/filterAtIndex.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate starting from the given index. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
+<p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function.</p>
+<p><code>index</code>: <code>Integer</code> - The index to start at.</p>
+<p><code>list</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The filtered list</p>
+
+**Example**
+```js
+const isEven = n => n % 2 === 0;
+
+filterAtIndex(isEven, 0, [1, 2, 3, 4]) //=> [2, 4]
+filterAtIndex(isEven, 2, [1, 2, 3, 4]) //=> [4]
+
+await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
+```
+<br /><br />
+
+### find()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/find.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns the first element of the collection which matches the predicate, or<br />
+<code>undefined</code> if no element matches.</p>
+<p>Dispatches to the <code>find</code> method of the collection argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
+method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function used to determine if the element is the<br />
+       desired one.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
+
+**Returns**
+<br /><p><code>Object</code> - The element found, or `undefined`.</p>
+
+**Example**
+```js
+const xs = [{a: 1}, {a: 2}, {a: 3}];
+find(propEq('a', 2))(xs); //=> {a: 2}
+find(propEq('a', 4))(xs); //=> undefined
+```
+<br /><br />
+
+### findAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/findAtIndex.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns the first element of the list which matches the predicate, or<br />
+<code>undefined</code> if no element matches starting at the given index.</p>
+<p>Dispatches to the <code>findAtIndex</code> method of the last argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
+method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function used to determine if the element is the<br />
+       desired one.</p>
+<p><code>index</code>: <code>Integer</code> - The index to start at.</p>
+<p><code>list</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>&ast;|Promise</code> - The element found, or `undefined`.</p>
+
+**Example**
+```js
+const xs = [{a: 1}, {a: 2}, {a: 3}];
+findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
+findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
+```
+<br /><br />
+
+### flatten()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/flatten.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns a new list by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
+<p>This method automatically upgrades to async. If a Promise is given as the list this method will resolve the promise as the list and return a Promise that resolves to the flattened list.</p>
+
+**Params**
+<p><code>array</code>: <code>Array|Promise&lt;Array&gt;</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Array|Promise&lt;Array&gt;</code> - The flattened array.</p>
+
+**Example**
+```js
+flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+```
+<br /><br />
+
+### forEach()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/forEach.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Iterate over a collection calling a provided function <code>fn</code> for each element in the collection .</p>
+<p><code>fn</code> receives two arguments: <em>(value, kdx)</em></p>
+<p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
+<p>Note: <code>forEach</code> does not skip deleted or unassigned indices (sparse<br />
+arrays), unlike the native <code>Array.prototype.forEach</code> method. For more<br />
+details on this behavior, see:<br />
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach#Description</p>
+<p>Also note that, unlike <code>Array.prototype.forEach</code>, this <code>forEach</code> returns<br />
+the original value. In some libraries this function is named <code>each</code>.</p>
+<p>Dispatches to the <code>forEach</code> method of the second argument, if present.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The original collection.</p>
+
+**Example**
+```js
+const printXPlusFive = x => console.log(x + 5);
+forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
+// logs 6
+// logs 7
+// logs 8
+```
+<br /><br />
+
+### forEachIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/forEachIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Alias for <a href="#forEach">forEach</a> method</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The original collection.</p>
+
+<br /><br />
+
+### forEachObjIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/forEachObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Alias for <a href="#forEach">forEach</a> method</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The original collection.</p>
+
+<br /><br />
+
+### get()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/get.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Retrieve the value at a given path.</p>
+<p>Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.</p>
+
+**Params**
+<p><code>path</code>: <code>Array|string|number|Function</code> - The path to use.</p>
+<p><code>value</code>: <code>Object</code> - The value to retrieve the nested property from.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The data at `path`.</p>
+
+**Example**
+```js
+get(['a', 'b'], {a: {b: 2}})
+//=> 2
+
+get(['a', 'b'], {c: {b: 2}})
+//=> undefined
+
+get('a', {a: {b: 2}})
+//=> { b: 2 }
+
+get('a.b', {a: {b: 2}})
+//=> 2
+
+get('a[0]', {a: [ 1, 2 ]})
+//=> 1
+
+get('[0]', [ 1, 2 ])
+//=> 1
+```
+<br /><br />
+
+### getParent()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/getParent.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
+<p>Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.</p>
+
+**Params**
+<p><code>path</code>: <code>Array|string|number|Function</code> - The path to use.</p>
+<p><code>value</code>: <code>Object</code> - The value to retrieve the parent property value from.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The data at `path`.</p>
+
+**Example**
+```js
+getParent(['a', 'b'], {a: {b: 2}})
+//=> {b: 2}
+
+getParent(['a', 'b'], {c: {b: 2}})
+//=> undefined
+
+getParent('a', {a: {b: 2}})
+//=> {a: {b: 2}}
+
+getParent('a.b', {a: {b: 2}})
+//=> {b: 2}
+
+getParent('a[0]', {a: [ 1, 2 ]})
+//=> [ 1, 2 ]
+```
+<br /><br />
+
+### getParentPath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/getParentPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
+
+**Params**
+<p><code>path</code>: <code>Array</code> - The path to use.</p>
+<p><code>value</code>: <code>&ast;</code> - The value to retrieve the nested property from.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The data at `path`.</p>
+
+**Example**
+```js
+getParentPath(['a', 'b'], {a: {b: 2}}); //=> {b: 2}
+getParentPath(['a', 'b'], {c: {b: 2}}); //=> undefined
+```
+<br /><br />
+
+### getPath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/getPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Retrieve the value at a given path.</p>
+
+**Params**
+<p><code>path</code>: <code>Array</code> - The path to use.</p>
+<p><code>obj</code>: <code>Object</code> - The object to retrieve the nested property from.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The data at `path`.</p>
+
+**Example**
+```js
+getPath(['a', 'b'], {a: {b: 2}}); //=> 2
+getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
+```
+<br /><br />
+
+### getProp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns a function that when supplied an object returns the indicated  property of that object, if it exists.</p>
+
+**Params**
+<p><code>prop</code>: <code>string|number|Function</code> - The property name or property selector</p>
+<p><code>value</code>: <code>Object</code> - The value to query</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The value at the given property</p>
+
+**Example**
+```js
+getProp('x', {x: 100}) //=> 100
+getProp('x', {})       //=> undefined
+getProp(undefined, {})  //=> {}
+getProp(1, ['foo', 'bar'])  //=> 'bar'
+getProp((value) => value[0], ['foo', 'bar'])  //=> 'foo'
+getProp('foo', {
+  foo: 'bar',
+  get(prop) { return this[prop] }
+}) //=> 'bar'
+```
+<br /><br />
+
+### has()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/has.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns whether or not a path exists in an object. Only the object's<br />
+own properties are checked.</p>
+
+**Params**
+<p><code>selector</code>: <code>Array|String</code> - The selector to use.</p>
+<p><code>value</code>: <code>Object</code> - The value to check the path in.</p>
+
+**Returns**
+<br /><p><code>Boolean</code> - Whether the selector exists.</p>
+
+**Example**
+```js
+has(['a', 'b'], {a: {b: 2}})          // => true
+has(['a', 'b'], {a: {b: undefined}})  // => true
+has('a.b', {a: {c: 2}})               // => false
+has([], {})                           // => true
+```
+<br /><br />
+
+### hasPath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/hasPath.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns whether or not a path exists in an object. Only the object's<br />
+own properties are checked.</p>
+
+**Params**
+<p><code>path</code>: <code>Array</code> - The path to use.</p>
+<p><code>obj</code>: <code>Object</code> - The object to check the path in.</p>
+
+**Returns**
+<br /><p><code>Boolean</code> - Whether the path exists.</p>
+
+**Example**
+```js
+hasPath(['a', 'b'], {a: {b: 2}})          // => true
+hasPath(['a', 'b'], {a: {b: undefined}})  // => true
+hasPath('a.b', {a: {c: 2}})               // => false
+hasPath([], {})                           // => true
+```
+<br /><br />
+
+### hasProp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/hasProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns whether or not an object has an own property with the specified name</p>
+<p>If prop is a function then it is executed against value as a selector.<br />
+If prop is undefined then value will be checked for truthiness.</p>
+
+**Params**
+<p><code>prop</code>: <code>String | Function</code> - The name of the property to check for.</p>
+<p><code>value</code>: <code>Object | Map</code> - The value to query.</p>
+
+**Returns**
+<br /><p><code>Boolean</code> - Whether the property exists.</p>
+
+**Example**
+```js
+hasProp('name', {name: 'philipp'})  //=> true
+hasProp('name', {})                 //=> false
+
+hasProp(undefined, {})            //=> true
+hasProp(undefined, null)          //=> false
+
+hasProp((value) => value.name, { name: 'eslam'})     //=> true
+hasProp((value) => value.birthday, { name: 'raees'}) //=> false
+```
+<br /><br />
+
+### head()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/head.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+<p>Returns the first element of the given list or string.</p>
+
+**Params**
+<p><code>list</code>: <code>Array|String</code> - The list to get the first element from</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The first element in the given list</p>
+
+**Example**
+```js
+head(['fi', 'fo', 'fum']) //=> 'fi'
+head([]) //=> undefined
+
+head('abc') //=> 'a'
+head('') //=> ''
+```
+<br /><br />
+
+### init()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/init.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+<p>Returns all but the last element of the given list or string.</p>
+
+**Params**
+<p><code>list</code>: <code>&ast;</code> - The list to select from</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - A new array or string of all but the last element in the list</p>
+
+**Example**
+```js
+init([1, 2, 3])  //=> [1, 2]
+init([1, 2])     //=> [1]
+init([1])        //=> []
+init([]);         //=> []
+
+init('abc')  //=> 'ab'
+init('ab')   //=> 'a'
+init('a')    //=> ''
+init('')     //=> ''
+```
+<br /><br />
+
+### is()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/is.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>See if an object (<code>val</code>) is an instance of the supplied constructor. This function will check up the inheritance chain, if any.</p>
+
+**Params**
+<p><code>constructor</code>: <code>Object</code> - A constructor</p>
+<p><code>value</code>: <code>&ast;</code> - The value to test</p>
+
+**Returns**
+<br /><p><code>boolean</code> - </p>
+
+**Example**
+```js
+is(Object, {}); //=> true
+is(Number, 1); //=> true
+is(Object, 1); //=> false
+is(String, 's'); //=> true
+is(String, new String('')); //=> true
+is(Object, new String('')); //=> true
+is(Object, 's'); //=> false
+is(Number, {}); //=> false
+```
+<br /><br />
+
+### join()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/join.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a string made by inserting the <code>separator</code> between each element and<br />
+concatenating all the elements into a single string.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>separator</code>: <code>number|string|Promise&lt;number|string&gt;</code> - The string used to separate the elements.</p>
+<p><code>list</code>: <code>Array|Promise&lt;Array&gt;</code> - The list of elements to join into a string.</p>
+
+**Returns**
+<br /><p><code>string|Promise&lt;string&gt;</code> - The string made by concatenating `list` with `separator`.</p>
+
+**Example**
+```js
+const spacer = join(' ')
+spacer(['a', 2, 3.4])   //=> 'a 2 3.4'
+join('|', [1, 2, 3])    //=> '1|2|3'
+await join(Promise.resolve('|'), Promise.resolve([1, 2, 3]))    //=> '1|2|3'
+```
+<br /><br />
+
+### keys()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/keys.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns the keys of the given collection in an Array.</p>
+<p>Supports objects, Maps and array like values. If given an array like value, the indexes will be returned in string form.</p>
+<p>This method supports Promise values. If given a Promise it will return a Promise that will resolve to the keys of the resolved value of the Promise.</p>
+<p>Dispatches to the <code>keys</code> method of the <code>collection</code> if present (except on Map). If a <code>Map</code> is received an array of the <code>Map</code>'s keys will be returned.</p>
+
+**Params**
+<p><code>collection</code>: <code>&ast;</code> - The collection to get the keys from</p>
+
+**Returns**
+<br /><p><code>Array&lt;string&gt;|Promise&lt;Array&lt;string&gt;&gt;</code> - The keys of the given collection</p>
+
+**Example**
+```js
+keys({ foo: 'bar', 'baz': 'bat', bim: 'bop' }) //=> ['foo', 'baz', 'bim']
+keys({}) //=> []
+
+keys(['fi', 'fo', 'fum']) //=> [ '0', '1', '2' ]
+keys([]) //=> []
+
+keys('abc') //=> ['0', '1', '2']
+keys('') //=> []
+
+await keys(Promise.resolve({ a: 1, b: 2 }) //=> ['a', 'b']
+```
+<br /><br />
+
+### last()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/last.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns the last element of the given list or string.</p>
+
+**Params**
+<p><code>list</code>: <code>&ast;</code> - The list to get the last element from</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The last element of the given list or string</p>
+
+**Example**
+```js
+last(['fi', 'fo', 'fum']) //=> 'fum'
+last([]) //=> undefined
+
+last('abc') //=> 'c'
+last(''); //=> ''
+```
+<br /><br />
+
+### length()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/length.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns the number of elements in the array by returning <code>list.length</code>.</p>
+
+**Params**
+<p><code>list</code>: <code>&ast;</code> - The array like value to inspect.</p>
+
+**Returns**
+<br /><p><code>Number</code> - The length of the list.</p>
+
+**Example**
+```js
+length([]) //=> 0
+length([1, 2, 3]) //=> 3
+```
+<br /><br />
+
+### map()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/map.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Takes a function and a <a href="https://github.com/fantasyland/fantasy-land#functor">functor</a>, applies the function to each of the functor's values, and returns  a functor of the same shape.</p>
+<p>Provides suitable <code>map</code> implementations for <code>Array</code> and <code>Object</code>,<br />
+so this function may be applied to <code>[1, 2, 3]</code> or <code>{x: 1, y: 2, z: 3}</code>.</p>
+<p>Dispatches to the <code>map</code> method of the second argument, if present.</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The new collection.</p>
+
+**Example**
+```js
+const double = x => x * 2
+
+map(double, [1, 2, 3]) //=> [2, 4, 6]
+
+map(double, {x: 1, y: 2, z: 3}) //=> {x: 2, y: 4, z: 6}
+```
+<br /><br />
+
+### mapIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/mapIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Alias for <a href="#map">map</a> method</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The new collection.</p>
+
+<br /><br />
+
+### mapObjIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/mapObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Alias for <a href="#map">map</a> method</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The function to be called on every element of the input `list`.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to be iterated over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The new collection.</p>
+
+<br /><br />
+
+### omit()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/omit.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a partial copy of an object omitting the keys specified.</p>
+
+**Params**
+<p><code>names</code>: <code>Array</code> - an array of String property names to omit from the new object</p>
+<p><code>obj</code>: <code>Object</code> - The object to copy from</p>
+
+**Returns**
+<br /><p><code>Object</code> - A new object with properties from `names` not on it.</p>
+
+**Example**
+```js
+omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, c: 3}
+```
+<br /><br />
+
+### pick()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/pick.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Returns a partial copy of an object containing only the keys specified. If<br />
+the key does not exist, the property is ignored.</p>
+<p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>names</code>: <code>Array|Promise&lt;Array&gt;</code> - an array of String property names to copy onto a new object</p>
+<p><code>object</code>: <code>Object|Promise&lt;Object&gt;</code> - The object to copy from</p>
+
+**Returns**
+<br /><p><code>Object|Promise&lt;Object&gt;</code> - A new object with only properties from `names` on it.</p>
+
+**Example**
+```js
+pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {a: 1, d: 4}
+pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}) //=> {a: 1}
+await pick(
+  Promise.resolve(['a', 'd']),
+  Promise.resolve({a: 1, b: 2, c: 3, d: 4})
+) //=> {a: 1, d: 4}
+```
+<br /><br />
+
+### prepend()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/prepend.js#L14)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Returns a new list with the given element at the front, followed by the contents of the list.</p>
+<p>This method dispatches to the <code>prepend</code> method of the <code>arrayLike</code> argument if it exists.</p>
+<p>This method will auto upgrade to async and resolve the <code>arrayLike</code> value if the <code>arrayLike</code> value is a Promise.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to add to the end of the new list.</p>
+<p><code>arrayLike</code>: <code>Array|string</code> - The array like value of elements to prepend a new item to.</p>
+
+**Returns**
+<br /><p><code>Array|string</code> - A new array or string containing the elements of the old list prepended with `value`.</p>
+
+**Example**
+```js
+prepend('write', ['more', 'tests']) //=> ['write', 'more', 'tests']
+prepend('write', []) //=> ['write']
+prepend(['write'], ['more', 'tests']) //=> ['write', 'more', ['tests']]
+prepend('write', ' more tests') //=> 'write more tests'
+```
+<br /><br />
+
+### reduce()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reduce.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.</p>
+<p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
+<p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
+<p>Note: <code>reduce</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details  on this behavior, see:<br />
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description</p>
+<p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+**Example**
+```js
+reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
+//          -               -10
+//         / \              / \
+//        -   4           -6   4
+//       / \              / \
+//      -   3   ==>     -3   3
+//     / \              / \
+//    -   2           -1   2
+//   / \              / \
+//  0   1            0   1
+```
+<br /><br />
+
+### reduceIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reduceIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Alias for <a href="#reduce">reduce</a> method</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+<br /><br />
+
+### reduceObjIndexed()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reduceObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Alias for <a href="#reduce">reduce</a> method</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+<br /><br />
+
+### reduceRight()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reduceRight.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value,  the current value and the index or key from the collection, and then passing the result to the next call.</p>
+<p>Similar to <a href="#reduce"><code>reduce</code></a>, except moves through the input list from the right to the left.</p>
+<p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
+<p>Supports async reducers. This method will automatically upgrade to async if given an async reducer.</p>
+<p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
+<p>Note: <code>reduceRight</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduceRight</code> method. For more details on this behavior, see:<br />
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight#Description</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
+<p><code>accumulator</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>Array|string|Object|Promise</code> - The collection to iterate over.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+**Example**
+```js
+reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
+//    -               -2
+//   / \              / \
+//  1   -            1   3
+//     / \              / \
+//    2   -     ==>    2  -1
+//       / \              / \
+//      3   -            3   4
+//         / \              / \
+//        4   0            4   0
+```
+<br /><br />
+
+### reject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/reject.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>The complement of <a href="#filter"><code>filter</code></a>.</p>
+
+**Params**
+<p><code>predicate</code>: <code>Function</code> - </p>
+<p><code>filterable</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>&ast;</code> - </p>
+
+**Example**
+```js
+isOdd = (n) => n % 2 === 1
+
+reject(isOdd, [1, 2, 3, 4]) //=> [2, 4]
+
+reject(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
+```
+<br /><br />
+
+### set()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/set.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>This method is an alias for <code>assoc</code></p>
+<p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
+<p>Supports path based property selectors 'foo.bar' and functional selectors which performs an 'over' on the entire collection and sets each matching selector to the given value.</p>
+<p>dispatches to the <code>set</code> method of the 3rd argument if available</p>
+
+**Params**
+<p><code>selector</code>: <code>Array | String | Function</code> - The property path to set or functional selector</p>
+<p><code>value</code>: <code>&ast;</code> - The new value</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to clone and assign the new value</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - A new collection equivalent to the original except for the changed selector path.</p>
+
+**Example**
+```js
+set('c', 3, {a: 1, b: 2})          //=> {a: 1, b: 2, c: 3}
+set('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
+set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
+```
+<br /><br />
+
+### shallowEquals()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/shallowEquals.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.</p>
+
+**Params**
+<p><code>selector</code>: <code>Array | String | Function</code> - The property path to set or functional selector</p>
+<p><code>objA</code>: <code>object</code> - The object to compare to B</p>
+<p><code>objB</code>: <code>object</code> - The object to compare to A</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Whether or not the two objects are shallowly equal</p>
+
+**Example**
+```js
+shallowEquals({ a: 1, b: 2, c: undefined }, { a: 1, b: 2, c: undefined }) //=> true
+shallowEquals({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }) //=> false
+```
+<br /><br />
+
+### slice()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/slice.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Creates a slice of <code>arrayLike</code> from <code>start</code> up to, but not including, <code>end</code>.</p>
+<p><strong>Note:</strong> This method is used instead of<br />
+<a href="https://mdn.io/Array/slice"><code>Array#slice</code></a> to ensure dense arrays are returned.</p>
+<p>This method</p>
+
+**Params**
+<p><code></code>: <code>number</code> - [start=0] The start position. A negative index will be treated as an offset from the end.</p>
+<p><code></code>: <code>number</code> - [end=array.length] The end position. A negative index will be treated as an offset from the end.</p>
+<p><code>arrayLike</code>: <code>Array|string</code> - The array like value to slice.</p>
+
+**Returns**
+<br /><p><code>Array|string</code> - Returns the slice of `arrayLike`.</p>
+
+**Example**
+```js
+const array = [1, 2, 3, 4]
+
+slice(2, Infinity, array)
+// => [3, 4]
+
+const string = 'abcd'
+
+slice(0, 2, string)
+// => 'ab'
+```
+<br /><br />
+
+### tail()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/tail.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+<p>Returns all but the first element of the given list or string (or object<br />
+with a <code>tail</code> method).</p>
+<p>Dispatches to the <code>slice</code> method of the first argument, if present.</p>
+
+**Params**
+<p><code>collection</code>: <code>&ast;</code> - The collection to get the tail of</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The tail of the given collection</p>
+
+**Example**
+```js
+tail([1, 2, 3]);  //=> [2, 3]
+tail([1, 2]);     //=> [2]
+tail([1]);        //=> []
+tail([]);         //=> []
+
+tail('abc');  //=> 'bc'
+tail('ab');   //=> 'b'
+tail('a');    //=> ''
+tail('');     //=> ''
+```
+<br /><br />
+
+### union()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/union.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+<p>Combines two lists into a set (i.e. no duplicates) composed of the elements<br />
+of each list.</p>
+
+**Params**
+<p><code>firstList</code>: <code>Array</code> - The first list.</p>
+<p><code>secondList</code>: <code>Array</code> - The second list.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The first and second lists concatenated, with duplicates removed.</p>
+
+**Example**
+```js
+union([1, 2, 3], [2, 3, 4]) //=> [1, 2, 3, 4]
+```
+<br /><br />
+
+### values()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/values.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.12
+<p>Returns an array of all the values of the given collection.</p>
+<p>Note that the order of the output array is not guaranteed across different JS platforms.</p>
+<p>Supports objects, Maps and array like values.</p>
+<p>This method supports Promise values. If given a Promise it will return a Promise that will resolve to the values of the resolved value of the Promise.</p>
+<p>Dispatches to the <code>values</code> method of the <code>collection</code> if present (except on <code>Map</code>). If a <code>Map</code> is received an array of the <code>Map</code>'s keys will be returned.</p>
+
+**Params**
+<p><code>collection</code>: <code>&ast;</code> - The collection to extract values from</p>
+
+**Returns**
+<br /><p><code>Array&lt;&ast;&gt;|Promise&lt;Array&lt;&ast;&gt;&gt;</code> - An array of the values of the `collection`</p>
+
+**Example**
+```js
+values({a: 1, b: 2, c: 3}) //=> [1, 2, 3]
+values({}) //=> []
+
+values(['fi', 'fo', 'fum']) //=> [ 'fi', 'fo', 'fum' ]
+values([]) //=> []
+
+values('abc') //=> ['a', 'b', 'c']
+values('') //=> []
+
+await values(Promise.resolve({ a: 1, b: 2 }) //=> [1, 2]
+```
+<br /><br />
+
+### walk()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/walk.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Walk using the given walkee and iteratee functions.</p>
+
+**Params**
+<p><code>walkee</code>: <code>Function</code> - The function responsible for returning the next value in the walk</p>
+<p><code>iteratee</code>: <code>Function</code> - The iterator function.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final value returned by the walk</p>
+
+**Example**
+```js
+const depthFirstWalkee = (value, iteratee, recur) => {
+  if (isObject(value)) {
+    forEachObjIndexed((child) => {
+      recur(child, iteratee)
+    }, value)
+  }
+  iteratee(value, data)
+}
+let result = []
+walk(
+  depthFirstWalkee,
+  (value) => result.push(value),
+  {
+    a: {
+      b: 'b'
+    }
+  }
+)
+console.log(result)
+//=> [
+  'b',
+  { b: 'b' },
+  { a: { b: 'b' } }
+]
+```
+<br /><br />
+
+### walkReduce()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/walkReduce.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Walk reduce using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
+<p><code>accum</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to walk.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+**Example**
+```js
+walkReduce(
+  (accum, value, keys) => {
+    if (!isObject(value)) {
+      return accum + toString(value)
+    }
+    return accum
+  },
+  '',
+  {
+    a: {
+      b: 'b',
+      c: {
+        d: 'd'
+      }
+    },
+    e: [ 'e', 'f' ]
+  }
+)
+//=> 'bdef'
+```
+<br /><br />
+
+### walkReduceDepthFirst()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/walkReduceDepthFirst.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Walk depth first and reduce using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
+
+**Params**
+<p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
+<p><code>accum</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to walk.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+**Example**
+```js
+walkReduceDepthFirst(
+  (accum, value, keys) => {
+    accum.push(keys)
+    return accum
+  },
+  [],
+  {
+    a: {
+      b: {
+        c: 'c'
+      },
+      d: 'd',
+    },
+    e: [ 'e', 'f' ]
+  }
+)
+//=> [
+  [ 'a', 'b', 'c' ],
+  [ 'a', 'b' ],
+  [ 'a', 'd' ],
+  [ 'a' ],
+  [ 'e', 0 ],
+  [ 'e', 1 ],
+  [ 'e' ],
+  []
+]
+```
+<br /><br />
+
+### walkReducePath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.13/src/data/walkReducePath.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+<p>Walk reduce the specific path using the given reducer function</p>
+<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
+
+**Params**
+<p><code>path</code>: <code>&ast;</code> - The specific path to walk</p>
+<p><code>fn</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator and the current element from the walk and the current set of keys from the entire depth of the walk.</p>
+<p><code>accum</code>: <code>&ast;</code> - The accumulator value.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to walk.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The final, accumulated value.</p>
+
+**Example**
+```js
+walkReducePath(
+  (accum, value, keys) => {
+    return accum.push(keys)
+  },
+  'a.c.d'
+  [],
+  {
+    a: {
+      b: 'b',
+      c: {
+        d: 'd'
+      }
+    },
+    e: [ 'e', 'f' ]
+  }
+)
+//=> [
+//   [],
+//   ['a'],
+//   ['a', 'c'],
+//   ['a', 'c', 'd']
+// ]
+```
 <br /><br />
 
 ## fetch

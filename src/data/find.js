@@ -1,6 +1,7 @@
 import isArrayLike from '../base/isArrayLike'
 import curry from '../common/curry'
 import defn from '../common/defn'
+import pipe from '../common/pipe'
 import findAtIndex from './findAtIndex'
 import keys from './keys'
 
@@ -32,7 +33,10 @@ const find = curry(
     if (isArrayLike(collection)) {
       return findAtIndex(fn, 0, collection)
     }
-    return findAtIndex((key) => fn(collection[key], key), 0, keys(collection))
+    return pipe(
+      findAtIndex((key) => fn(collection[key], key), 0),
+      (key) => collection[key]
+    )(keys(collection))
   })
 )
 
