@@ -1,5 +1,4 @@
 import isArrayLike from '../base/isArrayLike'
-import isPromise from '../base/isPromise'
 import isString from '../base/isString'
 import curry from '../common/curry'
 import defn from '../common/defn'
@@ -34,9 +33,6 @@ import pick from './pick'
  */
 const filter = curry(
   defn('filter', (fn, collection) => {
-    if (isPromise(collection)) {
-      return collection.then((resolvedCollection) => filter(fn, resolvedCollection))
-    }
     if (isString(collection)) {
       return join('', filterAtIndex(fn, 0, collection))
     }

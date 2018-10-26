@@ -27,7 +27,7 @@ const shallowFlatten = (list, recur) => {
  *
  * @function
  * @since v0.0.13
- * @category data
+ * @category base
  * @param {Array} array The array to consider.
  * @returns {Array} The flattened list.
  * @example

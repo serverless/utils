@@ -1,6 +1,21 @@
+import isFunction from '../base/isFunction'
+import isMap from '../base/isMap'
+import isWeakMap from '../base/isWeakMap'
+import allWith from '../common/allWith'
 import curry from '../common/curry'
-import defn from '../common/defn'
-import assoc from './assoc'
+import { baseAssoc } from './assoc'
+
+const baseSet = (selector, value, collection) => {
+  if (
+    collection != null &&
+    isFunction(collection.set) &&
+    !isMap(collection) &&
+    !isWeakMap(collection)
+  ) {
+    return collection.set(selector, value)
+  }
+  return baseAssoc(selector, value, collection)
+}
 
 /**
  * This method is an alias for `assoc`
@@ -25,6 +40,14 @@ import assoc from './assoc'
  * set('c.d', 3, {a: 1, b: 2})        //=> {a: 1, b: 2, c: { d: 3 }}
  * set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
  */
-const set = curry(defn('set', assoc))
+const set = curry((selector, value, collection) =>
+  allWith(
+    ([resolvedSelector, resolvedCollection]) =>
+      baseSet(resolvedSelector, value, resolvedCollection),
+    [selector, collection]
+  )
+)
 
 export default set
+
+export { baseSet }

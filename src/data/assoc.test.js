@@ -13,6 +13,15 @@ describe('assoc', () => {
     })
   })
 
+  test('assoc to an object using a single existing key with dots', () => {
+    const collection = {
+      'foo.bar': 'baz'
+    }
+    expect(assoc('foo.bar', 'fum', collection)).toEqual({
+      'foo.bar': 'fum'
+    })
+  })
+
   test('assoc to an array using a single existing index', () => {
     const collection = ['bar']
     expect(assoc(0, 'baz', collection)).toEqual(['baz'])
@@ -52,5 +61,71 @@ describe('assoc', () => {
       ['foo', 'bar'],
       ['bim', 'bop']
     ])
+  })
+
+  test('dispatches to the assoc method of collection', () => {
+    const collection = {
+      assoc: (key, value) => {
+        return {
+          foo: 'bar',
+          [key]: value
+        }
+      }
+    }
+
+    expect(assoc('bim', 'bop', collection)).toEqual({
+      foo: 'bar',
+      bim: 'bop'
+    })
+  })
+
+  test('automatically upgrades to async when the collection is a Promise', async () => {
+    const collection = Promise.resolve({
+      foo: 'bar'
+    })
+    const result = assoc('foo', 'baz', collection)
+    expect(result).toBeInstanceOf(Promise)
+    expect(await result).toEqual({
+      foo: 'baz'
+    })
+  })
+
+  test('automatically upgrades to async when the key is a Promise', async () => {
+    const key = Promise.resolve('foo')
+    const result = assoc(key, 'baz', {
+      foo: 'bar'
+    })
+    expect(result).toBeInstanceOf(Promise)
+    expect(await result).toEqual({
+      foo: 'baz'
+    })
+  })
+
+  test('does NOT automatically upgrade to async when the value is a Promise', () => {
+    const value = Promise.resolve('baz')
+    const result = assoc('foo', value, {
+      foo: 'bar'
+    })
+    expect(result).toEqual({
+      foo: Promise.resolve('baz')
+    })
+  })
+
+  test('automatically upgrades to async if the collection parameter is a Promise and then dispatches to its assoc method', async () => {
+    const collection = Promise.resolve({
+      assoc: (key, value) => {
+        return {
+          foo: 'bar',
+          [key]: value
+        }
+      }
+    })
+
+    const result = assoc('bim', 'bop', collection)
+    expect(result).toBeInstanceOf(Promise)
+    expect(await result).toEqual({
+      foo: 'bar',
+      bim: 'bop'
+    })
   })
 })

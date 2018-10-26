@@ -1,4 +1,3 @@
-import isPromise from '../base/isPromise'
 import curry from '../common/curry'
 import defn from '../common/defn'
 
@@ -25,12 +24,6 @@ import defn from '../common/defn'
  */
 const pick = curry(
   defn('pick', (names, object) => {
-    if (isPromise(names)) {
-      return names.then((resolvedNames) => pick(resolvedNames, object))
-    }
-    if (isPromise(object)) {
-      return object.then((resolvedObject) => pick(names, resolvedObject))
-    }
     const result = {}
     let idx = 0
     while (idx < names.length) {
