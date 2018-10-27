@@ -2867,10 +2867,15 @@ prepend('write', ' more tests') //=> 'write more tests'
 [source](https://github.com/serverless/utils/tree/v0.0.14/src/data/reduce.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.</p>
 <p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
-<p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
-<p>Note: <code>reduce</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details  on this behavior, see:<br />
+<p>Note: This method automatically upgrades to async.</p>
+<ul>
+<li>If an async <code>iteratee</code> is given to this method it will return a Promise.</li>
+<li>If a Promise is given for <code>iteratee</code>, <code>accumulator</code>, or <code>collection</code>, this method will resolve the Promise(s) and return a Promise</li>
+</ul>
+<p>Note: for arrays, <code>reduce</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details  on this behavior, see:<br />
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description</p>
 <p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
+<p>This method will resolve the parameters but it will not resolve the values passed to the iteratee. It will only resolve the values returned by the iteratee.</p>
 
 **Params**
 <p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
@@ -2882,6 +2887,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 **Example**
 ```js
+reduce((accum, value, key) => {
+  ...
+  return accum
+}, myAccum, myObject)
+
+reduce((accum, value, index) => {
+  ...
+  return accum
+}, myAccum, myArray)
+
+reduce((accum, value) => {
+  accum.push(value)
+  return accum
+}, [], [ Promise.resolve('foo') ]) // => [ Promise { 'foo' } ]
+
+
 reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 //          -               -10
 //         / \              / \
