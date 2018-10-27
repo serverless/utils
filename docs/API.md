@@ -98,6 +98,7 @@
   * [filterAtIndex()](#filteratindex)
   * [find()](#find)
   * [findAtIndex()](#findatindex)
+  * [findKdx()](#findkdx)
   * [flatten()](#flatten)
   * [forEach()](#foreach)
   * [forEachIndexed()](#foreachindexed)
@@ -2278,11 +2279,9 @@ find(propEq('a', 4))(xs); //=> undefined
 ### findAtIndex()
 
 [source](https://github.com/serverless/utils/tree/v0.0.14/src/data/findAtIndex.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the first element of the list which matches the predicate, or<br />
-<code>undefined</code> if no element matches starting at the given index.</p>
+<p>Returns the first element of the list which matches the predicate, or <code>undefined</code> if no element matches starting at the given index.</p>
 <p>Dispatches to the <code>findAtIndex</code> method of the last argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
-method will upgrade to async and return a Promise.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 **Params**
 <p><code>fn</code>: <code>Function</code> - The predicate function used to determine if the element is the<br />
@@ -2298,6 +2297,36 @@ method will upgrade to async and return a Promise.</p>
 const xs = [{a: 1}, {a: 2}, {a: 3}];
 findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
 findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
+```
+<br /><br />
+
+### findKdx()
+
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/findKdx.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.15
+<p>Returns the kdx of the first element of the collection which matches the predicate, or <code>undefined</code> if no element matches.</p>
+<p>Dispatches to the <code>findkdx</code> method of the <code>collection</code> argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function used to determine if the element is the desired one.</p>
+<p><code>collection</code>: <code>Array</code> - The collection to consider.</p>
+
+**Returns**
+<br /><p><code>&ast;|Promise</code> - The element found, or `undefined`.</p>
+
+**Example**
+```js
+findKdx(
+  (value, index) => value[index] == 2,
+  [{a: 1}, {a: 2}, {a: 3}]
+)
+//=> 1
+
+findKdx(
+  (value, key) => value[key] == 2,
+  { a: 1, b: 2, c: 3 }
+)
+//=> 'b'
 ```
 <br /><br />
 
