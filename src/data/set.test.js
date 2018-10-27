@@ -1,15 +1,36 @@
 import set from './set'
 
 describe('set', () => {
-  test('set to an object using a single existing key', () => {
+  test('set to an object using a single existing string key', () => {
     const collection = {
       foo: 'bar'
     }
-    expect(set('foo', 'baz', collection)).toEqual({
+    const result = set('foo', 'baz', collection)
+    expect(result).toEqual({
       foo: 'baz'
     })
-    expect(set(['foo'], 'baz', collection)).toEqual({
+    expect(result).not.toBe(collection)
+  })
+
+  test('set to an object using a single existing string key in array', () => {
+    const collection = {
+      foo: 'bar'
+    }
+    const result = set(['foo'], 'baz', collection)
+    expect(result).toEqual({
       foo: 'baz'
+    })
+    expect(result).not.toBe(collection)
+  })
+
+  test('set to an object using a Symbol', () => {
+    const collection = {}
+    const symFoo = Symbol('foo')
+    expect(set(symFoo, 'baz', collection)).toEqual({
+      [symFoo]: 'baz'
+    })
+    expect(set([symFoo], 'baz', collection)).toEqual({
+      [symFoo]: 'baz'
     })
   })
 
