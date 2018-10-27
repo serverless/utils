@@ -79,6 +79,21 @@ describe('reduce', () => {
     })
   })
 
+  test('does not resolve values of value when iterating over them', () => {
+    const resolveable = {
+      resolve() {
+        return 'bam'
+      }
+    }
+    const array = [Promise.resolve('foo'), resolveable]
+    const reducer = (acc, value) => {
+      acc.push(value)
+      return acc
+    }
+    const result = reduce(reducer, [], array)
+    expect(result).toEqual([Promise.resolve('foo'), resolveable])
+  })
+
   test('upgrades to a Promise when an async iteratee is used', async () => {
     const array = ['a', 'b', 'c']
     let result = reduce(
