@@ -34,6 +34,26 @@ describe('set', () => {
     })
   })
 
+  test('set to an object using a Symbol then a prop', () => {
+    const collection = {}
+    const symFoo = Symbol('foo')
+    const result1 = set(symFoo, 'baz', collection)
+    expect(result1).toEqual({
+      [symFoo]: 'baz'
+    })
+    expect(collection).toEqual({})
+
+    const result2 = set('test', 'value', result1)
+    expect(result2).toEqual({
+      [symFoo]: 'baz',
+      test: 'value'
+    })
+    expect(result1).toEqual({
+      [symFoo]: 'baz'
+    })
+    expect(collection).toEqual({})
+  })
+
   test('set to an object using a single existing key with dots', () => {
     const collection = {
       'foo.bar': 'baz'

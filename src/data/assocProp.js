@@ -1,9 +1,36 @@
 import isFunction from '../base/isFunction'
 import isMap from '../base/isMap'
 import isUndefined from '../base/isUndefined'
+import objectIterator from '../base/objectIterator'
+import allWith from '../common/allWith'
 import curry from '../common/curry'
+import dispatchable from '../common/dispatchable'
 import always from './always'
 import over from './over'
+
+const baseAssocProp = (prop, value, object) => {
+  if (isUndefined(prop)) {
+    return value
+  }
+  if (isFunction(prop)) {
+    return over(prop, always(value), object)
+  }
+  if (isMap(object)) {
+    const result = new Map(object.entries())
+    return result.set(prop, value)
+  }
+  const result = {}
+  const iterator = objectIterator(object)
+  let next = { done: false }
+  while (!next.done) {
+    next = iterator.next()
+    result[next.key] = object[next.key]
+  }
+  result[prop] = value
+  return result
+}
+
+const dispatchableAssocProp = dispatchable('assocProp', baseAssocProp)
 
 /**
  * Returns the result of "setting" the portion of the given data structure
@@ -12,32 +39,21 @@ import over from './over'
  * @function
  * @since v0.0.3
  * @category data
- * @sig String -> a -> {k: v} -> {k: v}
- * @param {String} prop The property name to set
- * @param {*} val The new value
- * @param {Object|Map} obj The object to clone
+ * @param {string} prop The property name to set
+ * @param {*} value The new value
+ * @param {Object|Map} object The object to clone
  * @returns {Object} A new object equivalent to the original except for the changed property.
  * @example
  *
  * assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
  */
-const assocProp = curry((prop, val, obj) => {
-  if (isUndefined(prop)) {
-    return val
-  }
-  if (isFunction(prop)) {
-    return over(prop, always(val), obj)
-  }
-  if (isMap(obj)) {
-    const result = new Map(obj.entries())
-    return result.set(prop, val)
-  }
-  const result = {}
-  for (const objProp in obj) {
-    result[objProp] = obj[objProp]
-  }
-  result[prop] = val
-  return result
-})
+const assocProp = curry((prop, value, object) =>
+  allWith(
+    ([resolvedProp, resolvedObject]) => dispatchableAssocProp(resolvedProp, value, resolvedObject),
+    [prop, object]
+  )
+)
 
 export default assocProp
+
+export { baseAssocProp, dispatchableAssocProp }

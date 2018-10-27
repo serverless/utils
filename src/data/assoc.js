@@ -23,7 +23,7 @@ const baseAssoc = (selector, value, collection) => {
   return assocPath(parts, value, collection)
 }
 
-const dispatcher = dispatchable('assoc', baseAssoc)
+const dispatchableAssoc = dispatchable('assoc', baseAssoc)
 
 /**
  * Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.
@@ -47,11 +47,11 @@ const dispatcher = dispatchable('assoc', baseAssoc)
 const assoc = curry((selector, value, collection) =>
   allWith(
     ([resolvedSelector, resolvedCollection]) =>
-      dispatcher(resolvedSelector, value, resolvedCollection),
+      dispatchableAssoc(resolvedSelector, value, resolvedCollection),
     [selector, collection]
   )
 )
 
 export default assoc
 
-export { baseAssoc }
+export { baseAssoc, dispatchableAssoc }

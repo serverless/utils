@@ -1977,7 +1977,7 @@ await anyAtIndex(async (value) => lessThan2(value), 0, [1, 2]) //=> true
 
 ### append()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/append.js#L14)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/append.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a new list containing the contents of the given list, followed by the given value.</p>
 <p>This method dispatches to the <code>append</code> method of the <code>arrayLike</code> argument if it exists.</p>
 <p>This method will auto upgrade to async and resolve the <code>arrayLike</code> value if the <code>arrayLike</code> value is a Promise.</p>
@@ -2046,14 +2046,14 @@ assoc([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
 
 ### assocIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocIndex.js#L23)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
 **Params**
 <p><code>index</code>: <code>number</code> - The index number to set</p>
-<p><code>val</code>: <code>&ast;</code> - The new value</p>
-<p><code>arr</code>: <code>Array</code> - The array to clone</p>
+<p><code>value</code>: <code>&ast;</code> - The new value</p>
+<p><code>array</code>: <code>Array</code> - The array to clone</p>
 
 **Returns**
 <br /><p><code>Array</code> - A new array equivalent to the original except for the changed index.</p>
@@ -2066,39 +2066,39 @@ assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']
 
 ### assocPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocPath.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocPath.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Makes a shallow clone of an object, setting or overriding the nodes required<br />
 to create the given path, and placing the specific value at the tail end of<br />
 that path. Note that this copies and flattens prototype properties onto the<br />
 new object as well. All non-primitive properties are copied by reference.</p>
 
 **Params**
-<p><code>path</code>: <code>Array</code> - the path to set</p>
+<p><code>path</code>: <code>Array</code> - The path to set</p>
 <p><code>value</code>: <code>&ast;</code> - The new value</p>
-<p><code>collection</code>: <code>Object|Array|Map</code> - The object, array or map to clone</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to clone</p>
 
 **Returns**
 <br /><p><code>&ast;</code> - A new collection equivalent to the original except along the specified path.</p>
 
 **Example**
 ```js
-assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}) //=> {a: {b: {c: 42}}}
 
 // Any missing or non-object keys in path will be overridden
-assocPath(['a', 0, 'c'], 42, {a: 5}); //=> {a: [{c: 42}]}
+assocPath(['a', 0, 'c'], 42, {a: 5}) //=> {a: [{c: 42}]}
 ```
 <br /><br />
 
 ### assocProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocProp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocProp.js#L35)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
 **Params**
-<p><code>prop</code>: <code>String</code> - The property name to set</p>
-<p><code>val</code>: <code>&ast;</code> - The new value</p>
-<p><code>obj</code>: <code>Object|Map</code> - The object to clone</p>
+<p><code>prop</code>: <code>string</code> - The property name to set</p>
+<p><code>value</code>: <code>&ast;</code> - The new value</p>
+<p><code>object</code>: <code>Object|Map</code> - The object to clone</p>
 
 **Returns**
 <br /><p><code>Object</code> - A new object equivalent to the original except for the changed property.</p>
@@ -2870,7 +2870,7 @@ await pick(
 
 ### prepend()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/prepend.js#L14)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/prepend.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns a new list with the given element at the front, followed by the contents of the list.</p>
 <p>This method dispatches to the <code>prepend</code> method of the <code>arrayLike</code> argument if it exists.</p>
 <p>This method will auto upgrade to async and resolve the <code>arrayLike</code> value if the <code>arrayLike</code> value is a Promise.</p>
