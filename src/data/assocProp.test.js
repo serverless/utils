@@ -3,7 +3,10 @@ import assocProp from './assocProp'
 describe('assocProp', () => {
   test('set a prop to an empty object', () => {
     const object = {}
-    expect(assocProp('foo', 'bar', object)).toEqual({
+    const result = assocProp('foo', 'bar', object)
+    // NOTE BRN: We check for this because it's possible on iteration of an empty object to accidentally set an undefined key and value
+    expect(result.hasOwnProperty(undefined)).toBe(false)
+    expect(result).toEqual({
       foo: 'bar'
     })
   })

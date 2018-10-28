@@ -24,7 +24,9 @@ const baseAssocProp = (prop, value, object) => {
   let next = { done: false }
   while (!next.done) {
     next = iterator.next()
-    result[next.key] = object[next.key]
+    if (!next.done) {
+      result[next.key] = object[next.key]
+    }
   }
   result[prop] = value
   return result

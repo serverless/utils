@@ -2091,7 +2091,7 @@ assocPath(['a', 0, 'c'], 42, {a: 5}) //=> {a: [{c: 42}]}
 
 ### assocProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocProp.js#L35)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocProp.js#L37)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
