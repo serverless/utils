@@ -3309,7 +3309,7 @@ walkReduceDepthFirst(
 
 [source](https://github.com/serverless/utils/tree/v0.0.14/src/data/walkReducePath.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Walk reduce the specific path using the given reducer function</p>
-<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
+<p>NOTE: This method will resolve values during the walk before walking them. However, the unresolved value will be delivered to the iteratee.</p>
 
 **Params**
 <p><code>path</code>: <code>&ast;</code> - The specific path to walk</p>

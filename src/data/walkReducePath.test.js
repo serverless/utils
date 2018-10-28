@@ -54,7 +54,7 @@ describe('#walkReducePath()', () => {
     ])
   })
 
-  test('resolves values before sending them to the iteratir and then proceeds along the resolved value for walk', () => {
+  test('does not resolve values before sending them to the iterator, but then resolves it and proceeds along the resolved value for walk', () => {
     const result = walkReducePath(
       (accum, value, keys) => {
         accum.push({ keys, value })
@@ -94,7 +94,7 @@ describe('#walkReducePath()', () => {
       {
         keys: ['a', 'b'],
         value: {
-          c: 'c'
+          valueOf: expect.any(Function)
         }
       },
       {
