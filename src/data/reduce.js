@@ -8,12 +8,16 @@ import pipe from '../common/pipe'
  *
  * The iterator function receives three values: *(acc, value, kdx)*.
  *
- * This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.
+ * Note: This method automatically upgrades to async.
+ * - If an async `iteratee` is given to this method it will return a Promise.
+ * - If a Promise is given for `iteratee`, `accumulator`, or `collection`, this method will resolve the Promise(s) and return a Promise
  *
- * Note: `reduce` does not skip deleted or unassigned indices (sparse arrays), unlike the native `Array.prototype.reduce` method. For more details  on this behavior, see:
+ * Note: for arrays, `reduce` does not skip deleted or unassigned indices (sparse arrays), unlike the native `Array.prototype.reduce` method. For more details  on this behavior, see:
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
  *
  * Dispatches to the `reduce` method of the third argument, if present.
+ *
+ * This method will resolve the parameters but it will not resolve the values passed to the iteratee. It will only resolve the values returned by the iteratee.
  *
  * @function
  * @since v0.0.3
@@ -23,6 +27,22 @@ import pipe from '../common/pipe'
  * @param {Array|string|Object|Promise} collection The collection to iterate over.
  * @returns {*} The final, accumulated value.
  * @example
+ *
+ * reduce((accum, value, key) => {
+ *   ...
+ *   return accum
+ * }, myAccum, myObject)
+ *
+ * reduce((accum, value, index) => {
+ *   ...
+ *   return accum
+ * }, myAccum, myArray)
+ *
+ * reduce((accum, value) => {
+ *   accum.push(value)
+ *   return accum
+ * }, [], [ Promise.resolve('foo') ]) // => [ Promise { 'foo' } ]
+ *
  *
  * reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
  * //          -               -10

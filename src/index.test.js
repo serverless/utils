@@ -7,6 +7,7 @@ describe('index', () => {
 
   test('has base methods', () => {
     const mod = require('./base')
+    // NOTE BRN: There are values exported from here that cause extremely long diffs to happen. A match is much simpler than an equals check and does not cause that to happe for this folder.
     expect(mod).toMatchObject({
       arrayConcat: expect.any(Function),
       arrayFlatten: expect.any(Function),
@@ -87,7 +88,7 @@ describe('index', () => {
 
   test('has common methods', () => {
     const mod = require('./common')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       __: expect.any(Object),
       all: expect.any(Function),
       allWith: expect.any(Function),
@@ -112,6 +113,7 @@ describe('index', () => {
       nth: expect.any(Function),
       isOp: expect.any(Function),
       pipe: expect.any(Function),
+      resolve: expect.any(Function),
       resolveToGeneratorWith: expect.any(Function),
       resolveWith: expect.any(Function),
       sleep: expect.any(Function)
@@ -120,7 +122,7 @@ describe('index', () => {
 
   test('has constants', () => {
     const mod = require('./constants')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       HAS_ARGS_ENUM_BUG: expect.any(Boolean),
       HAS_OBJECT_ENUM_BUG: expect.any(Boolean),
       MAX_SAFE_INTEGER: expect.any(Number),
@@ -130,7 +132,7 @@ describe('index', () => {
 
   test('has data methods', () => {
     const mod = require('./data')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       addIndex: expect.any(Function),
       always: expect.any(Function),
       any: expect.any(Function),
@@ -154,6 +156,7 @@ describe('index', () => {
       filterAtIndex: expect.any(Function),
       find: expect.any(Function),
       findAtIndex: expect.any(Function),
+      findKdx: expect.any(Function),
       first: expect.any(Function),
       flatten: expect.any(Function),
       forEach: expect.any(Function),
@@ -216,7 +219,7 @@ describe('index', () => {
 
   test('has error methods', () => {
     const mod = require('./error')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       createException: expect.any(Function),
       error: expect.any(Function),
       generateStackTrace: expect.any(Function),
@@ -226,14 +229,14 @@ describe('index', () => {
 
   test('has fetch methods', () => {
     const mod = require('./fetch')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       fetch: expect.any(Function)
     })
   })
 
   test('has fs methods', () => {
     const mod = require('./fs')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       copyDirContentsSync: expect.any(Function),
       dirExists: expect.any(Function),
       fileExists: expect.any(Function),
@@ -257,7 +260,7 @@ describe('index', () => {
 
   test('has ip methods', () => {
     const mod = require('./ip')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       isIp: expect.any(Function),
       lookupIp: expect.any(Function)
     })
@@ -265,7 +268,7 @@ describe('index', () => {
 
   test('has lang methods', () => {
     const mod = require('./lang')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       assignProperties: expect.any(Function),
       cloneProperties: expect.any(Function),
       defineProperty: expect.any(Function),
@@ -276,7 +279,7 @@ describe('index', () => {
 
   test('has logic methods', () => {
     const mod = require('./logic')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       and: expect.any(Function),
       isEmpty: expect.any(Function),
       not: expect.any(Function),
@@ -286,7 +289,7 @@ describe('index', () => {
 
   test('has path methods', () => {
     const mod = require('./path')
-    expect(mod).toMatchObject({
+    expect(mod).toEqual({
       findPath: expect.any(Function)
     })
   })

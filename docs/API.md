@@ -98,6 +98,7 @@
   * [filterAtIndex()](#filteratindex)
   * [find()](#find)
   * [findAtIndex()](#findatindex)
+  * [findKdx()](#findkdx)
   * [flatten()](#flatten)
   * [forEach()](#foreach)
   * [forEachIndexed()](#foreachindexed)
@@ -1976,7 +1977,7 @@ await anyAtIndex(async (value) => lessThan2(value), 0, [1, 2]) //=> true
 
 ### append()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/append.js#L14)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/append.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a new list containing the contents of the given list, followed by the given value.</p>
 <p>This method dispatches to the <code>append</code> method of the <code>arrayLike</code> argument if it exists.</p>
 <p>This method will auto upgrade to async and resolve the <code>arrayLike</code> value if the <code>arrayLike</code> value is a Promise.</p>
@@ -2045,14 +2046,14 @@ assoc([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
 
 ### assocIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocIndex.js#L23)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
 **Params**
 <p><code>index</code>: <code>number</code> - The index number to set</p>
-<p><code>val</code>: <code>&ast;</code> - The new value</p>
-<p><code>arr</code>: <code>Array</code> - The array to clone</p>
+<p><code>value</code>: <code>&ast;</code> - The new value</p>
+<p><code>array</code>: <code>Array</code> - The array to clone</p>
 
 **Returns**
 <br /><p><code>Array</code> - A new array equivalent to the original except for the changed index.</p>
@@ -2065,39 +2066,39 @@ assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']
 
 ### assocPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocPath.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocPath.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Makes a shallow clone of an object, setting or overriding the nodes required<br />
 to create the given path, and placing the specific value at the tail end of<br />
 that path. Note that this copies and flattens prototype properties onto the<br />
 new object as well. All non-primitive properties are copied by reference.</p>
 
 **Params**
-<p><code>path</code>: <code>Array</code> - the path to set</p>
+<p><code>path</code>: <code>Array</code> - The path to set</p>
 <p><code>value</code>: <code>&ast;</code> - The new value</p>
-<p><code>collection</code>: <code>Object|Array|Map</code> - The object, array or map to clone</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to clone</p>
 
 **Returns**
 <br /><p><code>&ast;</code> - A new collection equivalent to the original except along the specified path.</p>
 
 **Example**
 ```js
-assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}) //=> {a: {b: {c: 42}}}
 
 // Any missing or non-object keys in path will be overridden
-assocPath(['a', 0, 'c'], 42, {a: 5}); //=> {a: [{c: 42}]}
+assocPath(['a', 0, 'c'], 42, {a: 5}) //=> {a: [{c: 42}]}
 ```
 <br /><br />
 
 ### assocProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocProp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/assocProp.js#L37)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
 **Params**
-<p><code>prop</code>: <code>String</code> - The property name to set</p>
-<p><code>val</code>: <code>&ast;</code> - The new value</p>
-<p><code>obj</code>: <code>Object|Map</code> - The object to clone</p>
+<p><code>prop</code>: <code>string</code> - The property name to set</p>
+<p><code>value</code>: <code>&ast;</code> - The new value</p>
+<p><code>object</code>: <code>Object|Map</code> - The object to clone</p>
 
 **Returns**
 <br /><p><code>Object</code> - A new object equivalent to the original except for the changed property.</p>
@@ -2278,11 +2279,9 @@ find(propEq('a', 4))(xs); //=> undefined
 ### findAtIndex()
 
 [source](https://github.com/serverless/utils/tree/v0.0.14/src/data/findAtIndex.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Returns the first element of the list which matches the predicate, or<br />
-<code>undefined</code> if no element matches starting at the given index.</p>
+<p>Returns the first element of the list which matches the predicate, or <code>undefined</code> if no element matches starting at the given index.</p>
 <p>Dispatches to the <code>findAtIndex</code> method of the last argument, if present.</p>
-<p>Supports async predicates. If a predicate returns a Promise than the entire<br />
-method will upgrade to async and return a Promise.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
 
 **Params**
 <p><code>fn</code>: <code>Function</code> - The predicate function used to determine if the element is the<br />
@@ -2298,6 +2297,36 @@ method will upgrade to async and return a Promise.</p>
 const xs = [{a: 1}, {a: 2}, {a: 3}];
 findAtIndex(propEq('a'), 0)(xs) //=> {a: 2}
 findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
+```
+<br /><br />
+
+### findKdx()
+
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/findKdx.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.15
+<p>Returns the kdx of the first element of the collection which matches the predicate, or <code>undefined</code> if no element matches.</p>
+<p>Dispatches to the <code>findkdx</code> method of the <code>collection</code> argument, if present.</p>
+<p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The predicate function used to determine if the element is the desired one.</p>
+<p><code>collection</code>: <code>Array</code> - The collection to consider.</p>
+
+**Returns**
+<br /><p><code>&ast;|Promise</code> - The element found, or `undefined`.</p>
+
+**Example**
+```js
+findKdx(
+  (value, index) => value[index] == 2,
+  [{a: 1}, {a: 2}, {a: 3}]
+)
+//=> 1
+
+findKdx(
+  (value, key) => value[key] == 2,
+  { a: 1, b: 2, c: 3 }
+)
+//=> 'b'
 ```
 <br /><br />
 
@@ -2841,7 +2870,7 @@ await pick(
 
 ### prepend()
 
-[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/prepend.js#L14)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.14/src/data/prepend.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns a new list with the given element at the front, followed by the contents of the list.</p>
 <p>This method dispatches to the <code>prepend</code> method of the <code>arrayLike</code> argument if it exists.</p>
 <p>This method will auto upgrade to async and resolve the <code>arrayLike</code> value if the <code>arrayLike</code> value is a Promise.</p>
@@ -2867,10 +2896,15 @@ prepend('write', ' more tests') //=> 'write more tests'
 [source](https://github.com/serverless/utils/tree/v0.0.14/src/data/reduce.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.</p>
 <p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
-<p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
-<p>Note: <code>reduce</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details  on this behavior, see:<br />
+<p>Note: This method automatically upgrades to async.</p>
+<ul>
+<li>If an async <code>iteratee</code> is given to this method it will return a Promise.</li>
+<li>If a Promise is given for <code>iteratee</code>, <code>accumulator</code>, or <code>collection</code>, this method will resolve the Promise(s) and return a Promise</li>
+</ul>
+<p>Note: for arrays, <code>reduce</code> does not skip deleted or unassigned indices (sparse arrays), unlike the native <code>Array.prototype.reduce</code> method. For more details  on this behavior, see:<br />
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description</p>
 <p>Dispatches to the <code>reduce</code> method of the third argument, if present.</p>
+<p>This method will resolve the parameters but it will not resolve the values passed to the iteratee. It will only resolve the values returned by the iteratee.</p>
 
 **Params**
 <p><code>iteratee</code>: <code>Function</code> - The iterator function. Receives three values, the accumulator, the current value from the collection and the key or index.</p>
@@ -2882,6 +2916,22 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 **Example**
 ```js
+reduce((accum, value, key) => {
+  ...
+  return accum
+}, myAccum, myObject)
+
+reduce((accum, value, index) => {
+  ...
+  return accum
+}, myAccum, myArray)
+
+reduce((accum, value) => {
+  accum.push(value)
+  return accum
+}, [], [ Promise.resolve('foo') ]) // => [ Promise { 'foo' } ]
+
+
 reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 //          -               -10
 //         / \              / \
@@ -3259,7 +3309,7 @@ walkReduceDepthFirst(
 
 [source](https://github.com/serverless/utils/tree/v0.0.14/src/data/walkReducePath.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Walk reduce the specific path using the given reducer function</p>
-<p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
+<p>NOTE: This method will resolve values during the walk before walking them. However, the unresolved value will be delivered to the iteratee.</p>
 
 **Params**
 <p><code>path</code>: <code>&ast;</code> - The specific path to walk</p>

@@ -4,12 +4,14 @@ import dispatchable from '../common/dispatchable'
 import resolveWith from '../common/resolveWith'
 import concat from './concat'
 
-const dispatcher = dispatchable('append', (value, arrayLike) => {
+const baseAppend = (value, arrayLike) => {
   if (isString(arrayLike)) {
     return concat(arrayLike, value)
   }
   return concat(arrayLike, [value])
-})
+}
+
+const dispatchableAppend = dispatchable('append', baseAppend)
 
 /**
  * Returns a new list containing the contents of the given list, followed by the given value.
@@ -32,7 +34,9 @@ const dispatcher = dispatchable('append', (value, arrayLike) => {
  * append('tests', 'write more ') //=> 'write more tests'
  */
 const append = curry((value, arrayLike) =>
-  resolveWith((resolvedArrayLike) => dispatcher(value, resolvedArrayLike), arrayLike)
+  resolveWith((resolvedArrayLike) => dispatchableAppend(value, resolvedArrayLike), arrayLike)
 )
 
 export default append
+
+export { baseAppend, dispatchableAppend }

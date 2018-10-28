@@ -3,13 +3,11 @@ import curry from '../common/curry'
 import defn from '../common/defn'
 
 /**
- * Returns the first element of the list which matches the predicate, or
- * `undefined` if no element matches starting at the given index.
+ * Returns the first element of the list which matches the predicate, or `undefined` if no element matches starting at the given index.
  *
  * Dispatches to the `findAtIndex` method of the last argument, if present.
  *
- * Supports async predicates. If a predicate returns a Promise than the entire
- * method will upgrade to async and return a Promise.
+ * Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.
  *
  * @function
  * @since v0.0.3
