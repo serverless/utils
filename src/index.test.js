@@ -111,7 +111,7 @@ describe('index', () => {
       nAry: expect.any(Function),
       nArySpread: expect.any(Function),
       nth: expect.any(Function),
-      isOp: expect.any(Function),
+      op: expect.any(Function),
       pipe: expect.any(Function),
       resolve: expect.any(Function),
       resolveToGeneratorWith: expect.any(Function),
@@ -126,7 +126,8 @@ describe('index', () => {
       HAS_ARGS_ENUM_BUG: expect.any(Boolean),
       HAS_OBJECT_ENUM_BUG: expect.any(Boolean),
       MAX_SAFE_INTEGER: expect.any(Number),
-      SYMBOL_ITERATOR: expect.anything()
+      SYMBOL_ITERATOR: expect.anything(),
+      SYMBOL_OP: expect.anything()
     })
   })
 

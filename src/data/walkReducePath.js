@@ -5,6 +5,7 @@ import append from './append'
 import castPath from './castPath'
 import walk from './walk'
 
+// TODO BRN: Upgrade to support async values on path
 const reducePathWalkee = (pathParts, accum, value, keys, iteratee, recur) => {
   let result = iteratee(accum, value, keys)
   if (pathParts.length > keys.length && isObject(value)) {

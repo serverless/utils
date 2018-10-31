@@ -65,7 +65,7 @@ describe('#walkReducePath()', () => {
       {
         a: {
           b: {
-            valueOf() {
+            resolve() {
               return { c: 'c' }
             }
           }
@@ -78,7 +78,7 @@ describe('#walkReducePath()', () => {
         value: {
           a: {
             b: {
-              valueOf: expect.any(Function)
+              resolve: expect.any(Function)
             }
           }
         }
@@ -87,14 +87,14 @@ describe('#walkReducePath()', () => {
         keys: ['a'],
         value: {
           b: {
-            valueOf: expect.any(Function)
+            resolve: expect.any(Function)
           }
         }
       },
       {
         keys: ['a', 'b'],
         value: {
-          valueOf: expect.any(Function)
+          resolve: expect.any(Function)
         }
       },
       {

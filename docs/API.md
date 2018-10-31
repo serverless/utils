@@ -73,14 +73,18 @@
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
   * [nth()](#nth)
+  * [op()](#op)
   * [pipe()](#pipe)
+  * [resolvable()](#resolvable)
   * [resolve()](#resolve)
+  * [resolveToGenerator()](#resolvetogenerator)
   * [resolveToGeneratorWith()](#resolvetogeneratorwith)
   * [resolveWith()](#resolvewith)
   * [sleep()](#sleep)
 - [constants](#constants)
   * [MAX_SAFE_INTEGER](#max_safe_integer)
   * [SYMBOL_ITERATOR](#symbol_iterator)
+  * [SYMBOL_OP](#symbol_op)
 - [data](#data)
   * [any()](#any)
   * [anyAtIndex()](#anyatindex)
@@ -1536,7 +1540,7 @@ identity()
 
 ### isOp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/isOp.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/isOp.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Determines if the value is an op.</p>
 
 **Params**
@@ -1771,6 +1775,19 @@ nth(3, 'abc') //=> ''
 ```
 <br /><br />
 
+### op()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/op.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Creates an op object that can be yielded by a generator and intercepted/executed by any generator middleware</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute when the op is executed</p>
+
+**Returns**
+<br /><p><code>Object</code> - The op object</p>
+
+<br /><br />
+
 ### pipe()
 
 [source](https://github.com/serverless/utils/tree/v0.0.15/src/common/pipe.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
@@ -1793,9 +1810,32 @@ f(3, 4) // -(3^4) + 1
 ```
 <br /><br />
 
+### resolvable()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolvable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Creates an object that resolves to the result of the given function.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to generate the resolved value.</p>
+
+**Returns**
+<br /><p><code>Object</code> - The resolvable object</p>
+
+**Example**
+```js
+const resolveLater = resolvable(() => 'foo')
+// => {
+//   resolve: () => 'foo'
+// }
+
+resolve(resolveLater)
+//=> 'foo'
+```
+<br /><br />
+
 ### resolve()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolve.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolve.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
 <p>Resolves a value to its valueOf.</p>
 <p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
 
@@ -1831,9 +1871,27 @@ resolve({
 ```
 <br /><br />
 
+### resolveToGenerator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveToGenerator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+<p>Resolves a value to a generator using the generator to yield values.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
+
+**Returns**
+<br /><p><code>Generator</code> - </p>
+
+**Example**
+```js
+const generator = resolveToGenerator('foo')
+generator.next() //=> { value: 'foo', done: true }
+```
+<br /><br />
+
 ### resolveToGeneratorWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveToGeneratorWith.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveToGeneratorWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
 
 **Params**
@@ -1855,7 +1913,7 @@ generator.next() //=> { done: true } triggers the fn method
 
 ### resolveWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveWith.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Resolves a value to the given method.</p>
 <p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
 <p>If the value to be resolved is a generator, this method will return a generator.</p>
@@ -1916,6 +1974,15 @@ await sleep(1000)
 [source](https://github.com/serverless/utils/tree/v0.0.15/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
+
+**Type**: `{Symbol}`
+
+<br /><br />
+
+### SYMBOL_OP
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/constants/SYMBOL_OP.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+<p>The Symbol.for('@@op') defines an operation for a generator to evaluate</p>
 
 **Type**: `{Symbol}`
 
@@ -3239,7 +3306,7 @@ console.log(result)
 
 ### walkReduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReduce.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReduce.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
@@ -3277,7 +3344,7 @@ walkReduce(
 
 ### walkReduceDepthFirst()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReduceDepthFirst.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReduceDepthFirst.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk depth first and reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
@@ -3322,7 +3389,7 @@ walkReduceDepthFirst(
 
 ### walkReducePath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReducePath.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReducePath.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Walk reduce the specific path using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before walking them. However, the unresolved value will be delivered to the iteratee.</p>
 

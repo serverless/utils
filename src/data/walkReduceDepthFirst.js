@@ -1,25 +1,19 @@
-import isArray from '../base/isArray'
 import isObject from '../base/isObject'
 import curry from '../common/curry'
 import resolve from '../common/resolve'
 import concat from './concat'
-import forEachIndexed from './forEachIndexed'
-import forEachObjIndexed from './forEachObjIndexed'
+import forEach from './forEach'
 import walk from './walk'
 
+// TODO BRN: Upgrade to support async values in walk
 const walkee = (accum, value, keys, iteratee, recur) => {
   let result = accum
-  value = resolve(value)
-  if (isArray(value)) {
-    forEachIndexed((child, childIndex) => {
-      const newKeys = concat(keys, [childIndex])
+  const resolvedValue = resolve(value)
+  if (isObject(resolvedValue)) {
+    forEach((child, childKdx) => {
+      const newKeys = concat(keys, [childKdx])
       result = recur(result, child, newKeys, iteratee)
-    }, value)
-  } else if (isObject(value)) {
-    forEachObjIndexed((child, childKey) => {
-      const newKeys = concat(keys, [childKey])
-      result = recur(result, child, newKeys, iteratee)
-    }, value)
+    }, resolvedValue)
   }
   return iteratee(result, value, keys)
 }

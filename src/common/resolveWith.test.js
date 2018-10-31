@@ -14,6 +14,17 @@ describe('resolveWith', () => {
     expect(resolveWith((value) => value, false)).toBe(false)
   })
 
+  test('returned resolvable values are resolved', () => {
+    expect(
+      resolveWith(
+        () => ({
+          resolve: () => 1
+        }),
+        0
+      )
+    ).toBe(1)
+  })
+
   test('resolves Promise to a Promise', async () => {
     const promise = new Promise((pResolve) => {
       pResolve('foo')
@@ -25,6 +36,21 @@ describe('resolveWith', () => {
     expect(handler).toHaveBeenCalledWith('foo')
     expect(handler).toHaveBeenCalledTimes(1)
     expect(result).toBe('bar')
+  })
+
+  test('handler that returns a Promise that resolves to a resolvable is resolved', async () => {
+    const promise = new Promise((pResolve) => {
+      pResolve({
+        resolve: () => 'foo'
+      })
+    })
+    const handler = jest.fn(() => promise)
+    const resolver = resolveWith(handler, 'bar')
+    expect(resolver).toBeInstanceOf(Promise)
+    const result = await resolver
+    expect(handler).toHaveBeenCalledWith('bar')
+    expect(handler).toHaveBeenCalledTimes(1)
+    expect(result).toBe('foo')
   })
 
   test('resolves Generator to a Generator', async () => {

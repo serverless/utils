@@ -1,5 +1,7 @@
 import isFunction from '../base/isFunction'
-import isObject from '../base/isObject'
+import isPromise from '../base/isPromise'
+import isResolved from './isResolved'
+import resolveToGenerator from './resolveToGenerator'
 import curry from './curry'
 
 /**
@@ -38,13 +40,14 @@ import curry from './curry'
  * }) //=> bar
  */
 const resolve = curry((value) => {
-  if (isObject(value)) {
+  if (!isResolved(value)) {
     if (isFunction(value.resolve)) {
       return resolve(value.resolve())
     }
-    if (isFunction(value.valueOf)) {
-      return value.valueOf()
+    if (isPromise(value)) {
+      return value.then((resolved) => resolve(resolved))
     }
+    return resolveToGenerator(value)
   }
   return value
 })
