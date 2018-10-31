@@ -129,6 +129,7 @@
   * [reduceObjIndexed()](#reduceobjindexed)
   * [reduceRight()](#reduceright)
   * [reject()](#reject)
+  * [remove()](#remove)
   * [set()](#set)
   * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
@@ -2312,7 +2313,7 @@ findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
 <p><code>collection</code>: <code>Array</code> - The collection to consider.</p>
 
 **Returns**
-<br /><p><code>&ast;|Promise</code> - The element found, or `undefined`.</p>
+<br /><p><code>&ast;|Promise</code> - The key or index found, or `undefined`.</p>
 
 **Example**
 ```js
@@ -3011,7 +3012,21 @@ reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
 
 ### reject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/reject.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/reject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Alias of <a href="#remove"><code>remove</code></a>.</p>
+
+**Params**
+<p><code>predicate</code>: <code>Function</code> - </p>
+<p><code>filterable</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>&ast;</code> - </p>
+
+<br /><br />
+
+### remove()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/remove.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>The complement of <a href="#filter"><code>filter</code></a>.</p>
 
 **Params**
@@ -3025,9 +3040,9 @@ reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
 ```js
 isOdd = (n) => n % 2 === 1
 
-reject(isOdd, [1, 2, 3, 4]) //=> [2, 4]
+remove(isOdd, [1, 2, 3, 4]) //=> [2, 4]
 
-reject(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
+remove(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
 ```
 <br /><br />
 

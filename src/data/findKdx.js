@@ -15,7 +15,7 @@ import iterate from '../common/iterate'
  * @category data
  * @param {Function} fn The predicate function used to determine if the element is the desired one.
  * @param {Array} collection The collection to consider.
- * @returns {*|Promise} The element found, or `undefined`.
+ * @returns {*|Promise} The key or index found, or `undefined`.
  * @example
  *
  * findKdx(

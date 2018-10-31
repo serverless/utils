@@ -198,6 +198,7 @@ describe('index', () => {
       reduceObjIndexed: expect.any(Function),
       reduceRight: expect.any(Function),
       reject: expect.any(Function),
+      remove: expect.any(Function),
       set: expect.any(Function),
       shallowEquals: expect.any(Function),
       slice: expect.any(Function),
