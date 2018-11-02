@@ -116,6 +116,22 @@ describe('objectIterator', () => {
     })
   })
 
+  test('next() returns done for empty object', () => {
+    const iterator = objectIterator({})
+    expect(iterator.next()).toEqual({
+      done: true,
+      prev: undefined
+    })
+  })
+
+  test('previous() returns done for empty object', () => {
+    const iterator = objectIterator({})
+    expect(iterator.previous()).toEqual({
+      done: true,
+      prev: undefined
+    })
+  })
+
   test('creates an iterator for the object', () => {
     const symBan = Symbol('ban')
     const iterator = objectIterator({
@@ -130,10 +146,46 @@ describe('objectIterator', () => {
       accum.push(next)
     }
     expect(accum).toEqual([
-      { value: 'bar', key: 'foo', kdx: 'foo', done: false },
-      { value: 'bop', key: 'bim', kdx: 'bim', done: false },
-      { value: 'ana', key: symBan, kdx: symBan, done: false },
-      { done: true }
+      {
+        value: 'bar',
+        key: 'foo',
+        kdx: 'foo',
+        prev: undefined,
+        done: false
+      },
+      {
+        value: 'bop',
+        key: 'bim',
+        kdx: 'bim',
+        prev: {
+          value: 'bar',
+          key: 'foo',
+          kdx: 'foo',
+          done: false
+        },
+        done: false
+      },
+      {
+        value: 'ana',
+        key: symBan,
+        kdx: symBan,
+        prev: {
+          value: 'bop',
+          key: 'bim',
+          kdx: 'bim',
+          done: false
+        },
+        done: false
+      },
+      {
+        prev: {
+          value: 'ana',
+          key: symBan,
+          kdx: symBan,
+          done: false
+        },
+        done: true
+      }
     ])
   })
 
@@ -154,11 +206,73 @@ describe('objectIterator', () => {
       accum.push(previous)
     }
     expect(accum).toEqual([
-      { value: 'ana', key: symBan, kdx: symBan, done: false },
-      { value: 'bop', key: 'bim', kdx: 'bim', done: false },
-      { value: 'bar', key: 'foo', kdx: 'foo', done: false },
-      { done: true }
+      {
+        value: 'ana',
+        key: symBan,
+        kdx: symBan,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: 'bop',
+        key: 'bim',
+        kdx: 'bim',
+        prev: {
+          value: 'ana',
+          key: symBan,
+          kdx: symBan,
+          done: false
+        },
+        done: false
+      },
+      {
+        value: 'bar',
+        key: 'foo',
+        kdx: 'foo',
+        prev: {
+          value: 'bop',
+          key: 'bim',
+          kdx: 'bim',
+          done: false
+        },
+        done: false
+      },
+      {
+        prev: {
+          value: 'bar',
+          key: 'foo',
+          kdx: 'foo',
+          done: false
+        },
+        done: true
+      }
     ])
+  })
+
+  test('calling next and then previous results in iterating the same value twice', () => {
+    const iterator = objectIterator({
+      foo: 'bar',
+      bim: 'bop'
+    })
+    expect(iterator.next()).toEqual({
+      value: 'bar',
+      key: 'foo',
+      kdx: 'foo',
+      prev: undefined,
+      done: false
+    })
+    expect(iterator.previous()).toEqual({
+      value: 'bar',
+      key: 'foo',
+      kdx: 'foo',
+      prev: {
+        value: 'bop',
+        key: 'bim',
+        kdx: 'bim',
+        done: false
+      },
+      done: false
+    })
   })
 
   test('throws for non object values', () => {

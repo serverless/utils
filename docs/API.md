@@ -50,6 +50,7 @@
   * [isWeakSet()](#isweakset)
   * [objectIterator()](#objectiterator)
   * [objectKeys()](#objectkeys)
+  * [stringToLowerCase()](#stringtolowercase)
   * [toFinite()](#tofinite)
   * [toInteger()](#tointeger)
   * [toNumber()](#tonumber)
@@ -70,6 +71,7 @@
   * [iterate()](#iterate)
   * [iterateRight()](#iterateright)
   * [iterator()](#iterator)
+  * [iteratorResolver()](#iteratorresolver)
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
   * [nth()](#nth)
@@ -159,6 +161,8 @@
   * [or()](#or)
 - [path](#path)
   * [findPath()](#findpath)
+- [string](#string)
+  * [lowerCase()](#lowercase)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
@@ -209,7 +213,7 @@ arrayFlatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
 
 ### arrayLikeIterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/arrayLikeIterator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/arrayLikeIterator.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns iterator for an array like value.</p>
 
 **Params**
@@ -1109,7 +1113,7 @@ isWeakSet(new Set())
 
 ### objectIterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/objectIterator.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/objectIterator.js#L32)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns iterator for an object's keys and values.</p>
 <p>Note, iterates over object's own keys and symbols</p>
 
@@ -1161,6 +1165,23 @@ Note that the order of the output array is not guaranteed to be consistent acros
 **Example**
 ```js
 objectKeys({a: 1, b: 2, c: 3}) //=> ['a', 'b', 'c']
+```
+<br /><br />
+
+### stringToLowerCase()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/stringToLowerCase.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Returns the given string value converted to lower case.</p>
+
+**Params**
+<p><code>string</code>: <code>string</code> - The string to convert to lower case</p>
+
+**Returns**
+<br /><p><code>string</code> - A new array with the values concatenated</p>
+
+**Example**
+```js
+stringToLowerCase('ABC') //=> 'abc'
 ```
 <br /><br />
 
@@ -1598,7 +1619,7 @@ isResolved('abc')
 
 ### iterate()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterate.js#L40)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterate.js#L39)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
 <p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
 <p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
@@ -1634,7 +1655,7 @@ iterate(async (value, kdx) => new Promise((resolve, reject) => {
 
 ### iterateRight()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterateRight.js#L41)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterateRight.js#L40)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
 <p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
 <p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
@@ -1670,7 +1691,7 @@ iterateRight(async (value, kdx) => new Promise((resolve, reject) => {
 
 ### iterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterator.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterator.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method generates an iterator for the given value</p>
 
 **Params**
@@ -1690,6 +1711,40 @@ iterator('abc')
 
 iterator({ a: 1, b: 2, c: 3 })
 //=> { next: () => { value: number, key: string, kdx: string, done: boolean }}
+```
+<br /><br />
+
+### iteratorResolver()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iteratorResolver.js#L105)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Returns iterator capable of resolving iterators that might be async, wrapping it in additional functionality.</p>
+
+**Params**
+<p><code>iterator</code>: <code>Iterator</code> - The iterator to wrap</p>
+<p><code>start</code>: <code>string</code> - The positin to start at.</p>
+
+**Returns**
+<br /><p><code>Iterator</code> - A new iterator for the given iterator</p>
+
+**Example**
+```js
+iteratorResolver(
+ (['write', 'more'])[Symbol.iterator]()
+)
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   }),
+//   previous: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+// }
 ```
 <br /><br />
 
@@ -3653,7 +3708,7 @@ not(1) //=> false
 
 ### or()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/logic/or.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/logic/or.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns <code>true</code> if one or both of its arguments are <code>true</code>. Returns <code>false</code> if both arguments are <code>false</code>.</p>
 <p>This method resolves both parameters before executing.</p>
 <p>This method will automatically upgrade to async if a Promise is received for either value.</p>
@@ -3691,6 +3746,30 @@ await or(Promise.resolve(false), false) //=> false
 **Example**
 ```js
 findPath(null, 0, '/foo', '/bar') // => '/foo'
+```
+<br /><br />
+
+## string
+
+### lowerCase()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/string/lowerCase.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Converts the given value to a string and then converts it to lower case.</p>
+<p>This method resolves both parameters before executing.</p>
+<p>This method will automatically upgrade to async if a Promise is received for either value.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>string</code> - the given value converted to a string and lower cased</p>
+
+**Example**
+```js
+lowerCase('ABC') //=> 'abc'
+lowerCase(true) //=> 'true'
+lowerCase(123) //=> '123'
+await lowerCase(Promise.resolve(123)) //=> '123'
 ```
 <br /><br />
 

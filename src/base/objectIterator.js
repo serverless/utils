@@ -1,7 +1,33 @@
-import arrayLikeIterator from './arrayLikeIterator'
 import isObject from './isObject'
 import reflectOwnKeys from './reflectOwnKeys'
 import toString from './toString'
+
+const iterAt = (index, keys, object) => {
+  if (index < keys.length && index >= 0) {
+    const key = keys[index]
+    return {
+      value: object[key],
+      key,
+      kdx: key,
+      done: false
+    }
+  }
+  return {
+    done: true
+  }
+}
+
+const prevIterAt = (index, keys, object) => {
+  if (index < keys.length && index >= 0) {
+    const key = keys[index]
+    return {
+      value: object[key],
+      key,
+      kdx: key,
+      done: false
+    }
+  }
+}
 
 /**
  * Returns iterator for an object's keys and values.
@@ -44,30 +70,35 @@ const objectIterator = (object, start = 'START') => {
       `objectIterator expected object to be an Object. Instead received ${toString(object)}`
     )
   }
-  const keyIterator = arrayLikeIterator(reflectOwnKeys(object), start)
+
+  const keys = reflectOwnKeys(object)
+  let index = 0
+
+  if (start === 'END') {
+    index = keys.length
+  }
+
   return {
     next: () => {
-      const { done, value } = keyIterator.next()
-      if (done) {
-        return { done, value }
+      const iter = iterAt(index, keys, object)
+      const prev = prevIterAt(index - 1, keys, object)
+      if (index < keys.length) {
+        index += 1
       }
       return {
-        done,
-        kdx: value,
-        key: value,
-        value: object[value]
+        ...iter,
+        prev
       }
     },
     previous: () => {
-      const { done, value } = keyIterator.previous()
-      if (done) {
-        return { done, value }
+      const iter = iterAt(index - 1, keys, object)
+      const prev = prevIterAt(index, keys, object)
+      if (index >= 0) {
+        index -= 1
       }
       return {
-        done,
-        kdx: value,
-        key: value,
-        value: object[value]
+        ...iter,
+        prev
       }
     }
   }

@@ -22,6 +22,22 @@ describe('arrayLikeIterator', () => {
     })
   })
 
+  test('next() returns done for empty array', () => {
+    const iterator = arrayLikeIterator([])
+    expect(iterator.next()).toEqual({
+      done: true,
+      prev: undefined
+    })
+  })
+
+  test('previous() returns done for empty array', () => {
+    const iterator = arrayLikeIterator([])
+    expect(iterator.previous()).toEqual({
+      done: true,
+      prev: undefined
+    })
+  })
+
   test('creates an iterator at the starting point of the array', () => {
     const iterator = arrayLikeIterator(['foo', 'bar'])
     let next = { done: false }
@@ -31,9 +47,34 @@ describe('arrayLikeIterator', () => {
       accum.push(next)
     }
     expect(accum).toEqual([
-      { value: 'foo', index: 0, kdx: 0, done: false },
-      { value: 'bar', index: 1, kdx: 1, done: false },
-      { done: true }
+      {
+        value: 'foo',
+        index: 0,
+        kdx: 0,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: 'bar',
+        index: 1,
+        kdx: 1,
+        prev: {
+          value: 'foo',
+          index: 0,
+          kdx: 0,
+          done: false
+        },
+        done: false
+      },
+      {
+        done: true,
+        prev: {
+          value: 'bar',
+          index: 1,
+          kdx: 1,
+          done: false
+        }
+      }
     ])
   })
 
@@ -45,10 +86,32 @@ describe('arrayLikeIterator', () => {
       next = iterator.next()
       accum.push(next)
     }
-    expect(accum).toEqual([{ value: 'bar', index: 1, kdx: 1, done: false }, { done: true }])
+    expect(accum).toEqual([
+      {
+        value: 'bar',
+        index: 1,
+        kdx: 1,
+        prev: {
+          value: 'foo',
+          index: 0,
+          kdx: 0,
+          done: false
+        },
+        done: false
+      },
+      {
+        prev: {
+          value: 'bar',
+          index: 1,
+          kdx: 1,
+          done: false
+        },
+        done: true
+      }
+    ])
   })
 
-  test('If index is greater than iterator should perform no iterations', () => {
+  test('If index is greater than length by 1 than iterator should perform no iterations and return the final value in prev', () => {
     const iterator = arrayLikeIterator(['foo', 'bar'], 3)
     let next = { done: false }
     const accum = []
@@ -56,7 +119,28 @@ describe('arrayLikeIterator', () => {
       next = iterator.next()
       accum.push(next)
     }
-    expect(accum).toEqual([{ done: true }])
+    expect(accum).toEqual([
+      {
+        prev: { done: false, index: 1, kdx: 1, value: 'bar' },
+        done: true
+      }
+    ])
+  })
+
+  test('If index is greater than length by more than 1 than iterator should perform no iterations and return the final value in prev', () => {
+    const iterator = arrayLikeIterator(['foo', 'bar'], 4)
+    let next = { done: false }
+    const accum = []
+    while (!next.done) {
+      next = iterator.next()
+      accum.push(next)
+    }
+    expect(accum).toEqual([
+      {
+        prev: { done: false, index: 1, kdx: 1, value: 'bar' },
+        done: true
+      }
+    ])
   })
 
   test('If index is negative than should start from length + index', () => {
@@ -67,7 +151,29 @@ describe('arrayLikeIterator', () => {
       next = iterator.next()
       accum.push(next)
     }
-    expect(accum).toEqual([{ value: 'bar', index: 1, kdx: 1, done: false }, { done: true }])
+    expect(accum).toEqual([
+      {
+        value: 'bar',
+        index: 1,
+        kdx: 1,
+        prev: {
+          value: 'foo',
+          index: 0,
+          kdx: 0,
+          done: false
+        },
+        done: false
+      },
+      {
+        prev: {
+          value: 'bar',
+          index: 1,
+          kdx: 1,
+          done: false
+        },
+        done: true
+      }
+    ])
   })
 
   test('START starts the iterator at the 0 index', () => {
@@ -79,10 +185,58 @@ describe('arrayLikeIterator', () => {
       accum.push(next)
     }
     expect(accum).toEqual([
-      { value: 'foo', index: 0, kdx: 0, done: false },
-      { value: 'bar', index: 1, kdx: 1, done: false },
-      { done: true }
+      {
+        value: 'foo',
+        index: 0,
+        kdx: 0,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: 'bar',
+        index: 1,
+        kdx: 1,
+        prev: {
+          value: 'foo',
+          index: 0,
+          kdx: 0,
+          done: false
+        },
+        done: false
+      },
+      {
+        prev: {
+          value: 'bar',
+          index: 1,
+          kdx: 1,
+          done: false
+        },
+        done: true
+      }
     ])
+  })
+
+  test('calling next and then previous results in iterating the same value twice', () => {
+    const iterator = arrayLikeIterator(['foo', 'bar'])
+    expect(iterator.next()).toEqual({
+      value: 'foo',
+      index: 0,
+      kdx: 0,
+      prev: undefined,
+      done: false
+    })
+    expect(iterator.previous()).toEqual({
+      value: 'foo',
+      index: 0,
+      kdx: 0,
+      prev: {
+        value: 'bar',
+        index: 1,
+        kdx: 1,
+        done: false
+      },
+      done: false
+    })
   })
 
   test('END starts the iterator at the last index', () => {
@@ -94,10 +248,57 @@ describe('arrayLikeIterator', () => {
       accum.push(previous)
     }
     expect(accum).toEqual([
-      { value: 'bar', index: 1, kdx: 1, done: false },
-      { value: 'foo', index: 0, kdx: 0, done: false },
-      { done: true }
+      {
+        value: 'bar',
+        index: 1,
+        kdx: 1,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: 'foo',
+        index: 0,
+        kdx: 0,
+        prev: {
+          value: 'bar',
+          index: 1,
+          kdx: 1,
+          done: false
+        },
+        done: false
+      },
+      {
+        prev: {
+          value: 'foo',
+          index: 0,
+          kdx: 0,
+          done: false
+        },
+        done: true
+      }
     ])
+  })
+
+  test('calling next multiple times when the iterator is at the end returns the same done result', () => {
+    const iterator = arrayLikeIterator(['foo', 'bar'], 'END')
+    expect(iterator.next()).toEqual({
+      prev: {
+        value: 'bar',
+        index: 1,
+        kdx: 1,
+        done: false
+      },
+      done: true
+    })
+    expect(iterator.next()).toEqual({
+      prev: {
+        value: 'bar',
+        index: 1,
+        kdx: 1,
+        done: false
+      },
+      done: true
+    })
   })
 
   test('throws for non array like values', () => {

@@ -38,6 +38,13 @@ describe('or', () => {
     expect(or(false, NaN)).toBe(NaN)
   })
 
+  test('handles multiple values', () => {
+    expect(or(false, false)).toBe(false)
+    expect(or(false, false, undefined)).toBe(undefined)
+    expect(or(false, false, false, null)).toBe(null)
+    expect(or(false, false, false, false, 0)).toBe(0)
+  })
+
   test('curries method', () => {
     const alwaysTrue = or(true)
     expect(alwaysTrue(1)).toBe(true)
@@ -47,5 +54,11 @@ describe('or', () => {
     const result = or(Promise.resolve(false), false)
     expect(result).toBeInstanceOf(Promise)
     expect(await result).toBe(false)
+  })
+
+  test('returns the last Promise value if all resolve to false', async () => {
+    const result = or(Promise.resolve(false), Promise.resolve(false), Promise.resolve(null))
+    expect(result).toBeInstanceOf(Promise)
+    expect(await result).toBe(null)
   })
 })

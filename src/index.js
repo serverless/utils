@@ -17,6 +17,7 @@ const ip = require('./ip')
 const lang = require('./lang')
 const logic = require('./logic')
 const path = require('./path')
+const string = require('./string')
 
 module.exports = {
   ...base,
@@ -29,5 +30,6 @@ module.exports = {
   ...ip,
   ...lang,
   ...logic,
-  ...path
+  ...path,
+  ...string
 }

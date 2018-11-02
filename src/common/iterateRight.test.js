@@ -13,8 +13,25 @@ describe('iterateRight', () => {
       }
     }, values)
     expect(result).toEqual([
-      { value: 'f', kdx: 5, index: 5, done: false },
-      { value: null, kdx: 4, index: 4, done: false }
+      {
+        value: 'f',
+        kdx: 5,
+        index: 5,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: null,
+        kdx: 4,
+        index: 4,
+        prev: {
+          value: 'f',
+          kdx: 5,
+          index: 5,
+          done: false
+        },
+        done: false
+      }
     ])
   })
 
@@ -38,29 +55,43 @@ describe('iterateRight', () => {
     expect(result).toBeInstanceOf(Promise)
     result = await result
     expect(result).toEqual([
-      { value: 'f', kdx: 5, index: 5, done: false },
-      { value: null, kdx: 4, index: 4, done: false }
+      {
+        value: 'f',
+        kdx: 5,
+        index: 5,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: null,
+        kdx: 4,
+        index: 4,
+        prev: {
+          value: 'f',
+          kdx: 5,
+          index: 5,
+          done: false
+        },
+        done: false
+      }
     ])
   })
 
   test('iterateRights an async iterator until done is true', async () => {
     const values = ['a', 'b', 'c', 'd', null, 'f']
-    let idx = values.length
+    let idx = -1
     const iterator = {
-      next: async () => {}, // NOTE BRN: Needed for iterator detection
-      previous: async () =>
+      next: async () =>
         new Promise((resolve) => {
-          idx -= 1
+          idx += 1
           setTimeout(() => {
-            if (idx < 0) {
+            if (idx >= values.length) {
               return resolve({
                 done: true
               })
             }
             return resolve({
               value: values[idx],
-              index: idx,
-              kdx: idx,
               done: false
             })
           }, 0)
@@ -76,10 +107,26 @@ describe('iterateRight', () => {
       }
     }, iterator)
     expect(result).toBeInstanceOf(Promise)
-
     expect(await result).toEqual([
-      { value: 'f', kdx: 5, index: 5, done: false },
-      { value: null, kdx: 4, index: 4, done: false }
+      {
+        value: 'f',
+        kdx: 5,
+        index: 5,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: null,
+        kdx: 4,
+        index: 4,
+        prev: {
+          value: 'f',
+          kdx: 5,
+          index: 5,
+          done: false
+        },
+        done: false
+      }
     ])
   })
 })
