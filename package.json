@@ -1,6 +1,6 @@
 {
   "name": "@serverless/utils",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "General serverless utilities",
   "author": "Serverless, Inc.",
   "license": "Apache-2.0",
