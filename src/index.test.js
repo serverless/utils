@@ -115,6 +115,7 @@ describe('index', () => {
       nth: expect.any(Function),
       op: expect.any(Function),
       pipe: expect.any(Function),
+      resolvable: expect.any(Function),
       resolve: expect.any(Function),
       resolveToGeneratorWith: expect.any(Function),
       resolveWith: expect.any(Function),
