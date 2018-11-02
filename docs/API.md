@@ -50,6 +50,7 @@
   * [isWeakSet()](#isweakset)
   * [objectIterator()](#objectiterator)
   * [objectKeys()](#objectkeys)
+  * [stringToLowerCase()](#stringtolowercase)
   * [toFinite()](#tofinite)
   * [toInteger()](#tointeger)
   * [toNumber()](#tonumber)
@@ -70,17 +71,22 @@
   * [iterate()](#iterate)
   * [iterateRight()](#iterateright)
   * [iterator()](#iterator)
+  * [iteratorResolver()](#iteratorresolver)
   * [nAry()](#nary)
   * [nArySpread()](#naryspread)
   * [nth()](#nth)
+  * [op()](#op)
   * [pipe()](#pipe)
+  * [resolvable()](#resolvable)
   * [resolve()](#resolve)
+  * [resolveToGenerator()](#resolvetogenerator)
   * [resolveToGeneratorWith()](#resolvetogeneratorwith)
   * [resolveWith()](#resolvewith)
   * [sleep()](#sleep)
 - [constants](#constants)
   * [MAX_SAFE_INTEGER](#max_safe_integer)
   * [SYMBOL_ITERATOR](#symbol_iterator)
+  * [SYMBOL_OP](#symbol_op)
 - [data](#data)
   * [any()](#any)
   * [anyAtIndex()](#anyatindex)
@@ -129,6 +135,7 @@
   * [reduceObjIndexed()](#reduceobjindexed)
   * [reduceRight()](#reduceright)
   * [reject()](#reject)
+  * [remove()](#remove)
   * [set()](#set)
   * [shallowEquals()](#shallowequals)
   * [slice()](#slice)
@@ -154,6 +161,8 @@
   * [or()](#or)
 - [path](#path)
   * [findPath()](#findpath)
+- [string](#string)
+  * [lowerCase()](#lowercase)
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
@@ -204,7 +213,7 @@ arrayFlatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
 
 ### arrayLikeIterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/arrayLikeIterator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/arrayLikeIterator.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns iterator for an array like value.</p>
 
 **Params**
@@ -1104,7 +1113,7 @@ isWeakSet(new Set())
 
 ### objectIterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/objectIterator.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/objectIterator.js#L32)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns iterator for an object's keys and values.</p>
 <p>Note, iterates over object's own keys and symbols</p>
 
@@ -1156,6 +1165,23 @@ Note that the order of the output array is not guaranteed to be consistent acros
 **Example**
 ```js
 objectKeys({a: 1, b: 2, c: 3}) //=> ['a', 'b', 'c']
+```
+<br /><br />
+
+### stringToLowerCase()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/base/stringToLowerCase.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Returns the given string value converted to lower case.</p>
+
+**Params**
+<p><code>string</code>: <code>string</code> - The string to convert to lower case</p>
+
+**Returns**
+<br /><p><code>string</code> - A new array with the values concatenated</p>
+
+**Example**
+```js
+stringToLowerCase('ABC') //=> 'abc'
 ```
 <br /><br />
 
@@ -1535,7 +1561,7 @@ identity()
 
 ### isOp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/isOp.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/isOp.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Determines if the value is an op.</p>
 
 **Params**
@@ -1593,7 +1619,7 @@ isResolved('abc')
 
 ### iterate()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterate.js#L40)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterate.js#L39)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
 <p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
 <p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
@@ -1629,7 +1655,7 @@ iterate(async (value, kdx) => new Promise((resolve, reject) => {
 
 ### iterateRight()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterateRight.js#L41)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterateRight.js#L40)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
 <p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
 <p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
@@ -1665,7 +1691,7 @@ iterateRight(async (value, kdx) => new Promise((resolve, reject) => {
 
 ### iterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterator.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iterator.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method generates an iterator for the given value</p>
 
 **Params**
@@ -1685,6 +1711,40 @@ iterator('abc')
 
 iterator({ a: 1, b: 2, c: 3 })
 //=> { next: () => { value: number, key: string, kdx: string, done: boolean }}
+```
+<br /><br />
+
+### iteratorResolver()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/iteratorResolver.js#L105)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Returns iterator capable of resolving iterators that might be async, wrapping it in additional functionality.</p>
+
+**Params**
+<p><code>iterator</code>: <code>Iterator</code> - The iterator to wrap</p>
+<p><code>start</code>: <code>string</code> - The positin to start at.</p>
+
+**Returns**
+<br /><p><code>Iterator</code> - A new iterator for the given iterator</p>
+
+**Example**
+```js
+iteratorResolver(
+ (['write', 'more'])[Symbol.iterator]()
+)
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   }),
+//   previous: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+// }
 ```
 <br /><br />
 
@@ -1770,6 +1830,19 @@ nth(3, 'abc') //=> ''
 ```
 <br /><br />
 
+### op()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/op.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Creates an op object that can be yielded by a generator and intercepted/executed by any generator middleware</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to execute when the op is executed</p>
+
+**Returns**
+<br /><p><code>Object</code> - The op object</p>
+
+<br /><br />
+
 ### pipe()
 
 [source](https://github.com/serverless/utils/tree/v0.0.15/src/common/pipe.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
@@ -1792,9 +1865,32 @@ f(3, 4) // -(3^4) + 1
 ```
 <br /><br />
 
+### resolvable()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolvable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Creates an object that resolves to the result of the given function.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to generate the resolved value.</p>
+
+**Returns**
+<br /><p><code>Object</code> - The resolvable object</p>
+
+**Example**
+```js
+const resolveLater = resolvable(() => 'foo')
+// => {
+//   resolve: () => 'foo'
+// }
+
+resolve(resolveLater)
+//=> 'foo'
+```
+<br /><br />
+
 ### resolve()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolve.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolve.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
 <p>Resolves a value to its valueOf.</p>
 <p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
 
@@ -1830,9 +1926,27 @@ resolve({
 ```
 <br /><br />
 
+### resolveToGenerator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveToGenerator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+<p>Resolves a value to a generator using the generator to yield values.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to resolve with the generator</p>
+
+**Returns**
+<br /><p><code>Generator</code> - </p>
+
+**Example**
+```js
+const generator = resolveToGenerator('foo')
+generator.next() //=> { value: 'foo', done: true }
+```
+<br /><br />
+
 ### resolveToGeneratorWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveToGeneratorWith.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveToGeneratorWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
 
 **Params**
@@ -1854,7 +1968,7 @@ generator.next() //=> { done: true } triggers the fn method
 
 ### resolveWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/common/resolveWith.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Resolves a value to the given method.</p>
 <p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
 <p>If the value to be resolved is a generator, this method will return a generator.</p>
@@ -1915,6 +2029,15 @@ await sleep(1000)
 [source](https://github.com/serverless/utils/tree/v0.0.15/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
+
+**Type**: `{Symbol}`
+
+<br /><br />
+
+### SYMBOL_OP
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/constants/SYMBOL_OP.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+<p>The Symbol.for('@@op') defines an operation for a generator to evaluate</p>
 
 **Type**: `{Symbol}`
 
@@ -2312,7 +2435,7 @@ findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
 <p><code>collection</code>: <code>Array</code> - The collection to consider.</p>
 
 **Returns**
-<br /><p><code>&ast;|Promise</code> - The element found, or `undefined`.</p>
+<br /><p><code>&ast;|Promise</code> - The key or index found, or `undefined`.</p>
 
 **Example**
 ```js
@@ -3011,7 +3134,21 @@ reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
 
 ### reject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/reject.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/reject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Alias of <a href="#remove"><code>remove</code></a>.</p>
+
+**Params**
+<p><code>predicate</code>: <code>Function</code> - </p>
+<p><code>filterable</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>&ast;</code> - </p>
+
+<br /><br />
+
+### remove()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/remove.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>The complement of <a href="#filter"><code>filter</code></a>.</p>
 
 **Params**
@@ -3025,9 +3162,9 @@ reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
 ```js
 isOdd = (n) => n % 2 === 1
 
-reject(isOdd, [1, 2, 3, 4]) //=> [2, 4]
+remove(isOdd, [1, 2, 3, 4]) //=> [2, 4]
 
-reject(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
+remove(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
 ```
 <br /><br />
 
@@ -3224,7 +3361,7 @@ console.log(result)
 
 ### walkReduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReduce.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReduce.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
@@ -3262,7 +3399,7 @@ walkReduce(
 
 ### walkReduceDepthFirst()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReduceDepthFirst.js#L27)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReduceDepthFirst.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk depth first and reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
@@ -3307,7 +3444,7 @@ walkReduceDepthFirst(
 
 ### walkReducePath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReducePath.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/data/walkReducePath.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Walk reduce the specific path using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before walking them. However, the unresolved value will be delivered to the iteratee.</p>
 
@@ -3571,7 +3708,7 @@ not(1) //=> false
 
 ### or()
 
-[source](https://github.com/serverless/utils/tree/v0.0.15/src/logic/or.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/logic/or.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns <code>true</code> if one or both of its arguments are <code>true</code>. Returns <code>false</code> if both arguments are <code>false</code>.</p>
 <p>This method resolves both parameters before executing.</p>
 <p>This method will automatically upgrade to async if a Promise is received for either value.</p>
@@ -3609,6 +3746,30 @@ await or(Promise.resolve(false), false) //=> false
 **Example**
 ```js
 findPath(null, 0, '/foo', '/bar') // => '/foo'
+```
+<br /><br />
+
+## string
+
+### lowerCase()
+
+[source](https://github.com/serverless/utils/tree/v0.0.15/src/string/lowerCase.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Converts the given value to a string and then converts it to lower case.</p>
+<p>This method resolves both parameters before executing.</p>
+<p>This method will automatically upgrade to async if a Promise is received for either value.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>string</code> - the given value converted to a string and lower cased</p>
+
+**Example**
+```js
+lowerCase('ABC') //=> 'abc'
+lowerCase(true) //=> 'true'
+lowerCase(123) //=> '123'
+await lowerCase(Promise.resolve(123)) //=> '123'
 ```
 <br /><br />
 

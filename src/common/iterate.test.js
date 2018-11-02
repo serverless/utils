@@ -13,11 +13,61 @@ describe('iterate', () => {
       }
     }, values)
     expect(result).toEqual([
-      { value: 'a', kdx: 0, index: 0, done: false },
-      { value: 'b', kdx: 1, index: 1, done: false },
-      { value: 'c', kdx: 2, index: 2, done: false },
-      { value: 'd', kdx: 3, index: 3, done: false },
-      { value: null, kdx: 4, index: 4, done: false }
+      {
+        value: 'a',
+        kdx: 0,
+        index: 0,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: 'b',
+        kdx: 1,
+        index: 1,
+        prev: {
+          value: 'a',
+          kdx: 0,
+          index: 0,
+          done: false
+        },
+        done: false
+      },
+      {
+        value: 'c',
+        kdx: 2,
+        index: 2,
+        prev: {
+          value: 'b',
+          kdx: 1,
+          index: 1,
+          done: false
+        },
+        done: false
+      },
+      {
+        value: 'd',
+        kdx: 3,
+        index: 3,
+        prev: {
+          value: 'c',
+          kdx: 2,
+          index: 2,
+          done: false
+        },
+        done: false
+      },
+      {
+        value: null,
+        kdx: 4,
+        index: 4,
+        prev: {
+          value: 'd',
+          kdx: 3,
+          index: 3,
+          done: false
+        },
+        done: false
+      }
     ])
   })
 
@@ -43,11 +93,61 @@ describe('iterate', () => {
       expect(result).toBeInstanceOf(Promise)
       result = await result
       expect(result).toEqual([
-        { value: 'a', kdx: 0, index: 0, done: false },
-        { value: 'b', kdx: 1, index: 1, done: false },
-        { value: 'c', kdx: 2, index: 2, done: false },
-        { value: 'd', kdx: 3, index: 3, done: false },
-        { value: null, kdx: 4, index: 4, done: false }
+        {
+          value: 'a',
+          kdx: 0,
+          index: 0,
+          prev: undefined,
+          done: false
+        },
+        {
+          value: 'b',
+          kdx: 1,
+          index: 1,
+          prev: {
+            value: 'a',
+            kdx: 0,
+            index: 0,
+            done: false
+          },
+          done: false
+        },
+        {
+          value: 'c',
+          kdx: 2,
+          index: 2,
+          prev: {
+            value: 'b',
+            kdx: 1,
+            index: 1,
+            done: false
+          },
+          done: false
+        },
+        {
+          value: 'd',
+          kdx: 3,
+          index: 3,
+          prev: {
+            value: 'c',
+            kdx: 2,
+            index: 2,
+            done: false
+          },
+          done: false
+        },
+        {
+          value: null,
+          kdx: 4,
+          index: 4,
+          prev: {
+            value: 'd',
+            kdx: 3,
+            index: 3,
+            done: false
+          },
+          done: false
+        }
       ])
     },
     10000
@@ -87,11 +187,61 @@ describe('iterate', () => {
     expect(result).toBeInstanceOf(Promise)
 
     expect(await result).toEqual([
-      { value: 'a', kdx: 0, index: 0, done: false },
-      { value: 'b', kdx: 1, index: 1, done: false },
-      { value: 'c', kdx: 2, index: 2, done: false },
-      { value: 'd', kdx: 3, index: 3, done: false },
-      { value: null, kdx: 4, index: 4, done: false }
+      {
+        value: 'a',
+        kdx: 0,
+        index: 0,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: 'b',
+        kdx: 1,
+        index: 1,
+        prev: {
+          value: 'a',
+          kdx: 0,
+          index: 0,
+          done: false
+        },
+        done: false
+      },
+      {
+        value: 'c',
+        kdx: 2,
+        index: 2,
+        prev: {
+          value: 'b',
+          kdx: 1,
+          index: 1,
+          done: false
+        },
+        done: false
+      },
+      {
+        value: 'd',
+        kdx: 3,
+        index: 3,
+        prev: {
+          value: 'c',
+          kdx: 2,
+          index: 2,
+          done: false
+        },
+        done: false
+      },
+      {
+        value: null,
+        kdx: 4,
+        index: 4,
+        prev: {
+          value: 'd',
+          kdx: 3,
+          index: 3,
+          done: false
+        },
+        done: false
+      }
     ])
   })
 })

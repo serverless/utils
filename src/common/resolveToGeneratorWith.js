@@ -2,6 +2,7 @@ import isGenerator from '../base/isGenerator'
 import curry from './curry'
 import isResolved from './isResolved'
 import resolve from './resolve'
+import resolveToGenerator from './resolveToGenerator'
 
 /**
  * Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.
@@ -21,8 +22,8 @@ import resolve from './resolve'
  * generator.next() //=> { done: true } triggers the fn method
  */
 const resolveToGeneratorWith = curry(function*(fn, value) {
-  value = resolve(value)
   if (!isResolved(value)) {
+    value = resolve(value)
     let result
     if (isGenerator(value)) {
       result = yield* value
@@ -31,7 +32,11 @@ const resolveToGeneratorWith = curry(function*(fn, value) {
     }
     return yield* resolveToGeneratorWith(fn, result)
   }
-  return fn(value)
+  value = fn(value)
+  if (!isResolved(value)) {
+    return yield* resolveToGenerator(value)
+  }
+  return value
 })
 
 export default resolveToGeneratorWith

@@ -1,5 +1,6 @@
-import curry from '../common/curry'
+import curryN from '../common/curryN'
 import defn from '../common/defn'
+import iterate from '../common/iterate'
 
 /**
  * Returns `true` if one or both of its arguments are `true`. Returns `false` if both arguments are `false`.
@@ -22,6 +23,25 @@ import defn from '../common/defn'
  * or(false, false) //=> false
  * await or(Promise.resolve(false), false) //=> false
  */
-const or = curry(defn('or', (valueA, valueB) => valueA || valueB))
+const or = curryN(
+  2,
+  defn('or', (...values) =>
+    iterate((next) => {
+      if (next.done) {
+        return {
+          ...next,
+          value: next.prev != null ? next.prev.value : undefined
+        }
+      }
+      if (!!next.value) {
+        return {
+          ...next,
+          done: true
+        }
+      }
+      return next
+    }, values)
+  )
+)
 
 export default or

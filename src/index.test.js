@@ -78,6 +78,7 @@ describe('index', () => {
       // root: expect.any(Object),
 
       reflectOwnKeys: expect.any(Function),
+      stringToLowerCase: expect.any(Function),
       toFinite: expect.any(Function),
       toInteger: expect.any(Function),
       toNumber: expect.any(Function),
@@ -106,13 +107,15 @@ describe('index', () => {
       iterate: expect.any(Function),
       iterateRight: expect.any(Function),
       iterator: expect.any(Function),
+      iteratorResolver: expect.any(Function),
       memoize: expect.any(Function),
       memoizeWith: expect.any(Function),
       nAry: expect.any(Function),
       nArySpread: expect.any(Function),
       nth: expect.any(Function),
-      isOp: expect.any(Function),
+      op: expect.any(Function),
       pipe: expect.any(Function),
+      resolvable: expect.any(Function),
       resolve: expect.any(Function),
       resolveToGeneratorWith: expect.any(Function),
       resolveWith: expect.any(Function),
@@ -126,7 +129,8 @@ describe('index', () => {
       HAS_ARGS_ENUM_BUG: expect.any(Boolean),
       HAS_OBJECT_ENUM_BUG: expect.any(Boolean),
       MAX_SAFE_INTEGER: expect.any(Number),
-      SYMBOL_ITERATOR: expect.anything()
+      SYMBOL_ITERATOR: expect.anything(),
+      SYMBOL_OP: expect.anything()
     })
   })
 
@@ -198,6 +202,7 @@ describe('index', () => {
       reduceObjIndexed: expect.any(Function),
       reduceRight: expect.any(Function),
       reject: expect.any(Function),
+      remove: expect.any(Function),
       set: expect.any(Function),
       shallowEquals: expect.any(Function),
       slice: expect.any(Function),
@@ -291,6 +296,13 @@ describe('index', () => {
     const mod = require('./path')
     expect(mod).toEqual({
       findPath: expect.any(Function)
+    })
+  })
+
+  test('has string methods', () => {
+    const mod = require('./string')
+    expect(mod).toEqual({
+      lowerCase: expect.any(Function)
     })
   })
 })

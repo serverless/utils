@@ -1,3 +1,4 @@
+import { SYMBOL_OP } from '../constants'
 import curry from './curry'
 
 /**
@@ -15,6 +16,6 @@ import curry from './curry'
  * })
  * //=> true
  */
-const isOp = curry((value) => !!(value && value['@@redux-saga/IO']))
+const isOp = curry((value) => !!(value && (value[SYMBOL_OP] || value['@@redux-saga/IO'])))
 
 export default isOp

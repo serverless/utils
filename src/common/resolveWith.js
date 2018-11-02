@@ -1,5 +1,7 @@
+import isGenerator from '../base/isGenerator'
 import isPromise from '../base/isPromise'
 import curry from './curry'
+import isOp from './isOp'
 import isResolved from './isResolved'
 import resolve from './resolve'
 import resolveToGeneratorWith from './resolveToGeneratorWith'
@@ -30,14 +32,20 @@ import resolveToGeneratorWith from './resolveToGeneratorWith'
  * ) //=> 'bar'
  */
 const resolveWith = curry((fn, value) => {
-  value = resolve(value)
   if (!isResolved(value)) {
     if (isPromise(value)) {
       return value.then((resolved) => resolveWith(fn, resolved))
     }
-    return resolveToGeneratorWith(fn, value)
+    if (isGenerator(value) || isOp(value)) {
+      return resolveToGeneratorWith(fn, value)
+    }
+    value = resolve(value)
   }
-  return fn(value)
+  value = fn(value)
+  if (!isResolved(value)) {
+    return resolve(value)
+  }
+  return value
 })
 
 export default resolveWith

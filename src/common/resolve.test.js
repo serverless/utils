@@ -23,15 +23,6 @@ describe('resolve', () => {
     expect(array).toBe(array)
   })
 
-  test('resolves values to their valueOf value if the method exists', () => {
-    const resolvable = {
-      valueOf() {
-        return 'foo'
-      }
-    }
-    expect(resolve(resolvable)).toBe('foo')
-  })
-
   test('dispatches to the resolve method of last arg', () => {
     const resolvable = {
       resolve() {
@@ -46,19 +37,6 @@ describe('resolve', () => {
       resolve() {
         return {
           resolve() {
-            return 'foo'
-          }
-        }
-      }
-    }
-    expect(resolve(reresolvable)).toBe('foo')
-  })
-
-  test('re-resolves resolved values that have a valueOf method', () => {
-    const reresolvable = {
-      resolve() {
-        return {
-          valueOf() {
             return 'foo'
           }
         }

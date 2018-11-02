@@ -6,8 +6,26 @@ import isIterator from '../base/isIterator'
 import isObjectLike from '../base/isObjectLike'
 import objectIterator from '../base/objectIterator'
 import curry from './curry'
+import iteratorResolver from './iteratorResolver'
 
-// TODO BRN: Move this to the common folder
+const baseIterator = (value, start = 'START') => {
+  if (isIterator(value)) {
+    return iteratorResolver(value, start)
+  }
+  if (isArrayLike(value)) {
+    return arrayLikeIterator(value, start)
+  }
+  if (isIterable(value)) {
+    return iteratorResolver(value[SYMBOL_ITERATOR](), start)
+  }
+  if (isObjectLike(value)) {
+    return objectIterator(value, start)
+  }
+  throw new Error(
+    `iterator method expected to receive an iterable value. Instead the method was given ${value}.`
+  )
+}
+
 /**
  * This method generates an iterator for the given value
  *
@@ -28,25 +46,11 @@ import curry from './curry'
  * iterator({ a: 1, b: 2, c: 3 })
  * //=> { next: () => { value: number, key: string, kdx: string, done: boolean }}
  */
-const iterator = curry((value, start = 'START') => {
-  if (isIterator(value)) {
-    return value
-  }
-  if (isArrayLike(value)) {
-    return arrayLikeIterator(value, start)
-  }
-  if (isIterable(value)) {
-    return value[SYMBOL_ITERATOR]()
-  }
-  if (isObjectLike(value)) {
-    return objectIterator(value, start)
-  }
-  throw new Error(
-    `iterator method expected to receive an iterable value. Instead the method was given ${value}.`
-  )
-})
+const iterator = curry(baseIterator)
 
 iterator.END = 'END'
 iterator.START = 'START'
 
 export default iterator
+
+export { baseIterator }

@@ -14,6 +14,20 @@ describe('resolveToGeneratorWith', () => {
     expect(resolveToGeneratorWith((value) => value, false).next().value).toBe(false)
   })
 
+  test('returned resolvable values are resolved to a generator', () => {
+    expect(
+      resolveToGeneratorWith(
+        () => ({
+          resolve: () => 1
+        }),
+        0
+      ).next()
+    ).toEqual({
+      value: 1,
+      done: true
+    })
+  })
+
   test('resolves Promise to a Generator that yields the promise', async () => {
     const promise = new Promise((pResolve) => {
       pResolve('foo')

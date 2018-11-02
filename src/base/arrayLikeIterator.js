@@ -2,6 +2,31 @@ import indexEndOffset from './indexEndOffset'
 import isArrayLike from './isArrayLike'
 import toString from './toString'
 
+const iterAt = (index, arrayLike) => {
+  if (index < arrayLike.length && index >= 0) {
+    return {
+      value: arrayLike[index],
+      index,
+      kdx: index,
+      done: false
+    }
+  }
+  return {
+    done: true
+  }
+}
+
+const prevIterAt = (index, arrayLike) => {
+  if (index < arrayLike.length && index >= 0) {
+    return {
+      value: arrayLike[index],
+      index,
+      kdx: index,
+      done: false
+    }
+  }
+}
+
 /**
  * Returns iterator for an array like value.
  *
@@ -53,40 +78,33 @@ const arrayLikeIterator = (arrayLike, index = 0) => {
     )
   }
   if (index === 'END') {
-    index = arrayLike.length - 1
+    index = arrayLike.length
   } else if (index === 'START') {
     index = 0
   }
   index = indexEndOffset(index, arrayLike.length)
+
   return {
     next: () => {
+      const iter = iterAt(index, arrayLike)
+      const prev = prevIterAt(index - 1, arrayLike)
       if (index < arrayLike.length) {
-        const next = {
-          value: arrayLike[index],
-          index,
-          kdx: index,
-          done: false
-        }
         index += 1
-        return next
       }
       return {
-        done: true
+        ...iter,
+        prev
       }
     },
     previous: () => {
+      const iter = iterAt(index - 1, arrayLike)
+      const prev = prevIterAt(index, arrayLike)
       if (index >= 0) {
-        const next = {
-          value: arrayLike[index],
-          index,
-          kdx: index,
-          done: false
-        }
         index -= 1
-        return next
       }
       return {
-        done: true
+        ...iter,
+        prev
       }
     }
   }

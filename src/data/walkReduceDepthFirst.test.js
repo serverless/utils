@@ -33,20 +33,52 @@ describe('#walkReduceDepthFirst()', () => {
   test('resolves values before sending them to the iterator and then proceeds along the resolved value for walk', () => {
     const result = walkReduceDepthFirst(
       (accum, value, keys) => {
-        accum.push(keys)
+        accum.push({
+          keys,
+          value
+        })
         return accum
       },
       [],
       {
         a: {
           b: {
-            valueOf() {
+            resolve() {
               return { c: 'c' }
             }
           }
         }
       }
     )
-    expect(result).toEqual([['a', 'b', 'c'], ['a', 'b'], ['a'], []])
+    expect(result).toEqual([
+      {
+        keys: ['a', 'b', 'c'],
+        value: 'c'
+      },
+      {
+        keys: ['a', 'b'],
+        value: {
+          resolve: expect.any(Function)
+        }
+      },
+      {
+        keys: ['a'],
+        value: {
+          b: {
+            resolve: expect.any(Function)
+          }
+        }
+      },
+      {
+        keys: [],
+        value: {
+          a: {
+            b: {
+              resolve: expect.any(Function)
+            }
+          }
+        }
+      }
+    ])
   })
 })

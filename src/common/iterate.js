@@ -36,7 +36,6 @@ const doSeriesIteration = (fn, iter) => {
   }
 }
 
-// TODO BRN: Move this to the common folder
 /**
  * This method iterates over the given collection or iterator in **series**. If the `iteratee` method returns `{ done: true }` then the iteration will complete.
  *
