@@ -148,6 +148,8 @@
   * [walkReducePath()](#walkreducepath)
 - [fetch](#fetch)
   * [fetch()](#fetch)
+- [fs](#fs)
+  * [isArchivePath()](#isarchivepath)
 - [ip](#ip)
   * [isIp()](#isip)
   * [lookupIp()](#lookupip)
@@ -3504,6 +3506,27 @@ walkReducePath(
 const response = await fetch('http://example.com/movies.json')
 const data = await response.json()
 console.log(JSON.stringify(data))
+```
+<br /><br />
+
+## fs
+
+### isArchivePath()
+
+[source](https://github.com/serverless/utils/tree/v0.0.16/src/fs/isArchivePath.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+<p>Checks if <code>filePath</code> is classified as an <code>Archive</code>.</p>
+
+**Params**
+<p><code>filePath</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `filePath` is an archive, else `false`.</p>
+
+**Example**
+```js
+isArchivePath('ok.zip') // => true
+
+isArray('./code') // => false
 ```
 <br /><br />
 
