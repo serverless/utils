@@ -12,6 +12,8 @@ describe('isArchivePath', () => {
   })
 
   test('returns false for all other values', () => {
+    expect(isArchivePath(null)).toBe(false)
+    expect(isArchivePath(undefined)).toBe(false)
     expect(isArchivePath('./code')).toBe(false)
     expect(isArchivePath('file.js')).toBe(false)
   })
