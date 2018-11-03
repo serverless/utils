@@ -1,5 +1,19 @@
 import endsWith from '../data/endsWith'
 
+/**
+ * Checks if `filePath` is classified as an `Archive`.
+ *
+ * @function
+ * @since 0.0.16
+ * @category fs
+ * @param {*} filePath The value to check.
+ * @returns {boolean} Returns `true` if `filePath` is an archive, else `false`.
+ * @example
+ *
+ * isArchivePath('ok.zip') // => true
+ *
+ * isArray('./code') // => false
+ */
 const isArchivePath = (filePath) =>
   endsWith('.zip', filePath) ||
   endsWith('.jar', filePath) ||
