@@ -1,4 +1,5 @@
 import endsWith from '../data/endsWith'
+import isString from '../base/isString'
 
 /**
  * Checks if `filePath` is classified as an `Archive`.
@@ -15,7 +16,7 @@ import endsWith from '../data/endsWith'
  * isArchivePath('./code') // => false
  */
 const isArchivePath = (filePath) => {
-  if (typeof filePath !== 'string') {
+  if (!isString(filePath)) {
     return false
   }
 
