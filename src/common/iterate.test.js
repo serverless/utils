@@ -71,87 +71,83 @@ describe('iterate', () => {
     ])
   })
 
-  test(
-    'iterate upgrades to Promise when async iteratee is used',
-    async () => {
-      const values = ['a', 'b', 'c', 'd', null, 'f']
-      const acc = []
-      let result = iterate(
-        (next) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              acc.push(next)
-              resolve({
-                ...next,
-                done: !next.value,
-                value: acc
-              })
-            }, 2000 - next.kdx * 500) // NOTE BRN: delay first using greatest time to test order of iteration
-          }),
-        values
-      )
-      expect(result).toBeInstanceOf(Promise)
-      result = await result
-      expect(result).toEqual([
-        {
+  test('iterate upgrades to Promise when async iteratee is used', async () => {
+    const values = ['a', 'b', 'c', 'd', null, 'f']
+    const acc = []
+    let result = iterate(
+      (next) =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            acc.push(next)
+            resolve({
+              ...next,
+              done: !next.value,
+              value: acc
+            })
+          }, 2000 - next.kdx * 500) // NOTE BRN: delay first using greatest time to test order of iteration
+        }),
+      values
+    )
+    expect(result).toBeInstanceOf(Promise)
+    result = await result
+    expect(result).toEqual([
+      {
+        value: 'a',
+        kdx: 0,
+        index: 0,
+        prev: undefined,
+        done: false
+      },
+      {
+        value: 'b',
+        kdx: 1,
+        index: 1,
+        prev: {
           value: 'a',
           kdx: 0,
           index: 0,
-          prev: undefined,
           done: false
         },
-        {
+        done: false
+      },
+      {
+        value: 'c',
+        kdx: 2,
+        index: 2,
+        prev: {
           value: 'b',
           kdx: 1,
           index: 1,
-          prev: {
-            value: 'a',
-            kdx: 0,
-            index: 0,
-            done: false
-          },
           done: false
         },
-        {
+        done: false
+      },
+      {
+        value: 'd',
+        kdx: 3,
+        index: 3,
+        prev: {
           value: 'c',
           kdx: 2,
           index: 2,
-          prev: {
-            value: 'b',
-            kdx: 1,
-            index: 1,
-            done: false
-          },
           done: false
         },
-        {
+        done: false
+      },
+      {
+        value: null,
+        kdx: 4,
+        index: 4,
+        prev: {
           value: 'd',
           kdx: 3,
           index: 3,
-          prev: {
-            value: 'c',
-            kdx: 2,
-            index: 2,
-            done: false
-          },
           done: false
         },
-        {
-          value: null,
-          kdx: 4,
-          index: 4,
-          prev: {
-            value: 'd',
-            kdx: 3,
-            index: 3,
-            done: false
-          },
-          done: false
-        }
-      ])
-    },
-    10000
-  )
+        done: false
+      }
+    ])
+  }, 10000)
 
   test('iterates an async iterator until done is true', async () => {
     const values = ['a', 'b', 'c', 'd', null, 'f']
