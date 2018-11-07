@@ -3399,7 +3399,7 @@ walkReduce(
 
 ### walkReduceDepthFirst()
 
-[source](https://github.com/serverless/utils/tree/v0.0.16/src/data/walkReduceDepthFirst.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.16/src/data/walkReduceDepthFirst.js#L33)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk depth first and reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 

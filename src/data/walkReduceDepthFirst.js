@@ -1,21 +1,33 @@
 import isObject from '../base/isObject'
 import curry from '../common/curry'
+import pipe from '../common/pipe'
 import resolve from '../common/resolve'
 import concat from './concat'
-import forEach from './forEach'
+import reduce from './reduce'
 import walk from './walk'
 
-// TODO BRN: Upgrade to support async values in walk
-const walkee = (accum, value, keys, iteratee, recur) => {
-  let result = accum
-  const resolvedValue = resolve(value)
-  if (isObject(resolvedValue)) {
-    forEach((child, childKdx) => {
-      const newKeys = concat(keys, [childKdx])
-      result = recur(result, child, newKeys, iteratee)
-    }, resolvedValue)
+const reduceWalkee = () => {
+  const visited = new Set()
+  return (accum, value, keys, iteratee, recur) => {
+    const resolvedValue = resolve(value)
+    return pipe(
+      (result) => {
+        if (isObject(resolvedValue) && !visited.has(resolvedValue)) {
+          visited.add(resolvedValue)
+          return reduce(
+            (accumResult, child, childKdx) => {
+              const newKeys = concat(keys, [childKdx])
+              return recur(accumResult, child, newKeys, iteratee)
+            },
+            result,
+            resolvedValue
+          )
+        }
+        return result
+      },
+      (result) => iteratee(result, value, keys)
+    )(accum)
   }
-  return iteratee(result, value, keys)
 }
 
 /**
@@ -60,7 +72,7 @@ const walkee = (accum, value, keys, iteratee, recur) => {
  * ]
  */
 const walkReduceDepthFirst = curry((iteratee, accum, collection) =>
-  walk(walkee, iteratee, accum, collection, [])
+  walk(reduceWalkee(), iteratee, accum, collection, [])
 )
 
 export default walkReduceDepthFirst
