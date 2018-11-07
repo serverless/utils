@@ -3513,7 +3513,7 @@ console.log(JSON.stringify(data))
 
 ### isArchivePath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/fs/isArchivePath.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.17
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/fs/isArchivePath.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
 <p>Checks if <code>filePath</code> is classified as an <code>Archive</code>.</p>
 
 **Params**
