@@ -5,7 +5,7 @@ import isString from '../base/isString'
  * Checks if `filePath` is classified as an `Archive`.
  *
  * @function
- * @since 0.0.17
+ * @since v0.0.17
  * @category fs
  * @param {*} filePath The value to check.
  * @returns {boolean} Returns `true` if `filePath` is an archive, else `false`.
