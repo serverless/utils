@@ -1,21 +1,25 @@
 import isObject from '../base/isObject'
 import curry from '../common/curry'
+import pipe from '../common/pipe'
 import resolve from '../common/resolve'
 import append from './append'
 import castPath from './castPath'
 import walk from './walk'
 
-// TODO BRN: Upgrade to support async values on path
-const reducePathWalkee = (pathParts, accum, value, keys, iteratee, recur) => {
-  let result = iteratee(accum, value, keys)
-  if (pathParts.length > keys.length && isObject(value)) {
-    const nextKey = pathParts[keys.length]
-    const newKeys = append(nextKey, keys)
-    value = resolve(value)
-    result = recur(pathParts, result, value[nextKey], newKeys, iteratee)
-  }
-  return result
-}
+const reduceWalkee = (pathParts, accum, value, keys, iteratee, recur) =>
+  pipe(
+    (result) => iteratee(result, value, keys),
+    (result) => {
+      const resolvedValue = resolve(value)
+      if (pathParts.length > keys.length && isObject(resolvedValue)) {
+        const nextKey = pathParts[keys.length]
+        const newKeys = append(nextKey, keys)
+        value = resolve(value)
+        return recur(pathParts, result, resolvedValue[nextKey], newKeys, iteratee)
+      }
+      return result
+    }
+  )(accum)
 
 /**
  * Walk reduce the specific path using the given reducer function
@@ -56,7 +60,7 @@ const reducePathWalkee = (pathParts, accum, value, keys, iteratee, recur) => {
  * // ]
  */
 const walkReducePath = curry((iteratee, path, accum, collection) =>
-  walk(reducePathWalkee, iteratee, castPath(path), accum, collection, [])
+  walk(reduceWalkee, iteratee, castPath(path), accum, collection, [])
 )
 
 export default walkReducePath
