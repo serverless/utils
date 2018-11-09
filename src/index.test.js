@@ -247,6 +247,7 @@ describe('index', () => {
       fileExists: expect.any(Function),
       getTmpDir: expect.any(Function),
       isDirectory: expect.any(Function),
+      isArchivePath: expect.any(Function),
       isJsonPath: expect.any(Function),
       isYamlPath: expect.any(Function),
       packDir: expect.any(Function),
