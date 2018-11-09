@@ -81,4 +81,33 @@ describe('#walkReduce()', () => {
       }
     ])
   })
+
+  it('should upgrade to async when an async iteratee is used', async () => {
+    const props = {
+      foo: 'bar'
+    }
+
+    const result = walkReduce(
+      async (accum, value, keys) =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            accum.push({ value, keys })
+            resolve(accum)
+          }, 0)
+        }),
+      [],
+      props
+    )
+    expect(result).toBeInstanceOf(Promise)
+    expect(await result).toEqual([
+      {
+        keys: [],
+        value: props
+      },
+      {
+        keys: ['foo'],
+        value: 'bar'
+      }
+    ])
+  })
 })

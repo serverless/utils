@@ -4,6 +4,7 @@
 * These API docs are still being written. However, we have attempted to stick to the Ramda signature as much as possible for our data methods. So, in most cases, the [ramda documentation](https://ramdajs.com/docs/) is a good point of reference.
 * A number of our data methods have async support built in. They will automatically upgrade to async methods when an async iteratee is used.
 
+
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
 - [base](#base)
   * [arrayConcat()](#arrayconcat)
@@ -3363,7 +3364,7 @@ console.log(result)
 
 ### walkReduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReduce.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReduce.js#L33)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
@@ -3401,7 +3402,7 @@ walkReduce(
 
 ### walkReduceDepthFirst()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReduceDepthFirst.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReduceDepthFirst.js#L33)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk depth first and reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
@@ -3446,7 +3447,7 @@ walkReduceDepthFirst(
 
 ### walkReducePath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReducePath.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReducePath.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Walk reduce the specific path using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before walking them. However, the unresolved value will be delivered to the iteratee.</p>
 

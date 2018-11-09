@@ -103,4 +103,56 @@ describe('#walkReducePath()', () => {
       }
     ])
   })
+
+  it('should upgrade to async when an async iteratee is used', async () => {
+    const data = {
+      a: {
+        b: {
+          c: 'c'
+        }
+      }
+    }
+
+    const result = walkReducePath(
+      async (accum, value, keys) =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            accum.push({ value, keys })
+            resolve(accum)
+          }, 0)
+        }),
+      'a.b.c',
+      [],
+      data
+    )
+    expect(result).toBeInstanceOf(Promise)
+    expect(await result).toEqual([
+      {
+        keys: [],
+        value: {
+          a: {
+            b: {
+              c: 'c'
+            }
+          }
+        }
+      },
+      {
+        keys: ['a'],
+        value: {
+          b: {
+            c: 'c'
+          }
+        }
+      },
+      {
+        keys: ['a', 'b'],
+        value: { c: 'c' }
+      },
+      {
+        keys: ['a', 'b', 'c'],
+        value: 'c'
+      }
+    ])
+  })
 })
