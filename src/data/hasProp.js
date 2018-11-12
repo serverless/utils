@@ -1,8 +1,8 @@
-import isFunction from '../base/isFunction'
-import isMap from '../base/isMap'
-import isNil from '../base/isNil'
-import isUndefined from '../base/isUndefined'
 import curry from '../common/curry'
+import isFunction from '../lang/isFunction'
+import isMap from '../lang/isMap'
+import isNil from '../lang/isNil'
+import isUndefined from '../lang/isUndefined'
 
 /**
  * Returns whether or not an object has an own property with the specified name

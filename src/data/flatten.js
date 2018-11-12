@@ -1,4 +1,4 @@
-import arrayFlatten from '../base/arrayFlatten'
+import arrayFlatten from '../lang/arrayFlatten'
 import curry from '../common/curry'
 import defn from '../common/defn'
 

@@ -1,5 +1,5 @@
 import endsWith from '../data/endsWith'
-import isString from '../base/isString'
+import isString from '../lang/isString'
 
 /**
  * Checks if `filePath` is classified as an `Archive`.

@@ -1,5 +1,5 @@
-import fse from 'fs-extra'
 import curryN from '../common/curryN'
+import fse from 'fs-extra'
 import parseFile from './parseFile'
 
 const readFile = curryN(1, async (filePath, options = {}) => {

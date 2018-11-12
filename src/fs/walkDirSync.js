@@ -1,8 +1,8 @@
-import fse from 'fs-extra'
-import path from 'path'
-import curry from '../common/curry'
 import append from '../data/append'
 import concat from '../data/concat'
+import curry from '../common/curry'
+import fse from 'fs-extra'
+import path from 'path'
 import reduce from '../data/reduce'
 
 const walkDirSync = curry((dirPath) => {

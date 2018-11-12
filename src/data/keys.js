@@ -1,9 +1,9 @@
-import arrayLikeKeys from '../base/arrayLikeKeys'
-import isArrayLike from '../base/isArrayLike'
-import isFunction from '../base/isFunction'
-import isMap from '../base/isMap'
-import reflectOwnKeys from '../base/reflectOwnKeys'
+import arrayLikeKeys from '../lang/arrayLikeKeys'
 import curry from '../common/curry'
+import isArrayLike from '../lang/isArrayLike'
+import isFunction from '../lang/isFunction'
+import isMap from '../lang/isMap'
+import reflectOwnKeys from '../lang/reflectOwnKeys'
 import resolveWith from '../common/resolveWith'
 
 /**

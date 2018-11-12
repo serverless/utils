@@ -1,5 +1,5 @@
-import isFunction from '../base/isFunction'
 import curry from './curry'
+import isFunction from '../lang/isFunction'
 
 /**
  * Creates an object that resolves to the result of the given function.

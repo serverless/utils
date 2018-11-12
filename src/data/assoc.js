@@ -1,12 +1,12 @@
-import isArray from '../base/isArray'
-import isFunction from '../base/isFunction'
-import isUndefined from '../base/isUndefined'
 import allWith from '../common/allWith'
-import curry from '../common/curry'
-import dispatchable from '../common/dispatchable'
 import always from './always'
 import assocPath from './assocPath'
 import castPath from './castPath'
+import curry from '../common/curry'
+import dispatchable from '../common/dispatchable'
+import isArray from '../lang/isArray'
+import isFunction from '../lang/isFunction'
+import isUndefined from '../lang/isUndefined'
 import over from './over'
 
 const baseAssoc = (selector, value, collection) => {

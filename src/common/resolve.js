@@ -1,8 +1,8 @@
-import isFunction from '../base/isFunction'
-import isPromise from '../base/isPromise'
+import curry from './curry'
+import isFunction from '../lang/isFunction'
+import isPromise from '../lang/isPromise'
 import isResolved from './isResolved'
 import resolveToGenerator from './resolveToGenerator'
-import curry from './curry'
 
 /**
  * Resolves a value to its valueOf.

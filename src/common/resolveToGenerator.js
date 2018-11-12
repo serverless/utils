@@ -1,5 +1,5 @@
-import isFunction from '../base/isFunction'
-import isGenerator from '../base/isGenerator'
+import isFunction from '../lang/isFunction'
+import isGenerator from '../lang/isGenerator'
 import isResolved from './isResolved'
 
 /**

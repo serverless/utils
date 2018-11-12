@@ -1,6 +1,6 @@
-import arrayFlatten from '../base/arrayFlatten'
-import arrayLikeReduceRight from '../base/arrayLikeReduceRight'
-import arrayLikeSlice from '../base/arrayLikeSlice'
+import arrayFlatten from '../lang/arrayFlatten'
+import arrayLikeReduceRight from '../lang/arrayLikeReduceRight'
+import arrayLikeSlice from '../lang/arrayLikeSlice'
 import identity from './identity'
 
 /**

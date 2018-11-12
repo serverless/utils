@@ -1,7 +1,7 @@
 import curry from '../common/curry'
 import defn from '../common/defn'
-import pipe from '../common/pipe'
 import iterate from '../common/iterate'
+import pipe from '../common/pipe'
 
 /**
  * Returns the kdx of the first element of the collection which matches the predicate, or `undefined` if no element matches.

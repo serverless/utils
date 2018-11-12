@@ -1,5 +1,5 @@
-import isFunction from '../base/isFunction'
 import curry from './curry'
+import isFunction from '../lang/isFunction'
 import isResolved from './isResolved'
 import iterator from './iterator'
 import resolveWith from './resolveWith'

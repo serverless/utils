@@ -1,8 +1,8 @@
 import YAML from 'js-yaml'
 import curryN from '../common/curryN'
-import merge from '../data/merge'
 import isJsonPath from './isJsonPath'
 import isYamlPath from './isYamlPath'
+import merge from '../data/merge'
 
 const parseFile = curryN(2, (filePath, contents, options = {}) => {
   if (isJsonPath(filePath)) {

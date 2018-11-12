@@ -1,6 +1,6 @@
-import isFunction from '../base/isFunction'
-import isPromise from '../base/isPromise'
 import curry from './curry'
+import isFunction from '../lang/isFunction'
+import isPromise from '../lang/isPromise'
 
 /**
  * returns a new function that logically nots the returned value and returns that as the result.

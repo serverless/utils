@@ -1,8 +1,8 @@
-import isArrayLike from '../base/isArrayLike'
-import isPromise from '../base/isPromise'
 import curry from '../common/curry'
 import defn from '../common/defn'
 import errorUnexpectedType from './errors/errorUnexpectedType'
+import isArrayLike from '../lang/isArrayLike'
+import isPromise from '../lang/isPromise'
 
 /**
  * Returns `true` if at least one of elements of the list match the predicate starting at the given index, `false` otherwise.

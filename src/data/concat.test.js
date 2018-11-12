@@ -21,6 +21,13 @@ describe('concat', () => {
     expect(concat([], [])).toEqual([])
   })
 
+  test('curries the method', () => {
+    const concatA = concat(['a'])
+    expect(concatA).toBeInstanceOf(Function)
+
+    expect(concatA(['b'])).toEqual(['a', 'b'])
+  })
+
   test('upgrades to a Promise when a Promise is received as a parameter', async () => {
     expect(await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3]))).toEqual([
       4,

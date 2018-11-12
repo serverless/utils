@@ -2,8 +2,8 @@ import admZip from 'adm-zip'
 import crypto from 'crypto'
 import fse from 'fs-extra'
 import os from 'os'
-import path from 'path'
 import packDir from './packDir'
+import path from 'path'
 
 describe('#packDir()', () => {
   let outputDirPath

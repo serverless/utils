@@ -1,7 +1,7 @@
-import isArrayLike from '../base/isArrayLike'
 import curry from '../common/curry'
 import defn from '../common/defn'
 import everyAtIndex from './everyAtIndex'
+import isArrayLike from '../lang/isArrayLike'
 import keys from './keys'
 
 /**

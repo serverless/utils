@@ -1,12 +1,12 @@
 import { SYMBOL_ITERATOR } from '../constants'
-import arrayLikeIterator from '../base/arrayLikeIterator'
-import isArrayLike from '../base/isArrayLike'
-import isIterable from '../base/isIterable'
-import isIterator from '../base/isIterator'
-import isObjectLike from '../base/isObjectLike'
-import objectIterator from '../base/objectIterator'
+import arrayLikeIterator from '../lang/arrayLikeIterator'
 import curry from './curry'
+import isArrayLike from '../lang/isArrayLike'
+import isIterable from '../lang/isIterable'
+import isIterator from '../lang/isIterator'
+import isObjectLike from '../lang/isObjectLike'
 import iteratorResolver from './iteratorResolver'
+import objectIterator from '../lang/objectIterator'
 
 const baseIterator = (value, start = 'START') => {
   if (isIterator(value)) {

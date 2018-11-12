@@ -1,5 +1,5 @@
-import fs from 'fs-extra'
 import curryN from '../common/curryN'
+import fs from 'fs-extra'
 
 const readdir = curryN(1, fs.readdir)
 

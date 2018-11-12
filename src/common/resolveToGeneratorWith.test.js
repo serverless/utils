@@ -1,4 +1,4 @@
-import isGenerator from '../base/isGenerator'
+import isGenerator from '../lang/isGenerator'
 import resolveToGeneratorWith from './resolveToGeneratorWith'
 
 describe('resolveToGeneratorWith', () => {

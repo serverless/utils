@@ -1,7 +1,7 @@
-import isIterator from '../base/isIterator'
-import toString from '../base/toString'
+import isIterator from '../lang/isIterator'
 import isResolved from './isResolved'
 import resolveWith from './resolveWith'
+import toString from '../lang/toString'
 
 const iterateAt = (iterator, history, pending, index) => {
   if (history[index]) {

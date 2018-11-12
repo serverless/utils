@@ -1,12 +1,12 @@
-import isArray from '../base/isArray'
-import isInteger from '../base/isInteger'
-import isNil from '../base/isNil'
+import { baseAssocIndex } from './assocIndex'
+import { baseAssocProp } from './assocProp'
 import allWith from '../common/allWith'
 import curry from '../common/curry'
 import dispatchable from '../common/dispatchable'
-import { baseAssocIndex } from './assocIndex'
-import { baseAssocProp } from './assocProp'
 import has from './has'
+import isArray from '../lang/isArray'
+import isInteger from '../lang/isInteger'
+import isNil from '../lang/isNil'
 
 const baseAssocPath = (path, value, collection) => {
   if (path.length === 0) {

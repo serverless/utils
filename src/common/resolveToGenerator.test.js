@@ -1,4 +1,4 @@
-import isGenerator from '../base/isGenerator'
+import isGenerator from '../lang/isGenerator'
 import op from './op'
 import resolveToGenerator from './resolveToGenerator'
 

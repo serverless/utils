@@ -1,9 +1,9 @@
-import isFunction from '../base/isFunction'
-import isMap from '../base/isMap'
-import isWeakMap from '../base/isWeakMap'
+import { baseAssoc } from './assoc'
 import allWith from '../common/allWith'
 import curry from '../common/curry'
-import { baseAssoc } from './assoc'
+import isFunction from '../lang/isFunction'
+import isMap from '../lang/isMap'
+import isWeakMap from '../lang/isWeakMap'
 
 const baseSet = (selector, value, collection) => {
   if (

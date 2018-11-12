@@ -1,5 +1,5 @@
-import isFunction from '../base/isFunction'
 import curryN from '../common/curryN'
+import isFunction from '../lang/isFunction'
 
 /**
  * The assign() method is used to copy the values of all enumerable own properties from one or more source objects to a target object. It will return the target object.

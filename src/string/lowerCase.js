@@ -1,7 +1,7 @@
-import stringToLowerCase from '../base/stringToLowerCase'
-import toString from '../base/toString'
 import curry from '../common/curry'
 import defn from '../common/defn'
+import stringToLowerCase from '../lang/stringToLowerCase'
+import toString from '../lang/toString'
 
 /**
  * Converts the given value to a string and then converts it to lower case.

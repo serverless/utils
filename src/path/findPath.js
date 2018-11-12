@@ -1,6 +1,6 @@
-import isString from '../base/isString'
 import curryN from '../common/curryN'
 import find from '../data/find'
+import isString from '../lang/isString'
 
 const findString = find(isString)
 

@@ -1,10 +1,10 @@
-import isArray from '../base/isArray'
-import isFunction from '../base/isFunction'
-import isMap from '../base/isMap'
 import curry from '../common/curry'
-import resolveWith from '../common/resolveWith'
 import getProp from './getProp'
+import isArray from '../lang/isArray'
+import isFunction from '../lang/isFunction'
+import isMap from '../lang/isMap'
 import keys from './keys'
+import resolveWith from '../common/resolveWith'
 
 /**
  * Returns an array of all the values of the given collection.

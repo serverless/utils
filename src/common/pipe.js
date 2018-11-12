@@ -1,6 +1,6 @@
-import arrayFlatten from '../base/arrayFlatten'
-import arrayLikeReduce from '../base/arrayLikeReduce'
-import arrayLikeSlice from '../base/arrayLikeSlice'
+import arrayFlatten from '../lang/arrayFlatten'
+import arrayLikeReduce from '../lang/arrayLikeReduce'
+import arrayLikeSlice from '../lang/arrayLikeSlice'
 import identity from './identity'
 
 // TODO BRN: This method is important at a fundamental level. Need to rewrite this to not depend upon data methods.

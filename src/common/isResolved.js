@@ -1,8 +1,8 @@
-import isFunction from '../base/isFunction'
-import isGenerator from '../base/isGenerator'
-import isPromise from '../base/isPromise'
-import isOp from './isOp'
 import curry from './curry'
+import isFunction from '../lang/isFunction'
+import isGenerator from '../lang/isGenerator'
+import isOp from './isOp'
+import isPromise from '../lang/isPromise'
 
 /**
  * Determines if the value is a resolvable value.

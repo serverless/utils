@@ -1,6 +1,6 @@
 import compose from '../common/compose'
-import curry from '../common/curry'
 import concat from './concat'
+import curry from '../common/curry'
 import uniq from './uniq'
 
 /**

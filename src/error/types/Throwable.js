@@ -1,4 +1,4 @@
-import isString from '../../base/isString'
+import isString from '../../lang/isString'
 
 class Throwable extends Error {
   constructor({ causes, data, message, type }) {

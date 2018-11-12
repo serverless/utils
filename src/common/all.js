@@ -1,8 +1,8 @@
-import isArray from '../base/isArray'
-import isFunction from '../base/isFunction'
-import isIterator from '../base/isIterator'
-import isObject from '../base/isObject'
 import curry from './curry'
+import isArray from '../lang/isArray'
+import isFunction from '../lang/isFunction'
+import isIterator from '../lang/isIterator'
+import isObject from '../lang/isObject'
 import iterate from './iterate'
 import resolveWith from './resolveWith'
 
