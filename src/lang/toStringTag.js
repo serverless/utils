@@ -30,7 +30,10 @@ const weakMapCtorString = `${WeakMap}`
  * @example
  *
  * toStringTag(undefined)
- * // => 'undefined'
+ * // => '[object Undefined]'
+ *
+ * toStringTag({})
+ * // => '[object Object]'
  */
 let toStringTag = baseGetTag
 

@@ -1773,7 +1773,7 @@ indexOf(10, [1,2,3,4]) //=> -1
 
 ### indexOfAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/indexOfAtIndex.js#L64)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/indexOfAtIndex.js#L62)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns the position of the first occurrence of an item in an array, or -1 if the item is not included in the array. <a href="#equals"><code>equals</code></a> is used to determine equality.</p>
 <p>This method automatically upgrades to async if any of the parameters are a Promise</p>
 
@@ -4054,7 +4054,10 @@ toString([1, 2, 3])
 **Example**
 ```js
 toStringTag(undefined)
-// => 'undefined'
+// => '[object Undefined]'
+
+toStringTag({})
+// => '[object Object]'
 ```
 <br /><br />
 

@@ -44,11 +44,9 @@ const baseIndexOfAtIndex = (value, index, list) => {
       case 'Undefined':
         return list.indexOf(value, index)
 
-      case 'Object':
-        if (value === null) {
-          // null can utilise Set
-          return list.indexOf(value, index)
-        }
+      case 'Null':
+        // null can utilise Set
+        return list.indexOf(value, index)
     }
   }
   // anything else not covered above, defer to R.equals
