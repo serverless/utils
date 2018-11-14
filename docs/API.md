@@ -192,7 +192,7 @@
 
 ### all()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/all.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/all.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Resolves all async values in an array or object</p>
 <p>Auto curried for placeholder support.</p>
 
@@ -225,7 +225,7 @@ await all(123) //=> 123
 
 ### allWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/allWith.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/allWith.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Resolves all async values in an array or object and executes the given with the result</p>
 <p>Auto curried for placeholder support.</p>
 
@@ -268,7 +268,7 @@ allWith(
 
 ### apply()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/apply.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/apply.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Applies function <code>fn</code> to the argument list <code>args</code>. This is useful for creating a fixed-arity function from a variadic function. <code>fn</code> should be a bound function if context is significant.</p>
 
 **Params**
@@ -287,7 +287,7 @@ apply(Math.max, nums) //=> 42
 
 ### complement()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/complement.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/complement.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>returns a new function that logically nots the returned value and returns that as the result.</p>
 <p>Auto-curried for placeholder support</p>
 
@@ -307,7 +307,7 @@ isOdd(1) //=> true
 
 ### compose()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/compose.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/compose.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Performs right-to-left function composition. The rightmost function may have any arity; the remaining functions must be unary.</p>
 <p><strong>Note:</strong> The result of compose is not automatically curried.</p>
 
@@ -330,7 +330,7 @@ compose(Math.abs, add(1), multiply(2))(-4) //=> 7
 
 ### deferredPromise()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/deferredPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Creates a promise with the resolve and reject methods exposed as properties<br />
 on the promise.</p>
 
@@ -350,7 +350,7 @@ promise.resolve(someValue)
 
 ### defn()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/defn.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/defn.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Defines a function with a few predefined behaviours. Functions defined with this method will...</p>
 <ul>
 <li><a href="#curry">curry</a></li>
@@ -382,7 +382,7 @@ get('a', obj) //=> 'bar'
 
 ### dispatchable()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/dispatchable.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/dispatchable.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns a function that dispatches with different strategies based on the object in list position (last argument). If it is an array, executes [fn].</p>
 <p>Otherwise, it will default to executing [fn].</p>
 
@@ -410,7 +410,7 @@ get('a', obj) //=> 'bar'
 
 ### identical()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/identical.js#L15)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/identical.js#L15)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns true if its arguments are identical, false otherwise. Values are identical if they reference the same memory. <code>NaN</code> is identical to <code>NaN</code>; <code>0</code> and <code>-0</code> are not identical.</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is">Object.is</a> polyfill to avoid requiring consumers ship their own</p>
 
@@ -435,7 +435,7 @@ identical(NaN, NaN) //=> true
 
 ### identity()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/identity.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/identity.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>A function that does nothing but return the parameter supplied to it. Good as a default or placeholder function.</p>
 
 **Params**
@@ -460,7 +460,7 @@ identity()
 
 ### isOp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/isOp.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/isOp.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Determines if the value is an op.</p>
 
 **Params**
@@ -480,7 +480,7 @@ isOp({
 
 ### isResolved()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/isResolved.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/isResolved.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Determines if the value is a resolvable value.</p>
 
 **Params**
@@ -518,7 +518,7 @@ isResolved('abc')
 
 ### iterate()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/iterate.js#L39)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/iterate.js#L39)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
 <p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
 <p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
@@ -554,7 +554,7 @@ iterate(async (value, kdx) => new Promise((resolve, reject) => {
 
 ### iterateRight()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/iterateRight.js#L40)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/iterateRight.js#L40)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method iterates over the given collection or iterator in <strong>series</strong>. If the <code>iteratee</code> method returns <code>{ done: true }</code> then the iteration will complete.</p>
 <p>This method automatically upgrades to async. If the <code>iteratee</code> returns a Promise or a generator, this method will return a Promise or a generator. Values are iterated in order and if the iteratee returns a resolvable value the iteration will wait until that value resolves before continuing with the iteration.</p>
 <p>This method also supports async iterators. If an unresolved value is received from the iterator instead of an object with <code>value</code> and <code>done</code> properties, the iteration will wait for the value to resolve before continuing to the next iteration. This will also cause the method to upgrade to async and return a Promise.</p>
@@ -590,7 +590,7 @@ iterateRight(async (value, kdx) => new Promise((resolve, reject) => {
 
 ### iterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/iterator.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/iterator.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This method generates an iterator for the given value</p>
 
 **Params**
@@ -615,7 +615,7 @@ iterator({ a: 1, b: 2, c: 3 })
 
 ### iteratorResolver()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/iteratorResolver.js#L105)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/iteratorResolver.js#L105)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>Returns iterator capable of resolving iterators that might be async, wrapping it in additional functionality.</p>
 
 **Params**
@@ -649,7 +649,7 @@ iteratorResolver(
 
 ### mix()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/mix.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/mix.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Returns an object with a <code>with</code> method that can be used to mix the given class with mixins</p>
 
 **Params**
@@ -672,7 +672,7 @@ class mix(Parent, ...args).with(mixin) { ... }
 
 ### nAry()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/nAry.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters will not be passed to the supplied function.</p>
 
 **Params**
@@ -698,7 +698,7 @@ takesOneArg(1, 2) //=> [1, undefined]
 
 ### nArySpread()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/nArySpread.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Wraps a function of any arity (including nullary) in a function that accepts exactly <code>n</code> parameters. Any extraneous parameters are spread and then reapplied on execution. This is useful when you want to ensure a function's paramter length is exactly <code>n</code> but still passes all arguments through.</p>
 
 **Params**
@@ -729,7 +729,7 @@ takesAtLeastOneMoreArg(1, 2) // => [3, 1, 2]
 
 ### nth()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/nth.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/nth.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
 <p>Returns the nth element of the given list or string. If n is negative the<br />
 element at index length + n is returned.</p>
 
@@ -754,7 +754,7 @@ nth(3, 'abc') //=> ''
 
 ### op()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/op.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/op.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>Creates an op object that can be yielded by a generator and intercepted/executed by any generator middleware</p>
 
 **Params**
@@ -767,7 +767,7 @@ nth(3, 'abc') //=> ''
 
 ### pipe()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/pipe.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/pipe.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Performs left-to-right function composition. The leftmost function may have<br />
 any arity; the remaining functions must be unary.</p>
 <p>In some libraries this function is named <code>sequence</code>.</p>
@@ -789,7 +789,7 @@ f(3, 4) // -(3^4) + 1
 
 ### resolvable()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/resolvable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolvable.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>Creates an object that resolves to the result of the given function.</p>
 
 **Params**
@@ -812,7 +812,7 @@ resolve(resolveLater)
 
 ### resolve()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/resolve.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolve.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
 <p>Resolves a value to its valueOf.</p>
 <p>Dispatches to the <code>resolve</code> method if it exists. If a resolve method returns a value that is also resolvable, this method will resolve that value as well.</p>
 
@@ -850,7 +850,7 @@ resolve({
 
 ### resolveToGenerator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/resolveToGenerator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveToGenerator.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
 <p>Resolves a value to a generator using the generator to yield values.</p>
 
 **Params**
@@ -868,7 +868,7 @@ generator.next() //=> { value: 'foo', done: true }
 
 ### resolveToGeneratorWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/resolveToGeneratorWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveToGeneratorWith.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
 
 **Params**
@@ -890,7 +890,7 @@ generator.next() //=> { done: true } triggers the fn method
 
 ### resolveWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/resolveWith.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveWith.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>Resolves a value to the given method.</p>
 <p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
 <p>If the value to be resolved is a generator, this method will return a generator.</p>
@@ -918,7 +918,7 @@ resolveWith(
 
 ### sleep()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/sleep.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/sleep.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Sleeps for the given amount of <code>wait</code> milliseconds before resolving the returned <code>Promise</code></p>
 
 **Params**
@@ -938,7 +938,7 @@ await sleep(1000)
 
 ### MAX_SAFE_INTEGER
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>This constant represents the maximum safe integer in JavaScript (2^53 - 1).</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER">MAX_SAFE_INTEGER</a> for more information.</p>
 
@@ -948,7 +948,7 @@ await sleep(1000)
 
 ### SYMBOL_ITERATOR
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
 <p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
 
@@ -958,7 +958,7 @@ await sleep(1000)
 
 ### SYMBOL_OP
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/constants/SYMBOL_OP.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/SYMBOL_OP.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
 <p>The Symbol.for('@@op') defines an operation for a generator to evaluate</p>
 
 **Type**: `{Symbol}`
@@ -969,7 +969,7 @@ await sleep(1000)
 
 ### any()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/any.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/any.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns <code>true</code> if at least one of elements of the collection match the predicate, <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>any</code> method of the collection argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -995,7 +995,7 @@ await any(async (value) => lessThan2(value), [1, 2]) //=> true
 
 ### anyAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/anyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/anyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns <code>true</code> if at least one of elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>anyAtIndex</code> method of the list argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -1022,7 +1022,7 @@ await anyAtIndex(async (value) => lessThan2(value), 0, [1, 2]) //=> true
 
 ### append()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/append.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/append.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a new list containing the contents of the given list, followed by the given value.</p>
 <p>This method dispatches to the <code>append</code> method of the <code>arrayLike</code> argument if it exists.</p>
 <p>This method will auto upgrade to async and resolve the <code>arrayLike</code> value if the <code>arrayLike</code> value is a Promise.</p>
@@ -1045,7 +1045,7 @@ append('tests', 'write more ') //=> 'write more tests'
 
 ### assign()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/assign.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/assign.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
 <p>The assign() method is used to copy the values of all enumerable own properties from one or more source objects to a target object. It will return the target object.</p>
 <p>Dispatches to the <code>assign</code> method of the first parameter if it exists.</p>
 <p>This method is auto curried to 2 args.</p>
@@ -1069,7 +1069,7 @@ assign({}, o1, o2, o3)  //=> { a: 1, b: 2, c: 3 }
 
 ### assoc()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/assoc.js#L28)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/assoc.js#L28)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
 <p>Supports path based property selectors 'foo.bar' and functional selectors which performs an over on the entire collection and sets each matching selector to the given value.</p>
 
@@ -1091,7 +1091,7 @@ assoc([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
 
 ### assocIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/assocIndex.js#L23)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/assocIndex.js#L23)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
@@ -1111,7 +1111,7 @@ assocIndex(1, 'c', ['a', 'b']) //=> ['a', 'c']
 
 ### assocPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/assocPath.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/assocPath.js#L29)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Makes a shallow clone of an object, setting or overriding the nodes required<br />
 to create the given path, and placing the specific value at the tail end of<br />
 that path. Note that this copies and flattens prototype properties onto the<br />
@@ -1136,7 +1136,7 @@ assocPath(['a', 0, 'c'], 42, {a: 5}) //=> {a: [{c: 42}]}
 
 ### assocProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/assocProp.js#L37)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/assocProp.js#L37)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the result of &quot;setting&quot; the portion of the given data structure<br />
 focused by the given lens to the given value.</p>
 
@@ -1156,7 +1156,7 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 
 ### compact()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/compact.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/compact.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Creates an array with all undefined values removed.</p>
 
 **Params**
@@ -1174,7 +1174,7 @@ compact([0, 1, false, 2, null, '', 3, undefined])
 
 ### concat()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/concat.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns the result of concatenating the given lists or strings.</p>
 <p>Note: <code>concat</code> expects both arguments to be of the same type, unlike the native <code>Array.prototype.concat</code> method. It will throw an error if you <code>concat</code> an Array with a non-Array value.</p>
 <p>Dispatches to the <code>concat</code> method of the first argument, if present.</p>
@@ -1198,7 +1198,7 @@ await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5,
 
 ### contains()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/contains.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/contains.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns <code>true</code> if the specified value is equal, in <a href="#equals"><code>equals</code></a> terms, to at least one value of the given collection; <code>false</code> otherwise.</p>
 
 **Params**
@@ -1219,7 +1219,7 @@ contains([42], [[42]]) //=> true
 
 ### containsWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/containsWith.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/containsWith.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns <code>true</code> if the given predicate returns true for at least one value in the given collection.</p>
 
 **Params**
@@ -1240,7 +1240,7 @@ contains([42], [[42]]) //=> true
 
 ### equals()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/equals.js#L198)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/equals.js#L198)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns <code>true</code> if its arguments are equivalent, <code>false</code> otherwise. Handles cyclical data structures.</p>
 <p>Dispatches symmetrically to the <code>equals</code> methods of both arguments, if present.</p>
 
@@ -1273,7 +1273,7 @@ equals(a, b)
 
 ### every()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/every.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/every.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns <code>true</code> if all elements of the list match the predicate, <code>false</code> if there are any that don't.</p>
 <p>Dispatches to the <code>every</code> method of the second argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -1298,7 +1298,7 @@ await every(async (value) => equals3(value), [3, 3, 3]) //=> true
 
 ### everyAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/everyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/everyAtIndex.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns <code>true</code> if all elements of the list match the predicate starting at the given index, <code>false</code> otherwise.</p>
 <p>Dispatches to the <code>everyAtIndex</code> method of the list argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -1322,7 +1322,7 @@ any(lessThan2)([1, 2]) //=> true
 
 ### filter()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/filter.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/filter.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
 <p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -1347,7 +1347,7 @@ await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
 
 ### filterAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/filterAtIndex.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/filterAtIndex.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Takes a predicate and a <code>Filterable</code>, and returns a new filterable of the same type containing the members of the given filterable which satisfy the given predicate starting from the given index. Filterable objects include plain objects or any object that has a filter method such as <code>Array</code>.</p>
 <p>Dispatches to the <code>filter</code> method of the second argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -1373,7 +1373,7 @@ await filter(async (value) => isEven(value), [1, 2, 3, 4]) //=> [2, 4]
 
 ### find()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/find.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/find.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the first element of the collection which matches the predicate, or<br />
 <code>undefined</code> if no element matches.</p>
 <p>Dispatches to the <code>find</code> method of the collection argument, if present.</p>
@@ -1398,7 +1398,7 @@ find(propEq('a', 4))(xs); //=> undefined
 
 ### findAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/findAtIndex.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/findAtIndex.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the first element of the list which matches the predicate, or <code>undefined</code> if no element matches starting at the given index.</p>
 <p>Dispatches to the <code>findAtIndex</code> method of the last argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -1422,7 +1422,7 @@ findAtIndex(propEq('a', 2), 2)(xs) //=> undefined
 
 ### findKdx()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/findKdx.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.15
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/findKdx.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.15
 <p>Returns the kdx of the first element of the collection which matches the predicate, or <code>undefined</code> if no element matches.</p>
 <p>Dispatches to the <code>findkdx</code> method of the <code>collection</code> argument, if present.</p>
 <p>Supports async predicates. If a predicate returns a Promise than the entire method will upgrade to async and return a Promise.</p>
@@ -1452,7 +1452,7 @@ findKdx(
 
 ### flatten()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/flatten.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/flatten.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Returns a new list by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
 <p>This method automatically upgrades to async. If a Promise is given as the list this method will resolve the promise as the list and return a Promise that resolves to the flattened list.</p>
 
@@ -1471,7 +1471,7 @@ flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
 
 ### forEach()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/forEach.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEach.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
 <p>Iterate over a collection calling a provided function <code>fn</code> for each element in the collection .</p>
 <p><code>fn</code> receives two arguments: <em>(value, kdx)</em></p>
 <p>This method automatically upgrades to async. If an async iterator is given to this method it will return a Promise.</p>
@@ -1502,7 +1502,7 @@ forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
 
 ### forEachIndexed()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/forEachIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEachIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
 <p>Alias for <a href="#forEach">forEach</a> method</p>
 
 **Params**
@@ -1516,7 +1516,7 @@ forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
 
 ### forEachObjIndexed()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/forEachObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEachObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
 <p>Alias for <a href="#forEach">forEach</a> method</p>
 
 **Params**
@@ -1530,7 +1530,7 @@ forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
 
 ### get()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/get.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/get.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Retrieve the value at a given path.</p>
 <p>Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.</p>
 
@@ -1565,7 +1565,7 @@ get('[0]', [ 1, 2 ])
 
 ### getParent()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/getParent.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/getParent.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
 <p>Paths can be defined by a string an array. The path parameter also accepts a function that will be used as a selector against the data.</p>
 
@@ -1597,7 +1597,7 @@ getParent('a[0]', {a: [ 1, 2 ]})
 
 ### getParentPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/getParentPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/getParentPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.</p>
 
 **Params**
@@ -1616,7 +1616,7 @@ getParentPath(['a', 'b'], {c: {b: 2}}); //=> undefined
 
 ### getPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/getPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/getPath.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Retrieve the value at a given path.</p>
 
 **Params**
@@ -1635,7 +1635,7 @@ getPath(['a', 'b'], {c: {b: 2}}); //=> undefined
 
 ### getProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/getProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a function that when supplied an object returns the indicated  property of that object, if it exists.</p>
 
 **Params**
@@ -1661,7 +1661,7 @@ getProp('foo', {
 
 ### has()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/has.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/has.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns whether or not a path exists in an object. Only the object's<br />
 own properties are checked.</p>
 
@@ -1683,7 +1683,7 @@ has([], {})                           // => true
 
 ### hasPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/hasPath.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/hasPath.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns whether or not a path exists in an object. Only the object's<br />
 own properties are checked.</p>
 
@@ -1705,7 +1705,7 @@ hasPath([], {})                           // => true
 
 ### hasProp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/hasProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/hasProp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns whether or not an object has an own property with the specified name</p>
 <p>If prop is a function then it is executed against value as a selector.<br />
 If prop is undefined then value will be checked for truthiness.</p>
@@ -1732,7 +1732,7 @@ hasProp((value) => value.birthday, { name: 'raees'}) //=> false
 
 ### head()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/head.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/head.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
 <p>Returns the first element of the given list or string.</p>
 
 **Params**
@@ -1753,7 +1753,7 @@ head('') //=> ''
 
 ### indexOf()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/indexOf.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/indexOf.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns the position of the first occurrence of an item in an array, or -1 if the item is not included in the array. <a href="#equals"><code>equals</code></a> is used to determine equality.</p>
 <p>This method automatically upgrades to async if either of the parameters are a Promise</p>
 
@@ -1773,7 +1773,7 @@ indexOf(10, [1,2,3,4]) //=> -1
 
 ### indexOfAtIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/indexOfAtIndex.js#L62)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/indexOfAtIndex.js#L62)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns the position of the first occurrence of an item in an array, or -1 if the item is not included in the array. <a href="#equals"><code>equals</code></a> is used to determine equality.</p>
 <p>This method automatically upgrades to async if any of the parameters are a Promise</p>
 
@@ -1794,7 +1794,7 @@ indexOfAtIndex(3, 3, [1,2,3,4]) //=> -1
 
 ### init()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/init.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/init.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
 <p>Returns all but the last element of the given list or string.</p>
 
 **Params**
@@ -1819,7 +1819,7 @@ init('')     //=> ''
 
 ### is()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/is.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/is.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>See if an object (<code>val</code>) is an instance of the supplied constructor. This function will check up the inheritance chain, if any.</p>
 
 **Params**
@@ -1844,7 +1844,7 @@ is(Number, {}); //=> false
 
 ### join()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/join.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/join.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns a string made by inserting the <code>separator</code> between each element and<br />
 concatenating all the elements into a single string.</p>
 <p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
@@ -1867,7 +1867,7 @@ await join(Promise.resolve('|'), Promise.resolve([1, 2, 3]))    //=> '1|2|3'
 
 ### keys()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/keys.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/keys.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the keys of the given collection in an Array.</p>
 <p>Supports objects, Maps and array like values. If given an array like value, the indexes will be returned in string form.</p>
 <p>This method supports Promise values. If given a Promise it will return a Promise that will resolve to the keys of the resolved value of the Promise.</p>
@@ -1896,7 +1896,7 @@ await keys(Promise.resolve({ a: 1, b: 2 }) //=> ['a', 'b']
 
 ### last()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/last.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/last.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the last element of the given list or string.</p>
 
 **Params**
@@ -1917,7 +1917,7 @@ last(''); //=> ''
 
 ### length()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/length.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/length.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Returns the number of elements in the array by returning <code>list.length</code>.</p>
 
 **Params**
@@ -1935,7 +1935,7 @@ length([1, 2, 3]) //=> 3
 
 ### map()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/map.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/map.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Takes a function and a <a href="https://github.com/fantasyland/fantasy-land#functor">functor</a>, applies the function to each of the functor's values, and returns  a functor of the same shape.</p>
 <p>Provides suitable <code>map</code> implementations for <code>Array</code> and <code>Object</code>,<br />
 so this function may be applied to <code>[1, 2, 3]</code> or <code>{x: 1, y: 2, z: 3}</code>.</p>
@@ -1960,7 +1960,7 @@ map(double, {x: 1, y: 2, z: 3}) //=> {x: 2, y: 4, z: 6}
 
 ### mapIndexed()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/mapIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/mapIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Alias for <a href="#map">map</a> method</p>
 
 **Params**
@@ -1974,7 +1974,7 @@ map(double, {x: 1, y: 2, z: 3}) //=> {x: 2, y: 4, z: 6}
 
 ### mapObjIndexed()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/mapObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/mapObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Alias for <a href="#map">map</a> method</p>
 
 **Params**
@@ -1988,7 +1988,7 @@ map(double, {x: 1, y: 2, z: 3}) //=> {x: 2, y: 4, z: 6}
 
 ### omit()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/omit.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/omit.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns a partial copy of an object omitting the keys specified.</p>
 
 **Params**
@@ -2006,7 +2006,7 @@ omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, c: 3}
 
 ### pick()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/pick.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/pick.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Returns a partial copy of an object containing only the keys specified. If<br />
 the key does not exist, the property is ignored.</p>
 <p>Supports Promises. If a Promise is received for either parameter than the entire method will upgrade to async and return a Promise.</p>
@@ -2031,7 +2031,7 @@ await pick(
 
 ### prepend()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/prepend.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/prepend.js#L16)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns a new list with the given element at the front, followed by the contents of the list.</p>
 <p>This method dispatches to the <code>prepend</code> method of the <code>arrayLike</code> argument if it exists.</p>
 <p>This method will auto upgrade to async and resolve the <code>arrayLike</code> value if the <code>arrayLike</code> value is a Promise.</p>
@@ -2054,7 +2054,7 @@ prepend('write', ' more tests') //=> 'write more tests'
 
 ### reduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/reduce.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/reduce.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value and the current value from the collection, and then passing the result to the next call.</p>
 <p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
 <p>Note: This method automatically upgrades to async.</p>
@@ -2108,7 +2108,7 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 
 ### reduceIndexed()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/reduceIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/reduceIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Alias for <a href="#reduce">reduce</a> method</p>
 
 **Params**
@@ -2123,7 +2123,7 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 
 ### reduceObjIndexed()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/reduceObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/reduceObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Alias for <a href="#reduce">reduce</a> method</p>
 
 **Params**
@@ -2138,7 +2138,7 @@ reduce(subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
 
 ### reduceRight()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/reduceRight.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/reduceRight.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Returns a single item by iterating through the collection, successively calling the iterator function and passing it an accumulator value,  the current value and the index or key from the collection, and then passing the result to the next call.</p>
 <p>Similar to <a href="#reduce"><code>reduce</code></a>, except moves through the input list from the right to the left.</p>
 <p>The iterator function receives three values: <em>(acc, value, kdx)</em>.</p>
@@ -2172,7 +2172,7 @@ reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
 
 ### reject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/reject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/reject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>Alias of <a href="#remove"><code>remove</code></a>.</p>
 
 **Params**
@@ -2186,7 +2186,7 @@ reduceRight(subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
 
 ### remove()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/remove.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/remove.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>The complement of <a href="#filter"><code>filter</code></a>.</p>
 
 **Params**
@@ -2208,7 +2208,7 @@ remove(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
 
 ### rest()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/rest.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/rest.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Alias of the <a href="#tail">tail</a> method.</p>
 
 **Params**
@@ -2221,7 +2221,7 @@ remove(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
 
 ### set()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/set.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/set.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>This method is an alias for <code>assoc</code></p>
 <p>Makes a shallow clone of an object, setting or overriding the specified property with the given value. Note that this copies and flattens prototype properties onto the new object as well. All non-primitive properties are copied by reference.</p>
 <p>Supports path based property selectors 'foo.bar' and functional selectors which performs an 'over' on the entire collection and sets each matching selector to the given value.</p>
@@ -2245,7 +2245,7 @@ set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
 
 ### shallowEquals()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/shallowEquals.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/shallowEquals.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.</p>
 
 **Params**
@@ -2265,7 +2265,7 @@ shallowEquals({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }) //=> false
 
 ### slice()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/slice.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/slice.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Creates a slice of <code>arrayLike</code> from <code>start</code> up to, but not including, <code>end</code>.</p>
 <p><strong>Note:</strong> This method is used instead of<br />
 <a href="https://mdn.io/Array/slice"><code>Array#slice</code></a> to ensure dense arrays are returned.</p>
@@ -2295,7 +2295,7 @@ slice(0, 2, string)
 
 ### tail()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/tail.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/tail.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
 <p>Returns all but the first element of the given list or string (or object<br />
 with a <code>tail</code> method).</p>
 <p>Dispatches to the <code>slice</code> method of the first argument, if present.</p>
@@ -2322,7 +2322,7 @@ tail('');     //=> ''
 
 ### union()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/union.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/union.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Combines two lists into a set (i.e. no duplicates) composed of the elements<br />
 of each list.</p>
 
@@ -2341,7 +2341,7 @@ union([1, 2, 3], [2, 3, 4]) //=> [1, 2, 3, 4]
 
 ### values()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/values.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.12
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/values.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.12
 <p>Returns an array of all the values of the given collection.</p>
 <p>Note that the order of the output array is not guaranteed across different JS platforms.</p>
 <p>Supports objects, Maps and array like values.</p>
@@ -2371,7 +2371,7 @@ await values(Promise.resolve({ a: 1, b: 2 }) //=> [1, 2]
 
 ### walk()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walk.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/walk.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk using the given walkee and iteratee functions.</p>
 
 **Params**
@@ -2412,7 +2412,7 @@ console.log(result)
 
 ### walkReduce()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReduce.js#L33)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/walkReduce.js#L33)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
@@ -2450,7 +2450,7 @@ walkReduce(
 
 ### walkReduceDepthFirst()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReduceDepthFirst.js#L33)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/walkReduceDepthFirst.js#L33)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
 <p>Walk depth first and reduce using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before iterating and walking them.</p>
 
@@ -2495,7 +2495,7 @@ walkReduceDepthFirst(
 
 ### walkReducePath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/walkReducePath.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/walkReducePath.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Walk reduce the specific path using the given reducer function</p>
 <p>NOTE: This method will resolve values during the walk before walking them. However, the unresolved value will be delivered to the iteratee.</p>
 
@@ -2539,7 +2539,7 @@ walkReducePath(
 
 ### fetch()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/fetch/fetch.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/fetch/fetch.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Fetch provides a generic definition of Request and Response objects (and other things involved with network requests). This will allow them to be used wherever they are needed in the future, whether it’s for service workers, Cache API and other similar things that handle or modify requests and responses, or any kind of use case that might require you to generate your own responses programmatically.</p>
 <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">fetch</a> API docs for more information.</p>
 <p>Auto curried with placeholder support</p>
@@ -2562,7 +2562,7 @@ console.log(JSON.stringify(data))
 
 ### copyDirContentsSync()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/fs/copyDirContentsSync.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/fs/copyDirContentsSync.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
 <p>Coppies the contents of one directory to another synchronously</p>
 <p>Auto curried with placeholder support</p>
 
@@ -2580,7 +2580,7 @@ copyDirContentsSync('./some/dir', './target/dir')
 
 ### dirExists()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/fs/dirExists.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/fs/dirExists.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
 <p>Determines if the given directory exists.</p>
 <p>This dire</p>
 <p>Auto curried with placeholder support</p>
@@ -2599,7 +2599,7 @@ copyDirContentsSync('./some/dir', './target/dir')
 
 ### isArchivePath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/fs/isArchivePath.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/fs/isArchivePath.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
 <p>Checks if <code>filePath</code> is classified as an <code>Archive</code>.</p>
 
 **Params**
@@ -2620,7 +2620,7 @@ isArchivePath('./code') // => false
 
 ### isIp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/ip/isIp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/ip/isIp.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Determines whether the given value is an IP address</p>
 
 **Params**
@@ -2643,7 +2643,7 @@ isIp('2001:db8:abcd:0012:0000:0000:0000:0000', 6) //=> true
 
 ### lookupIp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/ip/lookupIp.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/ip/lookupIp.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Converts an ip address into an location</p>
 
 **Params**
@@ -2683,7 +2683,7 @@ await lookupIp('139.130.4.5')
 
 ### arrayConcat()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayConcat.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/arrayConcat.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Concat an array with two or more arrays. This method does not change the existing arrays, but instead returns a new array.</p>
 
 **Params**
@@ -2708,7 +2708,7 @@ arrayConcat(['a', 'b', 'c'], 1, [2, 3])
 
 ### arrayFlatten()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayFlatten.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/arrayFlatten.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns a new array by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
 
 **Params**
@@ -2726,7 +2726,7 @@ arrayFlatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
 
 ### arrayForEach()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayForEach.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/arrayForEach.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>This method executes a provided function once for each array element.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">Array.prototype.forEach()</a> for more information</p>
 
@@ -2751,7 +2751,7 @@ for (let i=0; i<items.length; i++) {
 
 ### arrayLikeIterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayLikeIterator.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/arrayLikeIterator.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns iterator for an array like value.</p>
 
 **Params**
@@ -2798,7 +2798,7 @@ arrayLikeIterator('tests')
 
 ### arrayLikeKeys()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayLikeKeys.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/arrayLikeKeys.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Creates an array of the enumerable property names of the array-like <code>value</code>.</p>
 
 **Params**
@@ -2812,7 +2812,7 @@ arrayLikeIterator('tests')
 
 ### arrayLikeSlice()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayLikeSlice.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/arrayLikeSlice.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns a shallow copy of a portion of an array into a new array object selected from begin to end (end not included). The original array will not be modified.</p>
 
 **Params**
@@ -2832,7 +2832,7 @@ arrayLikeSlice(['a', 'b', 'c'], 0, 2)
 
 ### indexEndOffset()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/indexEndOffset.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/indexEndOffset.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Generate a start index with an offset where if the start is less than 0 it will return an offset from the length of <code>length + start</code></p>
 
 **Params**
@@ -2857,7 +2857,7 @@ indexEndOffset(-1, 3)
 
 ### isArguments()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isArguments.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isArguments.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is likely an <code>arguments</code> object.</p>
 
 **Params**
@@ -2876,7 +2876,7 @@ isArguments([1, 2, 3]) // => false
 
 ### isArray()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isArray.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isArray.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
 <p>Checks if <code>value</code> is classified as an <code>Array</code> object.</p>
 
 **Params**
@@ -2899,7 +2899,7 @@ isArray(noop) // => false
 
 ### isArrayBuffer()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isArrayBuffer.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isArrayBuffer.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is classified as an <code>ArrayBuffer</code> object.</p>
 
 **Params**
@@ -2920,7 +2920,7 @@ isArrayBuffer(new Array(2))
 
 ### isArrayLike()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isArrayLike.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isArrayLike.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is array-like. A value is considered array-like if it's<br />
 not a function and has a <code>value.length</code> that's an integer greater than or<br />
 equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER</code>.</p>
@@ -2945,7 +2945,7 @@ isArrayLike(Function) // => false
 
 ### isBoolean()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isBoolean.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isBoolean.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is classified as a boolean primitive or object.</p>
 
 **Params**
@@ -2966,7 +2966,7 @@ isBoolean(null)
 
 ### isBuffer()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isBuffer.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isBuffer.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is a buffer.</p>
 
 **Params**
@@ -2985,7 +2985,7 @@ isBuffer(new Uint8Array(2)) // => false
 
 ### isDate()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isDate.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isDate.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is classified as a <code>Date</code> object.</p>
 
 **Params**
@@ -3006,7 +3006,7 @@ isDate('Mon April 23 2012')
 
 ### isElement()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isElement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isElement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is likely a DOM element.</p>
 
 **Params**
@@ -3027,7 +3027,7 @@ isElement('<body>')
 
 ### isError()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isError.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isError.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is an <code>Error</code>, <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>, <code>SyntaxError</code>, <code>TypeError</code>, or <code>URIError</code> object.</p>
 
 **Params**
@@ -3048,7 +3048,7 @@ isError(Error)
 
 ### isFunction()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isFunction.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isFunction.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as a <code>Function</code> object.</p>
 
 **Params**
@@ -3067,7 +3067,7 @@ isFunction(/abc/) // => false
 
 ### isGenerator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isGenerator.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isGenerator.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks whether the given value is a generator.</p>
 
 **Params**
@@ -3091,7 +3091,7 @@ isGenerator({
 
 ### isGeneratorFunction()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isGeneratorFunction.js#L18)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isGeneratorFunction.js#L18)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks whether a function is generator function.</p>
 
 **Params**
@@ -3109,7 +3109,7 @@ isGeneratorFunction(function() {})   //=> false
 
 ### isIndex()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isIndex.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isIndex.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is a valid array-like index.</p>
 
 **Params**
@@ -3134,7 +3134,7 @@ isIndex(-1)
 
 ### isInfinity()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isInfinity.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isInfinity.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Checks if <code>value</code> is <code>Infinity</code> or <code>-Infinity</code>.</p>
 
 **Params**
@@ -3164,7 +3164,7 @@ isInfinity(123)
 
 ### isInteger()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isInteger.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isInteger.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Determine if the passed argument is an integer.</p>
 
 **Params**
@@ -3193,7 +3193,7 @@ isInteger('3') // => false
 
 ### isIterable()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isIterable.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isIterable.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> implements the iterator symbol or is iterable</p>
 
 **Params**
@@ -3220,7 +3220,7 @@ isIterable([])
 
 ### isMap()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isMap.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isMap.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as a <code>Map</code> object.</p>
 
 **Params**
@@ -3239,7 +3239,7 @@ isMap(new WeakMap) // => false
 
 ### isNaN()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNaN.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isNaN.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Checks if <code>value</code> is <code>NaN</code>.</p>
 <p><strong>Note:</strong> This method is based on <a href="https://mdn.io/Number/isNaN"><code>Number.isNaN</code></a> and is not the same as global <a href="https://mdn.io/isNaN"><code>isNaN</code></a> which returns <code>true</code> for <code>undefined</code> and other non-number values.</p>
 
@@ -3264,7 +3264,7 @@ isNaN(undefined)
 
 ### isNativeObject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNativeObject.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isNativeObject.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is native JavaScript object instance.</p>
 
 **Params**
@@ -3289,7 +3289,7 @@ isNativeObject(new MyObject())
 
 ### isNil()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNil.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isNil.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is <code>null</code> or <code>undefined</code>.</p>
 
 **Params**
@@ -3310,7 +3310,7 @@ isNil(NaN) // => false
 
 ### isNull()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNull.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isNull.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is <code>null</code>.</p>
 
 **Params**
@@ -3329,7 +3329,7 @@ isNull(void 0) // => false
 
 ### isNumber()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNumber.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isNumber.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as a <code>Number</code> primitive or object.</p>
 <p><strong>Note:</strong> To exclude <code>Infinity</code>, <code>-Infinity</code>, and <code>NaN</code>, which are<br />
 classified as numbers, use the <code>Number.isFinite</code> method.</p>
@@ -3354,7 +3354,7 @@ isNumber('3') // => false
 
 ### isObject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isObject.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isObject.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
 <p>Checks if <code>value</code> is the<br />
 <a href="http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types">language type</a><br />
 of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
@@ -3379,7 +3379,7 @@ isObject(null) // => false
 
 ### isObjectLike()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isObjectLike.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isObjectLike.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code> and has a <code>typeof</code> result of &quot;object&quot;.</p>
 
 **Params**
@@ -3402,7 +3402,7 @@ isObjectLike(null) // => false
 
 ### isPlainObject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isPlainObject.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isPlainObject.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is a plain object, that is, an object created by the<br />
 <code>Object</code> constructor or one with a <code>[[Prototype]]</code> of <code>null</code>.</p>
 
@@ -3430,7 +3430,7 @@ isPlainObject(Object.create(null)) // => true
 
 ### isPromise()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks whether the given value is a Promise.</p>
 
 **Params**
@@ -3451,7 +3451,7 @@ isPromise({ then: () => {} }) //=> true
 
 ### isPrototype()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isPrototype.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isPrototype.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is likely a prototype object.</p>
 
 **Params**
@@ -3464,7 +3464,7 @@ isPromise({ then: () => {} }) //=> true
 
 ### isRegExp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isRegExp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isRegExp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is classified as a <code>RegExp</code> object.</p>
 
 **Params**
@@ -3485,7 +3485,7 @@ isRegExp('/abc/')
 
 ### isSet()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isSet.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isSet.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is classified as a <code>Set</code> object.</p>
 
 **Params**
@@ -3506,7 +3506,7 @@ isSet(new WeakSet())
 
 ### isString()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
 <p>Checks if <code>value</code> is classified as a <code>String</code> primitive or object.</p>
 
 **Params**
@@ -3525,7 +3525,7 @@ isString(1) // => false
 
 ### isSymbol()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isSymbol.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isSymbol.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
 <p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
 
 **Params**
@@ -3550,7 +3550,7 @@ isSymbol('abc')
 
 ### isTransformer()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isTransformer.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isTransformer.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
 
 **Params**
@@ -3571,7 +3571,7 @@ isTransformer('abc') // => false
 
 ### isTypedArray()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isTypedArray.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isTypedArray.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as a typed array.</p>
 
 **Params**
@@ -3590,7 +3590,7 @@ isTypedArray([]) // => false
 
 ### isUndefined()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isUndefined.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isUndefined.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
 <p>Checks if <code>value</code> is <code>undefined</code>.</p>
 
 **Params**
@@ -3609,7 +3609,7 @@ isUndefined(null) // => false
 
 ### isWeakMap()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isWeakMap.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isWeakMap.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is classified as a <code>WeakMap</code> object.</p>
 
 **Params**
@@ -3630,7 +3630,7 @@ isWeakMap(new Map())
 
 ### isWeakSet()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isWeakSet.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isWeakSet.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
 <p>Checks if <code>value</code> is classified as a <code>WeakSet</code> object.</p>
 
 **Params**
@@ -3651,7 +3651,7 @@ isWeakSet(new Set())
 
 ### objectCreate()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectCreate.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/objectCreate.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Creates a new object, using an existing object as the prototype of the newly created object.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create">Object.create</a> for more information</p>
 
@@ -3683,7 +3683,7 @@ me.printIntroduction()
 
 ### objectDefineProperty()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectDefineProperty.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/objectDefineProperty.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Defines a new property directly on an object, or modifies an existing property on an object, and returns the object.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty</a> for more information</p>
 
@@ -3711,7 +3711,7 @@ object1.property1<br />
 
 ### objectGetOwnPropertyDescriptor()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectGetOwnPropertyDescriptor.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/objectGetOwnPropertyDescriptor.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
 <p>Returns a property descriptor for an own property</p>
 
 **Params**
@@ -3743,7 +3743,7 @@ objectGetOwnPropertyDescriptor(object, 'foo')
 
 ### objectGetOwnPropertySymbols()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectGetOwnPropertySymbols.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/objectGetOwnPropertySymbols.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns an array of all symbol properties found directly upon a given object.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols">Object.getOwnPropertySymbols()</a> for more information</p>
 
@@ -3768,7 +3768,7 @@ console.log(objectSymbols.length)<br />
 
 ### objectHasOwnProperty()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectHasOwnProperty.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/objectHasOwnProperty.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns a boolean indicating whether the object has the specified property as its own property (as opposed to inheriting it).</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty">Object.hasOwnProperty()</a> for more information</p>
 
@@ -3795,7 +3795,7 @@ objectHasOwnProperty(object, &#39;hasOwnProperty&#39;)<br />
 
 ### objectIterator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectIterator.js#L32)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/objectIterator.js#L32)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns iterator for an object's keys and values.</p>
 <p>Note, iterates over object's own keys and symbols</p>
 
@@ -3834,7 +3834,7 @@ iter.next()
 
 ### objectKeys()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectKeys.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/objectKeys.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Returns a list containing the names of all the enumerable own properties of the supplied object.<br />
 Note that the order of the output array is not guaranteed to be consistent across different JS platforms.</p>
 
@@ -3852,7 +3852,7 @@ objectKeys({a: 1, b: 2, c: 3}) //=> ['a', 'b', 'c']
 
 ### objectToString()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectToString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/objectToString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Returns a string representing the object.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString">Object.prototype.toString()</a> for more information</p>
 
@@ -3869,7 +3869,7 @@ objectToString({</code> - )<br />
 
 ### stringToLowerCase()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/stringToLowerCase.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/stringToLowerCase.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>Returns the given string value converted to lower case.</p>
 
 **Params**
@@ -3886,7 +3886,7 @@ stringToLowerCase('ABC') //=> 'abc'
 
 ### toFinite()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toFinite.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toFinite.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
 <p>Converts <code>value</code> to a finite number.</p>
 
 **Params**
@@ -3913,7 +3913,7 @@ toFinite('3.2')
 
 ### toFunctionName()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toFunctionName.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toFunctionName.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
 <p>Converts <code>value</code> to a the name of a function.</p>
 
 **Params**
@@ -3934,7 +3934,7 @@ toFunctionName(function test() {})
 
 ### toInteger()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toInteger.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toInteger.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
 <p>Converts <code>value</code> to an integer.</p>
 <p><strong>Note:</strong> This method is loosely based on<br />
 <a href="http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger"><code>ToInteger</code></a>.</p>
@@ -3963,7 +3963,7 @@ toInteger('3.2')
 
 ### toNumber()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toNumber.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toNumber.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
 <p>Converts <code>value</code> to a number.</p>
 
 **Params**
@@ -3990,7 +3990,7 @@ toNumber('3.2')
 
 ### toObject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toObject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toObject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
 <p>Converts <code>value</code> to a plain object flattening inherited enumerable string keyed properties of <code>value</code> to own properties of the plain object.</p>
 
 **Params**
@@ -4017,7 +4017,7 @@ assign({ 'a': 1 }, toObject(new Foo))
 
 ### toString()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toString.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toString.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
 <p>Converts <code>value</code> to a string. An empty string is returned for <code>null</code>  and <code>undefined</code> values. The sign of <code>-0</code> is preserved.</p>
 
 **Params**
@@ -4041,7 +4041,7 @@ toString([1, 2, 3])
 
 ### toStringTag()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toStringTag.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toStringTag.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
 <p>Returns a string valued property that is used in the creation of the default string description of an object.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag">toStringTag Symbol</a> for more information</p>
 
@@ -4063,7 +4063,7 @@ toStringTag({})
 
 ### toType()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toType.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toType.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Gives a single-word string description of the (native) type of a value, returning such answers as 'Object', 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them all as 'Object'.</p>
 
 **Params**
@@ -4090,7 +4090,7 @@ toType(undefined) //=> 'Undefined'
 
 ### log()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/logging/log.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/logging/log.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
 <p>Logs the given values.</p>
 <p>Returns the first arg so that this method can be placed into a pipe.</p>
 
@@ -4119,7 +4119,7 @@ pipe(
 
 ### and()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/logic/and.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/logic/and.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns <code>true</code> if both arguments are <code>true</code>; <code>false</code> otherwise.</p>
 <p>This method resolves both parameters before executing.</p>
 <p>This method will automatically upgrade to async if a Promise is received for either value.</p>
@@ -4143,7 +4143,7 @@ await and(Promise.resolve(false), false) //=> false
 
 ### isEmpty()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/logic/isEmpty.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/logic/isEmpty.js#L13)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is an empty object, collection, map, or set.</p>
 <p>Objects are considered empty if they have no own enumerable string keyed<br />
 properties.</p>
@@ -4175,7 +4175,7 @@ isEmpty({ 'a': 1 })  // => false
 
 ### not()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/logic/not.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/logic/not.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>A function that returns the <code>!</code> of its argument. It will return <code>true</code> when passed false-y value, and <code>false</code> when passed a truth-y one.</p>
 <p>Auto curried for placeholder support.</p>
 
@@ -4196,7 +4196,7 @@ not(1) //=> false
 
 ### or()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/logic/or.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/logic/or.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
 <p>Returns <code>true</code> if one or both of its arguments are <code>true</code>. Returns <code>false</code> if both arguments are <code>false</code>.</p>
 <p>This method resolves both parameters before executing.</p>
 <p>This method will automatically upgrade to async if a Promise is received for either value.</p>
@@ -4222,7 +4222,7 @@ await or(Promise.resolve(false), false) //=> false
 
 ### findPath()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/path/findPath.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/path/findPath.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Finds the first path in the given args.</p>
 
 **Params**
@@ -4241,7 +4241,7 @@ findPath(null, 0, '/foo', '/bar') // => '/foo'
 
 ### lowerCase()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/string/lowerCase.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/string/lowerCase.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>Converts the given value to a string and then converts it to lower case.</p>
 <p>This method resolves both parameters before executing.</p>
 <p>This method will automatically upgrade to async if a Promise is received for either value.</p>
