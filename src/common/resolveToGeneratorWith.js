@@ -1,5 +1,5 @@
-import isGenerator from '../base/isGenerator'
 import curry from './curry'
+import isGenerator from '../lang/isGenerator'
 import isResolved from './isResolved'
 import resolve from './resolve'
 import resolveToGenerator from './resolveToGenerator'

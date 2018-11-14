@@ -17,7 +17,7 @@ describe('append', () => {
     expect(append('tests', 'write')).toEqual('writetests')
   })
 
-  test('curries the append method', () => {
+  test('curries the method', () => {
     const appendTests = append('tests')
     expect(appendTests).toBeInstanceOf(Function)
 

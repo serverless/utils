@@ -1,8 +1,8 @@
-import isString from '../base/isString'
+import concat from './concat'
 import curry from '../common/curry'
 import dispatchable from '../common/dispatchable'
+import isString from '../lang/isString'
 import resolveWith from '../common/resolveWith'
-import concat from './concat'
 
 const baseAppend = (value, arrayLike) => {
   if (isString(arrayLike)) {

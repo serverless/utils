@@ -1,14 +1,14 @@
-import getTag from '../base/getTag'
-import isArguments from '../base/isArguments'
-import isArray from '../base/isArray'
-import isArrayLike from '../base/isArrayLike'
-import isBuffer from '../base/isBuffer'
-import isPrototype from '../base/isPrototype'
-import isTypedArray from '../base/isTypedArray'
-import objectHasOwnProperty from '../base/objectHasOwnProperty'
-import objectKeys from '../base/objectKeys'
 import curry from '../common/curry'
 import defn from '../common/defn'
+import isArguments from '../lang/isArguments'
+import isArray from '../lang/isArray'
+import isArrayLike from '../lang/isArrayLike'
+import isBuffer from '../lang/isBuffer'
+import isPrototype from '../lang/isPrototype'
+import isTypedArray from '../lang/isTypedArray'
+import objectHasOwnProperty from '../lang/objectHasOwnProperty'
+import objectKeys from '../lang/objectKeys'
+import toStringTag from '../lang/toStringTag'
 
 /**
  * Checks if `value` is an empty object, collection, map, or set.
@@ -57,7 +57,7 @@ const isEmpty = curry(
     ) {
       return !value.length
     }
-    const tag = getTag(value)
+    const tag = toStringTag(value)
     if (tag == '[object Map]' || tag == '[object Set]') {
       return !value.size
     }

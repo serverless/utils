@@ -1,7 +1,7 @@
-import isArray from '../base/isArray'
-import isKey from '../base/isKey'
-import isString from '../base/isString'
 import curryN from '../common/curryN'
+import isArray from '../lang/isArray'
+import isKey from '../lang/isKey'
+import isString from '../lang/isString'
 import stringToPath from './stringToPath'
 
 const castPath = curryN(1, (value, object = {}) => {

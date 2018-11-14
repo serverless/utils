@@ -1,9 +1,9 @@
-import isObject from '../base/isObject'
-import curry from '../common/curry'
-import pipe from '../common/pipe'
-import resolve from '../common/resolve'
 import append from './append'
 import castPath from './castPath'
+import curry from '../common/curry'
+import isObject from '../lang/isObject'
+import pipe from '../common/pipe'
+import resolve from '../common/resolve'
 import walk from './walk'
 
 const reduceWalkee = (pathParts, accum, value, keys, iteratee, recur) =>

@@ -1,9 +1,9 @@
-import fse from 'fs-extra'
 import YAML from 'js-yaml'
-import path from 'path'
 import curryN from '../common/curryN'
+import fse from 'fs-extra'
 import isJsonPath from './isJsonPath'
 import isYamlPath from './isYamlPath'
+import path from 'path'
 
 const formatContents = (filePath, contents, options) => {
   if (isJsonPath(filePath) && typeof contents !== 'string') {

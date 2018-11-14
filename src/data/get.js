@@ -1,10 +1,10 @@
-import isArray from '../base/isArray'
-import isFunction from '../base/isFunction'
-import isUndefined from '../base/isUndefined'
+import castPath from './castPath'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import castPath from './castPath'
 import getPath from './getPath'
+import isArray from '../lang/isArray'
+import isFunction from '../lang/isFunction'
+import isUndefined from '../lang/isUndefined'
 
 /**
  * Retrieve the value at a given path.

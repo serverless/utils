@@ -1,8 +1,8 @@
-import isFunction from '../base/isFunction'
-import isNil from '../base/isNil'
-import isUndefined from '../base/isUndefined'
 import curry from '../common/curry'
 import defn from '../common/defn'
+import isFunction from '../lang/isFunction'
+import isNil from '../lang/isNil'
+import isUndefined from '../lang/isUndefined'
 
 /**
  * Returns a function that when supplied an object returns the indicated  property of that object, if it exists.

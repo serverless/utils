@@ -1,3 +1,5 @@
+import curry from '../common/curry'
+import defn from '../common/defn'
 import slice from './slice'
 
 /**
@@ -21,6 +23,6 @@ import slice from './slice'
  * init('a')    //=> ''
  * init('')     //=> ''
  */
-const init = slice(0, -1)
+const init = curry(defn('init', slice(0, -1)))
 
 export default init

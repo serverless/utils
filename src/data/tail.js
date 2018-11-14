@@ -2,6 +2,8 @@ import curry from '../common/curry'
 import defn from '../common/defn'
 import slice from './slice'
 
+const baseTail = slice(1, Infinity)
+
 /**
  * Returns all but the first element of the given list or string (or object
  * with a `tail` method).
@@ -26,6 +28,8 @@ import slice from './slice'
  * tail('a');    //=> ''
  * tail('');     //=> ''
  */
-const tail = curry(defn('tail', slice(1, Infinity)))
+const tail = curry(defn('tail', baseTail))
 
 export default tail
+
+export { baseTail }

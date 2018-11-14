@@ -3,7 +3,10 @@ import dispatchable from './dispatchable'
 import nArySpread from './nArySpread'
 
 /**
- * Defines a function that will invoke the named function if it exists on the last arg. If the method does not, all args are passed through to the default function.
+ * Defines a function with a few predefined behaviours. Functions defined with this method will...
+ * - [curry](#curry)
+ * - [dispatch](#dispatchable)
+ * - [resolve all args](#resolveAll)
  *
  * @function
  * @since v0.0.3

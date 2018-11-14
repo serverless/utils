@@ -1,22 +1,7 @@
-import objectHasOwnProperty from '../base/objectHasOwnProperty'
-import objectKeys from '../base/objectKeys'
+import { baseIdentical } from '../common/identical'
 import curry from '../common/curry'
-
-/**
- * inlined Object.is polyfill to avoid requiring consumers ship their own
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
- */
-function is(x, y) {
-  // SameValue algorithm
-  if (x === y) {
-    // Steps 1-5, 7-10
-    // Steps 6.b-6.e: +0 != -0
-    // Added the nonzero y check to make Flow happy, but it is redundant
-    return x !== 0 || y !== 0 || 1 / x === 1 / y
-  }
-  // Step 6.a: NaN == NaN
-  return x !== x && y !== y
-}
+import objectHasOwnProperty from '../lang/objectHasOwnProperty'
+import objectKeys from '../lang/objectKeys'
 
 /**
  * Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.
@@ -34,7 +19,7 @@ function is(x, y) {
  * shallowEquals({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }) //=> false
  */
 const shallowEquals = curry((objA, objB) => {
-  if (is(objA, objB)) {
+  if (baseIdentical(objA, objB)) {
     return true
   }
 
@@ -51,7 +36,7 @@ const shallowEquals = curry((objA, objB) => {
 
   // Test for A's keys different from B.
   for (let i = 0; i < keysA.length; i++) {
-    if (!objectHasOwnProperty(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+    if (!objectHasOwnProperty(objB, keysA[i]) || !baseIdentical(objA[keysA[i]], objB[keysA[i]])) {
       return false
     }
   }

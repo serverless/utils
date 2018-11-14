@@ -1,4 +1,4 @@
-import arrayLikeSlice from '../base/arrayLikeSlice'
+import arrayLikeSlice from '../lang/arrayLikeSlice'
 import curry from '../common/curry'
 import defn from '../common/defn'
 

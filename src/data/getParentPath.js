@@ -1,9 +1,9 @@
+import compact from './compact'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import isEmpty from '../logic/isEmpty'
-import compact from './compact'
 import getPath from './getPath'
 import init from './init'
+import isEmpty from '../logic/isEmpty'
 
 /**
  * Retrieve the parent value from a given path. The parent value is the value immediately before the last path part.

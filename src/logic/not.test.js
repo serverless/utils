@@ -23,4 +23,12 @@ describe('not', () => {
     const notP = not(__)
     expect(notP(1)).toBe(false)
   })
+
+  test('dispatched to not method if present', () => {
+    expect(
+      not({
+        not: () => true
+      })
+    ).toBe(true)
+  })
 })

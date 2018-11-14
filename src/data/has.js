@@ -1,9 +1,9 @@
-import isArray from '../base/isArray'
-import isUndefined from '../base/isUndefined'
+import castPath from './castPath'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import castPath from './castPath'
 import hasPath from './hasPath'
+import isArray from '../lang/isArray'
+import isUndefined from '../lang/isUndefined'
 
 /**
  * Returns whether or not a path exists in an object. Only the object's

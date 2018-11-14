@@ -1,4 +1,3 @@
-
 module.exports = {
   root: true,
   extends: [
@@ -6,7 +5,8 @@ module.exports = {
   ],
   plugins: [
     'import',
-    'prettier'
+    'prettier',
+    'sort-imports-es6-autofix'
   ],
   env: {
     es6: true,
@@ -22,6 +22,14 @@ module.exports = {
     }
   },
   rules: {
+    'array-bracket-spacing': [
+      'error',
+      'never',
+      {
+        objectsInArrays: false,
+        arraysInArrays: false
+      }
+    ],
     'arrow-parens': ['error', 'always'],
     'arrow-spacing': ['error', { 'before': true, 'after': true }],
     'comma-dangle': ['error', 'never'],
@@ -39,6 +47,7 @@ module.exports = {
     'no-unused-vars': 'error',
     'no-use-before-define': 'error',
     'no-useless-constructor': 'error',
+    'no-var': 'error',
     'object-curly-newline': 'off',
     'object-shorthand': 'off',
     'prefer-const': 'error',
@@ -54,6 +63,11 @@ module.exports = {
     'semi': ['error', 'never'],
     'spaced-comment': 'error',
     'strict': ['error', 'never'],
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    'sort-imports-es6-autofix/sort-imports-es6': ['error', {
+      'ignoreCase': false,
+      'ignoreMemberSort': false,
+      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single']
+    }]
   }
 }

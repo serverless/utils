@@ -1,9 +1,9 @@
-import isArrayLike from '../base/isArrayLike'
 import curry from '../common/curry'
 import defn from '../common/defn'
-import pipe from '../common/pipe'
 import findAtIndex from './findAtIndex'
+import isArrayLike from '../lang/isArrayLike'
 import keys from './keys'
+import pipe from '../common/pipe'
 
 /**
  * Returns the first element of the collection which matches the predicate, or

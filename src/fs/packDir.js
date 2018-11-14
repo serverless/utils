@@ -1,13 +1,13 @@
+import { createReadStream, createWriteStream } from 'fs-extra'
 import archiver from 'archiver'
-import { createWriteStream, createReadStream } from 'fs-extra'
-import path from 'path'
-import curryN from '../common/curryN'
 import contains from '../data/contains'
-import last from '../data/last'
-import split from '../data/split'
+import curryN from '../common/curryN'
 import forEach from '../data/forEach'
 import isEmpty from '../logic/isEmpty'
+import last from '../data/last'
+import path from 'path'
 import readFileIfExists from './readFileIfExists'
+import split from '../data/split'
 
 const VALID_FORMATS = ['zip', 'tar']
 const isValidFormat = (format) => contains(format, VALID_FORMATS)

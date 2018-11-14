@@ -6,9 +6,117 @@
 
 
 <!-- AUTO-GENERATED-CONTENT:START (TOC) -->
-- [base](#base)
+- [common](#common)
+  * [all()](#all)
+  * [allWith()](#allwith)
+  * [apply()](#apply)
+  * [complement()](#complement)
+  * [compose()](#compose)
+  * [deferredPromise()](#deferredpromise)
+  * [defn()](#defn)
+  * [dispatchable()](#dispatchable)
+  * [identical()](#identical)
+  * [identity()](#identity)
+  * [isOp()](#isop)
+  * [isResolved()](#isresolved)
+  * [iterate()](#iterate)
+  * [iterateRight()](#iterateright)
+  * [iterator()](#iterator)
+  * [iteratorResolver()](#iteratorresolver)
+  * [mix()](#mix)
+  * [nAry()](#nary)
+  * [nArySpread()](#naryspread)
+  * [nth()](#nth)
+  * [op()](#op)
+  * [pipe()](#pipe)
+  * [resolvable()](#resolvable)
+  * [resolve()](#resolve)
+  * [resolveToGenerator()](#resolvetogenerator)
+  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
+  * [resolveWith()](#resolvewith)
+  * [sleep()](#sleep)
+- [constants](#constants)
+  * [MAX_SAFE_INTEGER](#max_safe_integer)
+  * [SYMBOL_ITERATOR](#symbol_iterator)
+  * [SYMBOL_OP](#symbol_op)
+- [data](#data)
+  * [any()](#any)
+  * [anyAtIndex()](#anyatindex)
+  * [append()](#append)
+  * [assign()](#assign)
+  * [assoc()](#assoc)
+  * [assocIndex()](#associndex)
+  * [assocPath()](#assocpath)
+  * [assocProp()](#assocprop)
+  * [compact()](#compact)
+  * [concat()](#concat)
+  * [contains()](#contains)
+  * [containsWith()](#containswith)
+  * [equals()](#equals)
+  * [every()](#every)
+  * [everyAtIndex()](#everyatindex)
+  * [filter()](#filter)
+  * [filterAtIndex()](#filteratindex)
+  * [find()](#find)
+  * [findAtIndex()](#findatindex)
+  * [findKdx()](#findkdx)
+  * [flatten()](#flatten)
+  * [forEach()](#foreach)
+  * [forEachIndexed()](#foreachindexed)
+  * [forEachObjIndexed()](#foreachobjindexed)
+  * [get()](#get)
+  * [getParent()](#getparent)
+  * [getParentPath()](#getparentpath)
+  * [getPath()](#getpath)
+  * [getProp()](#getprop)
+  * [has()](#has)
+  * [hasPath()](#haspath)
+  * [hasProp()](#hasprop)
+  * [head()](#head)
+  * [indexOf()](#indexof)
+  * [indexOfAtIndex()](#indexofatindex)
+  * [init()](#init)
+  * [is()](#is)
+  * [join()](#join)
+  * [keys()](#keys)
+  * [last()](#last)
+  * [length()](#length)
+  * [map()](#map)
+  * [mapIndexed()](#mapindexed)
+  * [mapObjIndexed()](#mapobjindexed)
+  * [omit()](#omit)
+  * [pick()](#pick)
+  * [prepend()](#prepend)
+  * [reduce()](#reduce)
+  * [reduceIndexed()](#reduceindexed)
+  * [reduceObjIndexed()](#reduceobjindexed)
+  * [reduceRight()](#reduceright)
+  * [reject()](#reject)
+  * [remove()](#remove)
+  * [rest()](#rest)
+  * [set()](#set)
+  * [shallowEquals()](#shallowequals)
+  * [slice()](#slice)
+  * [tail()](#tail)
+  * [union()](#union)
+  * [values()](#values)
+  * [walk()](#walk)
+  * [walkReduce()](#walkreduce)
+  * [walkReduceDepthFirst()](#walkreducedepthfirst)
+  * [walkReducePath()](#walkreducepath)
+- [fetch](#fetch)
+  * [fetch()](#fetch)
+- [fs](#fs)
+  * [copyDirContentsSync()](#copydircontentssync)
+  * [dirExists()](#direxists)
+  * [isArchivePath()](#isarchivepath)
+- [ip](#ip)
+  * [isIp()](#isip)
+  * [lookupIp()](#lookupip)
+- [lang](#lang)
   * [arrayConcat()](#arrayconcat)
   * [arrayFlatten()](#arrayflatten)
+  * [arrayForEach()](#arrayforeach)
   * [arrayLikeIterator()](#arraylikeiterator)
   * [arrayLikeKeys()](#arraylikekeys)
   * [arrayLikeSlice()](#arraylikeslice)
@@ -49,114 +157,25 @@
   * [isUndefined()](#isundefined)
   * [isWeakMap()](#isweakmap)
   * [isWeakSet()](#isweakset)
+  * [objectCreate()](#objectcreate)
+  * [objectDefineProperty()](#objectdefineproperty)
+  * [objectGetOwnPropertyDescriptor()](#objectgetownpropertydescriptor)
+  * [objectGetOwnPropertySymbols()](#objectgetownpropertysymbols)
+  * [objectHasOwnProperty()](#objecthasownproperty)
   * [objectIterator()](#objectiterator)
   * [objectKeys()](#objectkeys)
+  * [objectToString()](#objecttostring)
   * [stringToLowerCase()](#stringtolowercase)
   * [toFinite()](#tofinite)
+  * [toFunctionName()](#tofunctionname)
   * [toInteger()](#tointeger)
   * [toNumber()](#tonumber)
   * [toObject()](#toobject)
   * [toString()](#tostring)
-- [common](#common)
-  * [all()](#all)
-  * [allWith()](#allwith)
-  * [apply()](#apply)
-  * [complement()](#complement)
-  * [compose()](#compose)
-  * [deferredPromise()](#deferredpromise)
-  * [defn()](#defn)
-  * [dispatchable()](#dispatchable)
-  * [identity()](#identity)
-  * [isOp()](#isop)
-  * [isResolved()](#isresolved)
-  * [iterate()](#iterate)
-  * [iterateRight()](#iterateright)
-  * [iterator()](#iterator)
-  * [iteratorResolver()](#iteratorresolver)
-  * [nAry()](#nary)
-  * [nArySpread()](#naryspread)
-  * [nth()](#nth)
-  * [op()](#op)
-  * [pipe()](#pipe)
-  * [resolvable()](#resolvable)
-  * [resolve()](#resolve)
-  * [resolveToGenerator()](#resolvetogenerator)
-  * [resolveToGeneratorWith()](#resolvetogeneratorwith)
-  * [resolveWith()](#resolvewith)
-  * [sleep()](#sleep)
-- [constants](#constants)
-  * [MAX_SAFE_INTEGER](#max_safe_integer)
-  * [SYMBOL_ITERATOR](#symbol_iterator)
-  * [SYMBOL_OP](#symbol_op)
-- [data](#data)
-  * [any()](#any)
-  * [anyAtIndex()](#anyatindex)
-  * [append()](#append)
-  * [assign()](#assign)
-  * [assoc()](#assoc)
-  * [assocIndex()](#associndex)
-  * [assocPath()](#assocpath)
-  * [assocProp()](#assocprop)
-  * [compact()](#compact)
-  * [concat()](#concat)
-  * [every()](#every)
-  * [everyAtIndex()](#everyatindex)
-  * [filter()](#filter)
-  * [filterAtIndex()](#filteratindex)
-  * [find()](#find)
-  * [findAtIndex()](#findatindex)
-  * [findKdx()](#findkdx)
-  * [flatten()](#flatten)
-  * [forEach()](#foreach)
-  * [forEachIndexed()](#foreachindexed)
-  * [forEachObjIndexed()](#foreachobjindexed)
-  * [get()](#get)
-  * [getParent()](#getparent)
-  * [getParentPath()](#getparentpath)
-  * [getPath()](#getpath)
-  * [getProp()](#getprop)
-  * [has()](#has)
-  * [hasPath()](#haspath)
-  * [hasProp()](#hasprop)
-  * [head()](#head)
-  * [init()](#init)
-  * [is()](#is)
-  * [join()](#join)
-  * [keys()](#keys)
-  * [last()](#last)
-  * [length()](#length)
-  * [map()](#map)
-  * [mapIndexed()](#mapindexed)
-  * [mapObjIndexed()](#mapobjindexed)
-  * [omit()](#omit)
-  * [pick()](#pick)
-  * [prepend()](#prepend)
-  * [reduce()](#reduce)
-  * [reduceIndexed()](#reduceindexed)
-  * [reduceObjIndexed()](#reduceobjindexed)
-  * [reduceRight()](#reduceright)
-  * [reject()](#reject)
-  * [remove()](#remove)
-  * [set()](#set)
-  * [shallowEquals()](#shallowequals)
-  * [slice()](#slice)
-  * [tail()](#tail)
-  * [union()](#union)
-  * [values()](#values)
-  * [walk()](#walk)
-  * [walkReduce()](#walkreduce)
-  * [walkReduceDepthFirst()](#walkreducedepthfirst)
-  * [walkReducePath()](#walkreducepath)
-- [fetch](#fetch)
-  * [fetch()](#fetch)
-- [fs](#fs)
-  * [isArchivePath()](#isarchivepath)
-- [ip](#ip)
-  * [isIp()](#isip)
-  * [lookupIp()](#lookupip)
-- [lang](#lang)
-  * [getProperty()](#getproperty)
-  * [mix()](#mix)
+  * [toStringTag()](#tostringtag)
+  * [toType()](#totype)
+- [logging](#logging)
+  * [log()](#log)
 - [logic](#logic)
   * [and()](#and)
   * [isEmpty()](#isempty)
@@ -169,1159 +188,6 @@
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 <!-- AUTO-GENERATED-CONTENT:START (METHODS) -->
-## base
-
-### arrayConcat()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/arrayConcat.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Concat an array with two or more arrays. This method does not change the existing arrays, but instead returns a new array.</p>
-
-**Params**
-<p><code>array</code>: <code>Array</code> - The array concat with the given values</p>
-<p><code>values</code>: <code>...&ast;</code> - The values to concat to the array</p>
-
-**Returns**
-<br /><p><code>Array</code> - A new array with the values concatenated</p>
-
-**Example**
-```js
-arrayConcat(['a', 'b', 'c'], [1, 2, 3])
-//=> ['a', 'b', 'c', 1, 2, 3]
-
-arrayConcat([1, 2, 3], [4, 5, 6], [7, 8, 9])
-//=> [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-arrayConcat(['a', 'b', 'c'], 1, [2, 3])
-//=> ['a', 'b', 'c', 1, 2, 3]
-```
-<br /><br />
-
-### arrayFlatten()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/arrayFlatten.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Returns a new array by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
-
-**Params**
-<p><code>array</code>: <code>Array</code> - The array to consider.</p>
-
-**Returns**
-<br /><p><code>Array</code> - The flattened list.</p>
-
-**Example**
-```js
-arrayFlatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
-//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-```
-<br /><br />
-
-### arrayLikeIterator()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/arrayLikeIterator.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
-<p>Returns iterator for an array like value.</p>
-
-**Params**
-<p><code>arrayLike</code>: <code>&ast;</code> - The array like value to create an iterator for.</p>
-<p><code>index</code>: <code>&ast;</code> - The index to start at.</p>
-
-**Returns**
-<br /><p><code>Iterator</code> - A new iterator for the given array like value</p>
-
-**Example**
-```js
-arrayLikeIterator(['write', 'more'])
-//=> {
-//   next: () => ({
-//     value: *,
-//     done: boolean,
-//     kdx: integer,
-//     index: integer
-//   }),
-//   previous: () => ({
-//     value: *,
-//     done: boolean,
-//     kdx: integer,
-//     index: integer
-//   })
-// }
-arrayLikeIterator('tests')
-//=> {
-//   next: () => ({
-//     value: *,
-//     done: boolean,
-//     kdx: integer,
-//     index: integer
-//   })
-//   previous: () => ({
-//     value: *,
-//     done: boolean,
-//     kdx: integer,
-//     index: integer
-//   })
-// }
-```
-<br /><br />
-
-### arrayLikeKeys()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/arrayLikeKeys.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Creates an array of the enumerable property names of the array-like <code>value</code>.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to query.</p>
-<p><code>inherited</code>: <code>boolean</code> - Specify returning inherited property names.</p>
-
-**Returns**
-<br /><p><code>Array</code> - Returns the array of property names.</p>
-
-<br /><br />
-
-### arrayLikeSlice()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/arrayLikeSlice.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Returns a shallow copy of a portion of an array into a new array object selected from begin to end (end not included). The original array will not be modified.</p>
-
-**Params**
-<p><code>arrayLike</code>: <code>Array</code> - The array like value to slice values from</p>
-<p><code>start</code>: <code>number</code> - [=0] Zero-based index at which to begin extraction. A negative index will be treated as an offset from the end.</p>
-<p><code>end</code>: <code>number</code> - [=array.length] Zero-based index before which to end extraction. `arrayLikeSlice` extracts up to but not including end.</p>
-
-**Returns**
-<br /><p><code>Array</code> - A new array with the extraced values</p>
-
-**Example**
-```js
-arrayLikeSlice(['a', 'b', 'c'], 0, 2)
-//=> ['a', 'b']
-```
-<br /><br />
-
-### indexEndOffset()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/indexEndOffset.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Generate a start index with an offset where if the start is less than 0 it will return an offset from the length of <code>length + start</code></p>
-
-**Params**
-<p><code>start</code>: <code>number</code> - The start index</p>
-<p><code>length</code>: <code>number</code> - The length of the list</p>
-
-**Returns**
-<br /><p><code>number</code> - A starting index</p>
-
-**Example**
-```js
-indexEndOffset(0, 2)
-// => 0
-
-indexEndOffset(3, 2)
-// => 2
-
-indexEndOffset(-1, 3)
-// => 2
-```
-<br /><br />
-
-### isArguments()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isArguments.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is likely an <code>arguments</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is an `arguments` object, else `false`.</p>
-
-**Example**
-```js
-isArguments(function() { return arguments }()) // => true
-
-isArguments([1, 2, 3]) // => false
-```
-<br /><br />
-
-### isArray()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isArray.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
-<p>Checks if <code>value</code> is classified as an <code>Array</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is an array, else `false`.</p>
-
-**Example**
-```js
-isArray([1, 2, 3]) // => true
-
-isArray(document.body.children) // => false
-
-isArray('abc') // => false
-
-isArray(noop) // => false
-```
-<br /><br />
-
-### isArrayBuffer()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isArrayBuffer.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is classified as an <code>ArrayBuffer</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is an array buffer, else `false`.</p>
-
-**Example**
-```js
-isArrayBuffer(new ArrayBuffer(2))
-// => true
-
-isArrayBuffer(new Array(2))
-// => false
-```
-<br /><br />
-
-### isArrayLike()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isArrayLike.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is array-like. A value is considered array-like if it's<br />
-not a function and has a <code>value.length</code> that's an integer greater than or<br />
-equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER</code>.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is array-like, else `false`.</p>
-
-**Example**
-```js
-isArrayLike([1, 2, 3]) // => true
-
-isArrayLike(document.body.children) // => true
-
-isArrayLike('abc') // => true
-
-isArrayLike(Function) // => false
-```
-<br /><br />
-
-### isBoolean()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isBoolean.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is classified as a boolean primitive or object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a boolean, else `false`.</p>
-
-**Example**
-```js
-isBoolean(false)
-// => true
-
-isBoolean(null)
-// => false
-```
-<br /><br />
-
-### isBuffer()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isBuffer.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is a buffer.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a buffer, else `false`.</p>
-
-**Example**
-```js
-isBuffer(new Buffer(2)) // => true
-
-isBuffer(new Uint8Array(2)) // => false
-```
-<br /><br />
-
-### isDate()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isDate.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is classified as a <code>Date</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a date object, else `false`.</p>
-
-**Example**
-```js
-isDate(new Date)
-// => true
-
-isDate('Mon April 23 2012')
-// => false
-```
-<br /><br />
-
-### isElement()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isElement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is likely a DOM element.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a DOM element, else `false`.</p>
-
-**Example**
-```js
-isElement(document.body)
-// => true
-
-isElement('<body>')
-// => false
-```
-<br /><br />
-
-### isError()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isError.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is an <code>Error</code>, <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>, <code>SyntaxError</code>, <code>TypeError</code>, or <code>URIError</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is an error object, else `false`.</p>
-
-**Example**
-```js
-isError(new Error)
-// => true
-
-isError(Error)
-// => false
-```
-<br /><br />
-
-### isFunction()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isFunction.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is classified as a <code>Function</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a function, else `false`.</p>
-
-**Example**
-```js
-isFunction(function() {}) // => true
-
-isFunction(/abc/) // => false
-```
-<br /><br />
-
-### isGenerator()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isGenerator.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks whether the given value is a generator.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a generator, else `false`.</p>
-
-**Example**
-```js
-isGenerator((function*() {})())  //=> true
-
-isGenerator((function() {})())   //=> false
-
-isGenerator({
-  next: () => {},
-  throw: () => {}
-})  //=> true
-```
-<br /><br />
-
-### isGeneratorFunction()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isGeneratorFunction.js#L18)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks whether a function is generator function.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a generator function, else `false`.</p>
-
-**Example**
-```js
-isGeneratorFunction(function*() {})  //=> true
-isGeneratorFunction(function() {})   //=> false
-```
-<br /><br />
-
-### isIndex()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isIndex.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is a valid array-like index.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-<p><code>length</code>: <code>number</code> - [=MAX_SAFE_INTEGER] The upper bounds of a valid index.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a valid index, else `false`.</p>
-
-**Example**
-```js
-isIndex(0)
-//=> true
-
-isIndex(1)
-//=> true
-
-isIndex(-1)
-//=> false
-```
-<br /><br />
-
-### isInfinity()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isInfinity.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Checks if <code>value</code> is <code>Infinity</code> or <code>-Infinity</code>.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is `Infinity` or `-Infinity`, else `false`.</p>
-
-**Example**
-```js
-isInfinity(Infinity)
-// => true
-
-isInfinity(-Infinity)
-// => true
-
-isInfinity(new Number(Infinity))
-// => true
-
-isInfinity(undefined)
-// => false
-
-isInfinity(123)
-// => false
-```
-<br /><br />
-
-### isInteger()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isInteger.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Determine if the passed argument is an integer.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>Boolean</code> - Returns `true` if `value` is an integer, else `false`.</p>
-
-**Example**
-```js
-isInteger(3) // => true
-
-isInteger(new Number(3)) // => true
-
-isInteger(3.2) // => false
-
-isInteger(Number.MIN_VALUE) // => false
-
-isInteger(Infinity) // => false
-
-isInteger(NaN) // => false
-
-isInteger('3') // => false
-```
-<br /><br />
-
-### isIterable()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isIterable.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> implements the iterator symbol or is iterable</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is iterable, else `false`.</p>
-
-**Example**
-```js
-isIterable('abc')
-//=> true
-
-isIterable(new Map())
-//=> true
-
-isIterable({})
-//=> false
-
-isIterable([])
-//=> true
-```
-<br /><br />
-
-### isMap()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isMap.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is classified as a <code>Map</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a map, else `false`.</p>
-
-**Example**
-```js
-isMap(new Map) // => true
-
-isMap(new WeakMap) // => false
-```
-<br /><br />
-
-### isNaN()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isNaN.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
-<p>Checks if <code>value</code> is <code>NaN</code>.</p>
-<p><strong>Note:</strong> This method is based on <a href="https://mdn.io/Number/isNaN"><code>Number.isNaN</code></a> and is not the same as global <a href="https://mdn.io/isNaN"><code>isNaN</code></a> which returns <code>true</code> for <code>undefined</code> and other non-number values.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is `NaN`, else `false`.</p>
-
-**Example**
-```js
-isNaN(NaN)
-// => true
-
-isNaN(new Number(NaN))
-// => true
-
-isNaN(undefined)
-// => false
-```
-<br /><br />
-
-### isNativeObject()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isNativeObject.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is native JavaScript object instance.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a native JS object instance</p>
-
-**Example**
-```js
-isNativeObject(new WeakSet())
-// => true
-
-isNativeObject({})
-// => false
-
-class MyObject {}
-isNativeObject(new MyObject())
-// => false
-```
-<br /><br />
-
-### isNil()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isNil.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is <code>null</code> or <code>undefined</code>.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is nullish, else `false`.</p>
-
-**Example**
-```js
-isNil(null) // => true
-
-isNil(void 0) // => true
-
-isNil(NaN) // => false
-```
-<br /><br />
-
-### isNull()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isNull.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is <code>null</code>.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is `null`, else `false`.</p>
-
-**Example**
-```js
-isNull(null) // => true
-
-isNull(void 0) // => false
-```
-<br /><br />
-
-### isNumber()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isNumber.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is classified as a <code>Number</code> primitive or object.</p>
-<p><strong>Note:</strong> To exclude <code>Infinity</code>, <code>-Infinity</code>, and <code>NaN</code>, which are<br />
-classified as numbers, use the <code>Number.isFinite</code> method.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a number, else `false`.</p>
-
-**Example**
-```js
-isNumber(3) // => true
-
-isNumber(Number.MIN_VALUE) // => true
-
-isNumber(Infinity) // => true
-
-isNumber('3') // => false
-```
-<br /><br />
-
-### isObject()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isObject.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
-<p>Checks if <code>value</code> is the<br />
-<a href="http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types">language type</a><br />
-of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is an object, else `false`.</p>
-
-**Example**
-```js
-isObject({}) // => true
-
-isObject([1, 2, 3]) // => true
-
-isObject(Function) // => true
-
-isObject(null) // => false
-```
-<br /><br />
-
-### isObjectLike()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isObjectLike.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code> and has a <code>typeof</code> result of &quot;object&quot;.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is object-like, else `false`.</p>
-
-**Example**
-```js
-isObjectLike({}) // => true
-
-isObjectLike([1, 2, 3]) // => true
-
-isObjectLike(Function) // => false
-
-isObjectLike(null) // => false
-```
-<br /><br />
-
-### isPlainObject()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isPlainObject.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is a plain object, that is, an object created by the<br />
-<code>Object</code> constructor or one with a <code>[[Prototype]]</code> of <code>null</code>.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a plain object, else `false`.</p>
-
-**Example**
-```js
-function Foo() {
-  this.a = 1
-}
-
-isPlainObject(new Foo) // => false
-
-isPlainObject([1, 2, 3]) // => false
-
-isPlainObject({ 'x': 0, 'y': 0 }) // => true
-
-isPlainObject(Object.create(null)) // => true
-```
-<br /><br />
-
-### isPromise()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks whether the given value is a Promise.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a Promise, else `false`.</p>
-
-**Example**
-```js
-isPromise(new Promise(() => {})) //=> true
-
-isPromise({}) //=> false
-
-isPromise({ then: () => {} }) //=> true
-```
-<br /><br />
-
-### isPrototype()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isPrototype.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is likely a prototype object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a prototype, else `false`.</p>
-
-<br /><br />
-
-### isRegExp()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isRegExp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is classified as a <code>RegExp</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a regexp, else `false`.</p>
-
-**Example**
-```js
-isRegExp(/abc/)
-// => true
-
-isRegExp('/abc/')
-// => false
-```
-<br /><br />
-
-### isSet()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isSet.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is classified as a <code>Set</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a set, else `false`.</p>
-
-**Example**
-```js
-isSet(new Set())
-// => true
-
-isSet(new WeakSet())
-// => false
-```
-<br /><br />
-
-### isString()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
-<p>Checks if <code>value</code> is classified as a <code>String</code> primitive or object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a string, else `false`.</p>
-
-**Example**
-```js
-isString('abc') // => true
-
-isString(1) // => false
-```
-<br /><br />
-
-### isSymbol()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isSymbol.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
-<p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a symbol, else `false`.</p>
-
-**Example**
-```js
-isSymbol(Symbol.iterator)
-// => true
-isSymbol(Symbol('abc'))
-// => true
-isSymbol(Symbol.for('abc'))
-// => true
-
-isSymbol('abc')
-// => false
-```
-<br /><br />
-
-### isTransformer()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isTransformer.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a transformer, else `false`.</p>
-
-**Example**
-```js
-isTransformer({
-  ['@@transducer/step']: () => {}
-}) // => true
-
-isTransformer('abc') // => false
-```
-<br /><br />
-
-### isTypedArray()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isTypedArray.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Checks if <code>value</code> is classified as a typed array.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a typed array, else `false`.</p>
-
-**Example**
-```js
-isTypedArray(new Uint8Array()) // => true
-
-isTypedArray([]) // => false
-```
-<br /><br />
-
-### isUndefined()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isUndefined.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
-<p>Checks if <code>value</code> is <code>undefined</code>.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is `undefined`, else `false`.</p>
-
-**Example**
-```js
-isUndefined(void 0) // => true
-
-isUndefined(null) // => false
-```
-<br /><br />
-
-### isWeakMap()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isWeakMap.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is classified as a <code>WeakMap</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a weak map, else `false`.</p>
-
-**Example**
-```js
-isWeakMap(new WeakMap())
-// => true
-
-isWeakMap(new Map())
-// => false
-```
-<br /><br />
-
-### isWeakSet()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/isWeakSet.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
-<p>Checks if <code>value</code> is classified as a <code>WeakSet</code> object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
-
-**Returns**
-<br /><p><code>boolean</code> - Returns `true` if `value` is a weak set, else `false`.</p>
-
-**Example**
-```js
-isWeakSet(new WeakSet())
-// => true
-
-isWeakSet(new Set())
-// => false
-```
-<br /><br />
-
-### objectIterator()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/objectIterator.js#L32)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
-<p>Returns iterator for an object's keys and values.</p>
-<p>Note, iterates over object's own keys and symbols</p>
-
-**Params**
-<p><code>object</code>: <code>&ast;</code> - The array object to create an iterator for.</p>
-
-**Returns**
-<br /><p><code>Iterator</code> - A new iterator for the given object&#39;s keys and values</p>
-
-**Example**
-```js
-objectIterator({
-  write: 'more',
-  tests: 'asap',
-  [Symbol('like')]: 'now'
-})
-//=> {
-//   next: () => ({
-//     value: *,
-//     done: boolean,
-//     kdx: string,
-//     key: string
-//   })
-// }
-
-iter.next()
-//=> { value: 'more', key: 'write', kdx: 'write', done: false }
-iter.next()
-//=> { value: 'asap', key: 'tests', kdx: 'tests', done: false }
-iter.next()
-//=> { value: 'now', key: Symbol('like'), kdx: Symbol('like'), done: false }
-iter.next()
-//=> { done: true }
-```
-<br /><br />
-
-### objectKeys()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/objectKeys.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
-<p>Returns a list containing the names of all the enumerable own properties of the supplied object.<br />
-Note that the order of the output array is not guaranteed to be consistent across different JS platforms.</p>
-
-**Params**
-<p><code>obj</code>: <code>Object</code> - The object to extract properties from</p>
-
-**Returns**
-<br /><p><code>Array</code> - An array of the object&#39;s own properties.</p>
-
-**Example**
-```js
-objectKeys({a: 1, b: 2, c: 3}) //=> ['a', 'b', 'c']
-```
-<br /><br />
-
-### stringToLowerCase()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/stringToLowerCase.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
-<p>Returns the given string value converted to lower case.</p>
-
-**Params**
-<p><code>string</code>: <code>string</code> - The string to convert to lower case</p>
-
-**Returns**
-<br /><p><code>string</code> - A new array with the values concatenated</p>
-
-**Example**
-```js
-stringToLowerCase('ABC') //=> 'abc'
-```
-<br /><br />
-
-### toFinite()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/toFinite.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
-<p>Converts <code>value</code> to a finite number.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
-
-**Returns**
-<br /><p><code>number</code> - Returns the converted number.</p>
-
-**Example**
-```js
-toFinite(3.2)
-// => 3.2
-
-toFinite(Number.MIN_VALUE)
-// => 5e-324
-
-toFinite(Infinity)
-// => 1.7976931348623157e+308
-
-toFinite('3.2')
-// => 3.2
-```
-<br /><br />
-
-### toInteger()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/toInteger.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
-<p>Converts <code>value</code> to an integer.</p>
-<p><strong>Note:</strong> This method is loosely based on<br />
-<a href="http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger"><code>ToInteger</code></a>.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
-
-**Returns**
-<br /><p><code>number</code> - Returns the converted integer.</p>
-
-**Example**
-```js
-toInteger(3.2)
-// => 3
-
-toInteger(Number.MIN_VALUE)
-// => 0
-
-toInteger(Infinity)
-// => 1.7976931348623157e+308
-
-toInteger('3.2')
-// => 3
-```
-<br /><br />
-
-### toNumber()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/toNumber.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
-<p>Converts <code>value</code> to a number.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to process.</p>
-
-**Returns**
-<br /><p><code>number</code> - Returns the number.</p>
-
-**Example**
-```js
-toNumber(3.2)
-// => 3.2
-
-toNumber(Number.MIN_VALUE)
-// => 5e-324
-
-toNumber(Infinity)
-// => Infinity
-
-toNumber('3.2')
-// => 3.2
-```
-<br /><br />
-
-### toObject()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/toObject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
-<p>Converts <code>value</code> to a plain object flattening inherited enumerable string keyed properties of <code>value</code> to own properties of the plain object.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
-
-**Returns**
-<br /><p><code>Object</code> - Returns the converted plain object.</p>
-
-**Example**
-```js
-function Foo() {
-  this.b = 2
-}
-
-Foo.prototype.c = 3
-
-assign({ 'a': 1 }, new Foo)
-// => { 'a': 1, 'b': 2 }
-
-assign({ 'a': 1 }, toObject(new Foo))
-// => { 'a': 1, 'b': 2, 'c': 3 }
-```
-<br /><br />
-
-### toString()
-
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/base/toString.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
-<p>Converts <code>value</code> to a string. An empty string is returned for <code>null</code>  and <code>undefined</code> values. The sign of <code>-0</code> is preserved.</p>
-
-**Params**
-<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
-
-**Returns**
-<br /><p><code>string</code> - Returns the converted string.</p>
-
-**Example**
-```js
-toString(null)
-// => ''
-
-toString(-0)
-// => '-0'
-
-toString([1, 2, 3])
-// => '1,2,3'
-```
-<br /><br />
-
 ## common
 
 ### all()
@@ -1485,7 +351,12 @@ promise.resolve(someValue)
 ### defn()
 
 [source](https://github.com/serverless/utils/tree/v0.0.17/src/common/defn.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
-<p>Defines a function that will invoke the named function if it exists on the last arg. If the method does not, all args are passed through to the default function.</p>
+<p>Defines a function with a few predefined behaviours. Functions defined with this method will...</p>
+<ul>
+<li><a href="#curry">curry</a></li>
+<li><a href="#dispatchable">dispatch</a></li>
+<li><a href="#resolveAll">resolve all args</a></li>
+</ul>
 
 **Params**
 <p><code>name</code>: <code>string</code> - The name of the method to call if it exists</p>
@@ -1534,6 +405,31 @@ const obj = {
   get: (prop) => obj.props[prop]
 }
 get('a', obj) //=> 'bar'
+```
+<br /><br />
+
+### identical()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/identical.js#L15)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns true if its arguments are identical, false otherwise. Values are identical if they reference the same memory. <code>NaN</code> is identical to <code>NaN</code>; <code>0</code> and <code>-0</code> are not identical.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is">Object.is</a> polyfill to avoid requiring consumers ship their own</p>
+
+**Params**
+<p><code>valueA</code>: <code>&ast;</code> - </p>
+<p><code>valueB</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>Boolean</code> - </p>
+
+**Example**
+```js
+const o = {}
+identical(o, o) //=> true
+identical(1, 1) //=> true
+identical(1, '1') //=> false
+identical([], []) //=> false
+identical(0, -0) //=> false
+identical(NaN, NaN) //=> true
 ```
 <br /><br />
 
@@ -1748,6 +644,29 @@ iteratorResolver(
 //     index: integer
 //   })
 // }
+```
+<br /><br />
+
+### mix()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/common/mix.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
+<p>Returns an object with a <code>with</code> method that can be used to mix the given class with mixins</p>
+
+**Params**
+<p><code>SuperClass</code>: <code>class</code> - The class that you want the mixins to extend</p>
+<p><code>args</code>: <code>...&ast;</code> - Additional arguments to pass to the mixin</p>
+
+**Returns**
+<br /><p><code>{<br />
+  with: (<br />
+    ...mixins: (SuperClass: class, ...args: &ast;) =&gt; class<br />
+  ) =&gt; class<br />
+}</code> - </p>
+
+**Example**
+```js
+const mixin = (SuperClass, ...args) => class extends SuperClass { ... }
+class mix(Parent, ...args).with(mixin) { ... }
 ```
 <br /><br />
 
@@ -2277,6 +1196,81 @@ await concat(Promise.resolve([4, 5, 6]), Promise.resolve([1, 2, 3])) //=> [4, 5,
 ```
 <br /><br />
 
+### contains()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/contains.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns <code>true</code> if the specified value is equal, in <a href="#equals"><code>equals</code></a> terms, to at least one value of the given collection; <code>false</code> otherwise.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to compare against.</p>
+<p><code>collection</code>: <code>array|object|string</code> - The collection to consider.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - `true` if an equivalent value is in the collection, `false` otherwise.</p>
+
+**Example**
+```js
+contains(3, [1, 2, 3]) //=> true
+contains(4, [1, 2, 3]) //=> false
+contains({ name: 'Fred' }, [{ name: 'Fred' }]) //=> true
+contains([42], [[42]]) //=> true
+```
+<br /><br />
+
+### containsWith()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/containsWith.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns <code>true</code> if the given predicate returns true for at least one value in the given collection.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to compare against.</p>
+<p><code>collection</code>: <code>&ast;</code> - The collection to consider.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - `true` if an equivalent item is in the list, `false` otherwise.</p>
+
+**Example**
+```js
+contains(3, [1, 2, 3]) //=> true
+contains(4, [1, 2, 3]) //=> false
+contains({ name: 'Fred' }, [{ name: 'Fred' }]) //=> true
+contains([42], [[42]]) //=> true
+```
+<br /><br />
+
+### equals()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/equals.js#L198)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns <code>true</code> if its arguments are equivalent, <code>false</code> otherwise. Handles cyclical data structures.</p>
+<p>Dispatches symmetrically to the <code>equals</code> methods of both arguments, if present.</p>
+
+**Params**
+<p><code>valueA</code>: <code>&ast;</code> - </p>
+<p><code>valueB</code>: <code>&ast;</code> - </p>
+
+**Returns**
+<br /><p><code>boolean</code> - </p>
+
+**Example**
+```js
+equals(1, 1)
+//=> true
+
+equals(1, '1')
+//=> false
+
+equals([1, 2, 3], [1, 2, 3])
+//=> true
+
+const a = {}
+a.v = a
+const b = {}
+b.v = b
+equals(a, b)
+//=> true
+```
+<br /><br />
+
 ### every()
 
 [source](https://github.com/serverless/utils/tree/v0.0.17/src/data/every.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
@@ -2738,7 +1732,7 @@ hasProp((value) => value.birthday, { name: 'raees'}) //=> false
 
 ### head()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/head.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/head.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
 <p>Returns the first element of the given list or string.</p>
 
 **Params**
@@ -2757,9 +1751,50 @@ head('') //=> ''
 ```
 <br /><br />
 
+### indexOf()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/indexOf.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns the position of the first occurrence of an item in an array, or -1 if the item is not included in the array. <a href="#equals"><code>equals</code></a> is used to determine equality.</p>
+<p>This method automatically upgrades to async if either of the parameters are a Promise</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to find.</p>
+<p><code>list</code>: <code>Array</code> - The list to search in.</p>
+
+**Returns**
+<br /><p><code>Number</code> - the index of the value, or -1 if the value is not found.</p>
+
+**Example**
+```js
+indexOf(3, [1,2,3,4]) //=> 2
+indexOf(10, [1,2,3,4]) //=> -1
+```
+<br /><br />
+
+### indexOfAtIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/indexOfAtIndex.js#L62)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns the position of the first occurrence of an item in an array, or -1 if the item is not included in the array. <a href="#equals"><code>equals</code></a> is used to determine equality.</p>
+<p>This method automatically upgrades to async if any of the parameters are a Promise</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to find.</p>
+<p><code>list</code>: <code>Array</code> - The list to search in.</p>
+<p><code>index</code>: <code>number</code> - The index to start at.</p>
+
+**Returns**
+<br /><p><code>Number</code> - the index of the value, or -1 if the value is not found.</p>
+
+**Example**
+```js
+indexOfAtIndex(3, 0, [1,2,3,4]) //=> 2
+indexOfAtIndex(3, 3, [1,2,3,4]) //=> -1
+```
+<br /><br />
+
 ### init()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/init.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/init.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
 <p>Returns all but the last element of the given list or string.</p>
 
 **Params**
@@ -2861,7 +1896,7 @@ await keys(Promise.resolve({ a: 1, b: 2 }) //=> ['a', 'b']
 
 ### last()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/last.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/last.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Returns the last element of the given list or string.</p>
 
 **Params**
@@ -3171,6 +2206,19 @@ remove(isOdd, {a: 1, b: 2, c: 3, d: 4}) //=> {b: 2, d: 4}
 ```
 <br /><br />
 
+### rest()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/rest.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Alias of the <a href="#tail">tail</a> method.</p>
+
+**Params**
+<p><code>collection</code>: <code>&ast;</code> - The collection to get the tail of</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - The tail of the given collection</p>
+
+<br /><br />
+
 ### set()
 
 [source](https://github.com/serverless/utils/tree/v0.0.17/src/data/set.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
@@ -3197,7 +2245,7 @@ set([ 'c', 'd' ], 3, {a: 1, b: 2}) //=> {a: 1, b: 2, c: { d: 3 }}
 
 ### shallowEquals()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/shallowEquals.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/shallowEquals.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Performs equality by iterating through keys on an object and returning false when any key has values which are not strictly equal between the arguments. Returns true when the values of all keys are strictly equal.</p>
 
 **Params**
@@ -3247,7 +2295,7 @@ slice(0, 2, string)
 
 ### tail()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/tail.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/data/tail.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.5
 <p>Returns all but the first element of the given list or string (or object<br />
 with a <code>tail</code> method).</p>
 <p>Dispatches to the <code>slice</code> method of the first argument, if present.</p>
@@ -3512,6 +2560,43 @@ console.log(JSON.stringify(data))
 
 ## fs
 
+### copyDirContentsSync()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/fs/copyDirContentsSync.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+<p>Coppies the contents of one directory to another synchronously</p>
+<p>Auto curried with placeholder support</p>
+
+**Params**
+<p><code>srcDir</code>: <code>string</code> - </p>
+
+**Returns**
+<br /><p><code>undefined</code> - None</p>
+
+**Example**
+```js
+copyDirContentsSync('./some/dir', './target/dir')
+```
+<br /><br />
+
+### dirExists()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/fs/dirExists.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+<p>Determines if the given directory exists.</p>
+<p>This dire</p>
+<p>Auto curried with placeholder support</p>
+
+**Params**
+<p><code>srcDir</code>: <code>string</code> - </p>
+
+**Returns**
+<br /><p><code>undefined</code> - None</p>
+
+**Example**
+```js
+copyDirContentsSync('./some/dir', './target/dir')
+```
+<br /><br />
+
 ### isArchivePath()
 
 [source](https://github.com/serverless/utils/tree/v0.0.17/src/fs/isArchivePath.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
@@ -3596,9 +2681,1037 @@ await lookupIp('139.130.4.5')
 
 ## lang
 
-### getProperty()
+### arrayConcat()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/getProperty.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayConcat.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Concat an array with two or more arrays. This method does not change the existing arrays, but instead returns a new array.</p>
+
+**Params**
+<p><code>array</code>: <code>Array</code> - The array concat with the given values</p>
+<p><code>values</code>: <code>...&ast;</code> - The values to concat to the array</p>
+
+**Returns**
+<br /><p><code>Array</code> - A new array with the values concatenated</p>
+
+**Example**
+```js
+arrayConcat(['a', 'b', 'c'], [1, 2, 3])
+//=> ['a', 'b', 'c', 1, 2, 3]
+
+arrayConcat([1, 2, 3], [4, 5, 6], [7, 8, 9])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+arrayConcat(['a', 'b', 'c'], 1, [2, 3])
+//=> ['a', 'b', 'c', 1, 2, 3]
+```
+<br /><br />
+
+### arrayFlatten()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayFlatten.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Returns a new array by pulling every item out of it (and all its sub-arrays) and putting them in a new array, depth-first.</p>
+
+**Params**
+<p><code>array</code>: <code>Array</code> - The array to consider.</p>
+
+**Returns**
+<br /><p><code>Array</code> - The flattened list.</p>
+
+**Example**
+```js
+arrayFlatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+```
+<br /><br />
+
+### arrayForEach()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayForEach.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>This method executes a provided function once for each array element.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">Array.prototype.forEach()</a> for more information</p>
+
+**Params**
+<p><code>array</code>: <code>array</code> - The array to iterate over.</p>
+<p><code>fn</code>: <code>function</code> - The function to execute for each element</p>
+
+**Returns**
+<br /><p><code>array</code> - The original array</p>
+
+**Example**
+```js
+const items = ['item1', 'item2', 'item3']
+const copy = []
+
+for (let i=0; i<items.length; i++) {
+  copy.push(items[i])
+}
+//=> ['item1', 'item2', 'item3']
+```
+<br /><br />
+
+### arrayLikeIterator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayLikeIterator.js#L30)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>Returns iterator for an array like value.</p>
+
+**Params**
+<p><code>arrayLike</code>: <code>&ast;</code> - The array like value to create an iterator for.</p>
+<p><code>index</code>: <code>&ast;</code> - The index to start at.</p>
+
+**Returns**
+<br /><p><code>Iterator</code> - A new iterator for the given array like value</p>
+
+**Example**
+```js
+arrayLikeIterator(['write', 'more'])
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   }),
+//   previous: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+// }
+arrayLikeIterator('tests')
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+//   previous: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: integer,
+//     index: integer
+//   })
+// }
+```
+<br /><br />
+
+### arrayLikeKeys()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayLikeKeys.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Creates an array of the enumerable property names of the array-like <code>value</code>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to query.</p>
+<p><code>inherited</code>: <code>boolean</code> - Specify returning inherited property names.</p>
+
+**Returns**
+<br /><p><code>Array</code> - Returns the array of property names.</p>
+
+<br /><br />
+
+### arrayLikeSlice()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/arrayLikeSlice.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Returns a shallow copy of a portion of an array into a new array object selected from begin to end (end not included). The original array will not be modified.</p>
+
+**Params**
+<p><code>arrayLike</code>: <code>Array</code> - The array like value to slice values from</p>
+<p><code>start</code>: <code>number</code> - [=0] Zero-based index at which to begin extraction. A negative index will be treated as an offset from the end.</p>
+<p><code>end</code>: <code>number</code> - [=array.length] Zero-based index before which to end extraction. `arrayLikeSlice` extracts up to but not including end.</p>
+
+**Returns**
+<br /><p><code>Array</code> - A new array with the extraced values</p>
+
+**Example**
+```js
+arrayLikeSlice(['a', 'b', 'c'], 0, 2)
+//=> ['a', 'b']
+```
+<br /><br />
+
+### indexEndOffset()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/indexEndOffset.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Generate a start index with an offset where if the start is less than 0 it will return an offset from the length of <code>length + start</code></p>
+
+**Params**
+<p><code>start</code>: <code>number</code> - The start index</p>
+<p><code>length</code>: <code>number</code> - The length of the list</p>
+
+**Returns**
+<br /><p><code>number</code> - A starting index</p>
+
+**Example**
+```js
+indexEndOffset(0, 2)
+// => 0
+
+indexEndOffset(3, 2)
+// => 2
+
+indexEndOffset(-1, 3)
+// => 2
+```
+<br /><br />
+
+### isArguments()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isArguments.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is likely an <code>arguments</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an `arguments` object, else `false`.</p>
+
+**Example**
+```js
+isArguments(function() { return arguments }()) // => true
+
+isArguments([1, 2, 3]) // => false
+```
+<br /><br />
+
+### isArray()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isArray.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Checks if <code>value</code> is classified as an <code>Array</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an array, else `false`.</p>
+
+**Example**
+```js
+isArray([1, 2, 3]) // => true
+
+isArray(document.body.children) // => false
+
+isArray('abc') // => false
+
+isArray(noop) // => false
+```
+<br /><br />
+
+### isArrayBuffer()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isArrayBuffer.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as an <code>ArrayBuffer</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an array buffer, else `false`.</p>
+
+**Example**
+```js
+isArrayBuffer(new ArrayBuffer(2))
+// => true
+
+isArrayBuffer(new Array(2))
+// => false
+```
+<br /><br />
+
+### isArrayLike()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isArrayLike.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is array-like. A value is considered array-like if it's<br />
+not a function and has a <code>value.length</code> that's an integer greater than or<br />
+equal to <code>0</code> and less than or equal to <code>Number.MAX_SAFE_INTEGER</code>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is array-like, else `false`.</p>
+
+**Example**
+```js
+isArrayLike([1, 2, 3]) // => true
+
+isArrayLike(document.body.children) // => true
+
+isArrayLike('abc') // => true
+
+isArrayLike(Function) // => false
+```
+<br /><br />
+
+### isBoolean()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isBoolean.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a boolean primitive or object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a boolean, else `false`.</p>
+
+**Example**
+```js
+isBoolean(false)
+// => true
+
+isBoolean(null)
+// => false
+```
+<br /><br />
+
+### isBuffer()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isBuffer.js#L19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is a buffer.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a buffer, else `false`.</p>
+
+**Example**
+```js
+isBuffer(new Buffer(2)) // => true
+
+isBuffer(new Uint8Array(2)) // => false
+```
+<br /><br />
+
+### isDate()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isDate.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>Date</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a date object, else `false`.</p>
+
+**Example**
+```js
+isDate(new Date)
+// => true
+
+isDate('Mon April 23 2012')
+// => false
+```
+<br /><br />
+
+### isElement()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isElement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is likely a DOM element.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a DOM element, else `false`.</p>
+
+**Example**
+```js
+isElement(document.body)
+// => true
+
+isElement('<body>')
+// => false
+```
+<br /><br />
+
+### isError()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isError.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is an <code>Error</code>, <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>, <code>SyntaxError</code>, <code>TypeError</code>, or <code>URIError</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an error object, else `false`.</p>
+
+**Example**
+```js
+isError(new Error)
+// => true
+
+isError(Error)
+// => false
+```
+<br /><br />
+
+### isFunction()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isFunction.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is classified as a <code>Function</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a function, else `false`.</p>
+
+**Example**
+```js
+isFunction(function() {}) // => true
+
+isFunction(/abc/) // => false
+```
+<br /><br />
+
+### isGenerator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isGenerator.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks whether the given value is a generator.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a generator, else `false`.</p>
+
+**Example**
+```js
+isGenerator((function*() {})())  //=> true
+
+isGenerator((function() {})())   //=> false
+
+isGenerator({
+  next: () => {},
+  throw: () => {}
+})  //=> true
+```
+<br /><br />
+
+### isGeneratorFunction()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isGeneratorFunction.js#L18)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks whether a function is generator function.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a generator function, else `false`.</p>
+
+**Example**
+```js
+isGeneratorFunction(function*() {})  //=> true
+isGeneratorFunction(function() {})   //=> false
+```
+<br /><br />
+
+### isIndex()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isIndex.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is a valid array-like index.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+<p><code>length</code>: <code>number</code> - [=MAX_SAFE_INTEGER] The upper bounds of a valid index.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a valid index, else `false`.</p>
+
+**Example**
+```js
+isIndex(0)
+//=> true
+
+isIndex(1)
+//=> true
+
+isIndex(-1)
+//=> false
+```
+<br /><br />
+
+### isInfinity()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isInfinity.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Checks if <code>value</code> is <code>Infinity</code> or <code>-Infinity</code>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is `Infinity` or `-Infinity`, else `false`.</p>
+
+**Example**
+```js
+isInfinity(Infinity)
+// => true
+
+isInfinity(-Infinity)
+// => true
+
+isInfinity(new Number(Infinity))
+// => true
+
+isInfinity(undefined)
+// => false
+
+isInfinity(123)
+// => false
+```
+<br /><br />
+
+### isInteger()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isInteger.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Determine if the passed argument is an integer.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>Boolean</code> - Returns `true` if `value` is an integer, else `false`.</p>
+
+**Example**
+```js
+isInteger(3) // => true
+
+isInteger(new Number(3)) // => true
+
+isInteger(3.2) // => false
+
+isInteger(Number.MIN_VALUE) // => false
+
+isInteger(Infinity) // => false
+
+isInteger(NaN) // => false
+
+isInteger('3') // => false
+```
+<br /><br />
+
+### isIterable()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isIterable.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> implements the iterator symbol or is iterable</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is iterable, else `false`.</p>
+
+**Example**
+```js
+isIterable('abc')
+//=> true
+
+isIterable(new Map())
+//=> true
+
+isIterable({})
+//=> false
+
+isIterable([])
+//=> true
+```
+<br /><br />
+
+### isMap()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isMap.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is classified as a <code>Map</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a map, else `false`.</p>
+
+**Example**
+```js
+isMap(new Map) // => true
+
+isMap(new WeakMap) // => false
+```
+<br /><br />
+
+### isNaN()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNaN.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.13
+<p>Checks if <code>value</code> is <code>NaN</code>.</p>
+<p><strong>Note:</strong> This method is based on <a href="https://mdn.io/Number/isNaN"><code>Number.isNaN</code></a> and is not the same as global <a href="https://mdn.io/isNaN"><code>isNaN</code></a> which returns <code>true</code> for <code>undefined</code> and other non-number values.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is `NaN`, else `false`.</p>
+
+**Example**
+```js
+isNaN(NaN)
+// => true
+
+isNaN(new Number(NaN))
+// => true
+
+isNaN(undefined)
+// => false
+```
+<br /><br />
+
+### isNativeObject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNativeObject.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is native JavaScript object instance.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a native JS object instance</p>
+
+**Example**
+```js
+isNativeObject(new WeakSet())
+// => true
+
+isNativeObject({})
+// => false
+
+class MyObject {}
+isNativeObject(new MyObject())
+// => false
+```
+<br /><br />
+
+### isNil()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNil.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is <code>null</code> or <code>undefined</code>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is nullish, else `false`.</p>
+
+**Example**
+```js
+isNil(null) // => true
+
+isNil(void 0) // => true
+
+isNil(NaN) // => false
+```
+<br /><br />
+
+### isNull()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNull.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is <code>null</code>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is `null`, else `false`.</p>
+
+**Example**
+```js
+isNull(null) // => true
+
+isNull(void 0) // => false
+```
+<br /><br />
+
+### isNumber()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isNumber.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is classified as a <code>Number</code> primitive or object.</p>
+<p><strong>Note:</strong> To exclude <code>Infinity</code>, <code>-Infinity</code>, and <code>NaN</code>, which are<br />
+classified as numbers, use the <code>Number.isFinite</code> method.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a number, else `false`.</p>
+
+**Example**
+```js
+isNumber(3) // => true
+
+isNumber(Number.MIN_VALUE) // => true
+
+isNumber(Infinity) // => true
+
+isNumber('3') // => false
+```
+<br /><br />
+
+### isObject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isObject.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Checks if <code>value</code> is the<br />
+<a href="http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types">language type</a><br />
+of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is an object, else `false`.</p>
+
+**Example**
+```js
+isObject({}) // => true
+
+isObject([1, 2, 3]) // => true
+
+isObject(Function) // => true
+
+isObject(null) // => false
+```
+<br /><br />
+
+### isObjectLike()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isObjectLike.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is object-like. A value is object-like if it's not <code>null</code> and has a <code>typeof</code> result of &quot;object&quot;.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is object-like, else `false`.</p>
+
+**Example**
+```js
+isObjectLike({}) // => true
+
+isObjectLike([1, 2, 3]) // => true
+
+isObjectLike(Function) // => false
+
+isObjectLike(null) // => false
+```
+<br /><br />
+
+### isPlainObject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isPlainObject.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is a plain object, that is, an object created by the<br />
+<code>Object</code> constructor or one with a <code>[[Prototype]]</code> of <code>null</code>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a plain object, else `false`.</p>
+
+**Example**
+```js
+function Foo() {
+  this.a = 1
+}
+
+isPlainObject(new Foo) // => false
+
+isPlainObject([1, 2, 3]) // => false
+
+isPlainObject({ 'x': 0, 'y': 0 }) // => true
+
+isPlainObject(Object.create(null)) // => true
+```
+<br /><br />
+
+### isPromise()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isPromise.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks whether the given value is a Promise.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a Promise, else `false`.</p>
+
+**Example**
+```js
+isPromise(new Promise(() => {})) //=> true
+
+isPromise({}) //=> false
+
+isPromise({ then: () => {} }) //=> true
+```
+<br /><br />
+
+### isPrototype()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isPrototype.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is likely a prototype object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a prototype, else `false`.</p>
+
+<br /><br />
+
+### isRegExp()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isRegExp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>RegExp</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a regexp, else `false`.</p>
+
+**Example**
+```js
+isRegExp(/abc/)
+// => true
+
+isRegExp('/abc/')
+// => false
+```
+<br /><br />
+
+### isSet()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isSet.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>Set</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a set, else `false`.</p>
+
+**Example**
+```js
+isSet(new Set())
+// => true
+
+isSet(new WeakSet())
+// => false
+```
+<br /><br />
+
+### isString()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Checks if <code>value</code> is classified as a <code>String</code> primitive or object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a string, else `false`.</p>
+
+**Example**
+```js
+isString('abc') // => true
+
+isString(1) // => false
+```
+<br /><br />
+
+### isSymbol()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isSymbol.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a symbol, else `false`.</p>
+
+**Example**
+```js
+isSymbol(Symbol.iterator)
+// => true
+isSymbol(Symbol('abc'))
+// => true
+isSymbol(Symbol.for('abc'))
+// => true
+
+isSymbol('abc')
+// => false
+```
+<br /><br />
+
+### isTransformer()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isTransformer.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a transformer, else `false`.</p>
+
+**Example**
+```js
+isTransformer({
+  ['@@transducer/step']: () => {}
+}) // => true
+
+isTransformer('abc') // => false
+```
+<br /><br />
+
+### isTypedArray()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isTypedArray.js#L11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
+<p>Checks if <code>value</code> is classified as a typed array.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a typed array, else `false`.</p>
+
+**Example**
+```js
+isTypedArray(new Uint8Array()) // => true
+
+isTypedArray([]) // => false
+```
+<br /><br />
+
+### isUndefined()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isUndefined.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+<p>Checks if <code>value</code> is <code>undefined</code>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is `undefined`, else `false`.</p>
+
+**Example**
+```js
+isUndefined(void 0) // => true
+
+isUndefined(null) // => false
+```
+<br /><br />
+
+### isWeakMap()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isWeakMap.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>WeakMap</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a weak map, else `false`.</p>
+
+**Example**
+```js
+isWeakMap(new WeakMap())
+// => true
+
+isWeakMap(new Map())
+// => false
+```
+<br /><br />
+
+### isWeakSet()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/isWeakSet.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+<p>Checks if <code>value</code> is classified as a <code>WeakSet</code> object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to check.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - Returns `true` if `value` is a weak set, else `false`.</p>
+
+**Example**
+```js
+isWeakSet(new WeakSet())
+// => true
+
+isWeakSet(new Set())
+// => false
+```
+<br /><br />
+
+### objectCreate()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectCreate.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Creates a new object, using an existing object as the prototype of the newly created object.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create">Object.create</a> for more information</p>
+
+**Params**
+<p><code>proto</code>: <code>object</code> - The object which should be the prototype of the newly-created object.</p>
+<p><code>propertiesObject</code>: <code>object</code> - If specified and not undefined, an object whose enumerable own properties (that is, those properties defined upon itself and not enumerable properties along its prototype chain) specify property descriptors to be added to the newly-created object, with the corresponding property names.</p>
+
+**Returns**
+<br /><p><code>object</code> - A new object with the specified prototype object and properties.</p>
+
+**Example**
+```js
+const person = {
+  isHuman: false,
+  printIntroduction: function () {
+    console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`)
+  }
+}
+
+const me = objectCreate(person)
+
+me.name = 'Matthew' // 'name' is a property set on 'me', but not on 'person'
+me.isHuman = true // inherited properties can be overwritten
+
+me.printIntroduction()
+//=> 'My name is Matthew. Am I human? true'
+```
+<br /><br />
+
+### objectDefineProperty()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectDefineProperty.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Defines a new property directly on an object, or modifies an existing property on an object, and returns the object.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty</a> for more information</p>
+
+**Params**
+<p><code>object</code>: <code>object</code> - The object on which to define the property.</p>
+<p><code>prop</code>: <code>string</code> - The name or Symbol of the property to be defined or modified.</p>
+<p><code>descriptor</code>: <code>object</code> - The descriptor for the property being defined or modified.</p>
+
+**Returns**
+<br /><p><code>object} The object that was passed to the function.<br />
+<br />
+const object1 = {}<br />
+<br />
+objectDefineProperty(object1, &#39;property1&#39;, {<br />
+  value: 42,<br />
+  writable: false</code> - )<br />
+<br />
+object1.property1 = 77<br />
+// throws an error in strict mode<br />
+<br />
+object1.property1<br />
+//=&gt; 42</p>
+
+<br /><br />
+
+### objectGetOwnPropertyDescriptor()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectGetOwnPropertyDescriptor.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
 <p>Returns a property descriptor for an own property</p>
 
 **Params**
@@ -3618,7 +3731,7 @@ await lookupIp('139.130.4.5')
 **Example**
 ```js
 const object = { get foo() { return 17 } }
-getProperty(o, 'foo')
+objectGetOwnPropertyDescriptor(object, 'foo')
 //=> {
 //   configurable: true,
 //   enumerable: true,
@@ -3628,26 +3741,377 @@ getProperty(o, 'foo')
 ```
 <br /><br />
 
-### mix()
+### objectGetOwnPropertySymbols()
 
-[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/mix.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.4
-<p>Returns an object with a <code>with</code> method that can be used to mix the given class with mixins</p>
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectGetOwnPropertySymbols.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns an array of all symbol properties found directly upon a given object.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols">Object.getOwnPropertySymbols()</a> for more information</p>
 
 **Params**
-<p><code>SuperClass</code>: <code>class</code> - The class that you want the mixins to extend</p>
-<p><code>args</code>: <code>...&ast;</code> - Additional arguments to pass to the mixin</p>
+<p><code>object</code>: <code>object</code> - The object whose symbol properties are to be returned.</p>
 
 **Returns**
-<br /><p><code>{<br />
-  with: (<br />
-    ...mixins: (SuperClass: class, ...args: &ast;) =&gt; class<br />
-  ) =&gt; class<br />
-}</code> - </p>
+<br /><p><code>array} An array of all symbol properties found directly upon the given object.<br />
+<br />
+const object1 = {</code> - const a = Symbol(&#39;a&#39;)<br />
+const b = Symbol.for(&#39;b&#39;)<br />
+<br />
+object1[a] = &#39;localSymbol&#39;<br />
+object1[b] = &#39;globalSymbol&#39;<br />
+<br />
+const objectSymbols = objectGetOwnPropertySymbols(object1)<br />
+<br />
+console.log(objectSymbols.length)<br />
+//=&gt;  2</p>
+
+<br /><br />
+
+### objectHasOwnProperty()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectHasOwnProperty.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns a boolean indicating whether the object has the specified property as its own property (as opposed to inheriting it).</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty">Object.hasOwnProperty()</a> for more information</p>
+
+**Params**
+<p><code>object</code>: <code>object</code> - The object on which to check for the property.</p>
+<p><code>prop</code>: <code>string</code> - The String name or symbol of the property to test.</p>
+
+**Returns**
+<br /><p><code>boolean</code> - A boolean indicating whether or not the object has the specified property as own property.<br />
+<br />
+const object = new Object()<br />
+object.property1 = 42<br />
+<br />
+objectHasOwnProperty(object, &#39;property1&#39;)<br />
+//=&gt; true<br />
+<br />
+objectHasOwnProperty(object, &#39;toString&#39;)<br />
+//=&gt; false<br />
+<br />
+objectHasOwnProperty(object, &#39;hasOwnProperty&#39;)<br />
+//=&gt; false</p>
+
+<br /><br />
+
+### objectIterator()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectIterator.js#L32)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>Returns iterator for an object's keys and values.</p>
+<p>Note, iterates over object's own keys and symbols</p>
+
+**Params**
+<p><code>object</code>: <code>&ast;</code> - The array object to create an iterator for.</p>
+
+**Returns**
+<br /><p><code>Iterator</code> - A new iterator for the given object&#39;s keys and values</p>
 
 **Example**
 ```js
-const mixin = (SuperClass, ...args) => class extends SuperClass { ... }
-class mix(Parent, ...args).with(mixin) { ... }
+objectIterator({
+  write: 'more',
+  tests: 'asap',
+  [Symbol('like')]: 'now'
+})
+//=> {
+//   next: () => ({
+//     value: *,
+//     done: boolean,
+//     kdx: string,
+//     key: string
+//   })
+// }
+
+iter.next()
+//=> { value: 'more', key: 'write', kdx: 'write', done: false }
+iter.next()
+//=> { value: 'asap', key: 'tests', kdx: 'tests', done: false }
+iter.next()
+//=> { value: 'now', key: Symbol('like'), kdx: Symbol('like'), done: false }
+iter.next()
+//=> { done: true }
+```
+<br /><br />
+
+### objectKeys()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectKeys.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
+<p>Returns a list containing the names of all the enumerable own properties of the supplied object.<br />
+Note that the order of the output array is not guaranteed to be consistent across different JS platforms.</p>
+
+**Params**
+<p><code>obj</code>: <code>Object</code> - The object to extract properties from</p>
+
+**Returns**
+<br /><p><code>Array</code> - An array of the object&#39;s own properties.</p>
+
+**Example**
+```js
+objectKeys({a: 1, b: 2, c: 3}) //=> ['a', 'b', 'c']
+```
+<br /><br />
+
+### objectToString()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/objectToString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Returns a string representing the object.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString">Object.prototype.toString()</a> for more information</p>
+
+**Params**
+<p><code>object</code>: <code>object</code> - The object to convert to a string</p>
+
+**Returns**
+<br /><p><code>object} A string representing the object.<br />
+<br />
+objectToString({</code> - )<br />
+//=&gt; &#39;[object Object]&#39;</p>
+
+<br /><br />
+
+### stringToLowerCase()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/stringToLowerCase.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
+<p>Returns the given string value converted to lower case.</p>
+
+**Params**
+<p><code>string</code>: <code>string</code> - The string to convert to lower case</p>
+
+**Returns**
+<br /><p><code>string</code> - A new array with the values concatenated</p>
+
+**Example**
+```js
+stringToLowerCase('ABC') //=> 'abc'
+```
+<br /><br />
+
+### toFinite()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toFinite.js#L9)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+<p>Converts <code>value</code> to a finite number.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
+
+**Returns**
+<br /><p><code>number</code> - Returns the converted number.</p>
+
+**Example**
+```js
+toFinite(3.2)
+// => 3.2
+
+toFinite(Number.MIN_VALUE)
+// => 5e-324
+
+toFinite(Infinity)
+// => 1.7976931348623157e+308
+
+toFinite('3.2')
+// => 3.2
+```
+<br /><br />
+
+### toFunctionName()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toFunctionName.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+<p>Converts <code>value</code> to a the name of a function.</p>
+
+**Params**
+<p><code>fn</code>: <code>Function</code> - The function to convert</p>
+
+**Returns**
+<br /><p><code>number</code> - Returns the function&#39;s name.</p>
+
+**Example**
+```js
+toFunctionName(null)
+// => throws 'toFunctionName expected a function'
+
+toFunctionName(function test() {})
+// => 'test'
+```
+<br /><br />
+
+### toInteger()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toInteger.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+<p>Converts <code>value</code> to an integer.</p>
+<p><strong>Note:</strong> This method is loosely based on<br />
+<a href="http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger"><code>ToInteger</code></a>.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
+
+**Returns**
+<br /><p><code>number</code> - Returns the converted integer.</p>
+
+**Example**
+```js
+toInteger(3.2)
+// => 3
+
+toInteger(Number.MIN_VALUE)
+// => 0
+
+toInteger(Infinity)
+// => 1.7976931348623157e+308
+
+toInteger('3.2')
+// => 3
+```
+<br /><br />
+
+### toNumber()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toNumber.js#L24)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.7
+<p>Converts <code>value</code> to a number.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to process.</p>
+
+**Returns**
+<br /><p><code>number</code> - Returns the number.</p>
+
+**Example**
+```js
+toNumber(3.2)
+// => 3.2
+
+toNumber(Number.MIN_VALUE)
+// => 5e-324
+
+toNumber(Infinity)
+// => Infinity
+
+toNumber('3.2')
+// => 3.2
+```
+<br /><br />
+
+### toObject()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toObject.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.9
+<p>Converts <code>value</code> to a plain object flattening inherited enumerable string keyed properties of <code>value</code> to own properties of the plain object.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
+
+**Returns**
+<br /><p><code>Object</code> - Returns the converted plain object.</p>
+
+**Example**
+```js
+function Foo() {
+  this.b = 2
+}
+
+Foo.prototype.c = 3
+
+assign({ 'a': 1 }, new Foo)
+// => { 'a': 1, 'b': 2 }
+
+assign({ 'a': 1 }, toObject(new Foo))
+// => { 'a': 1, 'b': 2, 'c': 3 }
+```
+<br /><br />
+
+### toString()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toString.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
+<p>Converts <code>value</code> to a string. An empty string is returned for <code>null</code>  and <code>undefined</code> values. The sign of <code>-0</code> is preserved.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to convert.</p>
+
+**Returns**
+<br /><p><code>string</code> - Returns the converted string.</p>
+
+**Example**
+```js
+toString(null)
+// => ''
+
+toString(-0)
+// => '-0'
+
+toString([1, 2, 3])
+// => '1,2,3'
+```
+<br /><br />
+
+### toStringTag()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toStringTag.js#L20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.17
+<p>Returns a string valued property that is used in the creation of the default string description of an object.</p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag">toStringTag Symbol</a> for more information</p>
+
+**Params**
+<p><code>val</code>: <code>&ast;</code> - The value to get the tag for</p>
+
+**Returns**
+<br /><p><code>string</code> - The string tag of the value</p>
+
+**Example**
+```js
+toStringTag(undefined)
+// => '[object Undefined]'
+
+toStringTag({})
+// => '[object Object]'
+```
+<br /><br />
+
+### toType()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/lang/toType.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Gives a single-word string description of the (native) type of a value, returning such answers as 'Object', 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them all as 'Object'.</p>
+
+**Params**
+<p><code>value</code>: <code>&ast;</code> - The value to test</p>
+
+**Returns**
+<br /><p><code>string</code> - </p>
+
+**Example**
+```js
+toType({}) //=> 'Object'
+toType(1) //=> 'Number'
+toType(false) //=> 'Boolean'
+toType('s') //=> 'String'
+toType(null) //=> 'Null'
+toType([]) //=> 'Array'
+toType(/[A-z]/) //=> 'RegExp'
+toType(() => {}) //=> 'Function'
+toType(undefined) //=> 'Undefined'
+```
+<br /><br />
+
+## logging
+
+### log()
+
+[source](https://github.com/serverless/utils/tree/v0.0.17/src/logging/log.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.18
+<p>Logs the given values.</p>
+<p>Returns the first arg so that this method can be placed into a pipe.</p>
+
+**Params**
+<p><code>values</code>: <code>...&ast;</code> - The values to log.</p>
+
+**Returns**
+<br /><p><code>&ast;</code> - Returns the first value</p>
+
+**Example**
+```js
+log('foo', 'bar')
+// logs: 'foobar'
+//=> 'foo'
+
+pipe(
+  () => 'foo',
+  log,
+)()
+// logs: 'foo'
+//=> 'foo'
 ```
 <br /><br />
 

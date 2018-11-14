@@ -1,5 +1,5 @@
-import fse from 'fs-extra'
 import curry from '../common/curry'
+import fse from 'fs-extra'
 
 const fileExists = curry(async (filePath) => {
   try {

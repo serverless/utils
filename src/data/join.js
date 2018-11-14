@@ -1,6 +1,6 @@
-import isFunction from '../base/isFunction'
 import curry from '../common/curry'
 import defn from '../common/defn'
+import isFunction from '../lang/isFunction'
 
 /**
  * Returns a string made by inserting the `separator` between each element and

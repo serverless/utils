@@ -1,3 +1,5 @@
+import curry from '../common/curry'
+import defn from '../common/defn'
 import nth from '../common/nth'
 
 /**
@@ -17,6 +19,6 @@ import nth from '../common/nth'
  * last('abc') //=> 'c'
  * last(''); //=> ''
  */
-const last = nth(-1)
+const last = curry(defn('last', nth(-1)))
 
 export default last

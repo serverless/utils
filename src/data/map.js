@@ -1,6 +1,6 @@
-import isArrayLike from '../base/isArrayLike'
 import curry from '../common/curry'
 import defn from '../common/defn'
+import isArrayLike from '../lang/isArrayLike'
 import pipe from '../common/pipe'
 import reduce from './reduce'
 

@@ -1,3 +1,5 @@
+import curry from '../common/curry'
+import defn from '../common/defn'
 import nth from '../common/nth'
 
 /**
@@ -18,6 +20,6 @@ import nth from '../common/nth'
  * head('abc') //=> 'a'
  * head('') //=> ''
  */
-const head = nth(0)
+const head = curry(defn('head', nth(0)))
 
 export default head

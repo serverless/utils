@@ -1,11 +1,11 @@
-import isFunction from '../base/isFunction'
-import isMap from '../base/isMap'
-import isUndefined from '../base/isUndefined'
-import objectIterator from '../base/objectIterator'
 import allWith from '../common/allWith'
+import always from './always'
 import curry from '../common/curry'
 import dispatchable from '../common/dispatchable'
-import always from './always'
+import isFunction from '../lang/isFunction'
+import isMap from '../lang/isMap'
+import isUndefined from '../lang/isUndefined'
+import objectIterator from '../lang/objectIterator'
 import over from './over'
 
 const baseAssocProp = (prop, value, object) => {
