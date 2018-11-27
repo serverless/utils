@@ -1,5 +1,9 @@
 language: node_js
 sudo: false
+addons:
+  apt:
+    packages:
+    - rsync
 node_js:
 - 10
 - 8
