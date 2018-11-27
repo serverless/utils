@@ -1,5 +1,6 @@
 import concat from './concat'
 import curry from '../common/curry'
+import isFunction from '../lang/isFunction'
 import isObject from '../lang/isObject'
 import pipe from '../common/pipe'
 import reduce from './reduce'
@@ -12,7 +13,7 @@ const reduceWalkee = () => {
     const resolvedValue = resolve(value)
     return pipe(
       (result) => {
-        if (isObject(resolvedValue) && !visited.has(resolvedValue)) {
+        if (isObject(resolvedValue) && !isFunction(resolvedValue) && !visited.has(resolvedValue)) {
           visited.add(resolvedValue)
           return reduce(
             (accumResult, child, childKdx) => {

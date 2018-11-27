@@ -110,4 +110,20 @@ describe('#walkReduceDepthFirst()', () => {
       }
     ])
   })
+
+  it('should support collections with functions', () => {
+    const result = walkReduceDepthFirst(
+      (accum, value, keys) => {
+        accum.push(keys)
+        return accum
+      },
+      [],
+      {
+        func: () => true,
+        foo: 'bar'
+      }
+    )
+
+    expect(result).toEqual([['func'], ['foo'], []])
+  })
 })
