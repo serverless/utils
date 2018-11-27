@@ -462,7 +462,7 @@ identity()
 
 ### isOp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/isOp.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/isOp.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Determines if the value is an op.</p>
 
 **Params**
@@ -482,7 +482,7 @@ isOp({
 
 ### isResolved()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/isResolved.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/isResolved.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Determines if the value is a resolvable value.</p>
 
 **Params**
@@ -769,7 +769,7 @@ nth(3, 'abc') //=> ''
 
 ### pipe()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/pipe.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/pipe.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Performs left-to-right function composition. The leftmost function may have<br />
 any arity; the remaining functions must be unary.</p>
 <p>In some libraries this function is named <code>sequence</code>.</p>
@@ -852,7 +852,7 @@ resolve({
 
 ### resolveToGenerator()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveToGenerator.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveToGenerator.js#L21)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>Resolves a value to a generator using the generator to yield values.</p>
 
 **Params**
@@ -870,7 +870,7 @@ generator.next() //=> { value: 'foo', done: true }
 
 ### resolveToGeneratorWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveToGeneratorWith.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveToGeneratorWith.js#L25)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.</p>
 
 **Params**
@@ -892,7 +892,7 @@ generator.next() //=> { done: true } triggers the fn method
 
 ### resolveWith()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveWith.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/common/resolveWith.js#L26)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>Resolves a value to the given method.</p>
 <p>If the value to be resolved is a promise then this method will return a promise. The fn method will be triggered once the promise resolves.</p>
 <p>If the value to be resolved is a generator, this method will return a generator.</p>
@@ -940,7 +940,7 @@ await sleep(1000)
 
 ### MAX_SAFE_INTEGER
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/MAX_SAFE_INTEGER.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>This constant represents the maximum safe integer in JavaScript (2^53 - 1).</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER">MAX_SAFE_INTEGER</a> for more information.</p>
 
@@ -950,7 +950,7 @@ await sleep(1000)
 
 ### SYMBOL_ITERATOR
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.11
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/SYMBOL_ITERATOR.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.11
 <p>The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.</p>
 <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator">Symbol.iterator</a> for more information.</p>
 
@@ -960,7 +960,7 @@ await sleep(1000)
 
 ### SYMBOL_OP
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/SYMBOL_OP.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.16
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/constants/SYMBOL_OP.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.16
 <p>The Symbol.for('@@op') defines an operation for a generator to evaluate</p>
 
 **Type**: `{Symbol}`
@@ -1158,7 +1158,7 @@ assocProp('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 
 ### compact()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/compact.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/compact.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Creates an array with all undefined values removed.</p>
 
 **Params**
@@ -1473,7 +1473,7 @@ flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]])
 
 ### forEach()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEach.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEach.js#L6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Iterate over a collection calling a provided function <code>fn</code> for each element in the collection .</p>
 <p><code>fn</code> receives two arguments: <em>(value, kdx)</em></p>
 <p>Note: <code>forEach</code> does not skip deleted or unassigned indices (sparse<br />
@@ -1509,7 +1509,7 @@ forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
 
 ### forEachAll()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEachAll.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.19
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEachAll.js#L7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.19
 <p>Iterate over a collection calling a provided function <code>iteratee</code> for each element in the collection.</p>
 <p><code>iteratee</code> receives two arguments: <em>(value, kdx)</em></p>
 <p>Note: <code>forEach</code> does not skip deleted or unassigned indices (sparse<br />
@@ -1545,7 +1545,7 @@ forEachAll(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
 
 ### forEachIndexed()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEachIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEachIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Alias for <a href="#forEach">forEach</a> method</p>
 
 **Params**
@@ -1559,7 +1559,7 @@ forEachAll(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
 
 ### forEachObjIndexed()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEachObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/data/forEachObjIndexed.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Alias for <a href="#forEach">forEach</a> method</p>
 
 **Params**
@@ -2956,7 +2956,7 @@ isArguments([1, 2, 3]) // => false
 
 ### isArray()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isArray.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isArray.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as an <code>Array</code> object.</p>
 
 **Params**
@@ -2979,7 +2979,7 @@ isArray(noop) // => false
 
 ### isArrayBuffer()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isArrayBuffer.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isArrayBuffer.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is classified as an <code>ArrayBuffer</code> object.</p>
 
 **Params**
@@ -3025,7 +3025,7 @@ isArrayLike(Function) // => false
 
 ### isBoolean()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isBoolean.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isBoolean.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is classified as a boolean primitive or object.</p>
 
 **Params**
@@ -3065,7 +3065,7 @@ isBuffer(new Uint8Array(2)) // => false
 
 ### isDate()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isDate.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isDate.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is classified as a <code>Date</code> object.</p>
 
 **Params**
@@ -3086,7 +3086,7 @@ isDate('Mon April 23 2012')
 
 ### isElement()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isElement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isElement.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is likely a DOM element.</p>
 
 **Params**
@@ -3107,7 +3107,7 @@ isElement('<body>')
 
 ### isError()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isError.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isError.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is an <code>Error</code>, <code>EvalError</code>, <code>RangeError</code>, <code>ReferenceError</code>, <code>SyntaxError</code>, <code>TypeError</code>, or <code>URIError</code> object.</p>
 
 **Params**
@@ -3344,7 +3344,7 @@ isNaN(undefined)
 
 ### isNativeObject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isNativeObject.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isNativeObject.js#L5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is native JavaScript object instance.</p>
 
 **Params**
@@ -3434,7 +3434,7 @@ isNumber('3') // => false
 
 ### isObject()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isObject.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isObject.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is the<br />
 <a href="http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types">language type</a><br />
 of <code>Object</code>. (e.g. arrays, functions, objects, regexes, <code>new Number(0)</code>, and <code>new String('')</code>)</p>
@@ -3544,7 +3544,7 @@ isPromise({ then: () => {} }) //=> true
 
 ### isRegExp()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isRegExp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isRegExp.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is classified as a <code>RegExp</code> object.</p>
 
 **Params**
@@ -3565,7 +3565,7 @@ isRegExp('/abc/')
 
 ### isSet()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isSet.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isSet.js#L8)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is classified as a <code>Set</code> object.</p>
 
 **Params**
@@ -3586,7 +3586,7 @@ isSet(new WeakSet())
 
 ### isString()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isString.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as a <code>String</code> primitive or object.</p>
 
 **Params**
@@ -3605,7 +3605,7 @@ isString(1) // => false
 
 ### isSymbol()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isSymbol.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isSymbol.js#L3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is classified as a <code>Symbol</code> primitive or object.</p>
 
 **Params**
@@ -3670,7 +3670,7 @@ isTypedArray([]) // => false
 
 ### isUndefined()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isUndefined.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.3
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isUndefined.js#L1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.3
 <p>Checks if <code>value</code> is <code>undefined</code>.</p>
 
 **Params**
@@ -3689,7 +3689,7 @@ isUndefined(null) // => false
 
 ### isWeakMap()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isWeakMap.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isWeakMap.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is classified as a <code>WeakMap</code> object.</p>
 
 **Params**
@@ -3710,7 +3710,7 @@ isWeakMap(new Map())
 
 ### isWeakSet()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isWeakSet.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.10
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/isWeakSet.js#L4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.10
 <p>Checks if <code>value</code> is classified as a <code>WeakSet</code> object.</p>
 
 **Params**
@@ -4097,7 +4097,7 @@ assign({ 'a': 1 }, toObject(new Foo))
 
 ### toString()
 
-[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toString.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since 0.0.6
+[source](https://github.com/serverless/utils/tree/v0.0.18/src/lang/toString.js#L12)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since v0.0.6
 <p>Converts <code>value</code> to a string. An empty string is returned for <code>null</code>  and <code>undefined</code> values. The sign of <code>-0</code> is preserved.</p>
 
 **Params**

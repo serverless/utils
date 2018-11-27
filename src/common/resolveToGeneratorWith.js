@@ -26,7 +26,7 @@ const baseResolveToGeneratorWith = function*(fn, value) {
  * Resolves a value to a generator using the generator to yield values. When the generator is complete the fn method is executed with the final result.
  *
  * @function
- * @since 0.0.11
+ * @since v0.0.11
  * @category common
  * @param {Function} fn The function to execute at the end of the generator's resolution
  * @param {*} value The value to resolve with the generator

@@ -26,7 +26,7 @@ import reduce from './reduce'
  * This method executes in **parallel**. If the iteratee returns a `Promise`, it will NOT wait till the `Promise` resolves before it executes the next iteration.
  *
  * @function
- * @since 0.0.19
+ * @since v0.0.19
  * @category data
  * @param {Function} iteratee The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.
  * @param {*} collection The collection to iterate over.

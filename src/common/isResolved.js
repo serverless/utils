@@ -13,7 +13,7 @@ const baseIsResolved = (value) =>
  * Determines if the value is a resolvable value.
  *
  * @function
- * @since 0.0.11
+ * @since v0.0.11
  * @category common
  * @param {*} value
  * @returns {boolean}

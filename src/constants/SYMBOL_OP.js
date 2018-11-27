@@ -2,7 +2,7 @@
  * The Symbol.for('@@op') defines an operation for a generator to evaluate
  *
  * @type {Symbol}
- * @since 0.0.16
+ * @since v0.0.16
  * @category constants
  */
 const SYMBOL_OP = typeof Symbol !== 'undefined' ? Symbol.for('@@op') : '@@op'

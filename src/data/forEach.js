@@ -25,7 +25,7 @@ import pipe from '../common/pipe'
  * This method executes in **series**. If the iteratee returns a `Promise`, it will wait till the `Promise` resolves before it executes the next iteration.
  *
  * @function
- * @since 0.0.3
+ * @since v0.0.3
  * @category data
  * @param {Function} fn The function to invoke. Receives two arguments, `value` and either `index` for arrays or `key` for objects.
  * @param {*} collection The collection to iterate over.

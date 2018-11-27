@@ -31,7 +31,7 @@ const baseResolveWith = (fn, value) => {
  * If the value to be resolved is a generator, this method will return a generator.
  *
  * @function
- * @since 0.0.11
+ * @since v0.0.11
  * @category common
  * @param {Function} fn The function to execute at the end of the resolution
  * @param {*} value The value to resolve with the generator

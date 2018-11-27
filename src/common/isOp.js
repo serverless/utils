@@ -7,7 +7,7 @@ const baseIsOp = (value) => !!(value && (value[SYMBOL_OP] || value['@@redux-saga
  * Determines if the value is an op.
  *
  * @function
- * @since 0.0.11
+ * @since v0.0.11
  * @category common
  * @param {*} value
  * @returns {boolean}

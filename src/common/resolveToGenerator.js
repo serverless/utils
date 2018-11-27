@@ -22,7 +22,7 @@ const baseResolveToGenerator = function*(value) {
  * Resolves a value to a generator using the generator to yield values.
  *
  * @function
- * @since 0.0.16
+ * @since v0.0.16
  * @category common
  * @param {*} value The value to resolve with the generator
  * @returns {Generator}

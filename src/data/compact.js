@@ -7,7 +7,7 @@ import reject from './reject'
  * Creates an array with all undefined values removed.
  *
  * @function
- * @since 0.0.10
+ * @since v0.0.10
  * @category data
  * @param {Array} array The array to compact.
  * @returns {Array} Returns the new array of filtered values.
