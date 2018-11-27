@@ -1,11 +1,13 @@
 import { SYMBOL_OP } from '../constants'
 import curry from './curry'
 
+const baseIsOp = (value) => !!(value && (value[SYMBOL_OP] || value['@@redux-saga/IO']))
+
 /**
  * Determines if the value is an op.
  *
  * @function
- * @since 0.0.11
+ * @since v0.0.11
  * @category common
  * @param {*} value
  * @returns {boolean}
@@ -16,6 +18,8 @@ import curry from './curry'
  * })
  * //=> true
  */
-const isOp = curry((value) => !!(value && (value[SYMBOL_OP] || value['@@redux-saga/IO'])))
+const isOp = curry(baseIsOp)
 
 export default isOp
+
+export { baseIsOp }

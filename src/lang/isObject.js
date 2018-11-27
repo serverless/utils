@@ -4,7 +4,7 @@
  * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
  *
  * @function
- * @since 0.0.3
+ * @since v0.0.3
  * @category lang
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is an object, else `false`.

@@ -9,7 +9,7 @@ const nodeIsDate = nodeTypes && nodeTypes.isDate
  * Checks if `value` is classified as a `Date` object.
  *
  * @function
- * @since 0.0.10
+ * @since v0.0.10
  * @category lang
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a date object, else `false`.

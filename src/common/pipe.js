@@ -13,7 +13,7 @@ import identity from './identity'
  * **Note:** The result of pipe is not automatically curried.
  *
  * @function
- * @since 0.0.11
+ * @since v0.0.11
  * @category common
  * @param {...Function} functions
  * @returns {Function}

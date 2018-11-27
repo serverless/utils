@@ -4,7 +4,7 @@
  * See [MAX_SAFE_INTEGER](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER) for more information.
  *
  * @type {number}
- * @since 0.0.11
+ * @since v0.0.11
  * @category constants
  */
 const MAX_SAFE_INTEGER = 9007199254740991

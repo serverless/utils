@@ -30,6 +30,23 @@ describe('#walkReduceDepthFirst()', () => {
     ])
   })
 
+  test('does not try to walk functions', () => {
+    const result = walkReduceDepthFirst(
+      (accum, value, keys) => {
+        accum.push(keys)
+        return accum
+      },
+      [],
+      {
+        a: () => {},
+        b: function() {},
+        c: async function() {},
+        d: function*() {}
+      }
+    )
+    expect(result).toEqual([['a'], ['b'], ['c'], ['d'], []])
+  })
+
   test('resolves values before sending them to the iterator and then proceeds along the resolved value for walk', () => {
     const result = walkReduceDepthFirst(
       (accum, value, keys) => {

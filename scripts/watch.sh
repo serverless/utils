@@ -1,4 +1,4 @@
+#!/usr/bin/env bash
 rm -rf dist
 mkdir -p dist
-rsync -avz --exclude *.js --exclude __tests__ --exclude node_modules src/ dist/
-babel -w src -d dist --source-maps
+babel -w src -d dist --source-maps --ignore "**/*.test.js" --ignore "**/__mocks__" --ignore "**/__snapshots__" --ignore "**/__tests__"

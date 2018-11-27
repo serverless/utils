@@ -1,10 +1,34 @@
+import { baseIterate } from './iterate'
 import curry from './curry'
 import isArray from '../lang/isArray'
 import isFunction from '../lang/isFunction'
 import isIterator from '../lang/isIterator'
 import isObject from '../lang/isObject'
-import iterate from './iterate'
-import resolveWith from './resolveWith'
+import resolveWith, { baseResolveWith } from './resolveWith'
+
+const baseAll = resolveWith((value) => {
+  let result
+  if (isArray(value) || isIterator(value)) {
+    result = []
+  } else if (isObject(value) && !isFunction(value)) {
+    result = {}
+  } else {
+    return value
+  }
+
+  return baseIterate((next) => {
+    if (next.done) {
+      return {
+        ...next,
+        value: result
+      }
+    }
+    return baseResolveWith((nextValue) => {
+      result[next.kdx] = nextValue
+      return next
+    }, next.value)
+  }, value)
+})
 
 /**
  * Resolves all async values in an array or object
@@ -35,30 +59,8 @@ import resolveWith from './resolveWith'
  * await all('abc') //=> 'abc'
  * await all(123) //=> 123
  */
-const all = curry(
-  resolveWith((value) => {
-    let result
-    if (isArray(value) || isIterator(value)) {
-      result = []
-    } else if (isObject(value) && !isFunction(value)) {
-      result = {}
-    } else {
-      return value
-    }
-
-    return iterate((next) => {
-      if (next.done) {
-        return {
-          ...next,
-          value: result
-        }
-      }
-      return resolveWith((nextValue) => {
-        result[next.kdx] = nextValue
-        return next
-      }, next.value)
-    }, value)
-  })
-)
+const all = curry(baseAll)
 
 export default all
+
+export { baseAll }

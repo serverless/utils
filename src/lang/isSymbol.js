@@ -4,7 +4,7 @@ import toStringTag from './toStringTag'
  * Checks if `value` is classified as a `Symbol` primitive or object.
  *
  * @function
- * @since 0.0.3
+ * @since v0.0.3
  * @category lang
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.

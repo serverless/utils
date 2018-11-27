@@ -6,7 +6,7 @@ import toStringTag from './toStringTag'
  * Checks if `value` is native JavaScript object instance.
  *
  * @function
- * @since 0.0.10
+ * @since v0.0.10
  * @category lang
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a native JS object instance

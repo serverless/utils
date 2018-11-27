@@ -79,6 +79,17 @@ describe('reduce', () => {
     })
   })
 
+  test('reduces an iterator', () => {
+    const array = ['bar', 'bam', 'bop']
+    const iterator = array[Symbol.iterator]()
+    const reducer = jest.fn((acc, value) => value)
+    const result = reduce(reducer, '', iterator)
+    expect(reducer).toHaveBeenNthCalledWith(1, '', 'bar', 0)
+    expect(reducer).toHaveBeenNthCalledWith(2, 'bar', 'bam', 1)
+    expect(reducer).toHaveBeenNthCalledWith(3, 'bam', 'bop', 2)
+    expect(result).toEqual('bop')
+  })
+
   test('does not resolve values of value when iterating over them', () => {
     const resolveable = {
       resolve() {

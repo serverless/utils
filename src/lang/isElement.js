@@ -5,7 +5,7 @@ import isPlainObject from './isPlainObject'
  * Checks if `value` is likely a DOM element.
  *
  * @function
- * @since 0.0.10
+ * @since v0.0.10
  * @category lang
  * @param {*} value The value to check.
  * @returns {boolean} Returns `true` if `value` is a DOM element, else `false`.

@@ -13,7 +13,7 @@ const symbolToString = symbolProto ? symbolProto.toString : undefined
  * Converts `value` to a string. An empty string is returned for `null`  and `undefined` values. The sign of `-0` is preserved.
  *
  * @function
- * @since 0.0.6
+ * @since v0.0.6
  * @category lang
  * @param {*} value The value to convert.
  * @returns {string} Returns the converted string.

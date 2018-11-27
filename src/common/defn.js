@@ -1,4 +1,4 @@
-import allWith from './allWith'
+import { baseAllWith } from './allWith'
 import dispatchable from './dispatchable'
 import nArySpread from './nArySpread'
 
@@ -35,7 +35,7 @@ const defn = (name, fn) => {
   const arity = fn.length
   const dispatcher = dispatchable(name, fn)
   const override = function(...args) {
-    return allWith((resolvedArgs) => dispatcher.apply(this, resolvedArgs), args)
+    return baseAllWith((resolvedArgs) => dispatcher.apply(this, resolvedArgs), args)
   }
   return nArySpread(arity, override)
 }
