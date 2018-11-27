@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 set -e
 mkdir -p dist
-babel src -d dist --source-maps --ignore "**/*.test.js" --ignore "**/__mocks__"
-rsync -avz --exclude "*.js" --exclude "__tests__" --exclude "__snapshots__" --exclude "__mocks__" --exclude "node_modules" src/ dist/
+babel src -d dist --source-maps --ignore "**/*.test.js" --ignore "**/__mocks__" --ignore "**/__snapshots__" --ignore "**/__tests__"
