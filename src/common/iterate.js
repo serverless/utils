@@ -1,10 +1,10 @@
+import { baseIsResolved } from './isResolved'
+import { baseIterator } from './iterator'
+import { baseResolveWith } from './resolveWith'
 import curry from './curry'
-import isResolved from './isResolved'
-import iterator from './iterator'
-import resolveWith from './resolveWith'
 
 const resolveNext = (next, fn, iter, recur) =>
-  resolveWith((resolvedNext) => {
+  baseResolveWith((resolvedNext) => {
     if (resolvedNext.done) {
       return resolvedNext.value
     }
@@ -14,10 +14,10 @@ const resolveNext = (next, fn, iter, recur) =>
 const doSeriesIteration = (fn, iter) => {
   while (true) {
     let next = iter.next()
-    if (!isResolved(next)) {
-      return resolveWith((resolvedNext) => {
+    if (!baseIsResolved(next)) {
+      return baseResolveWith((resolvedNext) => {
         next = fn(resolvedNext)
-        if (!isResolved(next)) {
+        if (!baseIsResolved(next)) {
           return resolveNext(next, fn, iter, doSeriesIteration)
         }
         if (next.done) {
@@ -27,7 +27,7 @@ const doSeriesIteration = (fn, iter) => {
       }, next)
     }
     next = fn(next)
-    if (!isResolved(next)) {
+    if (!baseIsResolved(next)) {
       return resolveNext(next, fn, iter, doSeriesIteration)
     }
     if (next.done) {
@@ -35,6 +35,8 @@ const doSeriesIteration = (fn, iter) => {
     }
   }
 }
+
+const baseIterate = (iteratee, collection) => doSeriesIteration(iteratee, baseIterator(collection))
 
 /**
  * This method iterates over the given collection or iterator in **series**. If the `iteratee` method returns `{ done: true }` then the iteration will complete.
@@ -69,6 +71,8 @@ const doSeriesIteration = (fn, iter) => {
  * }), ['a', 'b', 'c'])
  * //=> 1
  */
-const iterate = curry((iteratee, collection) => doSeriesIteration(iteratee, iterator(collection)))
+const iterate = curry(baseIterate)
 
 export default iterate
+
+export { baseIterate }

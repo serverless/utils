@@ -1,6 +1,22 @@
+import { baseIsResolved } from './isResolved'
+import curry from './curry'
 import isFunction from '../lang/isFunction'
 import isGenerator from '../lang/isGenerator'
-import isResolved from './isResolved'
+
+const baseResolveToGenerator = function*(value) {
+  if (!baseIsResolved(value)) {
+    let result
+    if (isGenerator(value)) {
+      result = yield* value
+    } else if (isFunction(value.resolve)) {
+      result = value.resolve()
+    } else {
+      result = yield value
+    }
+    return yield* baseResolveToGenerator(result)
+  }
+  return value
+}
 
 /**
  * Resolves a value to a generator using the generator to yield values.
@@ -15,19 +31,8 @@ import isResolved from './isResolved'
  * const generator = resolveToGenerator('foo')
  * generator.next() //=> { value: 'foo', done: true }
  */
-const resolveToGenerator = function*(value) {
-  if (!isResolved(value)) {
-    let result
-    if (isGenerator(value)) {
-      result = yield* value
-    } else if (isFunction(value.resolve)) {
-      result = value.resolve()
-    } else {
-      result = yield value
-    }
-    return yield* resolveToGenerator(result)
-  }
-  return value
-}
+const resolveToGenerator = curry(baseResolveToGenerator)
 
 export default resolveToGenerator
+
+export { baseResolveToGenerator }

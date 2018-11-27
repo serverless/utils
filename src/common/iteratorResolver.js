@@ -1,6 +1,6 @@
+import { baseIsResolved } from './isResolved'
+import { baseResolveWith } from './resolveWith'
 import isIterator from '../lang/isIterator'
-import isResolved from './isResolved'
-import resolveWith from './resolveWith'
 import toString from '../lang/toString'
 
 const iterateAt = (iterator, history, pending, index) => {
@@ -13,7 +13,7 @@ const iterateAt = (iterator, history, pending, index) => {
   const next = iterator.next()
   pending[index] = next
   history[index] = null
-  return resolveWith((resolvedNext) => {
+  return baseResolveWith((resolvedNext) => {
     pending[index] = null
     if (!resolvedNext.done) {
       history[index] = resolvedNext
@@ -26,8 +26,8 @@ const fastForward = (histIterator) => {
   let next = { done: false }
   while (!next.done) {
     next = histIterator.next()
-    if (!isResolved(next)) {
-      return resolveWith((resolvedNext) => {
+    if (!baseIsResolved(next)) {
+      return baseResolveWith((resolvedNext) => {
         if (!resolvedNext.done) {
           return fastForward(histIterator)
         }
@@ -71,7 +71,7 @@ const historicIterator = (iterator, start = 'START') => {
   const histIterator = {
     next: () => {
       const iter = iterateAt(iterator, history, pending, index)
-      return resolveWith((resolvedIter) => {
+      return baseResolveWith((resolvedIter) => {
         const prev = prevIterAt(index - 1, history)
         if (!resolvedIter.done) {
           resolvedIter = iterAt(index, history)
@@ -142,14 +142,14 @@ const iteratorResolver = (iterator, start = 'START') => {
 
   // NOTE BRN: Optimization here of reassigning histIterator so that we don't have to resolve it on every iteration.
   let histIterator
-  histIterator = resolveWith((resolvedIterator) => {
+  histIterator = baseResolveWith((resolvedIterator) => {
     histIterator = resolvedIterator
     return histIterator
   }, historicIterator(iterator, start))
 
   return {
-    next: () => resolveWith((resolvedIterator) => resolvedIterator.next(), histIterator),
-    previous: () => resolveWith((resolvedIterator) => resolvedIterator.previous(), histIterator)
+    next: () => baseResolveWith((resolvedIterator) => resolvedIterator.next(), histIterator),
+    previous: () => baseResolveWith((resolvedIterator) => resolvedIterator.previous(), histIterator)
   }
 }
 

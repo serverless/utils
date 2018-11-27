@@ -1,10 +1,27 @@
+import { baseIsOp } from './isOp'
+import { baseIsResolved } from './isResolved'
+import { baseResolve } from './resolve'
+import { baseResolveToGeneratorWith } from './resolveToGeneratorWith'
 import curry from './curry'
 import isGenerator from '../lang/isGenerator'
-import isOp from './isOp'
 import isPromise from '../lang/isPromise'
-import isResolved from './isResolved'
-import resolve from './resolve'
-import resolveToGeneratorWith from './resolveToGeneratorWith'
+
+const baseResolveWith = (fn, value) => {
+  if (!baseIsResolved(value)) {
+    if (isPromise(value)) {
+      return value.then((resolved) => baseResolveWith(fn, resolved))
+    }
+    if (isGenerator(value) || baseIsOp(value)) {
+      return baseResolveToGeneratorWith(fn, value)
+    }
+    value = baseResolve(value)
+  }
+  value = fn(value)
+  if (!baseIsResolved(value)) {
+    return baseResolve(value)
+  }
+  return value
+}
 
 /**
  * Resolves a value to the given method.
@@ -31,21 +48,8 @@ import resolveToGeneratorWith from './resolveToGeneratorWith'
  *   'foo'
  * ) //=> 'bar'
  */
-const resolveWith = curry((fn, value) => {
-  if (!isResolved(value)) {
-    if (isPromise(value)) {
-      return value.then((resolved) => resolveWith(fn, resolved))
-    }
-    if (isGenerator(value) || isOp(value)) {
-      return resolveToGeneratorWith(fn, value)
-    }
-    value = resolve(value)
-  }
-  value = fn(value)
-  if (!isResolved(value)) {
-    return resolve(value)
-  }
-  return value
-})
+const resolveWith = curry(baseResolveWith)
 
 export default resolveWith
+
+export { baseResolveWith }

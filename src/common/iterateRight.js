@@ -1,11 +1,11 @@
+import { baseIsResolved } from './isResolved'
+import { baseResolveWith } from './resolveWith'
 import curry from './curry'
 import isFunction from '../lang/isFunction'
-import isResolved from './isResolved'
-import iterator from './iterator'
-import resolveWith from './resolveWith'
+import iterator, { baseIterator } from './iterator'
 
 const resolveNext = (next, fn, iter, recur) =>
-  resolveWith((resolvedNext) => {
+  baseResolveWith((resolvedNext) => {
     if (resolvedNext.done) {
       return resolvedNext.value
     }
@@ -15,10 +15,10 @@ const resolveNext = (next, fn, iter, recur) =>
 const doReverseSeriesIteration = (fn, iter) => {
   while (true) {
     let next = iter.previous()
-    if (!isResolved(next)) {
-      return resolveWith((resolvedNext) => {
+    if (!baseIsResolved(next)) {
+      return baseResolveWith((resolvedNext) => {
         next = fn(resolvedNext)
-        if (!isResolved(next)) {
+        if (!baseIsResolved(next)) {
           return resolveNext(next, fn, iter, doReverseSeriesIteration)
         }
         if (next.done) {
@@ -28,13 +28,23 @@ const doReverseSeriesIteration = (fn, iter) => {
       }, next)
     }
     next = fn(next)
-    if (!isResolved(next)) {
+    if (!baseIsResolved(next)) {
       return resolveNext(next, fn, iter, doReverseSeriesIteration)
     }
     if (next.done) {
       return next.value
     }
   }
+}
+
+const baseIterateRight = (iteratee, collection) => {
+  const iter = baseIterator(collection, iterator.END)
+  if (!isFunction(iter.previous)) {
+    throw new Error(
+      `iterateRight expects an iterator that can be run in reverse order using a 'previous' method. Instead received ${iter}`
+    )
+  }
+  return doReverseSeriesIteration(iteratee, iter)
 }
 
 /**
@@ -70,14 +80,8 @@ const doReverseSeriesIteration = (fn, iter) => {
  * }), ['a', 'b', 'c'])
  * //=> 1
  */
-const iterateRight = curry((iteratee, collection) => {
-  const iter = iterator(collection, iterator.END)
-  if (!isFunction(iter.previous)) {
-    throw new Error(
-      `iterateRight expects an iterator that can be run in reverse order using a 'previous' method. Instead received ${iter}`
-    )
-  }
-  return doReverseSeriesIteration(iteratee, iter)
-})
+const iterateRight = curry(baseIterateRight)
 
 export default iterateRight
+
+export { baseIterateRight }

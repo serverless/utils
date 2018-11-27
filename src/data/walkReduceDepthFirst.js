@@ -1,6 +1,6 @@
 import concat from './concat'
 import curry from '../common/curry'
-import isObject from '../lang/isObject'
+import isObjectLike from '../lang/isObjectLike'
 import pipe from '../common/pipe'
 import reduce from './reduce'
 import resolve from '../common/resolve'
@@ -12,7 +12,7 @@ const reduceWalkee = () => {
     const resolvedValue = resolve(value)
     return pipe(
       (result) => {
-        if (isObject(resolvedValue) && !visited.has(resolvedValue)) {
+        if (isObjectLike(resolvedValue) && !visited.has(resolvedValue)) {
           visited.add(resolvedValue)
           return reduce(
             (accumResult, child, childKdx) => {

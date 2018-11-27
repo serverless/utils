@@ -1,6 +1,8 @@
-import all from './all'
+import { baseAll } from './all'
+import { baseResolveWith } from './resolveWith'
 import curry from './curry'
-import resolveWith from './resolveWith'
+
+const baseAllWith = (fn, value) => baseResolveWith(fn, baseAll(value))
 
 /**
  * Resolves all async values in an array or object and executes the given with the result
@@ -41,6 +43,8 @@ import resolveWith from './resolveWith'
  *   [ 1, 2, 3 ]
  * ) // => 'foo'
  */
-const allWith = curry((fn, value) => resolveWith(fn, all(value)))
+const allWith = curry(baseAllWith)
 
 export default allWith
+
+export { baseAllWith }
