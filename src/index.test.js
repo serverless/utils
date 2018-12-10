@@ -117,6 +117,7 @@ describe('index', () => {
       omit: expect.any(Function),
       over: expect.any(Function),
       pick: expect.any(Function),
+      pickBy: expect.any(Function),
       prepend: expect.any(Function),
       prop: expect.any(Function),
       propOr: expect.any(Function),

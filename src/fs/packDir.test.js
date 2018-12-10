@@ -68,4 +68,25 @@ describe('#packDir()', () => {
     })
     expect(returnedOutputFilePath).toEqual(outputFilePath)
   })
+
+  it('should package a directory twice and have the same sha', async () => {
+    const fileToAppend = path.join(outputDirPath, 'bar.json')
+
+    const outputFilePath1 = path.join(outputDirPath, `${crypto.randomBytes(6).toString('hex')}.zip`)
+    await packDir(inputDirPath, outputFilePath1, [fileToAppend])
+    const zipFile1 = await fse.readFile(outputFilePath1)
+    const sha1 = crypto
+      .createHash('sha256')
+      .update(zipFile1)
+      .digest('base64')
+
+    const outputFilePath2 = path.join(outputDirPath, `${crypto.randomBytes(6).toString('hex')}.zip`)
+    await packDir(inputDirPath, outputFilePath2, [fileToAppend])
+    const zipFile2 = await fse.readFile(outputFilePath2)
+    const sha2 = crypto
+      .createHash('sha256')
+      .update(zipFile2)
+      .digest('base64')
+    expect(sha1).toEqual(sha2)
+  })
 })

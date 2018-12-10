@@ -32,7 +32,7 @@ const packDir = curryN(2, async (inputDirPath, outputFilePath, append = []) => {
       if (!isEmpty(append)) {
         forEach((file) => {
           const stream = createReadStream(file)
-          archive.append(stream, { name: path.basename(file) })
+          archive.append(stream, { name: path.basename(file), date: new Date(0) })
         }, append)
       }
 
