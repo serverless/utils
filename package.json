@@ -5,6 +5,13 @@
   "repository": "serverless/utils",
   "homepage": "https://github.com/serverless/utils#readme",
   "author": "Serverless, Inc.",
+  "dependencies": {
+    "chalk": "^2.0.1",
+    "lodash": "^4.17.15",
+    "rc": "^1.2.8",
+    "uuid": "^3.4.0",
+    "write-file-atomic": "^2.4.3"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@serverless/eslint-config": "^1.2.1",
