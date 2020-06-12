@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.0.0](https://github.com/serverless/utils/compare/v0.0.20...v1.0.0) (2020-06-12)
 
-A new begining. All old utilities were removed. Project now serves high level utilities for Serverless Framework and Component CLI's
+A new beginning. All old utilities were removed. Project now serves high level utilities for Serverless Framework and Component CLI's
 
 ### Features
 
