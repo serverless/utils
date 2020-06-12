@@ -8,18 +8,31 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@serverless/eslint-config": "^1.2.1",
+    "@serverless/test": "^3.8.0",
+    "chai": "^4.2.0",
     "eslint": "^7.2.0",
     "eslint-plugin-import": "^2.21.2",
     "git-list-updated": "^1.2.1",
     "github-release-from-cc-changelog": "^2.2.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.9",
+    "mocha": "^6.1.1",
     "prettier": "^2.0.5",
     "standard-version": "^8.0.0"
   },
   "eslintConfig": {
     "extends": "@serverless/eslint-config/node",
-    "root": true
+    "root": true,
+    "overrides": [
+      {
+        "files": [
+          "**/test/**"
+        ],
+        "env": {
+          "mocha": true
+        }
+      }
+    ]
   },
   "husky": {
     "hooks": {
@@ -40,6 +53,16 @@
       "tag": true
     }
   },
+  "mocha": {
+    "reporter": "@serverless/test/setup/mocha-reporter",
+    "require": [
+      "@serverless/test/setup/log",
+      "@serverless/test/setup/async-leaks-detector",
+      "@serverless/test/setup/mock-homedir",
+      "@serverless/test/setup/restore-cwd",
+      "@serverless/test/setup/restore-env"
+    ]
+  },
   "scripts": {
     "commitlint": "commitlint -f HEAD@{15}",
     "commitlint:pull-request": "commitlint -f HEAD~1",
@@ -49,7 +72,9 @@
     "prettier-check": "prettier -c --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
     "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
     "prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
-    "prettify:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier --write"
+    "prettify:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier --write",
+    "test": "mocha test/**/*.js",
+    "test:isolated": "mocha-isolated test/**/*.js"
   },
   "publishConfig": {
     "access": "public"
