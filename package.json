@@ -1,73 +1,61 @@
 {
   "name": "@serverless/utils",
   "version": "0.0.20",
-  "description": "General serverless utilities",
-  "author": "Serverless, Inc.",
-  "license": "Apache-2.0",
-  "main": "dist/index.js",
-  "engines": {
-    "node": ">6.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/serverless/utils"
-  },
-  "bugs": {
-    "url": "https://github.com/serverless/utils/issues"
-  },
+  "description": "Serverless CLI utilities",
+  "repository": "serverless/utils",
   "homepage": "https://github.com/serverless/utils#readme",
-  "scripts": {
-    "build": "bash ./scripts/build.sh",
-    "clean": "bash ./scripts/clean.sh",
-    "cleanse": "bash ./scripts/cleanse.sh",
-    "docs:gen": "bash ./scripts/docs-gen.sh",
-    "lint": "bash ./scripts/lint.sh",
-    "lint:staged": "bash ./scripts/lint-staged.sh",
-    "setup": "bash ./scripts/setup.sh",
-    "setup:ci": "bash ./scripts/setup-ci.sh",
-    "test": "bash ./scripts/test.sh",
-    "test:ci": "bash ./scripts/test-ci.sh",
-    "watch": "bash ./scripts/watch.sh"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "archiver": "^2.1.1",
-    "bluebird": "^3.5.1",
-    "cross-fetch": "^2.2.2",
-    "crypto-extra": "^0.4.0",
-    "fs-extra": "^5.0.0",
-    "is-url": "^1.2.4",
-    "js-yaml": "^3.11.0",
-    "ramda": "^0.25.0",
-    "source-map-support": "^0.5.5"
-  },
+  "author": "Serverless, Inc.",
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/node": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/preset-env": "^7.1.6",
-    "adm-zip": "^0.4.9",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
-    "dox": "^0.9.0",
-    "eslint": "^5.9.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-sort-imports-es6-autofix": "^0.3.0",
-    "glob": "^7.1.3",
-    "jest": "^23.6.0",
-    "lint-staged": "^8.0.4",
-    "markdown-magic": "^0.1.25",
-    "pre-commit": "^1.2.2",
-    "prettier": "^1.15.2"
+    "@commitlint/cli": "^8.3.5",
+    "@serverless/eslint-config": "^1.2.1",
+    "eslint": "^7.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "git-list-updated": "^1.2.1",
+    "github-release-from-cc-changelog": "^2.2.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.9",
+    "prettier": "^2.0.5",
+    "standard-version": "^8.0.0"
+  },
+  "eslintConfig": {
+    "extends": "@serverless/eslint-config/node",
+    "root": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ],
+    "*.{css,html,js,json,md,yaml,yml}": [
+      "prettier -c"
+    ]
+  },
+  "standard-version": {
+    "skip": {
+      "commit": true,
+      "tag": true
+    }
+  },
+  "scripts": {
+    "commitlint": "commitlint -f HEAD@{15}",
+    "commitlint:pull-request": "commitlint -f HEAD~1",
+    "lint": "eslint .",
+    "lint:updated": "pipe-git-updated --ext=js -- eslint",
+    "prepare-release": "standard-version && prettier --write CHANGELOG.md",
+    "prettier-check": "prettier -c --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
+    "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
+    "prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
+    "prettify:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier --write"
   },
   "publishConfig": {
     "access": "public"
   },
-  "pre-commit": [
-    "lint:staged"
-  ]
+  "engines": {
+    "node": ">=6.0"
+  },
+  "license": "MIT"
 }
