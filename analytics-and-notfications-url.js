@@ -5,6 +5,11 @@ if (process.env.SLS_ANALYTICS_URL) {
   return;
 }
 
+if (process.env.CI) {
+  module.exports = null;
+  return;
+}
+
 const isInChina = require('./is-in-china');
 
 module.exports = isInChina
