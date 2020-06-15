@@ -1,5 +1,10 @@
 'use strict';
 
+if (process.env.SLS_ANALYTICS_URL) {
+  module.exports = process.env.SLS_ANALYTICS_URL;
+  return;
+}
+
 const isInChina = require('./is-in-china');
 
 module.exports = isInChina
