@@ -15,8 +15,15 @@ const logError = (message) => {
 
 module.exports = (notifications) => {
   if (!Array.isArray(notifications)) {
-    logError(`Expected array, got ${toShortString(notifications)}`);
-    return null;
+    if (notifications && Array.isArray(notifications.notifications)) {
+      // If in a future we'd decide to extend response payload
+      // (so notifications are not returned dirctly but exposed on `notifications` property)
+      // this patch ensures it's compatible with old versions
+      ({ notifications } = notifications);
+    } else {
+      logError(`Expected array, got ${toShortString(notifications)}`);
+      return null;
+    }
   }
   const shownNotificationsHistory = configUtils.get(configPropertyName) || {};
   return (
