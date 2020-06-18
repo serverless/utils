@@ -26,34 +26,58 @@ module.exports = (notifications) => {
     }
   }
   const shownNotificationsHistory = configUtils.get(configPropertyName) || {};
+  Object.keys(shownNotificationsHistory).forEach((code) => {
+    const timeValue = coerceTimeValue(shownNotificationsHistory[code]);
+    if (!timeValue) delete shownNotificationsHistory[code];
+    else shownNotificationsHistory[code] = timeValue;
+  });
+
   return (
-    notifications.find((notification, index) => {
-      if (!isPlainObject(notification)) {
-        logError(`Expected plain object at [${index}] got ${toShortString(notification)}`);
-        return false;
-      }
-      if (!notification.code || typeof notification.code !== 'string') {
-        logError(`Expected string at [${index}].code got ${toShortString(notification.code)}`);
-        return false;
-      }
-      if (!notification.message || typeof notification.message !== 'string') {
-        logError(
-          `Expected string at [${index}].message got ${toShortString(notification.message)}`
-        );
-        return false;
-      }
-      const lastShown = coerceTimeValue(shownNotificationsHistory[notification.code]);
-      if (lastShown) {
-        if (
-          lastShown >
-          Date.now() - (coerceNaturalNumber(notification.visibilityInterval) || 24) * 60 * 60 * 1000
-        ) {
+    notifications
+      .filter((notification, index) => {
+        if (!isPlainObject(notification)) {
+          logError(`Expected plain object at [${index}] got ${toShortString(notification)}`);
           return false;
         }
-      }
-      shownNotificationsHistory[notification.code] = Date.now();
-      configUtils.set(configPropertyName, shownNotificationsHistory);
-      return true;
-    }) || null
+        if (!notification.code || typeof notification.code !== 'string') {
+          logError(`Expected string at [${index}].code got ${toShortString(notification.code)}`);
+          return false;
+        }
+        if (!notification.message || typeof notification.message !== 'string') {
+          logError(
+            `Expected string at [${index}].message got ${toShortString(notification.message)}`
+          );
+          return false;
+        }
+        notification.visibilityInterval = coerceNaturalNumber(notification.visibilityInterval);
+        if (notification.visibilityInterval == null) notification.visibilityInterval = 24;
+        return true;
+      })
+      .sort((notification1, notification2) => {
+        // 1. Notifications to be shown on intervals
+        if (notification1.visibilityInterval || notification2.visibilityInterval) {
+          // Favor those to be shown most rarely
+          return notification2.visibilityInterval - notification1.visibilityInterval;
+        }
+        // 2.Notifications to be shown always
+        // Favor shown least recently
+        return (
+          (shownNotificationsHistory[notification1.code] || 0) -
+          (shownNotificationsHistory[notification2.code] || 0)
+        );
+      })
+      .find((notification) => {
+        if (notification.visibilityInterval) {
+          const lastShown = shownNotificationsHistory[notification.code];
+          if (lastShown) {
+            if (lastShown > Date.now() - (notification.visibilityInterval || 24) * 60 * 60 * 1000) {
+              return false;
+            }
+          }
+        }
+        shownNotificationsHistory[notification.code] = Date.now();
+        configUtils.set(configPropertyName, shownNotificationsHistory);
+        return true;
+      }) || null
   );
 };
