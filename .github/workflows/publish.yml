@@ -41,10 +41,7 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Publish new version
-        run: |
-          # Ensure to not publish .github folder
-          echo '/.github' > .npmignore
-          npm publish
+        run: npm publish
 
         # Note: Setting NODE_AUTH_TOKEN as job|workspace wide env var won't work
         #       as it appears actions/setup-node sets own value
