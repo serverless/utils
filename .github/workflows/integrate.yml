@@ -6,14 +6,238 @@ on:
   push:
     branches: [master]
 
+env:
+  FORCE_COLOR: 1
+
 jobs:
+  linuxNode14:
+    name: '[Linux] Node.js 14: Unit tests'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve last validated commit hash (for `git diff` purposes)
+        env:
+          # See https://github.com/serverlessinc/setup-cicd-resources
+          GET_LAST_VALIDATED_COMMIT_HASH_URL: ${{ secrets.GET_LAST_VALIDATED_COMMIT_HASH_URL }}
+          PUT_LAST_VALIDATED_COMMIT_HASH_URL: ${{ secrets.PUT_LAST_VALIDATED_COMMIT_HASH_URL }}
+        run: |
+          curl -f "$GET_LAST_VALIDATED_COMMIT_HASH_URL" -o /home/runner/last-validated-commit-hash || :
+          curl -v -X PUT -H "User-Agent:" -H "Accept:" -H "Content-Type:" -d "$GITHUB_SHA" "$PUT_LAST_VALIDATED_COMMIT_HASH_URL"
+      - name: Store last validated commit hash (as it's to be used in other job)
+        uses: actions/upload-artifact@v2
+        with:
+          name: last-validated-commit-hash
+          path: /home/runner/last-validated-commit-hash
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Retrieve ~/.npm from cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-v14-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: npm-v14-${{ runner.os }}-${{ github.ref }}-
+      - name: Retrieve node_modules from cache
+        id: cacheNodeModules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: node-modules-v14-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: node-modules-v14-${{ runner.os }}-${{ github.ref }}-
+
+      - name: Install dependencies
+        if: steps.cacheNodeModules.outputs.cache-hit != 'true'
+        run: |
+          npm update --no-save
+          npm update --save-dev --no-save
+      - name: Unit tests
+        run: npm test -- -b
+
+  windowsNode14:
+    name: '[Windows] Node.js v14: Unit tests'
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Retrieve ~/.npm from cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-v14-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: npm-v14-${{ runner.os }}-${{ github.ref }}-
+      - name: Retrieve node_modules from cache
+        id: cacheNodeModules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: node-modules-v14-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: node-modules-v14-${{ runner.os }}-${{ github.ref }}-
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        if: steps.cacheNodeModules.outputs.cache-hit != 'true'
+        run: |
+          npm update --no-save
+          npm update --save-dev --no-save
+      - name: Unit tests
+        run: npm test -- -b
+
+  linuxNode12:
+    name: '[Linux] Node.js 12: Isolated unit tests'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Retrieve ~/.npm from cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-v12-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: npm-v12-${{ runner.os }}-${{ github.ref }}-
+      - name: Retrieve node_modules from cache
+        id: cacheNodeModules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: node-modules-v12-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: node-modules-v12-${{ runner.os }}-${{ github.ref }}-
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install dependencies
+        if: steps.cacheNodeModules.outputs.cache-hit != 'true'
+        run: |
+          npm update --no-save
+          npm update --save-dev --no-save
+      - name: Unit tests
+        run: npm run test:isolated -- -b
+
+  linuxNode10:
+    name: '[Linux] Node.js v10: Unit tests with coverage'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Retrieve ~/.npm from cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-v10-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: npm-v10-${{ runner.os }}-${{ github.ref }}-
+      - name: Retrieve node_modules from cache
+        id: cacheNodeModules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: node-modules-v10-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: node-modules-v10-${{ runner.os }}-${{ github.ref }}-
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
+      - name: Install dependencies
+        if: steps.cacheNodeModules.outputs.cache-hit != 'true'
+        run: |
+          npm update --no-save
+          npm update --save-dev --no-save
+      - name: Unit tests
+        run: npm run coverage
+      - name: Push coverage
+        # TODO: Remove inline token, once support for GA is added on Codecov side
+        # See: https://github.com/codecov/codecov-node/issues/118
+        env:
+          CODECOV_TOKEN: d00cc4ec-98ea-4c8b-825d-5a773e976c30
+        run: npx codecov
+
+  linuxNode8:
+    name: '[Linux] Node.js v8: Unit tests'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Retrieve ~/.npm from cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-v8-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: npm-v8-${{ runner.os }}-${{ github.ref }}-
+      - name: Retrieve node_modules from cache
+        id: cacheNodeModules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: node-modules-v8-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: node-modules-v8-${{ runner.os }}-${{ github.ref }}-
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8.x
+
+      - name: Install dependencies
+        if: steps.cacheNodeModules.outputs.cache-hit != 'true'
+        run: |
+          npm update --no-save
+          npm update --save-dev --no-save
+      - name: Unit tests
+        run: npm test -- -b
+
+  linuxNode6:
+    name: '[Linux] Node.js v6: Unit tests'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Retrieve ~/.npm from cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-v6-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: npm-v6-${{ runner.os }}-${{ github.ref }}-
+      - name: Retrieve node_modules from cache
+        id: cacheNodeModules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: node-modules-v6-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: node-modules-v6-${{ runner.os }}-${{ github.ref }}-
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v1
+        with:
+          node-version: 6.x
+
+      - name: Install dependencies
+        if: steps.cacheNodeModules.outputs.cache-hit != 'true'
+        run: |
+          npm update --no-save
+          npm update --save-dev --no-save
+      - name: Unit tests
+        run: npm test -- -b
+
   tagIfNewVersion:
     name: Tag if new version
     runs-on: ubuntu-latest
-    env:
-      # See https://github.com/serverlessinc/setup-cicd-resources
-      GET_LAST_VALIDATED_COMMIT_HASH_URL: ${{ secrets.GET_LAST_VALIDATED_COMMIT_HASH_URL }}
-      PUT_LAST_VALIDATED_COMMIT_HASH_URL: ${{ secrets.PUT_LAST_VALIDATED_COMMIT_HASH_URL }}
+    needs: [linuxNode14, windowsNode14, linuxNode12, linuxNode10, linuxNode8, linuxNode6]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -26,9 +250,11 @@ jobs:
           token: ${{ secrets.USER_GITHUB_TOKEN }}
 
       - name: Resolve last validated commit hash (for `git diff` purposes)
-        run: |
-          curl -f "$GET_LAST_VALIDATED_COMMIT_HASH_URL" -o /home/runner/last-validated-commit-hash || :
-          curl -v -X PUT -H "User-Agent:" -H "Accept:" -H "Content-Type:" -d "$GITHUB_SHA" "$PUT_LAST_VALIDATED_COMMIT_HASH_URL"
+        uses: actions/download-artifact@v2
+        continue-on-error: true
+        with:
+          name: last-validated-commit-hash
+          path: /home/runner
       - name: Tag if new version
         run: |
           LAST_VALIDATED_COMMIT_HASH=`cat /home/runner/last-validated-commit-hash` || :
