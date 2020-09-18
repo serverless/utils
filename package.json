@@ -10,7 +10,7 @@
     "lodash": "^4.17.15",
     "rc": "^1.2.8",
     "type": "^2.0.0",
-    "uuid": "^3.4.0",
+    "uuid": "^8.3.0",
     "write-file-atomic": "^2.4.3"
   },
   "devDependencies": {
