@@ -11,7 +11,7 @@
     "rc": "^1.2.8",
     "type": "^2.0.0",
     "uuid": "^8.3.0",
-    "write-file-atomic": "^2.4.3"
+    "write-file-atomic": "^3.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.0.1",
