@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^9.0.1",
-    "@serverless/eslint-config": "^1.2.1",
+    "@serverless/eslint-config": "^3.0.0",
     "@serverless/test": "^3.8.1",
     "chai": "^4.2.0",
     "eslint": "^7.3.1",
@@ -32,17 +32,7 @@
   },
   "eslintConfig": {
     "extends": "@serverless/eslint-config/node",
-    "root": true,
-    "overrides": [
-      {
-        "files": [
-          "**/test/**"
-        ],
-        "env": {
-          "mocha": true
-        }
-      }
-    ]
+    "root": true
   },
   "husky": {
     "hooks": {
