@@ -6,7 +6,7 @@
   "homepage": "https://github.com/serverless/utils#readme",
   "author": "Serverless, Inc.",
   "dependencies": {
-    "chalk": "^2.0.1",
+    "chalk": "^4.1.0",
     "lodash": "^4.17.15",
     "rc": "^1.2.8",
     "type": "^2.0.0",
