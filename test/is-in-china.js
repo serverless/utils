@@ -4,7 +4,7 @@ const { expect } = require('chai');
 const requireUncached = require('ncjsm/require-uncached');
 const isInChina = require('../is-in-china');
 
-describe('Config', () => {
+describe('is-in-china', () => {
   it('Should resole boolean', () => {
     expect(typeof isInChina).to.equal('boolean');
   });

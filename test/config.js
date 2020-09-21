@@ -3,7 +3,7 @@
 const { expect } = require('chai');
 const config = require('../config');
 
-describe('Config', () => {
+describe('config', () => {
   it('should have CONFIG_FILE_PATH', () => {
     const configPath = config.CONFIG_FILE_PATH;
     expect(configPath).to.exist; // eslint-disable-line
