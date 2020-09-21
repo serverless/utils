@@ -12,7 +12,7 @@ const testOrderFixture = [
   { code: 'CODE0C', message: 'Some notification', visibilityInterval: 0 },
 ].sort();
 
-describe('lib/utils/processBackendNotificationRequest', () => {
+describe('process-backend-notification-request', () => {
   it('Should ignore invalid input', () => {
     expect(processTargetNotifications()).to.equal(null);
     expect(
