@@ -89,8 +89,8 @@
     "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
     "prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
     "prettify:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier --write",
-    "test": "mocha test/**/*.js",
-    "test:isolated": "mocha-isolated test/**/*.js"
+    "test": "mocha \"test/**/*.js\"",
+    "test:isolated": "mocha-isolated \"test/**/*.js\""
   },
   "publishConfig": {
     "access": "public"
