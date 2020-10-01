@@ -43,6 +43,7 @@ function createConfig() {
   const config = {
     userId: null, // currentUserId
     frameworkId: uuid.v1(),
+    shouldAutoUpdate: false,
     trackingDisabled: false,
     enterpriseDisabled: false,
     meta: {
