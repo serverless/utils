@@ -6,9 +6,9 @@ const fs = require('fs');
 
 const _ = require('lodash');
 const rc = require('rc');
-const chalk = require('chalk');
 const writeFileAtomic = require('write-file-atomic');
 const uuid = require('uuid');
+const log = require('./log');
 
 let rcFileBase = 'serverless';
 let serverlessrcPath = p.join(os.homedir(), `.${rcFileBase}rc`);
@@ -23,10 +23,8 @@ function storeConfig(config) {
     writeFileAtomic.sync(serverlessrcPath, JSON.stringify(config, null, 2));
   } catch (error) {
     if (process.env.SLS_DEBUG) {
-      process.stdout.write(`${chalk.red(error.stack)}\n`);
-      process.stdout.write(
-        `Serverless: ${chalk.red(`Unable to store serverless config due to ${error.code} error`)}\n`
-      );
+      log(error.stack, { color: 'red' });
+      log(`Unable to store serverless config due to ${error.code} error`, { color: 'red' });
     }
     try {
       return JSON.parse(fs.readFileSync(serverlessrcPath));
@@ -63,10 +61,8 @@ function hasConfigFile() {
     } catch (error) {
       if (error.code === 'ENOENT') return null;
       if (process.env.SLS_DEBUG) {
-        process.stdout.write(`${chalk.red(error.stack)}\n`);
-        process.stdout.write(
-          `Serverless: ${chalk.red(`Unable to read config due to ${error.code} error`)}\n`
-        );
+        log(error.stack, { color: 'red' });
+        log(`Unable to read config due to ${error.code} error`, { color: 'red' });
       }
       return null;
     }
@@ -83,13 +79,33 @@ function getConfig() {
     createConfig();
   }
   // then return config merged via rc module
-
-  return rc(rcFileBase, null, /* Ensure to not read options from CLI */ {});
+  try {
+    return rc(rcFileBase, null, /* Ensure to not read options from CLI */ {});
+  } catch (rcError) {
+    log(`Unable to read config due to ${rcError.message} error`, { color: 'orange' });
+    return {};
+  }
 }
 
 function getGlobalConfig() {
   if (hasConfigFile()) {
-    return JSON.parse(fs.readFileSync(serverlessrcPath));
+    try {
+      return JSON.parse(fs.readFileSync(serverlessrcPath));
+    } catch (err) {
+      log(`Unable to read global config due to ${err.message} error`, { color: 'orange' });
+      try {
+        // try/catch to account for very unlikely race condition where file existed
+        // during hasConfigFile check but no longer exists during rename
+        const backupServerlessrcPath = `${serverlessrcPath}.bak`;
+        fs.renameSync(serverlessrcPath, backupServerlessrcPath);
+        log(
+          `Your previous config was renamed to ${backupServerlessrcPath} for debugging. Default global config will be recreated under ${serverlessrcPath}.`,
+          { color: 'orange' }
+        );
+      } catch (renameError) {
+        // Ignore
+      }
+    }
   }
   // else create and return it
   return createConfig();
