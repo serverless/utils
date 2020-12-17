@@ -30,4 +30,4 @@ Returns whole structure of config file
 
 ### `getGlobalConfig()`
 
-Returns whole structure of global `~/.serverlessrc` config
+Returns whole structure of global `~/.serverlessrc` config. If it encounters an issue when trying to parse the global config, it renames it to `~/.serverlessrc.bak` and recreates default config under `~/.serverlessrc`

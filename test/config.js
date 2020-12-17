@@ -1,7 +1,9 @@
 'use strict';
 
 const { expect } = require('chai');
+const overrideStdoutWrite = require('process-utils/override-stdout-write');
 const config = require('../config');
+const fs = require('fs');
 
 describe('config', () => {
   it('should have CONFIG_FILE_PATH', () => {
@@ -50,5 +52,54 @@ describe('config', () => {
       const zaz = config.get('foo');
       expect(zaz).to.equal(undefined);
     });
+  });
+});
+
+describe('malformed config', () => {
+  const malformedConfigJson = '{"userId":null';
+
+  before(async () => {
+    await fs.promises.writeFile(config.CONFIG_FILE_PATH, malformedConfigJson);
+  });
+
+  it('should handle malformed config file and log warning when using getConfig', () => {
+    let conf;
+    let stdoutData = '';
+    overrideStdoutWrite(
+      (data) => (stdoutData += data),
+      () => {
+        conf = config.getConfig();
+      }
+    );
+
+    expect(conf).to.deep.equal({});
+    expect(stdoutData).to.include('Unable to read config');
+  });
+
+  it('should handle malformed config file, regenerate it and log warning when using getGlobalConfig', async () => {
+    let conf;
+    let stdoutData = '';
+    overrideStdoutWrite(
+      (data) => (stdoutData += data),
+      () => {
+        conf = config.getGlobalConfig();
+      }
+    );
+
+    const backupConfigFilePath = `${config.CONFIG_FILE_PATH}.bak`;
+
+    expect(conf).to.not.be.empty;
+    expect(stdoutData).to.include('Unable to read global config');
+    expect(stdoutData).to.include(`Your previous config was renamed to ${backupConfigFilePath}`);
+    expect(stdoutData).to.include(
+      `Default global config will be recreated under ${config.CONFIG_FILE_PATH}`
+    );
+
+    const [backupConfigFile, regeneratedConfigFile] = await Promise.all([
+      fs.promises.readFile(backupConfigFilePath, 'utf-8'),
+      fs.promises.readFile(config.CONFIG_FILE_PATH),
+    ]);
+    expect(backupConfigFile).to.equal(malformedConfigJson);
+    expect(JSON.parse(regeneratedConfigFile)).to.deep.equal(conf);
   });
 });
