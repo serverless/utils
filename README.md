@@ -13,4 +13,5 @@ npm install @serverless/utils
 - [`analyticsAndNotificationsUrl`](docs/analytics-and-notifications-url.md)
 - [`config`](docs/config.md)
 - [`isInChina`](docs/is-in-china.md)
+- [`log`](docs/log.md)
 - [`processBackendNotificationRequest`](docs/process-backend-notification-request.md)
