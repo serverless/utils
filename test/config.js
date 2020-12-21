@@ -1,7 +1,6 @@
 'use strict';
 
 const { expect } = require('chai');
-const overrideStdoutWrite = require('process-utils/override-stdout-write');
 const config = require('../config');
 const fs = require('fs');
 
@@ -57,43 +56,27 @@ describe('config', () => {
 
 describe('malformed config', () => {
   const malformedConfigJson = '{"userId":null';
+  const backupConfigFilePath = `${config.CONFIG_FILE_PATH}.bak`;
 
-  before(async () => {
+  beforeEach(async () => {
     await fs.promises.writeFile(config.CONFIG_FILE_PATH, malformedConfigJson);
   });
 
-  it('should handle malformed config file and log warning when using getConfig', () => {
-    let conf;
-    let stdoutData = '';
-    overrideStdoutWrite(
-      (data) => (stdoutData += data),
-      () => {
-        conf = config.getConfig();
-      }
-    );
-
-    expect(conf).to.deep.equal({});
-    expect(stdoutData).to.include('Unable to read config');
+  afterEach(async () => {
+    await fs.promises.unlink(backupConfigFilePath);
   });
 
-  it('should handle malformed config file, regenerate it and log warning when using getGlobalConfig', async () => {
-    let conf;
-    let stdoutData = '';
-    overrideStdoutWrite(
-      (data) => (stdoutData += data),
-      () => {
-        conf = config.getGlobalConfig();
-      }
-    );
+  it('should handle malformed config file and fallback to getGlobalConfig', async () => {
+    const conf = config.getConfig();
 
-    const backupConfigFilePath = `${config.CONFIG_FILE_PATH}.bak`;
+    const configFile = await fs.promises.readFile(config.CONFIG_FILE_PATH);
+    expect(JSON.parse(configFile)).to.deep.equal(conf);
+  });
+
+  it('should handle malformed config file and regenerate it when using getGlobalConfig', async () => {
+    const conf = config.getGlobalConfig();
 
     expect(conf).to.not.be.empty;
-    expect(stdoutData).to.include('Unable to read global config');
-    expect(stdoutData).to.include(`Your previous config was renamed to ${backupConfigFilePath}`);
-    expect(stdoutData).to.include(
-      `Default global config will be recreated under ${config.CONFIG_FILE_PATH}`
-    );
 
     const [backupConfigFile, regeneratedConfigFile] = await Promise.all([
       fs.promises.readFile(backupConfigFilePath, 'utf-8'),

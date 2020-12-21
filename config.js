@@ -82,8 +82,10 @@ function getConfig() {
   try {
     return rc(rcFileBase, null, /* Ensure to not read options from CLI */ {});
   } catch (rcError) {
-    log(`Unable to read config due to ${rcError.message} error`, { color: 'orange' });
-    return {};
+    log(`User Configuration warning: Cannot resolve config file: ${rcError.message}`, {
+      color: 'orange',
+    });
+    return getGlobalConfig();
   }
 }
 
@@ -92,7 +94,9 @@ function getGlobalConfig() {
     try {
       return JSON.parse(fs.readFileSync(serverlessrcPath));
     } catch (err) {
-      log(`Unable to read global config due to ${err.message} error`, { color: 'orange' });
+      log(`User Configuration warning: Cannot resolve global config file: ${err.message}`, {
+        color: 'orange',
+      });
       try {
         // try/catch to account for very unlikely race condition where file existed
         // during hasConfigFile check but no longer exists during rename
@@ -102,7 +106,7 @@ function getGlobalConfig() {
           `Your previous config was renamed to ${backupServerlessrcPath} for debugging. Default global config will be recreated under ${serverlessrcPath}.`,
           { color: 'orange' }
         );
-      } catch (renameError) {
+      } catch {
         // Ignore
       }
     }

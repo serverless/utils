@@ -26,7 +26,7 @@ Delete given property
 
 ### `getConfig()`
 
-Returns whole structure of config file
+Returns whole structure of config file, if it encounters an error while trying to read config with `rc`, it falls back to `getGlobalConfig()`
 
 ### `getGlobalConfig()`
 
