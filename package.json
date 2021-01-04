@@ -31,7 +31,7 @@
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "process-utils": "^4.0.0",
-    "sinon": "^8.1.1",
+    "sinon": "^9.2.2",
     "standard-version": "^9.0.0"
   },
   "eslintConfig": {
