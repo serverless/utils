@@ -6,7 +6,6 @@ const cloudformationSchema = require('../cloudformation-schema');
 describe('cloudformation-schema', () => {
   it('should contain schema', () => {
     expect(Object.keys(cloudformationSchema)).to.be.eql([
-      'include',
       'implicit',
       'explicit',
       'compiledImplicit',
