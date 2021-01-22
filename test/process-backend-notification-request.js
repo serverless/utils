@@ -2,6 +2,7 @@
 
 const { expect } = require('chai');
 const processTargetNotifications = require('../process-backend-notification-request');
+const wait = require('timers-ext/promise/sleep');
 
 const testOrderFixture = [
   { code: 'CODE12', message: 'Some notification', visibilityInterval: 12 },
@@ -13,6 +14,13 @@ const testOrderFixture = [
 ].sort();
 
 describe('process-backend-notification-request', () => {
+  // Reason for enforcing time progress is that the test became flaky - in some situations two notifications
+  // had the same lastShown value in config
+  const validateNotificationAndEnsureClockProgress = async (notificationCode) => {
+    expect(processTargetNotifications(testOrderFixture).code).to.equal(notificationCode);
+    await wait(1);
+  };
+
   it('Should ignore invalid input', () => {
     expect(processTargetNotifications()).to.equal(null);
     expect(
@@ -51,12 +59,12 @@ describe('process-backend-notification-request', () => {
     expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE6');
   });
 
-  it('If notification is to be shown always, favor one shown least recently', () => {
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE0A');
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE0B');
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE0C');
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE0A');
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE0B');
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE0C');
+  it('If notification is to be shown always, favor one shown least recently', async () => {
+    await validateNotificationAndEnsureClockProgress('CODE0A');
+    await validateNotificationAndEnsureClockProgress('CODE0B');
+    await validateNotificationAndEnsureClockProgress('CODE0C');
+    await validateNotificationAndEnsureClockProgress('CODE0A');
+    await validateNotificationAndEnsureClockProgress('CODE0B');
+    await validateNotificationAndEnsureClockProgress('CODE0C');
   });
 });

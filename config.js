@@ -5,40 +5,61 @@ const os = require('os');
 const fs = require('fs');
 
 const _ = require('lodash');
-const rc = require('rc');
 const writeFileAtomic = require('write-file-atomic');
 const uuid = require('uuid');
 const log = require('./log');
 
-let rcFileBase = 'serverless';
-let serverlessrcPath = p.join(os.homedir(), `.${rcFileBase}rc`);
-
+let baseFilename = 'serverless';
 if (process.env.SERVERLESS_PLATFORM_STAGE && process.env.SERVERLESS_PLATFORM_STAGE !== 'prod') {
-  rcFileBase = 'serverlessdev';
-  serverlessrcPath = p.join(os.homedir(), `.${rcFileBase}rc`);
+  baseFilename = `serverless${process.env.SERVERLESS_PLATFORM_STAGE.toLowerCase()}`;
+  baseFilename = baseFilename.trim();
 }
+baseFilename = `.${baseFilename}rc`;
 
-function storeConfig(config) {
+const getLocalConfigPath = () => p.join(process.cwd(), baseFilename);
+const getDefaultGlobalConfigPath = () => p.join(os.homedir(), baseFilename);
+const getHomeConfigGlobalConfigPath = () => p.join(os.homedir(), '.config', baseFilename);
+
+const getGlobalConfigPath = () => {
+  const homeConfigGlobalConfigPath = getHomeConfigGlobalConfigPath();
+  const defaultGlobalConfigPath = getDefaultGlobalConfigPath();
+  const homeConfigGlobalConfigExists = fs.existsSync(homeConfigGlobalConfigPath);
+  const defaultGlobalConfigExists = fs.existsSync(defaultGlobalConfigPath);
+
+  if (homeConfigGlobalConfigExists && defaultGlobalConfigExists) {
+    log(`Found two global configuration files. Using: ${defaultGlobalConfigPath}`, {
+      color: 'orange',
+    });
+    return defaultGlobalConfigPath;
+  }
+
+  if (homeConfigGlobalConfigExists) {
+    return homeConfigGlobalConfigPath;
+  }
+
+  return defaultGlobalConfigPath;
+};
+
+function storeConfig(config, configPath) {
+  config.meta = config.meta || {};
+  config.meta.updated_at = Math.round(Date.now() / 1000);
+
+  const jsonConfig = JSON.stringify(config, null, 2);
+
   try {
-    writeFileAtomic.sync(serverlessrcPath, JSON.stringify(config, null, 2));
+    writeFileAtomic.sync(configPath, jsonConfig);
   } catch (error) {
     if (process.env.SLS_DEBUG) {
       log(error.stack, { color: 'red' });
-      log(`Unable to store serverless config due to ${error.code} error`, { color: 'red' });
+      log(`Unable to store serverless config: ${configPath} due to ${error.code} error`, {
+        color: 'red',
+      });
     }
-    try {
-      return JSON.parse(fs.readFileSync(serverlessrcPath));
-    } catch (readError) {
-      // Ignore
-    }
-    return {};
   }
-  return config;
 }
 
-function createConfig() {
-  // set default config options
-  const config = {
+function createDefaultGlobalConfig() {
+  const defaultConfig = {
     userId: null, // currentUserId
     frameworkId: uuid.v1(),
     trackingDisabled: false,
@@ -48,62 +69,55 @@ function createConfig() {
       updated_at: null, // config file updated date
     },
   };
-
-  // save new config
-  return storeConfig(config);
+  storeConfig(defaultConfig, getDefaultGlobalConfigPath());
+  return defaultConfig;
 }
 
-// check for global .serverlessrc file
-function hasConfigFile() {
-  const stats = (() => {
-    try {
-      return fs.lstatSync(serverlessrcPath);
-    } catch (error) {
-      if (error.code === 'ENOENT') return null;
-      if (process.env.SLS_DEBUG) {
-        log(error.stack, { color: 'red' });
-        log(`Unable to read config due to ${error.code} error`, { color: 'red' });
-      }
-      return null;
-    }
-  })();
-  if (!stats) return false;
-  return stats.isFile();
-}
-
-// get global + local .serverlessrc config
-// 'rc' module merges local config over global
-function getConfig() {
-  if (!hasConfigFile()) {
-    // create config first
-    createConfig();
-  }
-  // then return config merged via rc module
+function getLocalConfig() {
+  const localConfigPath = getLocalConfigPath();
   try {
-    return rc(rcFileBase, null, /* Ensure to not read options from CLI */ {});
-  } catch (rcError) {
-    log(`User Configuration warning: Cannot resolve config file: ${rcError.message}`, {
+    return JSON.parse(fs.readFileSync(localConfigPath));
+  } catch (error) {
+    if (error.code === 'ENOENT') return {};
+    log(`User Configuration warning: Cannot resolve local config file.\nError: ${error.message}`, {
       color: 'orange',
     });
-    return getGlobalConfig();
+    try {
+      // try/catch to account for very unlikely race condition where file existed
+      // during readFileSync but no longer exists during rename
+      const backupServerlessrcPath = `${localConfigPath}.bak`;
+      fs.renameSync(localConfigPath, backupServerlessrcPath);
+      log(`Your previous local config was renamed to ${backupServerlessrcPath} for debugging.`, {
+        color: 'orange',
+      });
+    } catch {
+      // Ignore
+    }
   }
+
+  return {};
 }
 
 function getGlobalConfig() {
-  if (hasConfigFile()) {
-    try {
-      return JSON.parse(fs.readFileSync(serverlessrcPath));
-    } catch (err) {
-      log(`User Configuration warning: Cannot resolve global config file: ${err.message}`, {
-        color: 'orange',
-      });
+  const globalConfigPath = getGlobalConfigPath();
+  try {
+    return JSON.parse(fs.readFileSync(globalConfigPath));
+  } catch (error) {
+    // If the file does not exist, we want to recreate default global configuration
+    if (error.code !== 'ENOENT') {
+      log(
+        `User Configuration warning: Cannot resolve global config file: ${globalConfigPath} \nError: ${error.message}`,
+        {
+          color: 'orange',
+        }
+      );
       try {
         // try/catch to account for very unlikely race condition where file existed
-        // during hasConfigFile check but no longer exists during rename
-        const backupServerlessrcPath = `${serverlessrcPath}.bak`;
-        fs.renameSync(serverlessrcPath, backupServerlessrcPath);
+        // during readFileSync but no longer exists during rename
+        const backupServerlessrcPath = `${globalConfigPath}.bak`;
+        fs.renameSync(globalConfigPath, backupServerlessrcPath);
         log(
-          `Your previous config was renamed to ${backupServerlessrcPath} for debugging. Default global config will be recreated under ${serverlessrcPath}.`,
+          `Your previous global config was renamed to ${backupServerlessrcPath} for debugging. Default global config will be recreated under ${getDefaultGlobalConfigPath()}.`,
           { color: 'orange' }
         );
       } catch {
@@ -111,13 +125,36 @@ function getGlobalConfig() {
       }
     }
   }
-  // else create and return it
-  return createConfig();
+
+  return createDefaultGlobalConfig();
 }
 
-// set global .serverlessrc config value.
+function getConfig() {
+  const localConfig = getLocalConfig();
+  const globalConfig = getGlobalConfig();
+  return _.merge(globalConfig, localConfig);
+}
+
+function getConfigForUpdate() {
+  const localConfigPath = getLocalConfigPath();
+  const localConfigExists = fs.existsSync(localConfigPath);
+  if (localConfigExists) {
+    return {
+      config: getLocalConfig(),
+      configPath: localConfigPath,
+    };
+  }
+
+  return {
+    config: getGlobalConfig(),
+    configPath: getGlobalConfigPath(),
+  };
+}
+
 function set(key, value) {
-  let config = getGlobalConfig();
+  const configForUpdate = getConfigForUpdate();
+  let { config } = configForUpdate;
+  const { configPath } = configForUpdate;
   if (key && typeof key === 'string' && typeof value !== 'undefined') {
     config = _.set(config, key, value);
   } else if (_.isObject(key)) {
@@ -125,28 +162,43 @@ function set(key, value) {
   } else if (typeof value !== 'undefined') {
     config = _.merge(config, value);
   }
-  // update config meta
-  config.meta = config.meta || {};
-  config.meta.updated_at = Math.round(Date.now() / 1000);
-  // write to .serverlessrc file
-  return storeConfig(config);
+  storeConfig(config, configPath);
+  return getConfig();
 }
 
 function deleteValue(key) {
-  let config = getGlobalConfig();
+  const configForUpdate = getConfigForUpdate();
+  let { config } = configForUpdate;
+  const { configPath } = configForUpdate;
   if (key && typeof key === 'string') {
     config = _.omit(config, [key]);
   } else if (key && Array.isArray(key)) {
     config = _.omit(config, key);
   }
-  // write to .serverlessrc file
-  return storeConfig(config);
+  storeConfig(config, configPath);
+  return getConfig();
 }
 
-/* Get config value with object path */
 function get(path) {
   const config = getConfig();
   return _.get(config, path);
+}
+
+function getLoggedInUser() {
+  const config = getConfig();
+  if (!config.userId) {
+    return null;
+  }
+  const user = _.get(config, ['users', config.userId, 'dashboard']);
+  if (!user || !user.username) {
+    return null; // user is logged out
+  }
+  return {
+    userId: config.userId,
+    username: user.username,
+    accessKeys: user.accessKeys,
+    idToken: user.idToken,
+  };
 }
 
 module.exports = {
@@ -154,6 +206,6 @@ module.exports = {
   get,
   delete: deleteValue,
   getConfig,
-  getGlobalConfig,
-  CONFIG_FILE_PATH: serverlessrcPath,
+  getLoggedInUser,
+  CONFIG_FILE_NAME: baseFilename,
 };
