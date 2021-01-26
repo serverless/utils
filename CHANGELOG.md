@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/serverless/utils/compare/v2.2.0...v3.0.0) (2021-01-26)
+
+### ⚠ BREAKING CHANGES
+
+- **Config:**
+  - Removed `getGlobalConfig`
+  - Removed support for all `rc`-discoverable files (only supports local folder, `~/` and `~/.config` locations)
+  - Update will modify local configuration file if found, otherwise it will modify global (previously it always modified global config)
+
+### Features
+
+- **Config:** Introduce new config resolution ([#70](https://github.com/serverless/utils/pull/70)) ([3bff1b4](https://github.com/serverless/utils/commit/3bff1b4fe70e0d011ddb185f3fe6b206ced03aad)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ## [2.2.0](https://github.com/serverless/utils/compare/v2.1.0...v2.2.0) (2021-01-05)
 
 ### Features
