@@ -9,6 +9,7 @@
     "chalk": "^4.1.0",
     "inquirer": "^7.3.3",
     "js-yaml": "^4.0.0",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
     "ncjsm": "^4.1.0",
     "type": "^2.1.0",
@@ -32,6 +33,7 @@
     "prettier": "^2.2.1",
     "process-utils": "^4.0.0",
     "sinon": "^9.2.4",
+    "sinon-chai": "^3.5.0",
     "standard-version": "^9.1.0",
     "timers-ext": "^0.1.7"
   },
