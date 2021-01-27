@@ -198,6 +198,7 @@ function getLoggedInUser() {
     username: user.username,
     accessKeys: user.accessKeys,
     idToken: user.idToken,
+    refreshToken: user.refreshToken,
   };
 }
 

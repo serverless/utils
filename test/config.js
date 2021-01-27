@@ -642,8 +642,9 @@ describe('config', () => {
           1: {
             dashboard: {
               username: 'firstUsername',
-              accessKeys: ['firstkey', 'secondkey'],
+              accessKeys: { firstOrg: 'firstkey', secondOrg: 'secondkey' },
               idToken: 'idtoken',
+              refreshToken: 'refresh-token',
             },
           },
         },
@@ -652,9 +653,10 @@ describe('config', () => {
       const result = config.getLoggedInUser();
       expect(result).to.deep.equal({
         idToken: 'idtoken',
-        accessKeys: ['firstkey', 'secondkey'],
+        accessKeys: { firstOrg: 'firstkey', secondOrg: 'secondkey' },
         username: 'firstUsername',
         userId: 1,
+        refreshToken: 'refresh-token',
       });
     });
   });
