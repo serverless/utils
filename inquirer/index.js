@@ -6,8 +6,13 @@ const { dirname } = require('path');
 const requireUncached = require('ncjsm/require-uncached');
 const resolve = require('ncjsm/resolve/sync');
 const chalk = require('chalk');
+const { createRequire } = require('module');
 
-const inquirersChalkPath = resolve(dirname(require.resolve('inquirer')), 'chalk').realPath;
+const inquirerPath = require.resolve('inquirer');
+
+const inquirersChalkPath = createRequire
+  ? createRequire(inquirerPath).resolve('chalk')
+  : resolve(dirname(inquirerPath), 'chalk').realPath;
 
 module.exports = requireUncached(inquirersChalkPath, () => {
   // Ensure distinct chalk instance for inquirer and hack it with altered styles
