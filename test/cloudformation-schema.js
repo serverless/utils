@@ -41,4 +41,45 @@ describe('cloudformation-schema', () => {
       'Fn::GetAtt': ['MyResource', 'Arn'],
     });
   });
+
+  describe('!merge tag', () => {
+    const mergeType = cloudformationSchema.explicit.filter((type) => type.tag === '!merge').pop();
+
+    it('should fail if the input data is a scalar', () => {
+      expect(() => mergeType.construct('fail')).to.throw(
+        '!merge needs a sequence of values to merge'
+      );
+    });
+
+    it('should fail if the input data is a mix of arrays and objects', () => {
+      expect(() => mergeType.construct([[], {}])).to.throw(
+        '!merge needs a sequence of arrays or objects to merge'
+      );
+    });
+
+    it('should flatten the input array of arrays', () => {
+      const merged = mergeType.construct([
+        ['a', ['b', 'c']],
+        ['d', 'e'],
+      ]);
+      expect(merged).to.be.eql(['a', ['b', 'c'], 'd', 'e']);
+    });
+
+    it('should merge the input array of objects', () => {
+      const merged = mergeType.construct([{ a: 'b' }, { c: 'd' }]);
+      expect(merged).to.be.eql({ a: 'b', c: 'd' });
+    });
+
+    it('should fail if there are key collisions', () => {
+      expect(() => mergeType.construct([{ a: 'b' }, { a: 'd' }])).to.throw(
+        'duplicate key `a` in !merge[1]; first seen in !merge[0]'
+      );
+    });
+
+    it('should fail if the input array is not objects/arrays', () => {
+      expect(() => mergeType.construct([1, 2])).to.throw(
+        '!merge needs a sequence of arrays or objects to merge'
+      );
+    });
+  });
 });
