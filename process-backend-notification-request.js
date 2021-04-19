@@ -4,6 +4,7 @@ const isPlainObject = require('type/plain-object/is');
 const coerceNaturalNumber = require('type/natural-number/coerce');
 const coerceTimeValue = require('type/time-value/coerce');
 const toShortString = require('type/lib/to-short-string');
+const ci = require('ci-info');
 const configUtils = require('./config');
 
 const configPropertyName = 'shownNotificationsHistory';
@@ -12,6 +13,31 @@ const logError = (message) => {
   if (!process.env.SLS_ANALYTICS_DEBUG) return;
   process.stdout.write(`Notifications error: ${message}\n`);
 };
+
+const NOTIFICATIONS_MODE_OFF = '0';
+const NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION = '1';
+const NOTIFICATIONS_MODE_ON = '2';
+
+const ALLOWED_NOTIFICATIONS_MODES = new Set([
+  NOTIFICATIONS_MODE_ON,
+  NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION,
+  NOTIFICATIONS_MODE_OFF,
+]);
+
+const getNotificationsMode = () => {
+  const modeFromEnv = process.env.SLS_NOTIFICATIONS_MODE;
+
+  if (modeFromEnv && ALLOWED_NOTIFICATIONS_MODES.has(modeFromEnv)) return modeFromEnv;
+
+  if (ci.isCI) return NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION;
+
+  return NOTIFICATIONS_MODE_ON;
+};
+
+const OUTDATED_VERSION_NOTIFICATION_CODES = new Set([
+  'OUTDATED_MINOR_VERSION',
+  'OUTDATED_MAJOR_VERSION',
+]);
 
 module.exports = (notifications) => {
   if (!Array.isArray(notifications)) {
@@ -25,12 +51,15 @@ module.exports = (notifications) => {
       return null;
     }
   }
+
   const shownNotificationsHistory = configUtils.get(configPropertyName) || {};
   Object.keys(shownNotificationsHistory).forEach((code) => {
     const timeValue = coerceTimeValue(shownNotificationsHistory[code]);
     if (!timeValue) delete shownNotificationsHistory[code];
     else shownNotificationsHistory[code] = timeValue;
   });
+
+  const notificationsMode = getNotificationsMode();
 
   return (
     notifications
@@ -49,6 +78,16 @@ module.exports = (notifications) => {
           );
           return false;
         }
+
+        if (notificationsMode === NOTIFICATIONS_MODE_OFF) return false;
+
+        if (
+          notificationsMode === NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION &&
+          !OUTDATED_VERSION_NOTIFICATION_CODES.has(notification.code)
+        ) {
+          return false;
+        }
+
         notification.visibilityInterval = coerceNaturalNumber(notification.visibilityInterval);
         if (notification.visibilityInterval == null) notification.visibilityInterval = 24;
         return true;
