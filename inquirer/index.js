@@ -24,11 +24,11 @@ module.exports = requireUncached(inquirersChalkPath, () => {
     },
   });
 
-  // 'Serverless:' prefix
   const BasePrompt = require('inquirer/lib/prompts/base');
   const originalGetQuestion = BasePrompt.prototype.getQuestion;
   BasePrompt.prototype.getQuestion = function () {
-    this.opt.prefix = 'Serverless:';
+    // Here we want to override the default prefix which is equal to `chalk.green('?')`
+    this.opt.prefix = '';
     return originalGetQuestion.call(this);
   };
 
