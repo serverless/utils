@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/serverless/utils/compare/v4.1.0...v5.0.0) (2021-05-12)
+
+### ⚠ BREAKING CHANGES
+
+- Inquirer prompt will have no prefix instead of `Serverless:`. If you wish, to still use `Serverless:` prefix, override it on the client side.
+
+### Features
+
+- Remove `Serverless:` prefix from `inquirer` ([#82](https://github.com/serverless/utils/pull/82)) ([edb8593](https://github.com/serverless/utils/commit/edb8593fbd2524c3ba0e08fc1e143eb872cf9b86)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ## [4.1.0](https://github.com/serverless/utils/compare/v4.0.1...v4.1.0) (2021-04-20)
 
 ### Features
