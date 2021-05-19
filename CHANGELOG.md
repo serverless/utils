@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/serverless/utils/compare/v5.0.0...v5.1.0) (2021-05-19)
+
+### Features
+
+- Add `download` util ([#84](https://github.com/serverless/utils/pull/84)) ([888a583](https://github.com/serverless/utils/commit/888a58328099f1860fac8305fe32bb05325f039a)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ## [5.0.0](https://github.com/serverless/utils/compare/v4.1.0...v5.0.0) (2021-05-12)
 
 ### ⚠ BREAKING CHANGES
