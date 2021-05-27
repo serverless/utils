@@ -29,3 +29,7 @@ Log message with custom color
 ### `log(message, { entity: 'Custom' })`
 
 Log message with custom entity
+
+### `log(message, { entity: null })`
+
+Log message with disabled entity, outputs messages in form of `<formatted message>\n`
