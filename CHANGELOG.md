@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/serverless/utils/compare/v5.1.0...v5.2.0) (2021-05-27)
+
+### Features
+
+- Support disabling entity in `log` util ([#86](https://github.com/serverless/utils/pull/86)) ([df601f5](https://github.com/serverless/utils/commit/df601f5aca5ea7a3ecd8e9a8ddde9f233864acc1)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ## [5.1.0](https://github.com/serverless/utils/compare/v5.0.0...v5.1.0) (2021-05-19)
 
 ### Features
