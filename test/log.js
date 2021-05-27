@@ -13,7 +13,7 @@ describe('log', () => {
       () => log('basic message')
     );
     expect(stdoutData).to.have.string('basic message');
-    expect(stdoutData.startsWith('Serverless')).to.be.true;
+    expect(stdoutData.startsWith('Serverless: ')).to.be.true;
   });
 
   it('supports message with custom entity', () => {
@@ -22,8 +22,17 @@ describe('log', () => {
       (data) => (stdoutData += data),
       () => log('basic message', { entity: 'NotServerless' })
     );
-    expect(stdoutData.startsWith('NotServerless')).to.be.true;
+    expect(stdoutData.startsWith('NotServerless: ')).to.be.true;
     expect(stdoutData).to.have.string(chalk.yellow('basic message'));
+  });
+
+  it('supports message with disabled entity', () => {
+    let stdoutData = '';
+    overrideStdoutWrite(
+      (data) => (stdoutData += data),
+      () => log('basic message', { entity: null })
+    );
+    expect(stdoutData).to.equal(`${chalk.yellow('basic message')}\n`);
   });
 
   it('supports message with custom color', () => {
@@ -42,7 +51,7 @@ describe('log', () => {
       (data) => (stdoutData += data),
       () => log('basic message', { underline: true })
     );
-    expect(stdoutData.startsWith('Serverless')).to.be.true;
+    expect(stdoutData.startsWith('Serverless: ')).to.be.true;
     expect(stdoutData).to.have.string(chalk.yellow.underline('basic message'));
   });
 
@@ -52,7 +61,7 @@ describe('log', () => {
       (data) => (stdoutData += data),
       () => log('basic message', { bold: true })
     );
-    expect(stdoutData.startsWith('Serverless')).to.be.true;
+    expect(stdoutData.startsWith('Serverless: ')).to.be.true;
     expect(stdoutData).to.have.string(chalk.yellow.bold('basic message'));
   });
 });

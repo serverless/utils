@@ -10,5 +10,10 @@ module.exports = (message, options = {}) => {
   if (underline) print = print.underline;
   if (bold) print = print.bold;
 
-  process.stdout.write(`${entity}: ${print(message)}\n`);
+  // In order to support stripping entity prefix by passing "entity: null"
+  if (entity) {
+    process.stdout.write(`${entity}: ${print(message)}\n`);
+  } else {
+    process.stdout.write(`${print(message)}\n`);
+  }
 };
