@@ -3,7 +3,7 @@
 User account related utilities that also interact with stored config file. Several methods depend on `sdk` parameter, which should be provided as an instance of `ServerlessSDK` from `@serverless/platform-client` library.
 
 ```javascript
-const accountUtils = require('@serverless/utils/account);
+const accountUtils = require('@serverless/utils/account');
 ```
 
 Exposes following _async_ methods:
