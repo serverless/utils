@@ -17,11 +17,13 @@ const logError = (message) => {
 const NOTIFICATIONS_MODE_OFF = '0';
 const NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION = '1';
 const NOTIFICATIONS_MODE_ON = '2';
+const NOTIFICATIONS_MODE_FORCE = '3';
 
 const ALLOWED_NOTIFICATIONS_MODES = new Set([
   NOTIFICATIONS_MODE_ON,
   NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION,
   NOTIFICATIONS_MODE_OFF,
+  NOTIFICATIONS_MODE_FORCE,
 ]);
 
 const getNotificationsMode = () => {
@@ -52,6 +54,8 @@ module.exports = (notifications) => {
     }
   }
 
+  if (!notifications.length) return null;
+
   const shownNotificationsHistory = configUtils.get(configPropertyName) || {};
   Object.keys(shownNotificationsHistory).forEach((code) => {
     const timeValue = coerceTimeValue(shownNotificationsHistory[code]);
@@ -61,62 +65,80 @@ module.exports = (notifications) => {
 
   const notificationsMode = getNotificationsMode();
 
-  return (
-    notifications
-      .filter((notification, index) => {
-        if (!isPlainObject(notification)) {
-          logError(`Expected plain object at [${index}] got ${toShortString(notification)}`);
-          return false;
-        }
-        if (!notification.code || typeof notification.code !== 'string') {
-          logError(`Expected string at [${index}].code got ${toShortString(notification.code)}`);
-          return false;
-        }
-        if (!notification.message || typeof notification.message !== 'string') {
-          logError(
-            `Expected string at [${index}].message got ${toShortString(notification.message)}`
-          );
-          return false;
-        }
-
-        if (notificationsMode === NOTIFICATIONS_MODE_OFF) return false;
-
-        if (
-          notificationsMode === NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION &&
-          !OUTDATED_VERSION_NOTIFICATION_CODES.has(notification.code)
-        ) {
-          return false;
-        }
-
-        notification.visibilityInterval = coerceNaturalNumber(notification.visibilityInterval);
-        if (notification.visibilityInterval == null) notification.visibilityInterval = 24;
-        return true;
-      })
-      .sort((notification1, notification2) => {
-        // 1. Notifications to be shown on intervals
-        if (notification1.visibilityInterval || notification2.visibilityInterval) {
-          // Favor those to be shown most rarely
-          return notification2.visibilityInterval - notification1.visibilityInterval;
-        }
-        // 2.Notifications to be shown always
-        // Favor shown least recently
-        return (
-          (shownNotificationsHistory[notification1.code] || 0) -
-          (shownNotificationsHistory[notification2.code] || 0)
+  const notificationsOrderedByPriority = notifications
+    .filter((notification, index) => {
+      if (!isPlainObject(notification)) {
+        logError(`Expected plain object at [${index}] got ${toShortString(notification)}`);
+        return false;
+      }
+      if (!notification.code || typeof notification.code !== 'string') {
+        logError(`Expected string at [${index}].code got ${toShortString(notification.code)}`);
+        return false;
+      }
+      if (!notification.message || typeof notification.message !== 'string') {
+        logError(
+          `Expected string at [${index}].message got ${toShortString(notification.message)}`
         );
-      })
-      .find((notification) => {
-        if (notification.visibilityInterval) {
-          const lastShown = shownNotificationsHistory[notification.code];
-          if (lastShown) {
-            if (lastShown > Date.now() - (notification.visibilityInterval || 24) * 60 * 60 * 1000) {
-              return false;
-            }
+        return false;
+      }
+
+      if (notificationsMode === NOTIFICATIONS_MODE_OFF) return false;
+
+      if (
+        notificationsMode === NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION &&
+        !OUTDATED_VERSION_NOTIFICATION_CODES.has(notification.code)
+      ) {
+        return false;
+      }
+
+      notification.visibilityInterval = coerceNaturalNumber(notification.visibilityInterval);
+      if (notification.visibilityInterval == null) notification.visibilityInterval = 24;
+      return true;
+    })
+    .sort((notification1, notification2) => {
+      // 1. Notifications to be shown on intervals
+      if (notification1.visibilityInterval || notification2.visibilityInterval) {
+        // Favor those to be shown most rarely
+        return notification2.visibilityInterval - notification1.visibilityInterval;
+      }
+      // 2.Notifications to be shown always
+      // Favor shown least recently
+      return (
+        (shownNotificationsHistory[notification1.code] || 0) -
+        (shownNotificationsHistory[notification2.code] || 0)
+      );
+    });
+
+  if (notificationsMode === NOTIFICATIONS_MODE_FORCE) {
+    const notification = notificationsOrderedByPriority.sort((notification1, notification2) => {
+      const lastShown1 = shownNotificationsHistory[notification1.code];
+      const lastShown2 = shownNotificationsHistory[notification2.code];
+      if (lastShown1) {
+        if (lastShown2) return lastShown1 - lastShown2;
+        return 1;
+      } else if (lastShown2) {
+        return -1;
+      }
+      return 0;
+    })[0];
+    shownNotificationsHistory[notification.code] = Date.now();
+    configUtils.set(configPropertyName, shownNotificationsHistory);
+    return notification;
+  }
+
+  return (
+    notificationsOrderedByPriority.find((notification) => {
+      if (notification.visibilityInterval) {
+        const lastShown = shownNotificationsHistory[notification.code];
+        if (lastShown) {
+          if (lastShown > Date.now() - (notification.visibilityInterval || 24) * 60 * 60 * 1000) {
+            return false;
           }
         }
-        shownNotificationsHistory[notification.code] = Date.now();
-        configUtils.set(configPropertyName, shownNotificationsHistory);
-        return true;
-      }) || null
+      }
+      shownNotificationsHistory[notification.code] = Date.now();
+      configUtils.set(configPropertyName, shownNotificationsHistory);
+      return true;
+    }) || null
   );
 };

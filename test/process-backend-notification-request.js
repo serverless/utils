@@ -125,4 +125,22 @@ describe('process-backend-notification-request', () => {
 
     expect(notification.code).to.equal('CODE123');
   });
+
+  it('Should force not shown or oldest shown with  SLS_NOTIFICATIONS_MODE set to 3', async () => {
+    await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '3' } }, async () => {
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE24');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE12');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE6');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
+
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE24');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE12');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE6');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
+    });
+  });
 });
