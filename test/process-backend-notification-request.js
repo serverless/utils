@@ -2,8 +2,10 @@
 
 const { expect } = require('chai');
 const overrideEnv = require('process-utils/override-env');
+const fsp = require('fs').promises;
 const wait = require('timers-ext/promise/sleep');
 const proxyquire = require('proxyquire');
+const configFileName = require('../config').CONFIG_FILE_NAME;
 
 const processBackendNotificationRequest = proxyquire('../process-backend-notification-request', {
   'ci-info': { isCI: false },
@@ -29,6 +31,8 @@ const processTargetNotifications = async (notifications) => {
 };
 
 describe('process-backend-notification-request', () => {
+  afterEach(async () => fsp.unlink(configFileName));
+
   it('Should ignore invalid input', async () => {
     expect(await processTargetNotifications()).to.equal(null);
     expect(
@@ -53,6 +57,10 @@ describe('process-backend-notification-request', () => {
   });
 
   it('Should skip shown notification', async () => {
+    await processTargetNotifications([
+      { code: 'CODE1', message: 'Some notification #1' },
+      { code: 'CODE2', message: 'Some notification #2' },
+    ]);
     const notification = await processTargetNotifications([
       { code: 'CODE1', message: 'Some notification #1' },
       { code: 'CODE2', message: 'Some notification #2' },
@@ -65,15 +73,21 @@ describe('process-backend-notification-request', () => {
     expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE24');
     expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE12');
     expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE6');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
   });
 
   it('If notification is to be shown always, favor one shown least recently', async () => {
-    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
-    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
-    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
-    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
-    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
-    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
+    const fixture = [
+      { code: 'CODE0A', message: 'Some notification', visibilityInterval: 0 },
+      { code: 'CODE0B', message: 'Some notification', visibilityInterval: 0 },
+      { code: 'CODE0C', message: 'Some notification', visibilityInterval: 0 },
+    ];
+    expect((await processTargetNotifications(fixture)).code).to.equal('CODE0A');
+    expect((await processTargetNotifications(fixture)).code).to.equal('CODE0B');
+    expect((await processTargetNotifications(fixture)).code).to.equal('CODE0C');
+    expect((await processTargetNotifications(fixture)).code).to.equal('CODE0A');
+    expect((await processTargetNotifications(fixture)).code).to.equal('CODE0B');
+    expect((await processTargetNotifications(fixture)).code).to.equal('CODE0C');
   });
 
   it('Should ignore all notifications if SLS_NOTIFICATIONS_MODE set to 0', async () => {
