@@ -5,7 +5,7 @@ const overrideEnv = require('process-utils/override-env');
 const wait = require('timers-ext/promise/sleep');
 const proxyquire = require('proxyquire');
 
-const processTargetNotifications = proxyquire('../process-backend-notification-request', {
+const processBackendNotificationRequest = proxyquire('../process-backend-notification-request', {
   'ci-info': { isCI: false },
 });
 
@@ -20,16 +20,19 @@ const testOrderFixture = [
 
 // Reason for enforcing time progress is that the test became flaky - in some situations two notifications
 // had the same lastShown value in config
-const validateNotificationAndEnsureClockProgress = async (notificationCode) => {
-  expect(processTargetNotifications(testOrderFixture).code).to.equal(notificationCode);
-  await wait(1);
+const processTargetNotifications = async (notifications) => {
+  try {
+    return processBackendNotificationRequest(notifications);
+  } finally {
+    await wait(1);
+  }
 };
 
 describe('process-backend-notification-request', () => {
-  it('Should ignore invalid input', () => {
-    expect(processTargetNotifications()).to.equal(null);
+  it('Should ignore invalid input', async () => {
+    expect(await processTargetNotifications()).to.equal(null);
     expect(
-      processTargetNotifications([
+      await processTargetNotifications([
         null,
         'foo',
         NaN,
@@ -40,8 +43,8 @@ describe('process-backend-notification-request', () => {
     ).to.equal(null);
   });
 
-  it('Should show not shown notification', () => {
-    const notification = processTargetNotifications([
+  it('Should show not shown notification', async () => {
+    const notification = await processTargetNotifications([
       { code: 'CODE1', message: 'Some notification #1' },
       { code: 'CODE2', message: 'Some notification #2' },
     ]);
@@ -49,8 +52,8 @@ describe('process-backend-notification-request', () => {
     expect(notification.code).to.equal('CODE1');
   });
 
-  it('Should skip shown notification', () => {
-    const notification = processTargetNotifications([
+  it('Should skip shown notification', async () => {
+    const notification = await processTargetNotifications([
       { code: 'CODE1', message: 'Some notification #1' },
       { code: 'CODE2', message: 'Some notification #2' },
     ]);
@@ -58,25 +61,25 @@ describe('process-backend-notification-request', () => {
     expect(notification.code).to.equal('CODE2');
   });
 
-  it('Should favor notification to be shown least frequently', () => {
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE24');
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE12');
-    expect(processTargetNotifications(testOrderFixture).code).to.equal('CODE6');
+  it('Should favor notification to be shown least frequently', async () => {
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE24');
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE12');
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE6');
   });
 
   it('If notification is to be shown always, favor one shown least recently', async () => {
-    await validateNotificationAndEnsureClockProgress('CODE0A');
-    await validateNotificationAndEnsureClockProgress('CODE0B');
-    await validateNotificationAndEnsureClockProgress('CODE0C');
-    await validateNotificationAndEnsureClockProgress('CODE0A');
-    await validateNotificationAndEnsureClockProgress('CODE0B');
-    await validateNotificationAndEnsureClockProgress('CODE0C');
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0A');
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0B');
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0C');
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0A');
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0B');
+    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0C');
   });
 
   it('Should ignore all notifications if SLS_NOTIFICATIONS_MODE set to 0', async () => {
     let notification;
-    overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '0' } }, () => {
-      notification = processTargetNotifications([
+    await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '0' } }, async () => {
+      notification = await processTargetNotifications([
         { code: 'CODE123', message: 'Some notification #1' },
         { code: 'CODE456', message: 'Some notification #2' },
       ]);
@@ -87,8 +90,8 @@ describe('process-backend-notification-request', () => {
 
   it('Should only consider outdated version notifs if SLS_NOTIFICATIONS_MODE set to 1', async () => {
     let notification;
-    overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '1' } }, () => {
-      notification = processTargetNotifications([
+    await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '1' } }, async () => {
+      notification = await processTargetNotifications([
         { code: 'CODE456', message: 'Some notification' },
         { code: 'OUTDATED_MINOR_VERSION', message: 'outdated' },
       ]);
@@ -99,8 +102,8 @@ describe('process-backend-notification-request', () => {
 
   it('Should consider all notifs if SLS_NOTIFICATIONS_MODE set to 2', async () => {
     let notification;
-    overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '2' } }, () => {
-      notification = processTargetNotifications([
+    await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '2' } }, async () => {
+      notification = await processTargetNotifications([
         { code: 'CODE123', message: 'Some notification #1' },
         { code: 'CODE456', message: 'Some notification #2' },
       ]);
