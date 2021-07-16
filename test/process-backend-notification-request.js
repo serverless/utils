@@ -16,7 +16,7 @@ const testOrderFixture = [
   { code: 'CODE0B', message: 'Some notification', visibilityInterval: 0 },
   { code: 'CODE24', message: 'Some notification', visibilityInterval: 24 },
   { code: 'CODE0C', message: 'Some notification', visibilityInterval: 0 },
-].sort();
+];
 
 describe('process-backend-notification-request', () => {
   // Reason for enforcing time progress is that the test became flaky - in some situations two notifications
