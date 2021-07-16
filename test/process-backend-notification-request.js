@@ -18,14 +18,14 @@ const testOrderFixture = [
   { code: 'CODE0C', message: 'Some notification', visibilityInterval: 0 },
 ];
 
-describe('process-backend-notification-request', () => {
-  // Reason for enforcing time progress is that the test became flaky - in some situations two notifications
-  // had the same lastShown value in config
-  const validateNotificationAndEnsureClockProgress = async (notificationCode) => {
-    expect(processTargetNotifications(testOrderFixture).code).to.equal(notificationCode);
-    await wait(1);
-  };
+// Reason for enforcing time progress is that the test became flaky - in some situations two notifications
+// had the same lastShown value in config
+const validateNotificationAndEnsureClockProgress = async (notificationCode) => {
+  expect(processTargetNotifications(testOrderFixture).code).to.equal(notificationCode);
+  await wait(1);
+};
 
+describe('process-backend-notification-request', () => {
   it('Should ignore invalid input', () => {
     expect(processTargetNotifications()).to.equal(null);
     expect(
