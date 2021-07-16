@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/serverless/utils/compare/v5.3.0...v5.4.0) (2021-07-16)
+
+### Features
+
+- **Backend notifications resolver:**
+  - Introduce alternative notifications mode settings ([#90](https://github.com/serverless/utils/pull/90)) ([d3ffc7a](https://github.com/serverless/utils/commit/d3ffc7aac78e8a3adf0d2a126c2ba8e2df2592f6)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Support forcing display of notifications ([#90](https://github.com/serverless/utils/pull/90)) ([84c9599](https://github.com/serverless/utils/commit/84c9599864f288389101e8876aba4b8ac6683493)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.3.0](https://github.com/serverless/utils/compare/v5.2.0...v5.3.0) (2021-06-15)
 
 ### Features
