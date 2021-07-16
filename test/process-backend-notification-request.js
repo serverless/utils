@@ -9,7 +9,7 @@ const processBackendNotificationRequest = proxyquire('../process-backend-notific
   'ci-info': { isCI: false },
 });
 
-const testOrderFixture = [
+const defaultFixture = [
   { code: 'CODE12', message: 'Some notification', visibilityInterval: 12 },
   { code: 'CODE0A', message: 'Some notification', visibilityInterval: 0 },
   { code: 'CODE6', message: 'Some notification', visibilityInterval: 6 },
@@ -62,18 +62,18 @@ describe('process-backend-notification-request', () => {
   });
 
   it('Should favor notification to be shown least frequently', async () => {
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE24');
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE12');
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE6');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE24');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE12');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE6');
   });
 
   it('If notification is to be shown always, favor one shown least recently', async () => {
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0A');
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0B');
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0C');
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0A');
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0B');
-    expect((await processTargetNotifications(testOrderFixture)).code).to.equal('CODE0C');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
+    expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
   });
 
   it('Should ignore all notifications if SLS_NOTIFICATIONS_MODE set to 0', async () => {
