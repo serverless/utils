@@ -102,7 +102,7 @@ describe('process-backend-notification-request', () => {
     expect(notification).to.be.null;
   });
 
-  it('Should only consider outdated version notifs if SLS_NOTIFICATIONS_MODE set to 1', async () => {
+  it('Should only consider outdated version notifications if SLS_NOTIFICATIONS_MODE set to 1', async () => {
     let notification;
     await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '1' } }, async () => {
       notification = await processTargetNotifications([
@@ -114,7 +114,7 @@ describe('process-backend-notification-request', () => {
     expect(notification.code).to.equal('OUTDATED_MINOR_VERSION');
   });
 
-  it('Should consider all notifs if SLS_NOTIFICATIONS_MODE set to 2', async () => {
+  it('Should consider all notifications if SLS_NOTIFICATIONS_MODE set to 2', async () => {
     let notification;
     await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: '2' } }, async () => {
       notification = await processTargetNotifications([
