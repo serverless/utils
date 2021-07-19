@@ -28,12 +28,10 @@ describe('telemetry', () => {
     it('supports `start` and `finalize` methods', () => {
       const history = new telemetry.StepHistory();
       history.start('key');
-      expect(history.get('key')).to.have.property('timestamp');
       expect(history.get('key')).to.have.property('startedAt');
       expect(history.get('key')).not.to.have.property('value');
       history.finalize('key', 'another');
       expect(history.get('key').value).to.equal('another');
-      expect(history.get('key')).to.have.property('timestamp');
       expect(history.get('key')).to.have.property('startedAt');
       expect(history.get('key')).to.have.property('finalizedAt');
       expect(history.get('key')).to.have.property('value');

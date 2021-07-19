@@ -11,24 +11,14 @@ class StepHistory extends Map {
   }
 
   start(key) {
-    const timestamp = Date.now();
     const valueObject = {
-      timestamp,
-      startedAt: timestamp,
+      startedAt: Date.now(),
     };
     return super.set(key, valueObject);
   }
 
   finalize(key, value) {
-    const previousValueObject = super.get(key) || {};
-    const timestamp = Date.now();
-    const valueObject = {
-      ...previousValueObject,
-      value,
-      timestamp,
-      finalizedAt: timestamp,
-    };
-    return super.set(key, valueObject);
+    Object.assign(super.get(key), { finalizedAt: Date.now(), value });
   }
 
   valuesMap() {
