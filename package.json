@@ -33,7 +33,7 @@
     "@serverless/test": "^8.3.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "eslint-plugin-import": "^2.23.4",
     "git-list-updated": "^1.2.1",
     "github-release-from-cc-changelog": "^2.2.0",
