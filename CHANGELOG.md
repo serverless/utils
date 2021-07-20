@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.5.0](https://github.com/serverless/utils/compare/v5.4.0...v5.5.0) (2021-07-20)
+
+### Features
+
+- Add `prompt-with-history` ([#92](https://github.com/serverless/utils/pull/92)) ([7f094ef](https://github.com/serverless/utils/commit/7f094ef659f9295884c5679c398f609da8dd1ba7)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- Add support for recording `startedAt` and `finalizedAt` in `StepHistory` ([#92](https://github.com/serverless/utils/pull/92)) ([483cb08](https://github.com/serverless/utils/commit/483cb082eaa9d049d862554e6a7d6290031d58db)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ## [5.4.0](https://github.com/serverless/utils/compare/v5.3.0...v5.4.0) (2021-07-16)
 
 ### Features
