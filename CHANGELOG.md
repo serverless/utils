@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.6.0](https://github.com/serverless/utils/compare/v5.5.0...v5.6.0) (2021-07-21)
+
+### Features
+
+- Recognize continue prompts in history with `_continuation_` ([#94](https://github.com/serverless/utils/pull/94)) ([5cd0414](https://github.com/serverless/utils/commit/5cd04148e066b80c2135edf9eb05fb4fb5b09e56)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ## [5.5.0](https://github.com/serverless/utils/compare/v5.4.0...v5.5.0) (2021-07-20)
 
 ### Features
