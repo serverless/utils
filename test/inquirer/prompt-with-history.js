@@ -62,6 +62,25 @@ describe('inquirer/confirm', () => {
     expect(stepHistory.get('someQuestion')).to.have.property('finalizedAt');
   });
 
+  it('Should work and correctly report `_continuation_` for empty answers', async () => {
+    const stepHistory = new StepHistory();
+
+    configureInquirerStub(inquirer, {
+      input: { someQuestion: '' },
+    });
+
+    expect(
+      await inquirerPromptWithHistory({
+        message: 'Question?',
+        name: 'someQuestion',
+        stepHistory,
+      })
+    ).to.equal('');
+    expect(stepHistory.get('someQuestion').value).to.equal('_continuation_');
+    expect(stepHistory.get('someQuestion')).to.have.property('startedAt');
+    expect(stepHistory.get('someQuestion')).to.have.property('finalizedAt');
+  });
+
   it('Should work and report predefined select answers in history', async () => {
     const stepHistory = new StepHistory();
 

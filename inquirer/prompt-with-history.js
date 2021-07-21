@@ -24,6 +24,10 @@ module.exports = async (options = {}) => {
       return answer;
     }
 
+    if (answer === '') {
+      return '_continuation_';
+    }
+
     if (type === 'list') {
       return '_user_choice_';
     }
