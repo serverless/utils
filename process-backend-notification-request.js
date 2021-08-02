@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const isPlainObject = require('type/plain-object/is');
 const coerceNaturalNumber = require('type/natural-number/coerce');
 const coerceTimeValue = require('type/time-value/coerce');
@@ -45,57 +46,16 @@ const getNotificationsMode = () => {
   return NOTIFICATIONS_MODE_ON;
 };
 
-const OUTDATED_VERSION_NOTIFICATION_CODES = new Set([
-  'OUTDATED_MINOR_VERSION',
-  'OUTDATED_MAJOR_VERSION',
-]);
-
-module.exports = (notifications) => {
-  if (!Array.isArray(notifications)) {
-    if (notifications && Array.isArray(notifications.notifications)) {
-      // If in a future we'd decide to extend response payload
-      // (so notifications are not returned dirctly but exposed on `notifications` property)
-      // this patch ensures it's compatible with old versions
-      ({ notifications } = notifications);
-    } else {
-      logError(`Expected array, got ${toShortString(notifications)}`);
-      return null;
-    }
-  }
-
-  if (!notifications.length) return null;
-
-  const shownNotificationsHistory = configUtils.get(configPropertyName) || {};
-  Object.keys(shownNotificationsHistory).forEach((code) => {
-    const timeValue = coerceTimeValue(shownNotificationsHistory[code]);
-    if (!timeValue) delete shownNotificationsHistory[code];
-    else shownNotificationsHistory[code] = timeValue;
-  });
-
+const resolveNotificationToShow = (notifications, shownNotificationsHistory) => {
   const notificationsMode = getNotificationsMode();
 
   const notificationsOrderedByPriority = notifications
-    .filter((notification, index) => {
-      if (!isPlainObject(notification)) {
-        logError(`Expected plain object at [${index}] got ${toShortString(notification)}`);
-        return false;
-      }
-      if (!notification.code || typeof notification.code !== 'string') {
-        logError(`Expected string at [${index}].code got ${toShortString(notification.code)}`);
-        return false;
-      }
-      if (!notification.message || typeof notification.message !== 'string') {
-        logError(
-          `Expected string at [${index}].message got ${toShortString(notification.message)}`
-        );
-        return false;
-      }
-
+    .filter((notification) => {
       if (notificationsMode === NOTIFICATIONS_MODE_OFF) return false;
 
       if (
         notificationsMode === NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION &&
-        !OUTDATED_VERSION_NOTIFICATION_CODES.has(notification.code)
+        !(notification.type === 'update')
       ) {
         return false;
       }
@@ -150,4 +110,63 @@ module.exports = (notifications) => {
       return true;
     }) || null
   );
+};
+
+module.exports = (notifications) => {
+  if (!Array.isArray(notifications)) {
+    if (notifications && Array.isArray(notifications.notifications)) {
+      // If in a future we'd decide to extend response payload
+      // (so notifications are not returned dirctly but exposed on `notifications` property)
+      // this patch ensures it's compatible with old versions
+      ({ notifications } = notifications);
+    } else {
+      logError(`Expected array, got ${toShortString(notifications)}`);
+      return {};
+    }
+  }
+
+  if (!notifications.length) return {};
+
+  const validatedNotifications = notifications.filter((notification, index) => {
+    if (!isPlainObject(notification)) {
+      logError(`Expected plain object at [${index}] got ${toShortString(notification)}`);
+      return false;
+    }
+    if (!notification.code || typeof notification.code !== 'string') {
+      logError(`Expected string at [${index}].code got ${toShortString(notification.code)}`);
+      return false;
+    }
+    if (!notification.message || typeof notification.message !== 'string') {
+      logError(`Expected string at [${index}].message got ${toShortString(notification.message)}`);
+      return false;
+    }
+    if (!notification.type || typeof notification.type !== 'string') {
+      logError(`Expected string at [${index}].type got ${toShortString(notification.message)}`);
+      return false;
+    }
+
+    return true;
+  });
+
+  const notificationsByType = {};
+  for (const notification of validatedNotifications) {
+    if (!notificationsByType[notification.type]) {
+      notificationsByType[notification.type] = [];
+    }
+    notificationsByType[notification.type].push(notification);
+  }
+
+  const shownNotificationsHistory = configUtils.get(configPropertyName) || {};
+  Object.keys(shownNotificationsHistory).forEach((code) => {
+    const timeValue = coerceTimeValue(shownNotificationsHistory[code]);
+    if (!timeValue) delete shownNotificationsHistory[code];
+    else shownNotificationsHistory[code] = timeValue;
+  });
+
+  const res = _.fromPairs(
+    Object.entries(notificationsByType)
+      .map(([type, notifs]) => [type, resolveNotificationToShow(notifs, shownNotificationsHistory)])
+      .filter((entry) => Boolean(entry[1]))
+  );
+  return res;
 };
