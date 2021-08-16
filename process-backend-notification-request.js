@@ -4,45 +4,14 @@ const isPlainObject = require('type/plain-object/is');
 const coerceNaturalNumber = require('type/natural-number/coerce');
 const coerceTimeValue = require('type/time-value/coerce');
 const toShortString = require('type/lib/to-short-string');
-const ci = require('ci-info');
 const configUtils = require('./config');
+const getNotificationsMode = require('./get-notifications-mode');
 
 const configPropertyName = 'shownNotificationsHistory';
 
 const logError = (message) => {
   if (!process.env.SLS_ANALYTICS_DEBUG) return;
   process.stdout.write(`Notifications error: ${message}\n`);
-};
-
-const NOTIFICATIONS_MODE_OFF = 'off';
-const NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION = 'upgrades-only';
-const NOTIFICATIONS_MODE_ON = 'on';
-const NOTIFICATIONS_MODE_FORCE = 'force';
-
-const oldNotationMap = [
-  NOTIFICATIONS_MODE_OFF,
-  NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION,
-  NOTIFICATIONS_MODE_ON,
-  NOTIFICATIONS_MODE_FORCE,
-];
-
-const ALLOWED_NOTIFICATIONS_MODES = new Set([
-  NOTIFICATIONS_MODE_ON,
-  NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION,
-  NOTIFICATIONS_MODE_OFF,
-  NOTIFICATIONS_MODE_FORCE,
-]);
-
-const getNotificationsMode = () => {
-  const modeFromEnv =
-    oldNotationMap[Number(process.env.SLS_NOTIFICATIONS_MODE)] ||
-    process.env.SLS_NOTIFICATIONS_MODE;
-
-  if (modeFromEnv && ALLOWED_NOTIFICATIONS_MODES.has(modeFromEnv)) return modeFromEnv;
-
-  if (ci.isCI) return NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION;
-
-  return NOTIFICATIONS_MODE_ON;
 };
 
 const OUTDATED_VERSION_NOTIFICATION_CODES = new Set([
@@ -91,10 +60,12 @@ module.exports = (notifications) => {
         return false;
       }
 
-      if (notificationsMode === NOTIFICATIONS_MODE_OFF) return false;
+      if (notificationsMode === 'off') {
+        return false;
+      }
 
       if (
-        notificationsMode === NOTIFICATIONS_MODE_ONLY_OUTDATED_VERSION &&
+        notificationsMode === 'upgrades-only' &&
         !OUTDATED_VERSION_NOTIFICATION_CODES.has(notification.code)
       ) {
         return false;
@@ -118,7 +89,7 @@ module.exports = (notifications) => {
       );
     });
 
-  if (notificationsMode === NOTIFICATIONS_MODE_FORCE) {
+  if (notificationsMode === 'force') {
     const notification = notificationsOrderedByPriority.sort((notification1, notification2) => {
       const lastShown1 = shownNotificationsHistory[notification1.code];
       const lastShown2 = shownNotificationsHistory[notification2.code];
