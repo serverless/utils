@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.7.0](https://github.com/serverless/utils/compare/v5.6.0...v5.7.0) (2021-08-17)
+
+### Features
+
+- Introduce `get-notifications-mode` util ([#100](https://github.com/serverless/utils/pull/100)) ([a1585c9](https://github.com/serverless/utils/commit/a1585c971d821fc53c4238b35dc50a041652f27b)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ## [5.6.0](https://github.com/serverless/utils/compare/v5.5.0...v5.6.0) (2021-07-21)
 
 ### Features
