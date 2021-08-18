@@ -1,14 +1,17 @@
 'use strict';
 
 const { expect } = require('chai');
-const overrideEnv = require('process-utils/override-env');
 const fsp = require('fs').promises;
 const wait = require('timers-ext/promise/sleep');
 const proxyquire = require('proxyquire');
 const configFileName = require('../config').CONFIG_FILE_NAME;
 
+const sinon = require('sinon');
+
+const getNotificationsModeStub = sinon.stub();
+
 const processBackendNotificationRequest = proxyquire('../process-backend-notification-request', {
-  'ci-info': { isCI: false },
+  './get-notifications-mode': getNotificationsModeStub,
 });
 
 const defaultFixture = [
@@ -91,76 +94,51 @@ describe('process-backend-notification-request', () => {
   });
 
   describe('Notifications mode', () => {
-    const suite = (map) => {
-      it(`Should ignore all notifications if SLS_NOTIFICATIONS_MODE set to ${map(
-        'off'
-      )}`, async () => {
-        let notification;
-        await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: map('off') } }, async () => {
-          notification = await processTargetNotifications([
-            { code: 'CODE123', message: 'Some notification #1' },
-            { code: 'CODE456', message: 'Some notification #2' },
-          ]);
-        });
+    it("Should ignore all notifications if notification mode set to 'off'", async () => {
+      getNotificationsModeStub.returns('off');
+      const notification = await processTargetNotifications([
+        { code: 'CODE123', message: 'Some notification #1' },
+        { code: 'CODE456', message: 'Some notification #2' },
+      ]);
 
-        expect(notification).to.be.null;
-      });
+      expect(notification).to.be.null;
+    });
 
-      it(`Should only consider outdated version notifications if SLS_NOTIFICATIONS_MODE set to ${map(
-        'upgrades-only'
-      )}`, async () => {
-        let notification;
-        await overrideEnv(
-          { variables: { SLS_NOTIFICATIONS_MODE: map('upgrades-only') } },
-          async () => {
-            notification = await processTargetNotifications([
-              { code: 'CODE456', message: 'Some notification' },
-              { code: 'OUTDATED_MINOR_VERSION', message: 'outdated' },
-            ]);
-          }
-        );
+    it("Should only consider outdated version notifications if notifications mode set to 'upgrades-only'", async () => {
+      getNotificationsModeStub.returns('upgrades-only');
+      const notification = await processTargetNotifications([
+        { code: 'CODE456', message: 'Some notification' },
+        { code: 'OUTDATED_MINOR_VERSION', message: 'outdated' },
+      ]);
 
-        expect(notification.code).to.equal('OUTDATED_MINOR_VERSION');
-      });
+      expect(notification.code).to.equal('OUTDATED_MINOR_VERSION');
+    });
 
-      it(`Should consider all notifications if SLS_NOTIFICATIONS_MODE set to ${map(
-        'on'
-      )}`, async () => {
-        let notification;
-        await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: map('on') } }, async () => {
-          notification = await processTargetNotifications([
-            { code: 'CODE123', message: 'Some notification #1' },
-            { code: 'CODE456', message: 'Some notification #2' },
-          ]);
-        });
+    it("Should consider all notifications if notifications mode set to 'on'", async () => {
+      getNotificationsModeStub.returns('on');
+      const notification = await processTargetNotifications([
+        { code: 'CODE123', message: 'Some notification #1' },
+        { code: 'CODE456', message: 'Some notification #2' },
+      ]);
 
-        expect(notification.code).to.equal('CODE123');
-      });
+      expect(notification.code).to.equal('CODE123');
+    });
 
-      it(`Should force not shown or oldest shown with  SLS_NOTIFICATIONS_MODE set to ${map(
-        'force'
-      )}`, async () => {
-        await overrideEnv({ variables: { SLS_NOTIFICATIONS_MODE: map('force') } }, async () => {
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE24');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE12');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE6');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
+    it("Should force not shown or oldest shown with notifications mode  set to 'force'", async () => {
+      getNotificationsModeStub.returns('force');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE24');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE12');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE6');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
 
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE24');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE12');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE6');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
-          expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
-        });
-      });
-    };
-
-    suite((mode) => mode);
-
-    const oldNotationMap = { 'off': '0', 'upgrades-only': '1', 'on': '2', 'force': '3' };
-    suite((mode) => oldNotationMap[mode]);
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE24');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE12');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE6');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0A');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0B');
+      expect((await processTargetNotifications(defaultFixture)).code).to.equal('CODE0C');
+    });
   });
 });
