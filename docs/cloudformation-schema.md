@@ -8,7 +8,7 @@ It can then be passed as option to `js-yaml` library `load` method:
 ```javascript
 const yaml = require('js-yaml');
 const fs   = require('fs');
-const cloudFormationSchema = require('@serverless/utils/cloudformationSchema');
+const cloudFormationSchema = require('@serverless/utils/cloudformation-schema');
 
-yaml.load(fs.readFileSync('serverless.yml', { schema: cloudformationSchema });
+yaml.load(fs.readFileSync('serverless.yml', { schema: cloudFormationSchema });
 ```
