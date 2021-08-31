@@ -19,3 +19,13 @@ const getLegacyLog =
   };
 
 module.exports = getLegacyLog(process.stdout.write.bind(process.stdout));
+
+const legacy = {
+  write: process.stdout.write.bind(process.stdout),
+  consoleLog: (message) => {
+    legacy.write(`${message}\n`);
+  },
+  log: getLegacyLog((data) => legacy.write(data)),
+};
+
+module.exports.legacy = legacy;
