@@ -6,7 +6,7 @@ const expect = require('chai').expect;
 const log = require('../log');
 
 describe('log', () => {
-  it('supports message without custom options', () => {
+  it('should support message without custom options', () => {
     let stdoutData = '';
     overrideStdoutWrite(
       (data) => (stdoutData += data),
@@ -16,7 +16,7 @@ describe('log', () => {
     expect(stdoutData.startsWith('Serverless: ')).to.be.true;
   });
 
-  it('supports message with custom entity', () => {
+  it('should support message with custom entity', () => {
     let stdoutData = '';
     overrideStdoutWrite(
       (data) => (stdoutData += data),
@@ -26,7 +26,7 @@ describe('log', () => {
     expect(stdoutData).to.have.string(chalk.yellow('basic message'));
   });
 
-  it('supports message with disabled entity', () => {
+  it('should support message with disabled entity', () => {
     let stdoutData = '';
     overrideStdoutWrite(
       (data) => (stdoutData += data),
@@ -35,7 +35,7 @@ describe('log', () => {
     expect(stdoutData).to.equal(`${chalk.yellow('basic message')}\n`);
   });
 
-  it('supports message with custom color', () => {
+  it('should support message with custom color', () => {
     let stdoutData = '';
     overrideStdoutWrite(
       (data) => (stdoutData += data),
@@ -45,7 +45,7 @@ describe('log', () => {
     expect(stdoutData).to.include(chalk.keyword('green')('basic message'));
   });
 
-  it('supports underlined message', () => {
+  it('should support underlined message', () => {
     let stdoutData = '';
     overrideStdoutWrite(
       (data) => (stdoutData += data),
@@ -55,7 +55,7 @@ describe('log', () => {
     expect(stdoutData).to.have.string(chalk.yellow.underline('basic message'));
   });
 
-  it('supports bolded message', () => {
+  it('should support bolded message', () => {
     let stdoutData = '';
     overrideStdoutWrite(
       (data) => (stdoutData += data),
