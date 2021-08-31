@@ -5,7 +5,7 @@ module.exports = {
     'body-leading-blank': [2, 'always'],
     'footer-leading-blank': [2, 'always'],
     'header-max-length': [2, 'always', 72],
-    'scope-enum': [2, 'always', ['', 'Config']],
+    'scope-enum': [2, 'always', ['', 'Config', 'Log']],
     'subject-case': [2, 'always', 'sentence-case'],
     'subject-empty': [2, 'never'],
     'subject-full-stop': [2, 'never', '.'],
