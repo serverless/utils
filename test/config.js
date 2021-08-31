@@ -65,10 +65,12 @@ describe('config', () => {
 
     it('should emit warning about two global config files', () => {
       let stdoutData = '';
+      delete require.cache[require.resolve('../log')];
+      delete require.cache[require.resolve('../config')];
       overrideStdoutWrite(
         (data) => (stdoutData += data),
         () => {
-          config.getConfig();
+          require('../config').getConfig();
         }
       );
 
@@ -481,10 +483,12 @@ describe('config', () => {
       it('should handle malformed config and move it to backup file', async () => {
         let conf;
         let stdoutData = '';
+        delete require.cache[require.resolve('../log')];
+        delete require.cache[require.resolve('../config')];
         overrideStdoutWrite(
           (data) => (stdoutData += data),
           () => {
-            conf = config.getConfig();
+            conf = require('../config').getConfig();
           }
         );
 
@@ -522,10 +526,12 @@ describe('config', () => {
       it('should handle malformed config file and regenerate it', async () => {
         let conf;
         let stdoutData = '';
+        delete require.cache[require.resolve('../log')];
+        delete require.cache[require.resolve('../config')];
         overrideStdoutWrite(
           (data) => (stdoutData += data),
           () => {
-            conf = config.getConfig();
+            conf = require('../config').getConfig();
           }
         );
 
@@ -566,10 +572,12 @@ describe('config', () => {
       it('should handle malformed config file and regenerate it in default global location', async () => {
         let conf;
         let stdoutData = '';
+        delete require.cache[require.resolve('../log')];
+        delete require.cache[require.resolve('../config')];
         overrideStdoutWrite(
           (data) => (stdoutData += data),
           () => {
-            conf = config.getConfig();
+            conf = require('../config').getConfig();
           }
         );
 
