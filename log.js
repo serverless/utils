@@ -1,4 +1,5 @@
 'use strict';
+
 const chalk = require('chalk');
 
 module.exports = (message, options = {}) => {
