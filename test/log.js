@@ -3,6 +3,7 @@
 const chalk = require('chalk');
 const overrideStdoutWrite = require('process-utils/override-stdout-write');
 const expect = require('chai').expect;
+const log = require('../log');
 
 describe('log', () => {
   const testLegacyLog = (getLegacyLog) => {
@@ -66,8 +67,68 @@ describe('log', () => {
     });
   };
 
-  beforeEach(() => {
-    delete require.cache[require.resolve('../log')];
+  describe('Legacy: Main function', () => {
+    beforeEach(() => {
+      delete require.cache[require.resolve('../log')];
+    });
+    testLegacyLog(() => require('../log'));
   });
-  testLegacyLog(() => require('../log'));
+
+  describe('`legacy` (interchangeable interface)', () => {
+    let originalWrite;
+    before(() => {
+      originalWrite = log.legacy.write;
+    });
+    beforeEach(() => {
+      log.legacy.write = originalWrite;
+    });
+
+    describe('`legacy.write`', () => {
+      it('should by default write to stdout', () => {
+        delete require.cache[require.resolve('../log')];
+        let stdoutData = '';
+        overrideStdoutWrite(
+          (data) => (stdoutData += data),
+          () => require('../log').legacy.write('some test')
+        );
+        expect(stdoutData).to.equal('some test');
+      });
+    });
+    describe('`legacy.consoleLog`', () => {
+      it('should write new line', () => {
+        delete require.cache[require.resolve('../log')];
+        let stdoutData = '';
+        overrideStdoutWrite(
+          (data) => (stdoutData += data),
+          () => require('../log').legacy.consoleLog('some test')
+        );
+        expect(stdoutData).to.equal('some test\n');
+      });
+      it('should have overridable writer', () => {
+        let stdoutData = '';
+        log.legacy.write = (data) => (stdoutData += data);
+        log.legacy.consoleLog('some test');
+        expect(stdoutData).to.equal('some test\n');
+      });
+    });
+    describe('`legacy.log`', () => {
+      it('should write formatted log', () => {
+        delete require.cache[require.resolve('../log')];
+        let stdoutData = '';
+        overrideStdoutWrite(
+          (data) => (stdoutData += data),
+          () => require('../log').legacy.log('some test')
+        );
+        expect(stdoutData).to.have.string('some test');
+        expect(stdoutData.startsWith('Serverless: ')).to.be.true;
+      });
+      it('should have overridable writer', () => {
+        let stdoutData = '';
+        log.legacy.write = (data) => (stdoutData += data);
+        log.legacy.log('some test');
+        expect(stdoutData).to.have.string('some test');
+        expect(stdoutData.startsWith('Serverless: ')).to.be.true;
+      });
+    });
+  });
 });
