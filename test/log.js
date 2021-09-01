@@ -149,4 +149,13 @@ describe('log', () => {
       expect(typeof nsLog.error).to.equal('function');
     });
   });
+
+  describe('`logLevelIndex` and side utils', () => {
+    it('should export used log level', () => {
+      expect(Number.isInteger(log.logLevelIndex)).to.be.true;
+    });
+    it("should resolve if we're in verbose mode", () => {
+      expect(typeof log.isVerboseMode).to.equal('boolean');
+    });
+  });
 });
