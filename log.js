@@ -2,6 +2,7 @@
 
 const chalk = require('chalk');
 
+// Legacy interface, of which usage is scheduled to be replaced by modern one
 const getLegacyLog =
   (write) =>
   (message, options = {}) => {
@@ -20,6 +21,8 @@ const getLegacyLog =
 
 module.exports = getLegacyLog(process.stdout.write.bind(process.stdout));
 
+// Legacy interface, used for old logs which have counterpart in new logs
+// (are to be shown exchangeably)
 const legacy = {
   write: process.stdout.write.bind(process.stdout),
   consoleLog: (message) => {
