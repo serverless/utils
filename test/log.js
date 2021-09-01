@@ -158,4 +158,11 @@ describe('log', () => {
       expect(typeof log.isVerboseMode).to.equal('boolean');
     });
   });
+
+  describe('`writeText`', () => {
+    it('should export function', () => {
+      expect(typeof log.writeText).to.equal('function');
+      expect(log.writeText.length).to.equal(1);
+    });
+  });
 });

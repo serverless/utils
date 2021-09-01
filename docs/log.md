@@ -83,3 +83,25 @@ It's the reason below interface was introduced, it should be used as last resort
 
 - `logLevelIndex` - Index of used log level (An array index from [levels](https://github.com/medikoo/log/blob/master/levels.json) list)
 - `isVerboseMode` - Weather we're in verbose mode or not (verbose mode is assumed if log level is set to _info_ or _debug_)
+
+### `writeText` Interface to write final outcome of the command
+
+_Note this part of an API is still experimental and subject to changes (not advertised to be used by external plugins)_
+
+Function through which output as returned by command should be written.
+
+It's not about any progress notifications but about substantial output as expected to be eventually returned by the command, e.g. `sls print` returns content of service configuration, `sls invoke` returns result as returned by invoked lambda, `sls deploy` returns generated (or updated) deployment outputs.
+
+This function by default is no-op. Main module of a process is expected to override it if intention is to write the output to the console (or other mean, depending on the environment)
+
+```javascript
+const { writeText } = require('@serverless/utils/log');
+
+writeText('Command result');
+
+// Multiline results can be pased with different text tokens (each will be presented on new line)
+writeText('Command multiline result', 'Second line', 'Third line');
+
+// Lines of texts can also injected with arrays (they're recursively flattened)
+writeText(['Command multiline result', 'Second line', 'Third line']);
+```
