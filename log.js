@@ -3,6 +3,7 @@
 const chalk = require('chalk');
 const log = require('log').get('serverless');
 const logLevels = require('log/levels');
+const getProgressReporter = require('./lib/log/get-progress-reporter');
 
 // Legacy interface, of which usage is scheduled to be replaced by modern one
 const getLegacyLog =
@@ -50,3 +51,5 @@ Object.defineProperty(module.exports, 'isVerboseMode', {
 module.exports.writeText = (text, ...textTokens) => {
   // Intentionally no-op by default, overriden with writing logic in main module of a process
 };
+
+module.exports.progress = getProgressReporter('serverless');

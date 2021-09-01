@@ -105,3 +105,21 @@ writeText('Command multiline result', 'Second line', 'Third line');
 // Lines of texts can also injected with arrays (they're recursively flattened)
 writeText(['Command multiline result', 'Second line', 'Third line']);
 ```
+
+### `progress` Interface to report dynamic progress updates on ongoing operations
+
+_Note this part of an API is still experimental and subject to changes (not advertised to be used by external plugins)_
+
+#### `progress.get(name)`
+
+Returns progress interface dedicated for single ongoing operation. Any updates reported in its context will override previous updates.
+
+It exposes three methods:
+
+##### `info(text, ..textTokens)` & `notice(text, ..textTokens)`
+
+Write progress update on given item. Each update will overwrite previous update. Updates written with `info` will only be presented with _verbose_ mode (either `info` or `debug` log level visibility applied)
+
+##### `remove()`
+
+Clear operation from progress bar (calling it means that processing of it ended)
