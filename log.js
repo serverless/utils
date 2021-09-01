@@ -1,6 +1,7 @@
 'use strict';
 
 const chalk = require('chalk');
+const log = require('log').get('serverless');
 
 // Legacy interface, of which usage is scheduled to be replaced by modern one
 const getLegacyLog =
@@ -32,3 +33,6 @@ const legacy = {
 };
 
 module.exports.legacy = legacy;
+
+// Modern logging interface (to which old logs are currently migrated)
+module.exports.log = log;

@@ -63,3 +63,14 @@ When expected to be in effect, works exactly as `` process.stdout.write(`${messa
 _Dedicated to replace current `serverless.cli.log` and `@serverles/utils/log` usage (in places where alternative corresponding log messages were configured with modern interface)_
 
 When expected to be in effect, works exactly as main log functions (as exported by this module directly)
+
+### `log` Event logging interface
+
+_Note this part of an API is still experimental and subject to changes (not advertised to be used by external plugins)_
+
+An instance of [log](https://github.com/medikoo/log) message logger, namespaced to `serverless`, which allows to write messages at different log levels and allows further namespacing of them.
+
+Basic API exposes:
+
+- `debug`, `info`, `notice`, `warn`, `error` - functions to write messages at given levels
+- `get` - Function to obtain additionally namespaced logger (e.g. `log.get('aws-deploy'))` will return a logger additionally namespace to `aws-deploy` (full namespace will be `serverless:aws-deploy`). Returned logger shares same interface as described in this points

@@ -131,4 +131,22 @@ describe('log', () => {
       });
     });
   });
+
+  describe('`log` (Event messaging interface)', () => {
+    it('should export methods that allow to write to different levels', () => {
+      expect(typeof log.log.debug).to.equal('function');
+      expect(typeof log.log.info).to.equal('function');
+      expect(typeof log.log.notice).to.equal('function');
+      expect(typeof log.log.warn).to.equal('function');
+      expect(typeof log.log.error).to.equal('function');
+    });
+    it('should export methods that allow to create namespaced logger', () => {
+      const nsLog = log.log.get('some-ns');
+      expect(typeof nsLog.debug).to.equal('function');
+      expect(typeof nsLog.info).to.equal('function');
+      expect(typeof nsLog.notice).to.equal('function');
+      expect(typeof nsLog.warn).to.equal('function');
+      expect(typeof nsLog.error).to.equal('function');
+    });
+  });
 });
