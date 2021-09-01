@@ -2,6 +2,7 @@
 
 const chalk = require('chalk');
 const log = require('log').get('serverless');
+const logLevels = require('log/levels');
 
 // Legacy interface, of which usage is scheduled to be replaced by modern one
 const getLegacyLog =
@@ -36,3 +37,11 @@ module.exports.legacy = legacy;
 
 // Modern logging interface (to which old logs are currently migrated)
 module.exports.log = log;
+
+// Endpoints which expose currently set log level
+// (`logLevelIndex` is to be overriden by main process module)
+module.exports.logLevelIndex = logLevels.indexOf('notice');
+Object.defineProperty(module.exports, 'isVerboseMode', {
+  get: () => module.exports.logLevelIndex > logLevels.indexOf('notice'),
+  enumerable: true,
+});

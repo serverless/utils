@@ -74,3 +74,12 @@ Basic API exposes:
 
 - `debug`, `info`, `notice`, `warn`, `error` - functions to write messages at given levels
 - `get` - Function to obtain additionally namespaced logger (e.g. `log.get('aws-deploy'))` will return a logger additionally namespace to `aws-deploy` (full namespace will be `serverless:aws-deploy`). Returned logger shares same interface as described in this points
+
+### Currently applied log level information
+
+Ideally we should not deal with a situation where applied log levels influence how log messages are constructed.
+Still we cannot seclude scenario where intention will be to show some messages exchangably depending on wether we're in verbose mode or not.
+It's the reason below interface was introduced, it should be used as last resort.
+
+- `logLevelIndex` - Index of used log level (An array index from [levels](https://github.com/medikoo/log/blob/master/levels.json) list)
+- `isVerboseMode` - Weather we're in verbose mode or not (verbose mode is assumed if log level is set to _info_ or _debug_)
