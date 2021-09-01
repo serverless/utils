@@ -45,3 +45,8 @@ Object.defineProperty(module.exports, 'isVerboseMode', {
   get: () => module.exports.logLevelIndex > logLevels.indexOf('notice'),
   enumerable: true,
 });
+
+// eslint-disable-next-line no-unused-vars
+module.exports.writeText = (text, ...textTokens) => {
+  // Intentionally no-op by default, overriden with writing logic in main module of a process
+};
