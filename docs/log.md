@@ -84,7 +84,7 @@ It's the reason below interface was introduced, it should be used as last resort
 - `logLevelIndex` - Index of used log level (An array index from [levels](https://github.com/medikoo/log/blob/master/levels.json) list)
 - `isVerboseMode` - Weather we're in verbose mode or not (verbose mode is assumed if log level is set to _info_ or _debug_)
 
-### `writeText` Interface to write final outcome of the command
+### `writeText(textToken, ..textTokens)` Interface to write final outcome of the command
 
 _Note this part of an API is still experimental and subject to changes (not advertised to be used by external plugins)_
 
