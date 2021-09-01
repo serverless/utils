@@ -165,4 +165,10 @@ describe('log', () => {
       expect(log.writeText.length).to.equal(1);
     });
   });
+
+  describe('`progress`', () => {
+    it('should expose progress interface', () => {
+      expect(typeof log.progress.get('some-progress').info).to.equal('function');
+    });
+  });
 });
