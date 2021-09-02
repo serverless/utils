@@ -7,7 +7,7 @@ const getProgressReporter = require('../../../lib/log/get-progress-reporter');
 
 const emitter = getProgressReporter.emitter;
 
-describe('lib/log/progress.js', () => {
+describe('lib/log/get-progress-reporter.js', () => {
   let events;
 
   beforeEach(() => {
