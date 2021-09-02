@@ -1,5 +1,7 @@
 'use strict';
 
+const ensureString = require('type/string/ensure');
+const memoizee = require('memoizee');
 const chalk = require('chalk');
 const log = require('log').get('serverless');
 const logLevels = require('log/levels');
@@ -51,3 +53,19 @@ Object.defineProperty(module.exports, 'isVerboseMode', {
 module.exports.writeText = getOutputReporter('serverless').get('text');
 
 module.exports.progress = getProgressReporter('serverless');
+
+module.exports.getPluginWriters = memoizee(
+  (pluginName) => {
+    pluginName = ensureString(pluginName, { name: 'pluginName' });
+    // "log" namespace can contain only [a-z0-9-] chars, therefore we normalize plugin name to
+    // avoid exceptions
+    const pluginLog = log.get('plugin').get(pluginName.toLowerCase().replace(/[^a-z0-9-]/g, '-'));
+    pluginLog.pluginName = pluginName;
+    return {
+      log: pluginLog,
+      writeText: getOutputReporter(`serverless:plugin:${pluginName}`).get('text'),
+      progress: getProgressReporter(`serverless:plugin:${pluginName}`),
+    };
+  },
+  { primitive: true }
+);
