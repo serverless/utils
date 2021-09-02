@@ -40,10 +40,22 @@ describe('lib/log/get-progress-reporter.js', () => {
     progress.notice('#2');
     progress.info('#2');
     expect(events).to.deep.equal([
-      ['update', { id: 'test:upload', level: 'notice', levelIndex: 2, textTokens: ['#1'] }],
-      ['update', { id: 'test:upload', level: 'info', levelIndex: 3, textTokens: ['#1'] }],
-      ['update', { id: 'test:upload', level: 'notice', levelIndex: 2, textTokens: ['#2'] }],
-      ['update', { id: 'test:upload', level: 'info', levelIndex: 3, textTokens: ['#2'] }],
+      [
+        'update',
+        { namespace: 'test', name: 'upload', level: 'notice', levelIndex: 2, textTokens: ['#1'] },
+      ],
+      [
+        'update',
+        { namespace: 'test', name: 'upload', level: 'info', levelIndex: 3, textTokens: ['#1'] },
+      ],
+      [
+        'update',
+        { namespace: 'test', name: 'upload', level: 'notice', levelIndex: 2, textTokens: ['#2'] },
+      ],
+      [
+        'update',
+        { namespace: 'test', name: 'upload', level: 'info', levelIndex: 3, textTokens: ['#2'] },
+      ],
     ]);
   });
 
@@ -58,11 +70,38 @@ describe('lib/log/get-progress-reporter.js', () => {
     progress3.notice('#3-1');
 
     expect(events).to.deep.equal([
-      ['update', { id: 'test:upload', level: 'notice', levelIndex: 2, textTokens: ['#1-1'] }],
-      ['update', { id: 'other:upload', level: 'notice', levelIndex: 2, textTokens: ['#2-1'] }],
-      ['update', { id: 'test:upload', level: 'info', levelIndex: 3, textTokens: ['#1-1'] }],
-      ['update', { id: 'other:upload', level: 'info', levelIndex: 3, textTokens: ['#2-1'] }],
-      ['update', { id: 'test:package', level: 'notice', levelIndex: 2, textTokens: ['#3-1'] }],
+      [
+        'update',
+        { namespace: 'test', name: 'upload', level: 'notice', levelIndex: 2, textTokens: ['#1-1'] },
+      ],
+      [
+        'update',
+        {
+          namespace: 'other',
+          name: 'upload',
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: ['#2-1'],
+        },
+      ],
+      [
+        'update',
+        { namespace: 'test', name: 'upload', level: 'info', levelIndex: 3, textTokens: ['#1-1'] },
+      ],
+      [
+        'update',
+        { namespace: 'other', name: 'upload', level: 'info', levelIndex: 3, textTokens: ['#2-1'] },
+      ],
+      [
+        'update',
+        {
+          namespace: 'test',
+          name: 'package',
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: ['#3-1'],
+        },
+      ],
     ]);
   });
 
@@ -75,10 +114,22 @@ describe('lib/log/get-progress-reporter.js', () => {
     progress1.remove();
 
     expect(events).to.deep.equal([
-      ['update', { id: 'test:upload', level: 'notice', levelIndex: 2, textTokens: ['#1-1'] }],
-      ['update', { id: 'other:upload', level: 'notice', levelIndex: 2, textTokens: ['#2-1'] }],
-      ['remove', { id: 'other:upload' }],
-      ['remove', { id: 'test:upload' }],
+      [
+        'update',
+        { namespace: 'test', name: 'upload', level: 'notice', levelIndex: 2, textTokens: ['#1-1'] },
+      ],
+      [
+        'update',
+        {
+          namespace: 'other',
+          name: 'upload',
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: ['#2-1'],
+        },
+      ],
+      ['remove', { namespace: 'other', name: 'upload' }],
+      ['remove', { namespace: 'test', name: 'upload' }],
     ]);
   });
 });
