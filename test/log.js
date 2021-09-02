@@ -171,4 +171,33 @@ describe('log', () => {
       expect(typeof log.progress.get('some-progress').info).to.equal('function');
     });
   });
+
+  describe('`getPluginWriters`', () => {
+    let testWriters;
+    before(() => {
+      testWriters = log.getPluginWriters('test');
+    });
+
+    it('should expose event logging interface', () => {
+      const testLog = testWriters.log;
+      expect(typeof testLog.debug).to.equal('function');
+      expect(typeof testLog.info).to.equal('function');
+      expect(typeof testLog.notice).to.equal('function');
+      expect(typeof testLog.warn).to.equal('function');
+      expect(typeof testLog.error).to.equal('function');
+      expect(typeof testLog.get).to.equal('function');
+    });
+
+    it('should expose output writing interface', () => {
+      expect(typeof testWriters.writeText).to.equal('function');
+    });
+
+    it('should expose progress writing interface', () => {
+      expect(typeof testWriters.progress.get('some-progress').info).to.equal('function');
+    });
+
+    it('should create one set of writers for a plugin', () => {
+      expect(testWriters).to.equal(log.getPluginWriters('test'));
+    });
+  });
 });
