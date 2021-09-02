@@ -3,6 +3,7 @@
 const chalk = require('chalk');
 const log = require('log').get('serverless');
 const logLevels = require('log/levels');
+const getOutputReporter = require('./lib/log/get-output-reporter');
 const getProgressReporter = require('./lib/log/get-progress-reporter');
 
 // Legacy interface, of which usage is scheduled to be replaced by modern one
@@ -47,9 +48,6 @@ Object.defineProperty(module.exports, 'isVerboseMode', {
   enumerable: true,
 });
 
-// eslint-disable-next-line no-unused-vars
-module.exports.writeText = (text, ...textTokens) => {
-  // Intentionally no-op by default, overriden with writing logic in main module of a process
-};
+module.exports.writeText = getOutputReporter('serverless').get('text');
 
 module.exports.progress = getProgressReporter('serverless');
