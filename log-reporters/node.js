@@ -12,4 +12,8 @@ if (logMode & 2) {
 if (!(logMode & 1)) return;
 
 // Show modern logs
-require('../lib/log-reporters/node/log-reporter')();
+
+const logReporter = require('../lib/log-reporters/node/log-reporter');
+
+// Event logs
+logReporter();
