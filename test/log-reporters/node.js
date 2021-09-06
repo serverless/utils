@@ -63,30 +63,30 @@ describe('log-reporters/node.js', () => {
     after(() => restoreEnv());
 
     it('should write logs of notice, warn and error levels', () => {
-      let stdoutData = '';
+      let stderrData = '';
       overrideStderrWrite(
-        (data) => (stdoutData += data),
+        (data) => (stderrData += data),
         () => {
           log.notice('Notice log');
           log.warn('Warn log');
           log.error('Error log');
         }
       );
-      expect(stdoutData).to.include('Notice log');
-      expect(stdoutData).to.include('Warn log');
-      expect(stdoutData).to.include('Error log');
+      expect(stderrData).to.include('Notice log');
+      expect(stderrData).to.include('Warn log');
+      expect(stderrData).to.include('Error log');
     });
 
     it('should not write logs of debug and info levels', () => {
-      let stdoutData = '';
+      let stderrData = '';
       overrideStderrWrite(
-        (data) => (stdoutData += data),
+        (data) => (stderrData += data),
         () => {
           log.info('Info log');
           log.debug('Debug log');
         }
       );
-      expect(stdoutData).to.equal('');
+      expect(stderrData).to.equal('');
     });
   });
 
