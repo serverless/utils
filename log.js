@@ -50,6 +50,9 @@ Object.defineProperty(module.exports, 'isVerboseMode', {
   enumerable: true,
 });
 
+// Whether we're in context of interactive terminal (to be overriden by process main module)
+module.exports.isInteractive = false;
+
 module.exports.writeText = getOutputReporter('serverless').get('text');
 
 module.exports.progress = getProgressReporter('serverless');
