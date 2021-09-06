@@ -132,4 +132,77 @@ describe('log-reporters/node.js', () => {
       expect(stderrData).to.include('Error log');
     });
   });
+
+  describe('Modern logs: Progress', () => {
+    let progress;
+    let restoreEnv;
+    let stdoutData = '';
+    let restoreStdoutWrite;
+    before(() => {
+      ({ restoreEnv } = overrideEnv());
+      ({ restoreStdoutWrite } = overrideStdoutWrite((data, originalWrite) => {
+        stdoutData += data;
+        originalWrite(data);
+      }));
+      process.env.SLS_DEV_LOG_MODE = 1;
+      process.env.SLS_INTERACTIVE_SETUP_ENABLE = 1;
+      ({ progress } = getLog());
+    });
+
+    after(() => {
+      restoreStdoutWrite();
+      restoreEnv();
+    });
+
+    it('should write progress of notice levels', () => {
+      const progressItem = progress.get('first');
+      progressItem.notice('Notice progress');
+      progressItem.remove();
+      expect(stdoutData).to.include('Notice progress');
+    });
+
+    it('should not write progress of info levels', () => {
+      const progressItem = progress.get('first');
+      progressItem.info('Info progress');
+      progressItem.remove();
+      expect(stdoutData).to.not.include('Info progress');
+    });
+  });
+
+  describe('Modern logs: Progress: Verbose', () => {
+    let progress;
+    let restoreEnv;
+    let stdoutData = '';
+    let restoreStdoutWrite;
+    before(() => {
+      ({ restoreEnv } = overrideEnv());
+      ({ restoreStdoutWrite } = overrideStdoutWrite((data, originalWrite) => {
+        stdoutData += data;
+        originalWrite(data);
+      }));
+      process.env.SLS_DEV_LOG_MODE = 1;
+      process.env.SLS_LOG_LEVEL = 'info';
+      process.env.SLS_INTERACTIVE_SETUP_ENABLE = 1;
+      ({ progress } = getLog());
+    });
+
+    after(() => {
+      restoreStdoutWrite();
+      restoreEnv();
+    });
+
+    it('should write progress of notice levels', () => {
+      const progressItem = progress.get('first');
+      progressItem.notice('Notice progress');
+      progressItem.remove();
+      expect(stdoutData).to.include('Notice progress');
+    });
+
+    it('should write progress of info levels', () => {
+      const progressItem = progress.get('first');
+      progressItem.info('Info progress');
+      progressItem.remove();
+      expect(stdoutData).to.include('Info progress');
+    });
+  });
 });
