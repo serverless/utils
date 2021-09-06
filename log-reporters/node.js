@@ -24,6 +24,7 @@ const logLevelIndex = logLevels.includes(process.env.SLS_LOG_LEVEL)
 
 // Event logs
 logReporter({ logLevelIndex, debugNamespaces: process.env.SLS_LOG_DEBUG });
+log.logLevelIndex = logLevelIndex;
 
 // Substantial output (not subject to filtering)
 outputEmitter.on('write', ({ mode, textTokens }) => {
