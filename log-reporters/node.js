@@ -22,6 +22,8 @@ const logLevelIndex = logLevels.includes(process.env.SLS_LOG_LEVEL)
   ? logLevels.indexOf(process.env.SLS_LOG_LEVEL)
   : logLevels.indexOf('notice');
 
+const isInteractive = process.stdin.isTTY || process.env.SLS_INTERACTIVE_SETUP_ENABLE;
+
 // Event logs
 logReporter({ logLevelIndex, debugNamespaces: process.env.SLS_LOG_DEBUG });
 log.logLevelIndex = logLevelIndex;
@@ -30,3 +32,8 @@ log.logLevelIndex = logLevelIndex;
 outputEmitter.on('write', ({ mode, textTokens }) => {
   if (mode === 'text') process.stdout.write(joinTextTokens(textTokens));
 });
+
+log.isInteractive = isInteractive;
+if (isInteractive) {
+  require('../lib/log-reporters/node/progress-reporter')({ logLevelIndex });
+}
