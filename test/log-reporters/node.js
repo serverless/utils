@@ -114,9 +114,9 @@ describe('log-reporters/node.js', () => {
     after(() => restoreEnv());
 
     it('should write logs of all levels', () => {
-      let stdoutData = '';
+      let stderrData = '';
       overrideStderrWrite(
-        (data) => (stdoutData += data),
+        (data) => (stderrData += data),
         () => {
           log.info('Info log');
           log.debug('Debug log');
@@ -125,11 +125,11 @@ describe('log-reporters/node.js', () => {
           log.error('Error log');
         }
       );
-      expect(stdoutData).to.include('Debug log');
-      expect(stdoutData).to.include('Info log');
-      expect(stdoutData).to.include('Notice log');
-      expect(stdoutData).to.include('Warn log');
-      expect(stdoutData).to.include('Error log');
+      expect(stderrData).to.include('Debug log');
+      expect(stderrData).to.include('Info log');
+      expect(stderrData).to.include('Notice log');
+      expect(stderrData).to.include('Warn log');
+      expect(stderrData).to.include('Error log');
     });
   });
 });
