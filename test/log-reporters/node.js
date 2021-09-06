@@ -54,11 +54,12 @@ describe('log-reporters/node.js', () => {
 
   describe('Modern logs: Default visibility', () => {
     let log;
+    let writeText;
     let restoreEnv;
     before(() => {
       ({ restoreEnv } = overrideEnv());
       process.env.SLS_DEV_LOG_MODE = 1;
-      ({ log } = getLog());
+      ({ log, writeText } = getLog());
     });
     after(() => restoreEnv());
 
@@ -87,6 +88,17 @@ describe('log-reporters/node.js', () => {
         }
       );
       expect(stderrData).to.equal('');
+    });
+
+    it('should write text output', () => {
+      let stdoutData = '';
+      overrideStdoutWrite(
+        (data) => (stdoutData += data),
+        () => {
+          writeText('foo', 'bar', ['other', 'stuff']);
+        }
+      );
+      expect(stdoutData).to.equal('foo\nbar\nother\nstuff\n');
     });
   });
 
