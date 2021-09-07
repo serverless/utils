@@ -25,12 +25,14 @@ const getLegacyLog =
     else write(`${print(message)}\n`);
   };
 
-module.exports = getLegacyLog(process.stdout.write.bind(process.stdout));
+// Note: Do not assign prebound function as it breaks in tests mocking of process.stdout.write
+module.exports = getLegacyLog((...args) => process.stdout.write(...args));
 
 // Legacy interface, used for old logs which have counterpart in new logs
 // (are to be shown exchangeably)
 const legacy = {
-  write: process.stdout.write.bind(process.stdout),
+  // Note: Do not assign prebound function as it breaks in tests mocking of process.stdout.write
+  write: (...args) => process.stdout.write(...args),
   consoleLog: (message) => {
     legacy.write(`${message}\n`);
   },
