@@ -144,7 +144,7 @@ jobs:
           npm update --no-save
           npm update --save-dev --no-save
       - name: Unit tests
-        run: npm run test -- -b
+        run: npm run coverage
       - name: Push coverage
         run: npx codecov
 

@@ -130,8 +130,6 @@ jobs:
           npm update --save-dev --no-save
       - name: Unit tests
         run: npm run test:isolated -- -b
-      - name: Push coverage
-        run: npx codecov
 
   linuxNode12:
     name: '[Linux] Node.js 12: Unit tests with coverage'
@@ -163,7 +161,7 @@ jobs:
           npm update --no-save
           npm update --save-dev --no-save
       - name: Unit tests
-        run: npm run test -- -b
+        run: npm run coverage
       - name: Push coverage
         run: npx codecov
 
