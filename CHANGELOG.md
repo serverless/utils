@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.8.0](https://github.com/serverless/utils/compare/v5.7.0...v5.8.0) (2021-09-07)
+
+### Features
+
+- **Log (Experimental):**
+  - `legacy` interface for legacy logs to be shown conditionally ([#102](https://github.com/serverless/utils/pull/102)) ([281ae29](https://github.com/serverless/utils/commit/281ae2995200c6b9a9de5b1f75624d22dad64129)) ([Mariusz Nowak](https://github.com/medikoo))
+  - `log` modern write interface for event logs ([#103](https://github.com/serverless/utils/pull/103)) ([26a59e6](https://github.com/serverless/utils/commit/26a59e60f5a5b33319cc020b85f3717a8c138390)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Endpoints that inform on used log level ([#103](https://github.com/serverless/utils/pull/103)) ([089576e](https://github.com/serverless/utils/commit/089576ec6fd084ec062c7587c8e832d5751bf581)) ([Mariusz Nowak](https://github.com/medikoo))
+  - `writeText` modern write interface for substantial text output ([#104](https://github.com/serverless/utils/pull/104)) ([a10a7fa](https://github.com/serverless/utils/commit/a10a7fa296369e5bcc8d0ba07f0aeced51182e7d)) ([Mariusz Nowak](https://github.com/medikoo))
+  - `progress` modern write interface for dynamic progress ([#105](https://github.com/serverless/utils/pull/105)) ([8e4f982](https://github.com/serverless/utils/commit/8e4f9826ab436650d21a489422fc7e0b59a8a0f6)) ([Mariusz Nowak](https://github.com/medikoo))
+  - `getPluginWriters` to return modern writers dedicated for plugins ([#106](https://github.com/serverless/utils/pull/106)) ([3c8ee39](https://github.com/serverless/utils/commit/3c8ee3947ffe4a8ee9d782865f7946ed5f7cd0a4)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Expose information on whether we're in context of TTY ([#109](https://github.com/serverless/utils/pull/109)) ([b3ca20a](https://github.com/serverless/utils/commit/b3ca20aeede06af05e7c0e4f467bc66033a81599)) ([Mariusz Nowak](https://github.com/medikoo))
+  - **Node.js CLI reporter:**
+    - Support hiding legacy logs ([#107](https://github.com/serverless/utils/pull/107)) ([2d51179](https://github.com/serverless/utils/commit/2d51179edf539f6a39e8e161efcd53f78769e843)) ([Mariusz Nowak](https://github.com/medikoo))
+    - Report event logs ([#107](https://github.com/serverless/utils/pull/107)) ([44db92c](https://github.com/serverless/utils/commit/44db92cdb17d452dacdf566a0cefc7666d37edae)) ([Mariusz Nowak](https://github.com/medikoo))
+    - Expose configured log level ([#109](https://github.com/serverless/utils/pull/109)) ([6ce33b7](https://github.com/serverless/utils/commit/6ce33b71b423691c0f2d34f3ab91d2a002dbc91b)) ([Mariusz Nowak](https://github.com/medikoo))
+    - Report substantial text output ([#108](https://github.com/serverless/utils/pull/108)) ([bc20bc6](https://github.com/serverless/utils/commit/bc20bc6e34258a049727822cb7ebc1b78e6f8e03)) ([Mariusz Nowak](https://github.com/medikoo))
+    - Report dynamic progress ([#109](https://github.com/serverless/utils/pull/109)) ([6d916b3](https://github.com/serverless/utils/commit/6d916b36dc40bf1dacec541d34e3d59272c814c6)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Log:** Make `log` internal logic reusable ([#102](https://github.com/serverless/utils/pull/102)) ([c7338bf](https://github.com/serverless/utils/commit/c7338bfc3cd9423c3fc8969bf20b938e03e6bdda)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.7.0](https://github.com/serverless/utils/compare/v5.6.0...v5.7.0) (2021-08-17)
 
 ### Features
