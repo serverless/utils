@@ -79,7 +79,25 @@
     "skip": {
       "commit": true,
       "tag": true
-    }
+    },
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "perf",
+        "section": "Performance Improvements"
+      },
+      {
+        "type": "refactor",
+        "section": "Maintenance Improvements"
+      }
+    ]
   },
   "mocha": {
     "require": [
