@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.8.1](https://github.com/serverless/utils/compare/v5.8.0...v5.8.1) (2021-09-07)
+
+### Maintenance Improvements
+
+- **Log:** Ensure writing functions respect mocked `stdout.write` ([#112](https://github.com/serverless/utils/pull/112)) ([99a0706](https://github.com/serverless/utils/commit/99a07068130eeed47cee7cb6db1d60f3f632e237)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.8.0](https://github.com/serverless/utils/compare/v5.7.0...v5.8.0) (2021-09-07)
 
 ### Features
