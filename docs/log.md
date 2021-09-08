@@ -124,6 +124,14 @@ Write progress update on given item. Each update will overwrite previous update.
 
 Clear operation from progress bar (calling it means that processing of it ended)
 
+#### `progress.get('main')`
+
+Returns special instance of progress item, dedicated to cover progress of a complete command. It shares same interface as above, but (through reporter implementation) it behaves differently:
+
+- It's guaranteed to always be displayed at the top
+- Time counter is displayed aside of it (starting counting from first write)
+- It's not removed until command ends processing (`remove` is not effective, progress is cleared only after `progress.clear`)
+
 #### `progress.clear()`
 
 Clears all the progress and prevents further writing to it.

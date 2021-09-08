@@ -153,6 +153,7 @@ describe('log-reporters/node.js', () => {
     });
 
     after(() => {
+      progress.clear();
       restoreStdoutWrite();
       restoreEnv();
     });
@@ -170,6 +171,13 @@ describe('log-reporters/node.js', () => {
       progressItem.remove();
       expect(stdoutData).to.not.include('Info progress');
     });
+
+    it('should write main progress', () => {
+      const progressItem = progress.get('main');
+      progressItem.notice('Packaging');
+      expect(stdoutData).to.include('Packaging (0s)');
+    });
+
     it('should prevent any writing after `clear` method is invoked', () => {
       const progressItem = progress.get('first');
       progress.clear();
