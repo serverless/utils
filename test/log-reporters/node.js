@@ -148,6 +148,9 @@ describe('log-reporters/node.js', () => {
       process.env.SLS_INTERACTIVE_SETUP_ENABLE = 1;
       ({ progress } = getLog());
     });
+    beforeEach(() => {
+      stdoutData = '';
+    });
 
     after(() => {
       restoreStdoutWrite();
@@ -166,6 +169,13 @@ describe('log-reporters/node.js', () => {
       progressItem.info('Info progress');
       progressItem.remove();
       expect(stdoutData).to.not.include('Info progress');
+    });
+    it('should prevent any writing after `clear` method is invoked', () => {
+      const progressItem = progress.get('first');
+      progress.clear();
+      progressItem.notice('Notice progress');
+      progressItem.remove();
+      expect(stdoutData).to.not.include('Notice progress');
     });
   });
 

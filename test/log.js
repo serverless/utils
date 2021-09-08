@@ -170,6 +170,9 @@ describe('log', () => {
     it('should expose progress interface', () => {
       expect(typeof log.progress.get('some-progress').info).to.equal('function');
     });
+    it('should expose `clear` method', () => {
+      expect(typeof log.progress.clear).to.equal('function');
+    });
   });
 
   describe('`getPluginWriters`', () => {

@@ -58,6 +58,9 @@ module.exports.isInteractive = false;
 module.exports.writeText = getOutputReporter('serverless').get('text');
 
 module.exports.progress = getProgressReporter('serverless');
+// Method intended to clear and close indefinitely any progress writing
+// Overriden with intended logic in reporter
+module.exports.progress.clear = () => {};
 
 module.exports.getPluginWriters = memoizee(
   (pluginName) => {
