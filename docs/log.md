@@ -124,8 +124,14 @@ Write progress update on given item. Each update will overwrite previous update.
 
 Clear operation from progress bar (calling it means that processing of it ended)
 
+#### `progress.clear()`
+
+Clears all the progress and prevents further writing to it.
+
+_Note: Not exposed to plugins and not intended to be used in their context_
+
 ### `getPluginWriters(pluginName)` Get log & output writing functions dedicated for external plugins
 
 _Note this part of an API is still experimental and subject to changes (not advertised to be used by external plugins)_
 
-Returns `{ log, writeText, progress }` interface, same as one documented above, but dedicated to be used in context of external (named via `pluginName`) plugins. Calling function again, with same plugin name, will return previously created interface.
+Returns `{ log, writeText, progress }` interface, same as one documented above (excluding `progress.clear`), but dedicated to be used in context of external (named via `pluginName`) plugins. Calling function again, with same plugin name, will return previously created interface.
