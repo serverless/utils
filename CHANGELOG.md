@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.9.0](https://github.com/serverless/utils/compare/v5.8.1...v5.9.0) (2021-09-08)
+
+### Features
+
+- **Log (Experimental):**
+  - `progress.clear` to clear and close progress output ([#114](https://github.com/serverless/utils/pull/114)) ([f81801f](https://github.com/serverless/utils/commit/f81801f90fdb85857cb86f9fd3434793b9daf3ab)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Main progress instance, to cover entire command progress ([#115](https://github.com/serverless/utils/pull/115)) ([322fcba](https://github.com/serverless/utils/commit/322fcba7a19a1bb89dc5ed4a890862d5d9a61b0c)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [5.8.1](https://github.com/serverless/utils/compare/v5.8.0...v5.8.1) (2021-09-07)
 
 ### Maintenance Improvements
