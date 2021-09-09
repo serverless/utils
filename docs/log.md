@@ -143,3 +143,16 @@ _Note: Not exposed to plugins and not intended to be used in their context_
 _Note this part of an API is still experimental and subject to changes (not advertised to be used by external plugins)_
 
 Returns `{ log, writeText, progress }` interface, same as one documented above (excluding `progress.clear`), but dedicated to be used in context of external (named via `pluginName`) plugins. Calling function again, with same plugin name, will return previously created interface.
+
+### `style` Style decorators
+
+_Note this part of an API is still experimental and subject to changes (not advertised to be used by external plugins)_
+
+Decorators that ensure that in given environment intended style can be reproduced.
+
+Available style functions:
+
+- `aside` - for messsage side content
+- `noticeSymbol` - for symbols shown aside of regular notifications
+- `warning` - for warnings
+- `error` - for errors

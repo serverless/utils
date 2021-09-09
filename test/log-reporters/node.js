@@ -133,6 +133,24 @@ describe('log-reporters/node.js', () => {
     });
   });
 
+  describe('Modern logs: Style', () => {
+    let style;
+    let restoreEnv;
+    before(() => {
+      ({ restoreEnv } = overrideEnv());
+      process.env.SLS_DEV_LOG_MODE = 1;
+      ({ style } = getLog());
+    });
+    after(() => restoreEnv());
+
+    it('style function should return input', () => {
+      expect(style.aside('foo')).to.include('foo');
+      expect(style.noticeSymbol('foo')).to.include('foo');
+      expect(style.warning('foo')).to.include('foo');
+      expect(style.error('foo')).to.include('foo');
+    });
+  });
+
   describe('Modern logs: Progress', () => {
     let progress;
     let restoreEnv;

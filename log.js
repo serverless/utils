@@ -77,3 +77,10 @@ module.exports.getPluginWriters = memoizee(
   },
   { primitive: true }
 );
+
+module.exports.style = {
+  aside: (message) => message,
+  noticeSymbol: (message) => message,
+  warning: (message) => message,
+  error: (message) => message,
+};

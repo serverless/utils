@@ -24,6 +24,9 @@ const logLevelIndex = logLevels.includes(process.env.SLS_LOG_LEVEL)
 
 const isInteractive = process.stdin.isTTY || process.env.SLS_INTERACTIVE_SETUP_ENABLE;
 
+// Apply style decorators
+require('../lib/log-reporters/node/style');
+
 // Event logs
 logReporter({ logLevelIndex, debugNamespaces: process.env.SLS_LOG_DEBUG });
 log.logLevelIndex = logLevelIndex;
