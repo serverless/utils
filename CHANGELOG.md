@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.10.0](https://github.com/serverless/utils/compare/v5.9.0...v5.10.0) (2021-09-09)
+
+### Features
+
+- **Log:** `style` decorators interface ([#117](https://github.com/serverless/utils/pull/117)) ([ec173d0](https://github.com/serverless/utils/commit/ec173d01bfffdc6674afd6a347afc7e871182cb9)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.9.0](https://github.com/serverless/utils/compare/v5.8.1...v5.9.0) (2021-09-08)
 
 ### Features
