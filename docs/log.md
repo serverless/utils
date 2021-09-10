@@ -148,11 +148,11 @@ Returns `{ log, writeText, progress }` interface, same as one documented above (
 
 _Note this part of an API is still experimental and subject to changes (not advertised to be used by external plugins)_
 
-Decorators that ensure that in given environment intended style can be reproduced.
+Decorators that ensure that in given environment intended style can be reproduced. Multiline input can be pased with different text tokens (each will be presented on new line)
 
 Available style functions:
 
-- `aside` - for messsage side content
-- `noticeSymbol` - for symbols shown aside of regular notifications
-- `warning` - for warnings
-- `error` - for errors
+- `aside(text, ...textTokens)` - for messsage side content
+- `noticeSymbol(text, ...textTokens)` - for symbols shown aside of regular notifications
+- `warning(text, ...textTokens)` - for warnings
+- `error(text, ...textTokens)` - for errors
