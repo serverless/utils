@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.11.0](https://github.com/serverless/utils/compare/v5.10.0...v5.11.0) (2021-09-10)
+
+### Features
+
+- **Log:** Support multiline input in style decorators ([#119](https://github.com/serverless/utils/pull/119)) ([668362d](https://github.com/serverless/utils/commit/668362d3ef2159b075408bac2427b09a5aa2f9b4)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.10.0](https://github.com/serverless/utils/compare/v5.9.0...v5.10.0) (2021-09-09)
 
 ### Features
