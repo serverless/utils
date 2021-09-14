@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.12.0](https://github.com/serverless/utils/compare/v5.11.0...v5.12.0) (2021-09-14)
+
+### Features
+
+- **Log:** Improve styles when just 16 or 256 colors are supported ([#121](https://github.com/serverless/utils/pull/121)) ([668362d](https://github.com/serverless/utils/commit/668362d3ef2159b075408bac2427b09a5aa2f9b4)) ([d97bf24](https://github.com/serverless/utils/commit/d97bf240ee853c684247b6cdc8a38a810114504f)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.11.0](https://github.com/serverless/utils/compare/v5.10.0...v5.11.0) (2021-09-10)
 
 ### Features
