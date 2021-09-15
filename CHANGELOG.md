@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.13.0](https://github.com/serverless/utils/compare/v5.12.0...v5.13.0) (2021-09-15)
+
+### Features
+
+- **Log:** Do not write level prefix with deprecation warnings ([#123](https://github.com/serverless/utils/pull/123)) ([67cce8b](https://github.com/serverless/utils/commit/67cce8b504356ac59fcf6e21fdbdda2b0253b49a)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.12.0](https://github.com/serverless/utils/compare/v5.11.0...v5.12.0) (2021-09-14)
 
 ### Features
