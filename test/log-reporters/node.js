@@ -78,6 +78,28 @@ describe('log-reporters/node.js', () => {
       expect(stderrData).to.include('Error log');
     });
 
+    it('should write level prefixes', () => {
+      let stderrData = '';
+      overrideStderrWrite(
+        (data) => (stderrData += data),
+        () => {
+          log.warn('Warn log');
+        }
+      );
+      expect(stderrData).to.include('Warning: ');
+    });
+
+    it('should not write level prefixes on deprecation logs', () => {
+      let stderrData = '';
+      overrideStderrWrite(
+        (data) => (stderrData += data),
+        () => {
+          log.get('deprecation').warn('Warn log');
+        }
+      );
+      expect(stderrData).to.not.include('Warning: ');
+    });
+
     it('should not write logs of debug and info levels', () => {
       let stderrData = '';
       overrideStderrWrite(
