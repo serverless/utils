@@ -42,19 +42,47 @@ describe('lib/log/get-progress-reporter.js', () => {
     expect(events).to.deep.equal([
       [
         'update',
-        { namespace: 'test', name: 'upload', level: 'notice', levelIndex: 2, textTokens: ['#1'] },
+        {
+          namespace: 'test',
+          name: 'upload',
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: '#1',
+          options: null,
+        },
       ],
       [
         'update',
-        { namespace: 'test', name: 'upload', level: 'info', levelIndex: 3, textTokens: ['#1'] },
+        {
+          namespace: 'test',
+          name: 'upload',
+          level: 'info',
+          levelIndex: 3,
+          textTokens: '#1',
+          options: null,
+        },
       ],
       [
         'update',
-        { namespace: 'test', name: 'upload', level: 'notice', levelIndex: 2, textTokens: ['#2'] },
+        {
+          namespace: 'test',
+          name: 'upload',
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: '#2',
+          options: null,
+        },
       ],
       [
         'update',
-        { namespace: 'test', name: 'upload', level: 'info', levelIndex: 3, textTokens: ['#2'] },
+        {
+          namespace: 'test',
+          name: 'upload',
+          level: 'info',
+          levelIndex: 3,
+          textTokens: '#2',
+          options: null,
+        },
       ],
     ]);
   });
@@ -72,7 +100,14 @@ describe('lib/log/get-progress-reporter.js', () => {
     expect(events).to.deep.equal([
       [
         'update',
-        { namespace: 'test', name: 'upload', level: 'notice', levelIndex: 2, textTokens: ['#1-1'] },
+        {
+          namespace: 'test',
+          name: 'upload',
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: '#1-1',
+          options: null,
+        },
       ],
       [
         'update',
@@ -81,16 +116,31 @@ describe('lib/log/get-progress-reporter.js', () => {
           name: 'upload',
           level: 'notice',
           levelIndex: 2,
-          textTokens: ['#2-1'],
+          textTokens: '#2-1',
+          options: null,
         },
       ],
       [
         'update',
-        { namespace: 'test', name: 'upload', level: 'info', levelIndex: 3, textTokens: ['#1-1'] },
+        {
+          namespace: 'test',
+          name: 'upload',
+          level: 'info',
+          levelIndex: 3,
+          textTokens: '#1-1',
+          options: null,
+        },
       ],
       [
         'update',
-        { namespace: 'other', name: 'upload', level: 'info', levelIndex: 3, textTokens: ['#2-1'] },
+        {
+          namespace: 'other',
+          name: 'upload',
+          level: 'info',
+          levelIndex: 3,
+          textTokens: '#2-1',
+          options: null,
+        },
       ],
       [
         'update',
@@ -99,7 +149,8 @@ describe('lib/log/get-progress-reporter.js', () => {
           name: 'package',
           level: 'notice',
           levelIndex: 2,
-          textTokens: ['#3-1'],
+          textTokens: '#3-1',
+          options: null,
         },
       ],
     ]);
@@ -116,7 +167,14 @@ describe('lib/log/get-progress-reporter.js', () => {
     expect(events).to.deep.equal([
       [
         'update',
-        { namespace: 'test', name: 'upload', level: 'notice', levelIndex: 2, textTokens: ['#1-1'] },
+        {
+          namespace: 'test',
+          name: 'upload',
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: '#1-1',
+          options: null,
+        },
       ],
       [
         'update',
@@ -125,7 +183,8 @@ describe('lib/log/get-progress-reporter.js', () => {
           name: 'upload',
           level: 'notice',
           levelIndex: 2,
-          textTokens: ['#2-1'],
+          textTokens: '#2-1',
+          options: null,
         },
       ],
       ['remove', { namespace: 'other', name: 'upload' }],

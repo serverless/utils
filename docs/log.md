@@ -116,9 +116,11 @@ Returns progress interface dedicated for single ongoing operation. Any updates r
 
 It exposes three methods:
 
-##### `info(text, ..textTokens)` & `notice(text, ..textTokens)`
+##### `info(text, options = {})` & `notice(text, options = {})`
 
-Write progress update on given item. Each update will overwrite previous update. Updates written with `info` will only be presented with _verbose_ mode (either `info` or `debug` log level visibility applied)
+Write progress update on given item. Each update will overwrite previous update. Updates written with `info` will only be presented with _verbose_ mode (either `info` or `debug` log level visibility applied).
+
+Options are supported only in case of main progress (described below)
 
 ##### `remove()`
 
@@ -131,6 +133,7 @@ Returns special instance of progress item, dedicated to cover progress of a comp
 - It's guaranteed to always be displayed at the top
 - Time counter is displayed aside of it (starting counting from first write)
 - It's not removed until command ends processing (`remove` is not effective, progress is cleared only after `progress.clear`)
+- Supports `isMainEvent` option. If set to true. Given progress event will also be reflected as verbose log
 
 #### `progress.clear()`
 
