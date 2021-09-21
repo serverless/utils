@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.14.0](https://github.com/serverless/utils/compare/v5.13.0...v5.14.0) (2021-09-21)
+
+### Features
+
+- **Log:** Generalize handling of main process events ([#125](https://github.com/serverless/utils/pull/125)) ([bbf7687](https://github.com/serverless/utils/commit/bbf768742fc7cb62d920848a878bc78d0752b3d3)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.13.0](https://github.com/serverless/utils/compare/v5.12.0...v5.13.0) (2021-09-15)
 
 ### Features
