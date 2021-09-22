@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.15.0](https://github.com/serverless/utils/compare/v5.14.0...v5.15.0) (2021-09-22)
+
+### Features
+
+- **Log:** Support internally `--verbose` flag for modern logs ([#126](https://github.com/serverless/utils/pull/126)) ([749de91](https://github.com/serverless/utils/commit/749de91a9aa6596a6b7a147f0eeb52d2923e39d2)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.14.0](https://github.com/serverless/utils/compare/v5.13.0...v5.14.0) (2021-09-21)
 
 ### Features
