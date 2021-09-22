@@ -13,6 +13,11 @@ if (!(logMode & 1)) return;
 
 // Show modern logs
 
+if (!process.env.SLS_LOG_LEVEL && process.argv.includes('--verbose') && logMode & 2) {
+  process.env.SLS_LOG_LEVEL = 'info';
+  process.argv.splice(process.argv.indexOf('--verbose'), 1);
+}
+
 const logReporter = require('../lib/log-reporters/node/log-reporter');
 const { emitter: outputEmitter } = require('../lib/log/get-output-reporter');
 const joinTextTokens = require('../lib/log/join-text-tokens');
