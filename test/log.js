@@ -209,6 +209,7 @@ describe('log', () => {
       const { style } = log;
       expect(style.aside('foo')).to.include('foo');
       expect(style.error('foo')).to.include('foo');
+      expect(style.link('foo')).to.include('foo');
       expect(style.noticeSymbol('foo')).to.include('foo');
       expect(style.warning('foo')).to.include('foo');
     });
