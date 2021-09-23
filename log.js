@@ -80,7 +80,7 @@ module.exports.getPluginWriters = memoizee(
 
 module.exports.style = {
   aside: (text, ...textTokens) => [text, ...textTokens],
+  error: (text, ...textTokens) => [text, ...textTokens],
   noticeSymbol: (text, ...textTokens) => [text, ...textTokens],
   warning: (text, ...textTokens) => [text, ...textTokens],
-  error: (text, ...textTokens) => [text, ...textTokens],
 };
