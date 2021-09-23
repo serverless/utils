@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.16.0](https://github.com/serverless/utils/compare/v5.15.0...v5.16.0) (2021-09-23)
+
+### Features
+
+- **Log:**
+  - Configure `success` and `skip` notice level decorators ([#127](https://github.com/serverless/utils/pull/126)) ([65ed6fe](https://github.com/serverless/utils/commit/65ed6fe9ff3d0ccd21d7788988bf50f8549df339)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Introduce `link` style ([#127](https://github.com/serverless/utils/pull/126)) ([bf54126](https://github.com/serverless/utils/commit/bf54126d82ba662f75c5cf3ba80f731cdd35cba1)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.15.0](https://github.com/serverless/utils/compare/v5.14.0...v5.15.0) (2021-09-22)
 
 ### Features
