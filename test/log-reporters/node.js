@@ -153,6 +153,19 @@ describe('log-reporters/node.js', () => {
       expect(stderrData).to.include('Warn log');
       expect(stderrData).to.include('Error log');
     });
+
+    it('should write decorated logs', () => {
+      let stderrData = '';
+      overrideStderrWrite(
+        (data) => (stderrData += data),
+        () => {
+          log.notice.success('Success log');
+          log.notice.skip('Skip log');
+        }
+      );
+      expect(stderrData).to.include('Success log');
+      expect(stderrData).to.include('Skip log');
+    });
   });
 
   describe('Modern logs: Style', () => {

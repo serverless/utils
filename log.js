@@ -45,6 +45,16 @@ module.exports.legacy = legacy;
 // Modern logging interface (to which old logs are currently migrated)
 module.exports.log = log;
 
+// Notice level message common message decorators
+Object.defineProperties(log.notice, {
+  success: d.gs(function () {
+    return this.notice;
+  }),
+  skip: d.gs(function () {
+    return this.notice;
+  }),
+});
+
 // Endpoints which expose currently set log level
 // (`logLevelIndex` is to be overriden by main process module)
 module.exports.logLevelIndex = logLevels.indexOf('notice');
