@@ -148,6 +148,13 @@ describe('log', () => {
       expect(typeof nsLog.warn).to.equal('function');
       expect(typeof nsLog.error).to.equal('function');
     });
+    it('should export log decorators', () => {
+      expect(typeof log.log.notice.success).to.equal('function');
+      expect(typeof log.log.notice.skip).to.equal('function');
+      const nsLog = log.log.get('some-ns');
+      expect(typeof nsLog.notice.success).to.equal('function');
+      expect(typeof nsLog.notice.skip).to.equal('function');
+    });
   });
 
   describe('`logLevelIndex` and side utils', () => {
