@@ -1,6 +1,7 @@
 'use strict';
 
 const ensureString = require('type/string/ensure');
+const d = require('d');
 const memoizee = require('memoizee');
 const chalk = require('chalk');
 const log = require('log').get('serverless');
@@ -47,10 +48,11 @@ module.exports.log = log;
 // Endpoints which expose currently set log level
 // (`logLevelIndex` is to be overriden by main process module)
 module.exports.logLevelIndex = logLevels.indexOf('notice');
-Object.defineProperty(module.exports, 'isVerboseMode', {
-  get: () => module.exports.logLevelIndex > logLevels.indexOf('notice'),
-  enumerable: true,
-});
+Object.defineProperty(
+  module.exports,
+  'isVerboseMode',
+  d.gs(() => module.exports.logLevelIndex > logLevels.indexOf('notice'))
+);
 
 // Whether we're in context of interactive terminal (to be overriden by process main module)
 module.exports.isInteractive = false;
