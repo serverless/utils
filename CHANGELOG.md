@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.17.0](https://github.com/serverless/utils/compare/v5.16.0...v5.17.0) (2021-09-29)
+
+### Features
+
+- **Log:**
+  - Modern logs for interactive exchange ([#128](https://github.com/serverless/utils/pull/128)) ([4b1f36a](https://github.com/serverless/utils/commit/4b1f36a93ad474f89e061bae6ec29cb755e53f0d)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Setup `strong` and `title` styles ([5ddca35](https://github.com/serverless/utils/commit/5ddca35879db79c6b96ba6d1d9152b9f40f22682)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.16.0](https://github.com/serverless/utils/compare/v5.15.0...v5.16.0) (2021-09-23)
 
 ### Features
