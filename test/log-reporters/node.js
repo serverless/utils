@@ -1,13 +1,20 @@
 'use strict';
 
 const { expect } = require('chai');
+const path = require('path');
 const requireUncached = require('ncjsm/require-uncached');
+const resolveSync = require('ncjsm/resolve/sync');
 const overrideStdoutWrite = require('process-utils/override-stdout-write');
 const overrideStderrWrite = require('process-utils/override-stderr-write');
 const overrideEnv = require('process-utils/override-env');
 
 const getLog = () =>
   requireUncached(() => {
+    const uniGlobalPath = resolveSync(path.dirname(require.resolve('log')), 'uni-global').realPath;
+    require(uniGlobalPath);
+    require.cache[uniGlobalPath].exports = function () {
+      return {};
+    };
     require('../../log-reporters/node');
     return require('../../log');
   });
