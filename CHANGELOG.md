@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.17.1](https://github.com/serverless/utils/compare/v5.17.0...v5.17.1) (2021-10-07)
+
+_Maintainance update_
+
 ## [5.17.0](https://github.com/serverless/utils/compare/v5.16.0...v5.17.0) (2021-09-29)
 
 ### Features
