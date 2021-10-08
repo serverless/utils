@@ -99,7 +99,7 @@ module.exports.getPluginWriters = memoizee(
   { primitive: true }
 );
 
-module.exports.style = {
+const style = {
   aside: (text, ...textTokens) => [text, ...textTokens],
   error: (text, ...textTokens) => [text, ...textTokens],
   link: (text, ...textTokens) => [text, ...textTokens],
@@ -108,3 +108,12 @@ module.exports.style = {
   title: (text, ...textTokens) => [text, ...textTokens],
   warning: (text, ...textTokens) => [text, ...textTokens],
 };
+
+if (uniGlobal.logStyle) {
+  module.exports.style = uniGlobal.logStyle;
+  for (const key of Object.keys(style)) {
+    if (!uniGlobal.logStyle[key]) uniGlobal.logStyle[key] = style[key];
+  }
+} else {
+  module.exports.style = uniGlobal.logStyle = style;
+}
