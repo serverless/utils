@@ -12,9 +12,16 @@ const getLog = () =>
   requireUncached(() => {
     const uniGlobalPath = resolveSync(path.dirname(require.resolve('log')), 'uni-global').realPath;
     require(uniGlobalPath);
+    const uniGlobal = {};
     require.cache[uniGlobalPath].exports = function () {
-      return {};
+      return uniGlobal;
     };
+    if (require.resolve('uni-global') !== uniGlobalPath) {
+      require('uni-global');
+      require.cache[require.resolve('uni-global')].exports = function () {
+        return uniGlobal;
+      };
+    }
     require('../../log-reporters/node');
     return require('../../log');
   });

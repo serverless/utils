@@ -7,8 +7,13 @@ const memoizee = require('memoizee');
 const chalk = require('chalk');
 const log = require('log').get('serverless');
 const logLevels = require('log/levels');
+const uniGlobal = require('uni-global')('serverless/serverless/202110');
 const getOutputReporter = require('./lib/log/get-output-reporter');
 const getProgressReporter = require('./lib/log/get-progress-reporter');
+
+if (!uniGlobal.legacyLogWrite) {
+  uniGlobal.legacyLogWrite = (...args) => process.stdout.write(...args);
+}
 
 // Legacy interface, of which usage is scheduled to be replaced by modern one
 const getLegacyLog =
@@ -34,7 +39,7 @@ module.exports = getLegacyLog((...args) => process.stdout.write(...args));
 // (are to be shown exchangeably)
 const legacy = {
   // Note: Do not assign prebound function as it breaks in tests mocking of process.stdout.write
-  write: (...args) => process.stdout.write(...args),
+  write: (...args) => uniGlobal.legacyLogWrite(...args),
   consoleLog: (message) => {
     legacy.write(`${message}\n`);
   },
@@ -60,17 +65,16 @@ Object.defineProperties(log.notice, {
   }),
 });
 
-// Endpoints which expose currently set log level
-// (`logLevelIndex` is to be overriden by main process module)
-module.exports.logLevelIndex = logLevels.indexOf('notice');
-Object.defineProperty(
-  module.exports,
-  'isVerboseMode',
-  d.gs(() => module.exports.logLevelIndex > logLevels.indexOf('notice'))
-);
-
-// Whether we're in context of interactive terminal (to be overriden by process main module)
-module.exports.isInteractive = false;
+const defaultLogLevelIndex = logLevels.indexOf('notice');
+Object.defineProperties(module.exports, {
+  logLevelIndex: d.gs(() => {
+    return uniGlobal.logLevelIndex == null ? defaultLogLevelIndex : uniGlobal.logLevelIndex;
+  }),
+  isVerboseMode: d.gs(() => module.exports.logLevelIndex > defaultLogLevelIndex),
+  isInteractive: d.gs(() => {
+    return uniGlobal.logIsInteractive == null ? false : uniGlobal.logIsInteractive;
+  }),
+});
 
 module.exports.writeText = getOutputReporter('serverless').get('text');
 

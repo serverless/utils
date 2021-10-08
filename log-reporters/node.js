@@ -1,12 +1,12 @@
 'use strict';
 
-const log = require('../log');
+const uniGlobal = require('uni-global')('serverless/serverless/202110');
 
 const logMode = isFinite(process.env.SLS_DEV_LOG_MODE) ? Number(process.env.SLS_DEV_LOG_MODE) : 0;
 
 if (logMode & 2) {
   // Hide legacy logs
-  log.legacy.write = () => {};
+  uniGlobal.legacyLogWrite = () => {};
 }
 
 if (!(logMode & 1)) return;
@@ -34,14 +34,14 @@ require('../lib/log-reporters/node/style');
 
 // Event logs
 logReporter({ logLevelIndex, debugNamespaces: process.env.SLS_LOG_DEBUG });
-log.logLevelIndex = logLevelIndex;
+uniGlobal.logLevelIndex = logLevelIndex;
 
 // Substantial output (not subject to filtering)
 outputEmitter.on('write', ({ mode, textTokens }) => {
   if (mode === 'text') process.stdout.write(joinTextTokens(textTokens));
 });
 
-log.isInteractive = isInteractive;
+uniGlobal.logIsInteractive = isInteractive;
 if (isInteractive) {
   require('../lib/log-reporters/node/progress-reporter')({ logLevelIndex });
 }

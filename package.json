@@ -24,7 +24,7 @@
     "js-yaml": "^4.1.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
-    "log": "^6.3.0",
+    "log": "^6.3.1",
     "log-node": "^8.0.1",
     "make-dir": "^3.1.0",
     "memoizee": "^0.4.15",
@@ -32,6 +32,7 @@
     "p-event": "^4.2.0",
     "supports-color": "^8.1.1",
     "type": "^2.5.0",
+    "uni-global": "^1.0.0",
     "uuid": "^8.3.2",
     "write-file-atomic": "^3.0.3"
   },
