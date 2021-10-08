@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.17.3](https://github.com/serverless/utils/compare/v5.17.2...v5.17.3) (2021-10-08)
+
+### Bug Fixes
+
+- Ensure `style` is multi instance safe ([#133](https://github.com/serverless/utils/pull/133)) ([796d38c](https://github.com/serverless/utils/commit/796d38c16b5b1d4078faae7ef13a117059a86797)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [5.17.2](https://github.com/serverless/utils/compare/v5.17.1...v5.17.2) (2021-10-08)
 
 ### Bug Fixes
