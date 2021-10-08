@@ -1,6 +1,7 @@
 'use strict';
 
 const ensureString = require('type/string/ensure');
+const isObject = require('type/object/is');
 const d = require('d');
 const memoizee = require('memoizee');
 const chalk = require('chalk');
@@ -37,7 +38,11 @@ const legacy = {
   consoleLog: (message) => {
     legacy.write(`${message}\n`);
   },
-  log: getLegacyLog((data) => legacy.write(data)),
+};
+const legacyLog = getLegacyLog((data) => legacy.write(data));
+legacy.log = (message, entity, opts) => {
+  if (isObject(entity)) legacyLog(message, entity);
+  else legacyLog(message, { ...opts, entity: entity || 'Serverless' });
 };
 
 module.exports.legacy = legacy;
