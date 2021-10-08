@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.17.2](https://github.com/serverless/utils/compare/v5.17.1...v5.17.2) (2021-10-08)
+
+### Bug Fixes
+
+- **Log:**
+  - Ensure reliable mode resolution with multiple installations ([#131](https://github.com/serverless/utils/pull/131)) ([6b2d201](https://github.com/serverless/utils/commit/6b2d201bc0926b7e387a15c73e53bb4422ba5bae)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Fix `legacy.log` to reflect`sls.cli.log` args handling ([#130](https://github.com/serverless/utils/pull/130)) ([789785b](https://github.com/serverless/utils/commit/789785bc6f84561177c9735c010b3dc7d4acee12)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [5.17.1](https://github.com/serverless/utils/compare/v5.17.0...v5.17.1) (2021-10-07)
 
 _Maintainance update_
