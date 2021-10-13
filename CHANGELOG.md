@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.18.0](https://github.com/serverless/utils/compare/v5.17.3...v5.18.0) (2021-10-13)
+
+### Features
+
+- **Log:**
+  - Introduce `style.linkStrong` and do not decorate `style.link` ([#135](https://github.com/serverless/utils/pull/135)) ([ab762ca](https://github.com/serverless/utils/commit/ab762ca0116b1dcdc9755cbba6c5ea40b8773295)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Remove decoration symbol from `log.notice.skip` ([#136](https://github.com/serverless/utils/pull/136)) ([172f392](https://github.com/serverless/utils/commit/172f3928d4b078c88ec8c302fa94fa8538926205)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ### [5.17.3](https://github.com/serverless/utils/compare/v5.17.2...v5.17.3) (2021-10-08)
 
 ### Bug Fixes
