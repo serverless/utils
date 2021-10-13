@@ -103,6 +103,7 @@ const style = {
   aside: (text, ...textTokens) => [text, ...textTokens],
   error: (text, ...textTokens) => [text, ...textTokens],
   link: (text, ...textTokens) => [text, ...textTokens],
+  linkStrong: (text, ...textTokens) => [text, ...textTokens],
   noticeSymbol: (text, ...textTokens) => [text, ...textTokens],
   strong: (text, ...textTokens) => [text, ...textTokens],
   title: (text, ...textTokens) => [text, ...textTokens],

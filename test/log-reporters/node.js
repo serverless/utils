@@ -196,6 +196,7 @@ describe('log-reporters/node.js', () => {
       expect(style.aside('foo')).to.include('foo');
       expect(style.error('foo')).to.include('foo');
       expect(style.link('foo')).to.include('foo');
+      expect(style.linkStrong('foo')).to.include('foo');
       expect(style.noticeSymbol('foo')).to.include('foo');
       expect(style.strong('foo')).to.include('foo');
       expect(style.title('foo')).to.include('foo');
