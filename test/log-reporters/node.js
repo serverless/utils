@@ -180,6 +180,17 @@ describe('log-reporters/node.js', () => {
       expect(stderrData).to.include('Success log');
       expect(stderrData).to.include('Skip log');
     });
+
+    it('should write aliased logs', () => {
+      let stderrData = '';
+      overrideStderrWrite(
+        (data) => (stderrData += data),
+        () => {
+          log.verbose('Verbose log');
+        }
+      );
+      expect(stderrData).to.include('Verbose log');
+    });
   });
 
   describe('Modern logs: Style', () => {

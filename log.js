@@ -65,6 +65,12 @@ Object.defineProperties(log.notice, {
   }),
 });
 
+Object.defineProperties(log, {
+  verbose: d.gs(function () {
+    return this.info;
+  }),
+});
+
 const defaultLogLevelIndex = logLevels.indexOf('notice');
 Object.defineProperties(module.exports, {
   logLevelIndex: d.gs(() => {

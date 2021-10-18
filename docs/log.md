@@ -72,7 +72,7 @@ An instance of [log](https://github.com/medikoo/log) message logger, namespaced 
 
 Basic API exposes:
 
-- `debug`, `info`, `notice`, `warn`, `error` - functions to write messages at given levels
+- `debug`, `info` (aliased with `verbose`), `notice`, `warn`, `error` - functions to write messages at given levels
 - `get` - Function to obtain additionally namespaced logger (e.g. `log.get('aws-deploy'))` will return a logger additionally namespace to `aws-deploy` (full namespace will be `serverless:aws-deploy`). Returned logger shares same interface as described in this points
 
 #### Special log events
