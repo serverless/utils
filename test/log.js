@@ -157,8 +157,10 @@ describe('log', () => {
     });
     it('should export log aliases', () => {
       expect(typeof log.log.verbose).to.equal('function');
+      expect(typeof log.log.success).to.equal('function');
       const nsLog = log.log.get('some-ns');
       expect(typeof nsLog.verbose).to.equal('function');
+      expect(typeof nsLog.success).to.equal('function');
     });
   });
 
