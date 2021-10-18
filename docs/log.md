@@ -79,7 +79,7 @@ Basic API exposes:
 
 Special log events which are subject to dedicated decoration:
 
-- `log.notice.success` - To inform on success of command major operation
+- `log.notice.success` (aliased with `log.success`) - To inform on success of command major operation
 - `log.notice.skip` - To inform that intention is already fulfilled and there's nothing to do
 
 ### Environment characteristics

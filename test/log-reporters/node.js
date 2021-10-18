@@ -187,9 +187,11 @@ describe('log-reporters/node.js', () => {
         (data) => (stderrData += data),
         () => {
           log.verbose('Verbose log');
+          log.success('Success log');
         }
       );
       expect(stderrData).to.include('Verbose log');
+      expect(stderrData).to.include('Success log');
     });
   });
 

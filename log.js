@@ -69,6 +69,9 @@ Object.defineProperties(log, {
   verbose: d.gs(function () {
     return this.info;
   }),
+  success: d.gs(function () {
+    return this.notice.success;
+  }),
 });
 
 const defaultLogLevelIndex = logLevels.indexOf('notice');
