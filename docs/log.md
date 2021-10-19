@@ -75,6 +75,13 @@ Basic API exposes:
 - `debug`, `info`, `notice`, `warn`, `error` - functions to write messages at given levels
 - `get` - Function to obtain additionally namespaced logger (e.g. `log.get('aws-deploy'))` will return a logger additionally namespace to `aws-deploy` (full namespace will be `serverless:aws-deploy`). Returned logger shares same interface as described in this points
 
+#### Special log events
+
+Special log events which are subject to dedicated decoration:
+
+- `log.notice.success` - To inform on success of command major operation
+- `log.notice.skip` - To inform that intention is already fulfilled and there's nothing to do
+
 ### Environment characteristics
 
 Ideally we should not deal with a situation where characteristics of environment influence how log messages are constructed.
