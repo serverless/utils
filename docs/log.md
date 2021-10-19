@@ -119,7 +119,9 @@ _Note this part of an API is still experimental and subject to changes (not adve
 
 #### `progress.get(name)`
 
-Returns progress interface dedicated for single ongoing operation. Any updates reported in its context will override previous updates.
+Returns named progress interface dedicated for single ongoing operation. Any updates reported in its context will override previous updates.
+
+For given `name`, always same progress instance is returned
 
 It exposes three methods:
 
