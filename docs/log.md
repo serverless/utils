@@ -131,7 +131,7 @@ Initial progress message can be configured with `initialMessage` argument
 
 _`progress.get(name)` and `progress.create()` return object which exposes three methods:_
 
-##### `info(text, options = {})` & `notice(text, options = {})`
+##### `info(text, options = {})` & `notice(text, options = {})` (aliased by `update(text, options = {})`)
 
 Write progress update on given item. Each update will overwrite previous update. Updates written with `info` will only be presented with _verbose_ mode (either `info` or `debug` log level visibility applied).
 

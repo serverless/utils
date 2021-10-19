@@ -138,6 +138,24 @@ describe('lib/log/get-progress-reporter.js', () => {
     ]);
   });
 
+  it('should support aliases', () => {
+    const progress = getProgressReporter('test').get('upload');
+    progress.update('#1');
+    expect(events).to.deep.equal([
+      [
+        'update',
+        {
+          namespace: 'test',
+          name: 'upload',
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: '#1',
+          options: null,
+        },
+      ],
+    ]);
+  });
+
   it('should identify different progress events', () => {
     const progress1 = getProgressReporter('test').get('upload');
     const progress2 = getProgressReporter('other').get('upload');
