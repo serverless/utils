@@ -19,7 +19,7 @@ describe('lib/log/get-progress-reporter.js', () => {
     allOff(emitter);
   });
 
-  it('should return progress intances factory', () => {
+  it('should return progress instances factory', () => {
     expect(typeof getProgressReporter('test').get('some-progress').info).to.equal('function');
   });
 
