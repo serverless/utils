@@ -33,6 +33,57 @@ describe('lib/log/get-progress-reporter.js', () => {
     );
   });
 
+  it('should allow to create unnamed progress instances', () => {
+    const progress = getProgressReporter('test').create();
+    expect(typeof progress.info).to.equal('function');
+    progress.notice('#1');
+    progress.info('#1');
+    const progressName = events[0][1].name;
+    expect(typeof progressName).to.equal('string');
+    expect(events).to.deep.equal([
+      [
+        'update',
+        {
+          namespace: 'test',
+          name: progressName,
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: '#1',
+          options: null,
+        },
+      ],
+      [
+        'update',
+        {
+          namespace: 'test',
+          name: progressName,
+          level: 'info',
+          levelIndex: 3,
+          textTokens: '#1',
+          options: null,
+        },
+      ],
+    ]);
+  });
+
+  it('should support initial message when creating unnamied progress instance', () => {
+    getProgressReporter('test').create('Initial');
+    const progressName = events[0][1].name;
+    expect(events).to.deep.equal([
+      [
+        'update',
+        {
+          namespace: 'test',
+          name: progressName,
+          level: 'notice',
+          levelIndex: 2,
+          textTokens: 'Initial',
+          options: null,
+        },
+      ],
+    ]);
+  });
+
   it('should support different verbosity levels', () => {
     const progress = getProgressReporter('test').get('upload');
     progress.notice('#1');
