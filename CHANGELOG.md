@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.19.0](https://github.com/serverless/utils/compare/v5.18.0...v5.19.0) (2021-10-20)
+
+### Features
+
+- **Log:**
+  - Introduce `progress.create()` factory, which allows to create unnamed progress instances ([#138](https://github.com/serverless/utils/pull/138)) ([0bb2fd1](https://github.com/serverless/utils/commit/0bb2fd187760dcc1dc72dfbeec930b3cca6692e7)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Configure `log.success` as an alias to `log.notice.success` ([#138](https://github.com/serverless/utils/pull/138)) ([8bbff52](https://github.com/serverless/utils/commit/8bbff522da748aec24c44f4a2940df62ab805188)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Configure `log.verbose` as an alias to `log.info` ([#138](https://github.com/serverless/utils/pull/138)) ([7a0319f](https://github.com/serverless/utils/commit/7a0319f37cda3721a73774ec8878f737ac41df2b)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Introduce `progress.update` as an alias for `progress.notice` ([#138](https://github.com/serverless/utils/pull/138)) ([0d28345](https://github.com/serverless/utils/commit/0d28345a81ec4a887377fd60bebb176bb755e019)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Log:**
+  - Adjust style of error level logs ([#138](https://github.com/serverless/utils/pull/138)) ([538d816](https://github.com/serverless/utils/commit/538d8168ae4db11196b5827e6d6131a976cd4a4f)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Remove effectless decoration ([#138](https://github.com/serverless/utils/pull/138)) ([85e322a](https://github.com/serverless/utils/commit/85e322a6f7fbe68f5195cf85d98c6031445eae88)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.18.0](https://github.com/serverless/utils/compare/v5.17.3...v5.18.0) (2021-10-13)
 
 ### Features
