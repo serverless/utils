@@ -50,7 +50,7 @@
     "is-zip": "^1.0.0",
     "lint-staged": "^10.5.4",
     "mocha": "^8.4.0",
-    "nock": "^13.1.3",
+    "nock": "^13.1.4",
     "nyc": "^15.1.0",
     "prettier": "^2.4.1",
     "process-utils": "^4.0.0",
@@ -58,7 +58,7 @@
     "random-buffer": "^0.1.0",
     "sinon": "^11.1.2",
     "sinon-chai": "^3.7.0",
-    "standard-version": "^9.3.1",
+    "standard-version": "^9.3.2",
     "timers-ext": "^0.1.7"
   },
   "eslintConfig": {
