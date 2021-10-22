@@ -11,10 +11,6 @@ const { style } = require('../log');
 
 const inquirersChalkPath = resolve(dirname(require.resolve('inquirer')), 'chalk').realPath;
 
-// With inquirer we cannot independently configure two different logging styles, therefore we
-// decide on style basing on env var
-const isModernStyle = Number(process.env.SLS_DEV_LOG_MODE) & 1;
-
 module.exports = requireUncached(inquirersChalkPath, () => {
   // Ensure distinct chalk instance for inquirer and hack it with altered styles
   Object.defineProperties(require(inquirersChalkPath), {
@@ -25,7 +21,7 @@ module.exports = requireUncached(inquirersChalkPath, () => {
     },
     bold: {
       get() {
-        return isModernStyle ? identity : chalk.bold.yellow;
+        return identity;
       },
     },
   });
@@ -34,7 +30,7 @@ module.exports = requireUncached(inquirersChalkPath, () => {
   const originalGetQuestion = BasePrompt.prototype.getQuestion;
   BasePrompt.prototype.getQuestion = function () {
     // Here we want to override the default prefix which is equal to `chalk.green('?')`
-    this.opt.prefix = isModernStyle ? style.strong('?') : '';
+    this.opt.prefix = style.strong('?');
     return originalGetQuestion.call(this);
   };
 
