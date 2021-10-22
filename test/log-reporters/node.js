@@ -27,22 +27,9 @@ const getLog = () =>
   });
 
 describe('log-reporters/node.js', () => {
-  it('should let write legacy logs by default', () => {
-    let stdoutData = '';
-    overrideStdoutWrite(
-      (data) => (stdoutData += data),
-      () => {
-        const { legacy } = getLog();
-        legacy.write('foo');
-      }
-    );
-    expect(stdoutData).to.equal('foo');
-  });
-
-  it('should not write legacy logs  if instructed via SLS_DEV_LOG_MODE', () => {
+  it('should not write legacy logs', () => {
     let stdoutData = '';
     overrideEnv(() => {
-      process.env.SLS_DEV_LOG_MODE = 2;
       return overrideStdoutWrite(
         (data) => (stdoutData += data),
         () => {
@@ -72,7 +59,6 @@ describe('log-reporters/node.js', () => {
     let restoreEnv;
     before(() => {
       ({ restoreEnv } = overrideEnv());
-      process.env.SLS_DEV_LOG_MODE = 1;
       ({ log, writeText } = getLog());
     });
     after(() => restoreEnv());
@@ -143,7 +129,6 @@ describe('log-reporters/node.js', () => {
     let restoreEnv;
     before(() => {
       ({ restoreEnv } = overrideEnv());
-      process.env.SLS_DEV_LOG_MODE = 1;
       process.env.SLS_LOG_LEVEL = 'debug';
       ({ log } = getLog());
     });
@@ -200,7 +185,6 @@ describe('log-reporters/node.js', () => {
     let restoreEnv;
     before(() => {
       ({ restoreEnv } = overrideEnv());
-      process.env.SLS_DEV_LOG_MODE = 1;
       ({ style } = getLog());
     });
     after(() => restoreEnv());
@@ -228,7 +212,6 @@ describe('log-reporters/node.js', () => {
         stdoutData += data;
         originalWrite(data);
       }));
-      process.env.SLS_DEV_LOG_MODE = 1;
       process.env.SLS_INTERACTIVE_SETUP_ENABLE = 1;
       ({ progress } = getLog());
     });
@@ -282,7 +265,6 @@ describe('log-reporters/node.js', () => {
         stdoutData += data;
         originalWrite(data);
       }));
-      process.env.SLS_DEV_LOG_MODE = 1;
       process.env.SLS_LOG_LEVEL = 'info';
       process.env.SLS_INTERACTIVE_SETUP_ENABLE = 1;
       ({ progress } = getLog());
