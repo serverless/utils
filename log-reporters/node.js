@@ -2,19 +2,15 @@
 
 const uniGlobal = require('uni-global')('serverless/serverless/202110');
 
-const logMode = isFinite(process.env.SLS_DEV_LOG_MODE) ? Number(process.env.SLS_DEV_LOG_MODE) : 0;
-
-if (logMode & 2) {
-  // Hide legacy logs
-  uniGlobal.legacyLogWrite = () => {};
-}
-
-if (!(logMode & 1)) return;
+// Hide legacy logs
+// TODO: Remove once all legacy logs are removed from the core
+uniGlobal.legacyLogWrite = () => {};
 
 // Show modern logs
 
-if (!process.env.SLS_LOG_LEVEL && process.argv.includes('--verbose') && logMode & 2) {
+if (!process.env.SLS_LOG_LEVEL && process.argv.includes('--verbose')) {
   process.env.SLS_LOG_LEVEL = 'info';
+  // TODO: Remove once support for global --verbose mode is added
   process.argv.splice(process.argv.indexOf('--verbose'), 1);
 }
 
