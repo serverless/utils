@@ -65,6 +65,9 @@
     "extends": "@serverless/eslint-config/node",
     "root": true
   },
+  "eslintIgnore": [
+    "!/.github"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
