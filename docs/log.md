@@ -123,9 +123,14 @@ Returns named progress interface dedicated for single ongoing operation. Any upd
 
 For given `name`, always same progress instance is returned
 
-#### `progress.create([{ message: initialMessage }])`
+#### `progress.create(options)`
 
-Returns unnamed progress interface dedicated for single ongoing operation. Any updates reported in its context will override previous updates.
+Returns newly created progress interface dedicated for single ongoing operation. Any updates reported in its context will override previous updates.
+
+Supported options:
+
+- `name`: Name for progress Running `progress.create({ name })` is equivalent to `progress.get(name)`, with only difference that `create` will throw if given progress already exists
+- `message`: Initial progress message to print
 
 Initial progress message can be configured with `message` option
 

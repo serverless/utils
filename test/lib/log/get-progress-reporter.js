@@ -84,6 +84,16 @@ describe('lib/log/get-progress-reporter.js', () => {
     ]);
   });
 
+  it('should support allow to name progresses via `create`', () => {
+    const progress = getProgressReporter('test');
+    expect(progress.create({ name: 'test-name' })).to.equal(progress.get('test-name'));
+    expect(() => {
+      progress.create({ name: 'test-name' });
+    })
+      .to.throw(Error)
+      .with.property('code', 'PROGRESS_NAME_TAKEN');
+  });
+
   it('should support different verbosity levels', () => {
     const progress = getProgressReporter('test').get('upload');
     progress.notice('#1');
