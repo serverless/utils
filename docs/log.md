@@ -123,11 +123,11 @@ Returns named progress interface dedicated for single ongoing operation. Any upd
 
 For given `name`, always same progress instance is returned
 
-#### `progress.create([initialMessage])`
+#### `progress.create([{ message: initialMessage }])`
 
 Returns unnamed progress interface dedicated for single ongoing operation. Any updates reported in its context will override previous updates.
 
-Initial progress message can be configured with `initialMessage` argument
+Initial progress message can be configured with `message` option
 
 _`progress.get(name)` and `progress.create()` return object which exposes three methods:_
 

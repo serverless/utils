@@ -67,7 +67,7 @@ describe('lib/log/get-progress-reporter.js', () => {
   });
 
   it('should support initial message when creating unnamied progress instance', () => {
-    getProgressReporter('test').create('Initial');
+    getProgressReporter('test').create({ message: 'Initial' });
     const progressName = events[0][1].name;
     expect(events).to.deep.equal([
       [
