@@ -5,7 +5,7 @@ const isObject = require('type/object/is');
 const d = require('d');
 const memoizee = require('memoizee');
 const chalk = require('chalk');
-const log = require('log').get('serverless');
+const log = require('log').get('serverless').notice;
 const logLevels = require('log/levels');
 const uniGlobal = require('uni-global')('serverless/serverless/202110');
 const getOutputReporter = require('./lib/log/get-output-reporter');
@@ -56,7 +56,7 @@ module.exports.legacy = legacy;
 module.exports.log = log;
 
 // Notice level message common message decorators
-Object.defineProperties(log.notice, {
+Object.defineProperties(log, {
   success: d.gs(function () {
     return this.notice;
   }),
@@ -68,9 +68,6 @@ Object.defineProperties(log.notice, {
 Object.defineProperties(log, {
   verbose: d.gs(function () {
     return this.info;
-  }),
-  success: d.gs(function () {
-    return this.notice.success;
   }),
 });
 
@@ -100,7 +97,7 @@ module.exports.getPluginWriters = memoizee(
     const pluginLog = log.get('plugin').get(pluginName.toLowerCase().replace(/[^a-z0-9-]/g, '-'));
     pluginLog.pluginName = pluginName;
     return {
-      log: pluginLog,
+      log: pluginLog.notice,
       writeText: getOutputReporter(`serverless:plugin:${pluginName}`).get('text'),
       progress: getProgressReporter(`serverless:plugin:${pluginName}`),
     };
