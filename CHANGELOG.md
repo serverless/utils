@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.20.0](https://github.com/serverless/utils/compare/v5.19.0...v5.20.0) (2021-11-03)
+
+### Features
+
+- **Log:**
+  - `name` option for `progress.create` ([#142](https://github.com/serverless/utils/pull/142)) ([4110e76](https://github.com/serverless/utils/commit/4110e766e7292a74267f020bd3cee8b665e09f4d)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Support optional `message` in `progress.create` via options ([#142](https://github.com/serverless/utils/pull/142)) ([7051e34](https://github.com/serverless/utils/commit/7051e34ae7be498b5a3c5fb80803bbe07d170c4a)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Update main log function to write at `notice` level ([#143](https://github.com/serverless/utils/pull/143)) ([dc6afd7](https://github.com/serverless/utils/commit/dc6afd799a51a04fd79e7296c3e7bf08e560ea84)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.19.0](https://github.com/serverless/utils/compare/v5.18.0...v5.19.0) (2021-10-20)
 
 ### Features
