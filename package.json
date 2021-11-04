@@ -62,7 +62,7 @@
     "timers-ext": "^0.1.7"
   },
   "eslintConfig": {
-    "extends": "@serverless/eslint-config/node/10",
+    "extends": "@serverless/eslint-config/node",
     "root": true
   },
   "eslintIgnore": [
@@ -147,7 +147,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=10.0"
+    "node": ">=12.0"
   },
   "license": "MIT"
 }
