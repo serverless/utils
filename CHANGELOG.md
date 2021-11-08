@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.20.1](https://github.com/serverless/utils/compare/v5.20.0...v5.20.1) (2021-11-08)
+
+### Bug Fixes
+
+- **Log:** Ensure custom styles are applied globally ([#147](https://github.com/serverless/utils/pull/147)) ([6473459](https://github.com/serverless/utils/commit/6473459eeab9fcb94762dc7979abeeec9594739c)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [5.20.0](https://github.com/serverless/utils/compare/v5.19.0...v5.20.0) (2021-11-03)
 
 ### Features
