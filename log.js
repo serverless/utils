@@ -5,11 +5,15 @@ const isObject = require('type/object/is');
 const d = require('d');
 const memoizee = require('memoizee');
 const chalk = require('chalk');
-const log = require('log').get('serverless').notice;
 const logLevels = require('log/levels');
 const uniGlobal = require('uni-global')('serverless/serverless/202110');
 const getOutputReporter = require('./lib/log/get-output-reporter');
 const getProgressReporter = require('./lib/log/get-progress-reporter');
+
+const log = (() => {
+  if (!uniGlobal.log) uniGlobal.log = require('log').get('serverless').notice;
+  return uniGlobal.log;
+})();
 
 if (!uniGlobal.legacyLogWrite) {
   uniGlobal.legacyLogWrite = (...args) => process.stdout.write(...args);
@@ -55,21 +59,25 @@ module.exports.legacy = legacy;
 // Modern logging interface (to which old logs are currently migrated)
 module.exports.log = log;
 
-// Notice level message common message decorators
-Object.defineProperties(log, {
-  success: d.gs(function () {
-    return this.notice;
-  }),
-  skip: d.gs(function () {
-    return this.notice;
-  }),
-});
+if (!log.verbose) {
+  // Intialize log instance (we do not share one setup over `uniGlobal`)
 
-Object.defineProperties(log, {
-  verbose: d.gs(function () {
-    return this.info;
-  }),
-});
+  // Notice level message common message decorators
+  Object.defineProperties(log, {
+    success: d.gs(function () {
+      return this.notice;
+    }),
+    skip: d.gs(function () {
+      return this.notice;
+    }),
+  });
+
+  Object.defineProperties(log, {
+    verbose: d.gs(function () {
+      return this.info;
+    }),
+  });
+}
 
 const defaultLogLevelIndex = logLevels.indexOf('notice');
 Object.defineProperties(module.exports, {
