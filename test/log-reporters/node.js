@@ -218,6 +218,34 @@ describe('log-reporters/node.js', () => {
         expect(stderrData).to.not.include('Debug log');
       });
     });
+
+    describe('--debug flag', () => {
+      let log;
+      let restoreEnv;
+      let restoreArgv;
+      before(() => {
+        ({ restoreEnv } = overrideEnv());
+        ({ restoreArgv } = overrideArgv({ args: ['serverless', '--debug=foo'] }));
+        ({ log } = getLog());
+      });
+      after(() => {
+        restoreEnv();
+        restoreArgv();
+      });
+
+      it('should write debug level logs for specified namespace', () => {
+        let stderrData = '';
+        overrideStderrWrite(
+          (data) => (stderrData += data),
+          () => {
+            log.get('foo').debug('Foo debug log');
+            log.get('bar').debug('Bar debug log');
+          }
+        );
+        expect(stderrData).to.include('Foo debug log');
+        expect(stderrData).to.not.include('Bar debug log');
+      });
+    });
   });
 
   describe('Modern logs: Style', () => {
