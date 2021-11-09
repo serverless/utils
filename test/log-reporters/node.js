@@ -6,6 +6,7 @@ const requireUncached = require('ncjsm/require-uncached');
 const resolveSync = require('ncjsm/resolve/sync');
 const overrideStdoutWrite = require('process-utils/override-stdout-write');
 const overrideStderrWrite = require('process-utils/override-stderr-write');
+const overrideArgv = require('process-utils/override-argv');
 const overrideEnv = require('process-utils/override-env');
 
 const getLog = () =>
@@ -125,58 +126,97 @@ describe('log-reporters/node.js', () => {
   });
 
   describe('Modern logs: Extended visibility', () => {
-    let log;
-    let restoreEnv;
-    before(() => {
-      ({ restoreEnv } = overrideEnv());
-      process.env.SLS_LOG_LEVEL = 'debug';
-      ({ log } = getLog());
-    });
-    after(() => restoreEnv());
+    describe('SLS_LOG_LEVEL env variable', () => {
+      let log;
+      let restoreEnv;
+      before(() => {
+        ({ restoreEnv } = overrideEnv());
+        process.env.SLS_LOG_LEVEL = 'debug';
+        ({ log } = getLog());
+      });
+      after(() => restoreEnv());
 
-    it('should write logs of all levels', () => {
-      let stderrData = '';
-      overrideStderrWrite(
-        (data) => (stderrData += data),
-        () => {
-          log.info('Info log');
-          log.debug('Debug log');
-          log.notice('Notice log');
-          log.warn('Warn log');
-          log.error('Error log');
-        }
-      );
-      expect(stderrData).to.include('Debug log');
-      expect(stderrData).to.include('Info log');
-      expect(stderrData).to.include('Notice log');
-      expect(stderrData).to.include('Warn log');
-      expect(stderrData).to.include('Error log');
+      it('should write logs of all levels', () => {
+        let stderrData = '';
+        overrideStderrWrite(
+          (data) => (stderrData += data),
+          () => {
+            log.info('Info log');
+            log.debug('Debug log');
+            log.notice('Notice log');
+            log.warn('Warn log');
+            log.error('Error log');
+          }
+        );
+        expect(stderrData).to.include('Debug log');
+        expect(stderrData).to.include('Info log');
+        expect(stderrData).to.include('Notice log');
+        expect(stderrData).to.include('Warn log');
+        expect(stderrData).to.include('Error log');
+      });
+
+      it('should write decorated logs', () => {
+        let stderrData = '';
+        overrideStderrWrite(
+          (data) => (stderrData += data),
+          () => {
+            log.notice.success('Success log');
+            log.notice.skip('Skip log');
+          }
+        );
+        expect(stderrData).to.include('Success log');
+        expect(stderrData).to.include('Skip log');
+      });
+
+      it('should write aliased logs', () => {
+        let stderrData = '';
+        overrideStderrWrite(
+          (data) => (stderrData += data),
+          () => {
+            log.verbose('Verbose log');
+            log.success('Success log');
+          }
+        );
+        expect(stderrData).to.include('Verbose log');
+        expect(stderrData).to.include('Success log');
+      });
     });
 
-    it('should write decorated logs', () => {
-      let stderrData = '';
-      overrideStderrWrite(
-        (data) => (stderrData += data),
-        () => {
-          log.notice.success('Success log');
-          log.notice.skip('Skip log');
-        }
-      );
-      expect(stderrData).to.include('Success log');
-      expect(stderrData).to.include('Skip log');
-    });
+    describe('--verbose flag', () => {
+      let log;
+      let restoreEnv;
+      let restoreArgv;
+      before(() => {
+        ({ restoreEnv } = overrideEnv());
+        ({ restoreArgv } = overrideArgv({ args: ['serverless', '--verbose'] }));
+        ({ log } = getLog());
+      });
+      after(() => {
+        restoreEnv();
+        restoreArgv();
+      });
 
-    it('should write aliased logs', () => {
-      let stderrData = '';
-      overrideStderrWrite(
-        (data) => (stderrData += data),
-        () => {
-          log.verbose('Verbose log');
-          log.success('Success log');
-        }
-      );
-      expect(stderrData).to.include('Verbose log');
-      expect(stderrData).to.include('Success log');
+      it('should write info level logs', () => {
+        let stderrData = '';
+        overrideStderrWrite(
+          (data) => (stderrData += data),
+          () => {
+            log.info('Info log');
+          }
+        );
+        expect(stderrData).to.include('Info log');
+      });
+
+      it('should not write debug level logs', () => {
+        let stderrData = '';
+        overrideStderrWrite(
+          (data) => (stderrData += data),
+          () => {
+            log.debug('Debug log');
+          }
+        );
+        expect(stderrData).to.not.include('Debug log');
+      });
     });
   });
 
