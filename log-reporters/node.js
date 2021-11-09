@@ -15,10 +15,8 @@ uniGlobal.legacyLogWrite = () => {};
 
 // Show modern logs
 
-if (!process.env.SLS_LOG_LEVEL && process.argv.includes('--verbose')) {
+if (process.env.SLS_LOG_LEVEL !== 'debug' && process.argv.includes('--verbose')) {
   process.env.SLS_LOG_LEVEL = 'info';
-  // TODO: Remove once support for global --verbose mode is added
-  process.argv.splice(process.argv.indexOf('--verbose'), 1);
 }
 
 const logReporter = require('../lib/log-reporters/node/log-reporter');
