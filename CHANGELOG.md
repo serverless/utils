@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.20.2](https://github.com/serverless/utils/compare/v5.20.1...v5.20.2) (2021-12-17)
+
+### Bug Fixes
+
+- **Log:** Ensure no doubled setup of the log reporter ([#150](https://github.com/serverless/utils/pull/150)) ([513e6d5](https://github.com/serverless/utils/commit/513e6d5b538a69862aea7ce34fa090d5a0782dd0)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [5.20.1](https://github.com/serverless/utils/compare/v5.20.0...v5.20.1) (2021-11-08)
 
 ### Bug Fixes
