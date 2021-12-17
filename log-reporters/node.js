@@ -2,6 +2,13 @@
 
 const uniGlobal = require('uni-global')('serverless/serverless/202110');
 
+if (uniGlobal.logLevelIndex != null) {
+  // An edge case, of log reporter being setup second time for Node.js process
+  // The only known scenario is `sls --version` being run with global v2 `serverless`
+  // installation, which falls back to locally installed v2 `serverless` installation
+  return;
+}
+
 const logMode = isFinite(process.env.SLS_DEV_LOG_MODE) ? Number(process.env.SLS_DEV_LOG_MODE) : 0;
 
 if (logMode & 2) {
