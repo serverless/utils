@@ -28,33 +28,7 @@ const getLog = () =>
   });
 
 describe('log-reporters/node.js', () => {
-  it('should not write legacy logs', () => {
-    let stdoutData = '';
-    overrideEnv(() => {
-      return overrideStdoutWrite(
-        (data) => (stdoutData += data),
-        () => {
-          const { legacy } = getLog();
-          legacy.write('foo');
-        }
-      );
-    });
-    expect(stdoutData).to.equal('');
-  });
-
-  it('should not write modern logs by default', () => {
-    let stdoutData = '';
-    overrideStdoutWrite(
-      (data) => (stdoutData += data),
-      () => {
-        const { log } = getLog();
-        log.error('Hey!');
-      }
-    );
-    expect(stdoutData).to.equal('');
-  });
-
-  describe('Modern logs: Default visibility', () => {
+  describe('Default visibility', () => {
     let log;
     let writeText;
     let restoreEnv;
@@ -125,7 +99,7 @@ describe('log-reporters/node.js', () => {
     });
   });
 
-  describe('Modern logs: Extended visibility', () => {
+  describe('Extended visibility', () => {
     describe('SLS_LOG_LEVEL env variable', () => {
       let log;
       let restoreEnv;
@@ -248,7 +222,7 @@ describe('log-reporters/node.js', () => {
     });
   });
 
-  describe('Modern logs: Style', () => {
+  describe('Style', () => {
     let style;
     let restoreEnv;
     before(() => {
@@ -269,7 +243,7 @@ describe('log-reporters/node.js', () => {
     });
   });
 
-  describe('Modern logs: Progress', () => {
+  describe('Progress', () => {
     let progress;
     let restoreEnv;
     let stdoutData = '';
@@ -322,7 +296,7 @@ describe('log-reporters/node.js', () => {
     });
   });
 
-  describe('Modern logs: Progress: Verbose', () => {
+  describe('Progress: Verbose', () => {
     let progress;
     let restoreEnv;
     let stdoutData = '';
