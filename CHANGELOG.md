@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.20.3](https://github.com/serverless/utils/compare/v5.20.2...v5.20.3) (2022-01-18)
+
+### Maintenance Improvements
+
+- **Log:** Configure modern logs for `config` util ([#152](https://github.com/serverless/utils/pull/152)) ([d055467](https://github.com/serverless/utils/commit/d055467c998c63ebc9c8e9a3fb9a266426bf1349)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [5.20.2](https://github.com/serverless/utils/compare/v5.20.1...v5.20.2) (2021-12-17)
 
 ### Bug Fixes
