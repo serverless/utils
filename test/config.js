@@ -1,6 +1,5 @@
 'use strict';
 
-const overrideStdoutWrite = require('process-utils/override-stdout-write');
 const chai = require('chai');
 const config = require('../config');
 const fs = require('fs');
@@ -61,21 +60,6 @@ describe('config', () => {
       const result = config.getConfig();
 
       expect(result).to.deep.equal(defaultGlobalConfig);
-    });
-
-    it('should emit warning about two global config files', () => {
-      let stdoutData = '';
-      delete require.cache[require.resolve('../log')];
-      delete require.cache[require.resolve('../config')];
-      overrideStdoutWrite(
-        (data) => (stdoutData += data),
-        () => {
-          require('../config').getConfig();
-        }
-      );
-
-      expect(stdoutData).to.include('Found two global configuration files');
-      expect(stdoutData).to.include(`Using: ${defaultGlobalConfigPath}`);
     });
   });
 
@@ -481,16 +465,10 @@ describe('config', () => {
       });
 
       it('should handle malformed config and move it to backup file', async () => {
-        let conf;
-        let stdoutData = '';
         delete require.cache[require.resolve('../log')];
         delete require.cache[require.resolve('../config')];
-        overrideStdoutWrite(
-          (data) => (stdoutData += data),
-          () => {
-            conf = require('../config').getConfig();
-          }
-        );
+
+        const conf = require('../config').getConfig();
 
         expect(conf).to.not.be.empty;
 
@@ -502,8 +480,6 @@ describe('config', () => {
         await expect(
           fs.promises.stat(localConfigFilePath)
         ).to.be.eventually.rejected.and.have.property('code', 'ENOENT');
-        expect(stdoutData).to.include('Cannot resolve local config file');
-        expect(stdoutData).to.include('Your previous local config was renamed');
       });
     });
 
@@ -524,16 +500,10 @@ describe('config', () => {
       });
 
       it('should handle malformed config file and regenerate it', async () => {
-        let conf;
-        let stdoutData = '';
         delete require.cache[require.resolve('../log')];
         delete require.cache[require.resolve('../config')];
-        overrideStdoutWrite(
-          (data) => (stdoutData += data),
-          () => {
-            conf = require('../config').getConfig();
-          }
-        );
+
+        const conf = require('../config').getConfig();
 
         expect(conf).to.not.be.empty;
 
@@ -543,10 +513,6 @@ describe('config', () => {
         ]);
         expect(backupConfigFile).to.equal(malformedConfigJson);
         expect(JSON.parse(regeneratedConfigFile)).to.deep.equal(conf);
-
-        expect(stdoutData).to.include('Cannot resolve global config file');
-        expect(stdoutData).to.include('Your previous global config was renamed');
-        expect(stdoutData).to.include('Default global config will be recreated');
       });
     });
 
@@ -570,16 +536,9 @@ describe('config', () => {
       });
 
       it('should handle malformed config file and regenerate it in default global location', async () => {
-        let conf;
-        let stdoutData = '';
         delete require.cache[require.resolve('../log')];
         delete require.cache[require.resolve('../config')];
-        overrideStdoutWrite(
-          (data) => (stdoutData += data),
-          () => {
-            conf = require('../config').getConfig();
-          }
-        );
+        const conf = require('../config').getConfig();
 
         expect(conf).to.not.be.empty;
 
@@ -589,10 +548,6 @@ describe('config', () => {
         ]);
         expect(backupConfigFile).to.equal(malformedConfigJson);
         expect(JSON.parse(regeneratedConfigFile)).to.deep.equal(conf);
-
-        expect(stdoutData).to.include('Cannot resolve global config file');
-        expect(stdoutData).to.include('Your previous global config was renamed');
-        expect(stdoutData).to.include('Default global config will be recreated');
       });
     });
   });
