@@ -7,7 +7,9 @@ const fs = require('fs');
 const _ = require('lodash');
 const writeFileAtomic = require('write-file-atomic');
 const uuid = require('uuid');
-const log = require('./log');
+const { log, legacy } = require('./log');
+
+const logDebug = log.get('config').debug;
 
 let baseFilename = 'serverless';
 if (process.env.SERVERLESS_PLATFORM_STAGE && process.env.SERVERLESS_PLATFORM_STAGE !== 'prod') {
@@ -27,9 +29,10 @@ const getGlobalConfigPath = () => {
   const defaultGlobalConfigExists = fs.existsSync(defaultGlobalConfigPath);
 
   if (homeConfigGlobalConfigExists && defaultGlobalConfigExists) {
-    log(`Found two global configuration files. Using: ${defaultGlobalConfigPath}`, {
+    legacy.log(`Found two global configuration files. Using: ${defaultGlobalConfigPath}`, {
       color: 'orange',
     });
+    log.warning(`Found two global configuration files. Using: ${defaultGlobalConfigPath}`);
     return defaultGlobalConfigPath;
   }
 
@@ -49,9 +52,13 @@ function storeConfig(config, configPath) {
   try {
     writeFileAtomic.sync(configPath, jsonConfig);
   } catch (error) {
+    logDebug(
+      `Unable to store serverless config: ${configPath} due to ${error.code} error`,
+      error.stack
+    );
     if (process.env.SLS_DEBUG) {
-      log(error.stack, { color: 'red' });
-      log(`Unable to store serverless config: ${configPath} due to ${error.code} error`, {
+      legacy.log(error.stack, { color: 'red' });
+      legacy.log(`Unable to store serverless config: ${configPath} due to ${error.code} error`, {
         color: 'red',
       });
     }
@@ -79,17 +86,25 @@ function getLocalConfig() {
     return JSON.parse(fs.readFileSync(localConfigPath));
   } catch (error) {
     if (error.code === 'ENOENT') return {};
-    log(`User Configuration warning: Cannot resolve local config file.\nError: ${error.message}`, {
-      color: 'orange',
-    });
+    log.warning(`Cannot resolve local config file.\nError: ${error.message}`);
+    legacy.log(
+      `User Configuration warning: Cannot resolve local config file.\nError: ${error.message}`,
+      { color: 'orange' }
+    );
     try {
       // try/catch to account for very unlikely race condition where file existed
       // during readFileSync but no longer exists during rename
       const backupServerlessrcPath = `${localConfigPath}.bak`;
       fs.renameSync(localConfigPath, backupServerlessrcPath);
-      log(`Your previous local config was renamed to ${backupServerlessrcPath} for debugging.`, {
-        color: 'orange',
-      });
+      log.warning(
+        `Your previous local config was renamed to ${backupServerlessrcPath} for debugging.`
+      );
+      legacy.log(
+        `Your previous local config was renamed to ${backupServerlessrcPath} for debugging.`,
+        {
+          color: 'orange',
+        }
+      );
     } catch {
       // Ignore
     }
@@ -105,7 +120,10 @@ function getGlobalConfig() {
   } catch (error) {
     // If the file does not exist, we want to recreate default global configuration
     if (error.code !== 'ENOENT') {
-      log(
+      log.warning(
+        `Cannot resolve global config file: ${globalConfigPath} \nError: ${error.message}`
+      );
+      legacy.log(
         `User Configuration warning: Cannot resolve global config file: ${globalConfigPath} \nError: ${error.message}`,
         {
           color: 'orange',
@@ -116,7 +134,11 @@ function getGlobalConfig() {
         // during readFileSync but no longer exists during rename
         const backupServerlessrcPath = `${globalConfigPath}.bak`;
         fs.renameSync(globalConfigPath, backupServerlessrcPath);
-        log(
+        log.warning(
+          `Your previous global config was renamed to ${backupServerlessrcPath} for debugging. ` +
+            `Default global config will be recreated under ${getDefaultGlobalConfigPath()}`
+        );
+        legacy.log(
           `Your previous global config was renamed to ${backupServerlessrcPath} for debugging. Default global config will be recreated under ${getDefaultGlobalConfigPath()}.`,
           { color: 'orange' }
         );
