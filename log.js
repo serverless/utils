@@ -1,10 +1,8 @@
 'use strict';
 
 const ensureString = require('type/string/ensure');
-const isObject = require('type/object/is');
 const d = require('d');
 const memoizee = require('memoizee');
-const chalk = require('chalk');
 const logLevels = require('log/levels');
 const uniGlobal = require('uni-global')('serverless/serverless/202110');
 const getOutputReporter = require('./lib/log/get-output-reporter');
@@ -15,48 +13,6 @@ const log = (() => {
   return uniGlobal.log;
 })();
 
-if (!uniGlobal.legacyLogWrite) {
-  uniGlobal.legacyLogWrite = (...args) => process.stdout.write(...args);
-}
-
-// Legacy interface, of which usage is scheduled to be replaced by modern one
-const getLegacyLog =
-  (write) =>
-  (message, options = {}) => {
-    const { underline = false, bold = false, color = null, entity = 'Serverless' } = options;
-
-    let print = chalk.yellow;
-
-    if (color) print = chalk.keyword(color);
-    if (underline) print = print.underline;
-    if (bold) print = print.bold;
-
-    // In order to support stripping entity prefix by passing "entity: null"
-    if (entity) write(`${entity}: ${print(message)}\n`);
-    else write(`${print(message)}\n`);
-  };
-
-// Note: Do not assign prebound function as it breaks in tests mocking of process.stdout.write
-module.exports = getLegacyLog((...args) => process.stdout.write(...args));
-
-// Legacy interface, used for old logs which have counterpart in new logs
-// (are to be shown exchangeably)
-const legacy = {
-  // Note: Do not assign prebound function as it breaks in tests mocking of process.stdout.write
-  write: (...args) => uniGlobal.legacyLogWrite(...args),
-  consoleLog: (message) => {
-    legacy.write(`${message}\n`);
-  },
-};
-const legacyLog = getLegacyLog((data) => legacy.write(data));
-legacy.log = (message, entity, opts) => {
-  if (isObject(entity)) legacyLog(message, entity);
-  else legacyLog(message, { ...opts, entity: entity || 'Serverless' });
-};
-
-module.exports.legacy = legacy;
-
-// Modern logging interface (to which old logs are currently migrated)
 module.exports.log = log;
 
 if (!log.verbose) {

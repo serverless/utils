@@ -9,12 +9,6 @@ if (uniGlobal.logLevelIndex != null) {
   return;
 }
 
-// Hide legacy logs
-// TODO: Remove once all legacy logs are removed from the core
-uniGlobal.legacyLogWrite = () => {};
-
-// Show modern logs
-
 if (process.env.SLS_LOG_LEVEL !== 'debug' && process.argv.includes('--verbose')) {
   process.env.SLS_LOG_LEVEL = 'info';
 }
