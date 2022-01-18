@@ -7,7 +7,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const writeFileAtomic = require('write-file-atomic');
 const uuid = require('uuid');
-const { log, legacy } = require('./log');
+const { log } = require('./log');
 
 const logDebug = log.get('config').debug;
 
@@ -29,9 +29,6 @@ const getGlobalConfigPath = () => {
   const defaultGlobalConfigExists = fs.existsSync(defaultGlobalConfigPath);
 
   if (homeConfigGlobalConfigExists && defaultGlobalConfigExists) {
-    legacy.log(`Found two global configuration files. Using: ${defaultGlobalConfigPath}`, {
-      color: 'orange',
-    });
     log.warning(`Found two global configuration files. Using: ${defaultGlobalConfigPath}`);
     return defaultGlobalConfigPath;
   }
@@ -56,12 +53,6 @@ function storeConfig(config, configPath) {
       `Unable to store serverless config: ${configPath} due to ${error.code} error`,
       error.stack
     );
-    if (process.env.SLS_DEBUG) {
-      legacy.log(error.stack, { color: 'red' });
-      legacy.log(`Unable to store serverless config: ${configPath} due to ${error.code} error`, {
-        color: 'red',
-      });
-    }
   }
 }
 
@@ -87,10 +78,6 @@ function getLocalConfig() {
   } catch (error) {
     if (error.code === 'ENOENT') return {};
     log.warning(`Cannot resolve local config file.\nError: ${error.message}`);
-    legacy.log(
-      `User Configuration warning: Cannot resolve local config file.\nError: ${error.message}`,
-      { color: 'orange' }
-    );
     try {
       // try/catch to account for very unlikely race condition where file existed
       // during readFileSync but no longer exists during rename
@@ -98,12 +85,6 @@ function getLocalConfig() {
       fs.renameSync(localConfigPath, backupServerlessrcPath);
       log.warning(
         `Your previous local config was renamed to ${backupServerlessrcPath} for debugging.`
-      );
-      legacy.log(
-        `Your previous local config was renamed to ${backupServerlessrcPath} for debugging.`,
-        {
-          color: 'orange',
-        }
       );
     } catch {
       // Ignore
@@ -123,12 +104,6 @@ function getGlobalConfig() {
       log.warning(
         `Cannot resolve global config file: ${globalConfigPath} \nError: ${error.message}`
       );
-      legacy.log(
-        `User Configuration warning: Cannot resolve global config file: ${globalConfigPath} \nError: ${error.message}`,
-        {
-          color: 'orange',
-        }
-      );
       try {
         // try/catch to account for very unlikely race condition where file existed
         // during readFileSync but no longer exists during rename
@@ -137,10 +112,6 @@ function getGlobalConfig() {
         log.warning(
           `Your previous global config was renamed to ${backupServerlessrcPath} for debugging. ` +
             `Default global config will be recreated under ${getDefaultGlobalConfigPath()}`
-        );
-        legacy.log(
-          `Your previous global config was renamed to ${backupServerlessrcPath} for debugging. Default global config will be recreated under ${getDefaultGlobalConfigPath()}.`,
-          { color: 'orange' }
         );
       } catch {
         // Ignore
