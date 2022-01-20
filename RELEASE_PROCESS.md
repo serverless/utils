@@ -14,7 +14,7 @@ PR's comming from branches have commit messages validated with [commmitlint](htt
 
 Releases are triggered manually by preparing a release PR's as follows
 
-1. Create a `release` branch (should derive from current `master` state)
+1. Create a `release` branch (should derive from current `main` state)
 2. Bump version ranges of _all_ dependencies to latest supported versions (e.g. if latest version of a dependency is `2.3.5` and range in a `package.json` is `^2.2.4` then it should be updated to `^2.3.5`)  
    _Note: Unfortunately there seems no reliable utility to automate that (there's a [request at `npm-check-updates`](https://github.com/tjunnone/npm-check-updates/issues/581))  
    If you handle installation of dependencies through [npm-cross-link](https://github.com/medikoo/npm-cross-link#npm-cross-link) then [`--bump-deps`](https://github.com/medikoo/npm-cross-link#general-options) option will bump version ranges as expected_
@@ -31,13 +31,13 @@ Releases are triggered manually by preparing a release PR's as follows
 
 Further actions are automated in CI context:
 
-8. `master` CI build detects that release PR was merged (by fact that it covers change of `version` field in `package.json` file). Having that (after successful tests pass) version tag is created and pushed to the repository.
+8. `main` CI build detects that release PR was merged (by fact that it covers change of `version` field in `package.json` file). Having that (after successful tests pass) version tag is created and pushed to the repository.
 9. _tag_ CI build, publishes new version to npm, also it retrieves release notes from CHANGELOG.md and publishes them to GitHub.
 
 ### Updating release notes for already published versions
 
 Improvements to release notes can be done at anytime to any already published version:
 
-1. Update `CHANGELOG.md` with desired changes (ensure they'd also end in `master`)
+1. Update `CHANGELOG.md` with desired changes (ensure they'd also end in `main`)
 2. Push updated release notes to GitHub by running:  
    `npx github-release-from-cc-changelog <version>`

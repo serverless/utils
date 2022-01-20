@@ -1,10 +1,10 @@
-# master only
+# main only
 
 name: Integrate
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 env:
   FORCE_COLOR: 1
@@ -85,9 +85,7 @@ jobs:
             ~/.npm
             node_modules
           key: npm-v16-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
-          restore-keys: |
-            npm-v16-${{ runner.os }}-${{ github.ref }}-
-            npm-v16-${{ runner.os }}-refs/heads/master-
+          restore-keys: npm-v16-${{ runner.os }}-${{ github.ref }}-
 
       - name: Install Node.js and npm
         uses: actions/setup-node@v1
