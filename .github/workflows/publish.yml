@@ -26,7 +26,7 @@ jobs:
           path: |
             ~/.npm
             node_modules
-          key: npm-v14-${{ runner.os }}-refs/heads/master-${{ hashFiles('package.json') }}
+          key: npm-v14-${{ runner.os }}-refs/heads/main-${{ hashFiles('package.json') }}
 
       - name: Install Node.js and npm
         uses: actions/setup-node@v1
@@ -43,7 +43,7 @@ jobs:
 
       # Note: No need to install dependencies as:
       # 1. We have retrieved cached `node_modules` for very same `package.json`
-      #    as stored with recent `master `build
+      #    as stored with recent `main` build
       # 2. If for some reason cache retrieval fails `npx` will download and install
       #    `github-release-from-cc-changelog`
 
