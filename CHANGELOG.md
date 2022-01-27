@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/serverless/utils/compare/v5.20.3...v6.0.0) (2022-01-27)
+
+### ⚠ BREAKING CHANGES
+
+- **Log:** Remove legacy logs interface, only modern interface as the only to be used is now exposed
+- Node.js version 12 or later is required (dropped support for v10)
+
+### Features
+
+- **Log:** Remove legacy logs interface ([#154](https://github.com/serverless/utils/pull/154)) ([7bfbdea](https://github.com/serverless/utils/commit/7bfbdea589a92c3021981aa1e9c738e48b5d4464)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Log:** Setup new log writers ([#141](https://github.com/serverless/utils/pull/141)) ([2c18da7](https://github.com/serverless/utils/commit/2c18da7be00599dd67d5014a5c6016f5c488da20)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Log:** Support global `--debug` flag ([#149](https://github.com/serverless/utils/pull/149)) ([3c0909c](https://github.com/serverless/utils/commit/3c0909cf0f410bc32216c8ecd51080b1ab85beba)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Log:** Support global `--verbose` flag ([#149](https://github.com/serverless/utils/pull/149)) ([55f5432](https://github.com/serverless/utils/commit/55f5432073328558f83668d3760442637e61c9c2)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- Drop support for Node.js versions below v12 ([6aee6ab](https://github.com/serverless/utils/commit/6aee6abe961bfb80d514e7e90296164e46046602)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Log:** Remove legacy logs ([b435765](https://github.com/serverless/utils/commit/b435765f54b3988d7b43d33a5baa3d970d4c200e)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [5.20.3](https://github.com/serverless/utils/compare/v5.20.2...v5.20.3) (2022-01-18)
 
 ### Maintenance Improvements
