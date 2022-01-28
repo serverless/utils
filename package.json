@@ -20,7 +20,7 @@
     "filenamify": "^4.3.0",
     "get-stream": "^6.0.1",
     "got": "^11.8.3",
-    "inquirer": "^7.3.3",
+    "inquirer": "^8.2.0",
     "js-yaml": "^4.1.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
