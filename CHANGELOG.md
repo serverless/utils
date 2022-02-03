@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.1](https://github.com/serverless/utils/compare/v6.0.0...v6.0.1) (2022-02-03)
+
+### Maintenance Improvements
+
+- Replace `ncjsm/resolve` with native `createRequire` ([#158](https://github.com/serverless/utils/pull/158)) ([551c0ad](https://github.com/serverless/utils/commit/551c0ad58d777e1b906ba56e85bcf4258f8a5403)), ([Mariusz Nowak](https://github.com/medikoo))
+- Upgrade `inquirer` to v8 ([#158](https://github.com/serverless/utils/pull/158)) ([f379b13](https://github.com/serverless/utils/commit/f379b136df7998ffdee122e6e34fd20ef7c34399)) ([Mariusz Nowak](https://github.com/medikoo))
+- Upgrade `write-file-atomic` to v4 ([#158](https://github.com/serverless/utils/pull/158)) ([70b6b1a](https://github.com/serverless/utils/commit/70b6b1a63a2ac2c6059145146ca310c70d658e62)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.0.0](https://github.com/serverless/utils/compare/v5.20.3...v6.0.0) (2022-01-27)
 
 ### ⚠ BREAKING CHANGES
