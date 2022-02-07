@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.2](https://github.com/serverless/utils/compare/v6.0.1...v6.0.2) (2022-02-07)
+
+### Bug Fixes
+
+- Check if `stdout.isTTY` for interactive ([#160](https://github.com/serverless/utils/pull/160)) ([3a6ec04](https://github.com/serverless/utils/commit/3a6ec04adc171e606a5fe6b06338b0ca23625f84)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ### [6.0.1](https://github.com/serverless/utils/compare/v6.0.0...v6.0.1) (2022-02-03)
 
 ### Maintenance Improvements
