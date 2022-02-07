@@ -34,7 +34,8 @@ const logLevelIndex = logLevels.includes(process.env.SLS_LOG_LEVEL)
   ? logLevels.indexOf(process.env.SLS_LOG_LEVEL)
   : logLevels.indexOf('notice');
 
-const isInteractive = process.stdin.isTTY || process.env.SLS_INTERACTIVE_SETUP_ENABLE;
+const isInteractive =
+  (process.stdin.isTTY && process.stdout.isTTY) || process.env.SLS_INTERACTIVE_SETUP_ENABLE;
 
 // Apply style decorators
 require('../lib/log-reporters/node/style');
