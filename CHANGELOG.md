@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.3](https://github.com/serverless/utils/compare/v6.0.2...v6.0.3) (2022-03-02)
+
+### Maintenance Improvements
+
+- Disable interactivity when `process.env.CI` set ([#162](https://github.com/serverless/utils/pull/162)) ([ec58f2d](https://github.com/serverless/utils/commit/ec58f2de83c034bc84a73f9d321164b8a8f8ffd9)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ### [6.0.2](https://github.com/serverless/utils/compare/v6.0.1...v6.0.2) (2022-02-07)
 
 ### Bug Fixes
