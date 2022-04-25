@@ -20,4 +20,5 @@ npm install @serverless/utils
 - [`logReporters`](docs/log-reporters.md)
 - [`log`](docs/log.md)
 - [`processBackendNotificationRequest`](docs/process-backend-notification-request.md)
+- [`ServerlessError`](docs/serverless-error.md)
 - [`telemetry`](docs/telemetry.md)
