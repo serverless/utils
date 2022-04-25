@@ -1,6 +1,6 @@
 # @serverless/utils
 
-## Serverless CLI utilities
+## Serverless Inc. CLIs internal utilities
 
 ### Installation
 
