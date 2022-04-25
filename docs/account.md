@@ -1,5 +1,7 @@
 ## Utilities related to user account
 
+_Note: Utilities aid old (to be deprecated and removed) authentication & authorization system_
+
 User account related utilities that also interact with stored config file. Several methods depend on `sdk` parameter, which should be provided as an instance of `ServerlessSDK` from `@serverless/platform-client` library.
 
 ```javascript
