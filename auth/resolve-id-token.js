@@ -96,7 +96,7 @@ module.exports = async () => {
     log.debug('Unexpected response value', responseObject);
     throw new ServerlessError(
       'Cannot initialize login session due to unexpected server response, please try again later',
-      'CONSOLE_LOGIN_SESSION_INVALID_RESPONSE'
+      'CONSOLE_ID_TOKEN_RETRIEVAL_INVALID_RESPONSE'
     );
   }
   data.idToken = idToken;
