@@ -107,7 +107,7 @@ const getRefreshToken = async (sessionId) => {
       'CONSOLE_LOGIN_INVALID_RESPONSE'
     );
   }
-  if (responseObject.status === 'FAILED') {
+  if (responseObject.status === 'failed') {
     log.debug('Login rejected', responseObject);
     throw new ServerlessError(
       'Login was rejected, please try again later',
