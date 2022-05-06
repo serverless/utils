@@ -64,9 +64,10 @@ describe('test/auth/logout.test.js', () => {
     });
   });
 
-  it('should login', async () => {
+  it('should logout', async () => {
+    expect(logout()).to.be.false;
     await login();
-    logout();
+    expect(logout()).to.be.true;
     expect(configUtils.get('auth.refreshToken') == null).to.be.true;
   });
 });

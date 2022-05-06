@@ -13,7 +13,7 @@ await login();
 
 ### `logout`
 
-Logout (clear stored refresh token).
+Logout (clear stored refresh token). Returns `true` if there was a logged in user, `false` in case of no-op.
 
 ```javascript
 const logout = require('@serverless/utils/auth/logout');
