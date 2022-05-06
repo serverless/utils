@@ -52,3 +52,14 @@ const getOrgId = require('@serverless/utils/auth/get-org-id');
 ...
 const orgId = await getOrgId(orgName)
 ```
+
+### `isAuthenticated`
+
+Confirm wether user is logged in (we have access to valid `idToken`)
+
+```javascript
+const isAuthenticated = require('@serverless/utils/auth/is-authenticated');
+...
+if (await isAuthenticated()) console.log("User logged in");
+else console.log("No user logged in");
+```
