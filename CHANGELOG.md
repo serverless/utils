@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/serverless/utils/compare/v6.0.3...v6.1.0) (2022-05-06)
+
+### Features
+
+- **Auth:** Authentication utilities for new Identity system ([#165](https://github.com/serverless/utils/pull/165)) ([b1fed4d](https://github.com/serverless/utils/commit/b1fed4dcec4fd7e1e13a1686d5e1c25d87614f5e)) ([Mariusz Nowak](https://github.com/medikoo))
+- `ServerlessError` to report user errors ([#164](https://github.com/serverless/utils/pull/164)) ([11cdc1c](https://github.com/serverless/utils/commit/11cdc1cff4be06b20f15c4b3807d281c2176f276)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [6.0.3](https://github.com/serverless/utils/compare/v6.0.2...v6.0.3) (2022-03-02)
 
 ### Maintenance Improvements
