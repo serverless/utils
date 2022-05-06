@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.2.0](https://github.com/serverless/utils/compare/v6.1.0...v6.2.0) (2022-05-06)
+
+### Features
+
+- **Auth:** Report from `logout` whether there was a logged in user ([#169](https://github.com/serverless/utils/pull/169)) ([45c4300](https://github.com/serverless/utils/commit/45c4300ed0fe5356116b989b926024771c48a1b5)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.1.0](https://github.com/serverless/utils/compare/v6.0.3...v6.1.0) (2022-05-06)
 
 ### Features
