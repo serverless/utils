@@ -6,7 +6,6 @@ const open = require('open');
 const wait = require('timers-ext/promise/sleep');
 const ServerlessError = require('../serverless-error');
 const log = require('../log').log.get('auth');
-const { style } = require('../log');
 const configUtils = require('../config');
 const urls = require('../lib/auth/urls');
 
@@ -129,7 +128,6 @@ const getRefreshToken = async (sessionId) => {
 
 module.exports = async (options = {}) => {
   if (!_.isObject(options)) options = {};
-  log.notice('Logging into the Serverless Console via the browser');
 
   const sessionId = await createLoginSession();
   const params = new URLSearchParams({
@@ -140,16 +138,9 @@ module.exports = async (options = {}) => {
 
   const loginUrl = `${urls.frontend}?${params}`;
   open(loginUrl);
-  log.notice(
-    style.aside('If your browser does not open automatically, please open this URL:', loginUrl)
-  );
+  if (options.onLoginUrl) options.onLoginUrl(loginUrl);
 
   const refreshToken = await getRefreshToken(sessionId);
 
   configUtils.set('auth', { refreshToken });
-
-  log.notice();
-  log.notice.success("You are now logged into the Serverless Console'");
-  log.notice();
-  log.notice('Learn more at https://www.serverless.com/console/docs');
 };
