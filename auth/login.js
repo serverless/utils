@@ -23,14 +23,11 @@ const createLoginSession = async () => {
   })();
   if (!response.ok) {
     log.debug('Cannot create login session', response.status);
-    try {
-      log.debug('Server response text', await response.text());
-    } catch {
-      /* ignore */
-    }
+    const responseText = await response.text();
+    if (response.status < 500) throw new Error(`Console server error: ${responseText}`);
     throw new ServerlessError(
       'Cannot initialize login session at this point, please try again later',
-      'CONSOLE_LOGIN_SESSION_INITIALIZATION_REJECTED'
+      'CONSOLE_SERVER_REQUEST_FAILED'
     );
   }
   const responseObject = await (async () => {
@@ -73,14 +70,11 @@ const getRefreshToken = async (sessionId) => {
   })();
   if (!response.ok) {
     log.debug('Canot retrieve refresh token', response.status);
-    try {
-      log.debug('Server response text', await response.text());
-    } catch {
-      /* ignore */
-    }
+    const responseText = await response.text();
+    if (response.status < 500) throw new Error(`Console server error: ${responseText}`);
     throw new ServerlessError(
       'Cannot login at this point, please try again later',
-      'CONSOLE_LOGIN_REJECTED'
+      'CONSOLE_SERVER_REQUEST_FAILED'
     );
   }
   const responseObject = await (async () => {

@@ -57,22 +57,15 @@ module.exports = async () => {
   })();
   if (!response.ok) {
     log.debug('Canot resolve idToken', response.status);
-    try {
-      log.debug('Server response text', await response.text());
-    } catch {
-      /* ignore */
-    }
+    const responseText = await response.text();
     if (response.status < 500) {
       logout();
       delete data.refreshToken;
-      throw new ServerlessError(
-        'Cannot resolve authentication token, please login again',
-        'CONSOLE_ID_TOKEN_RETRIEVAL_REJECTED'
-      );
+      throw new Error(`Console server error: ${responseText}`);
     }
     throw new ServerlessError(
       'Cannot resolve Console authentication token, please try again later',
-      'CONSOLE_ID_TOKEN_RETRIEVAL_FAILED'
+      'CONSOLE_SERVER_REQUEST_FAILED'
     );
   }
   const responseObject = await (async () => {
