@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.3.0](https://github.com/serverless/utils/compare/v6.2.0...v6.3.0) (2022-05-06)
+
+### Features
+
+- **Auth:**
+  - `getOrgId` utility ([#172](https://github.com/serverless/utils/pull/172)) ([20b29d8](https://github.com/serverless/utils/commit/20b29d84af6b55e428774d269cee3753d93359f1)) ([Mariusz Nowak](https://github.com/medikoo))
+  - `isAuthenticated` util ([#172](https://github.com/serverless/utils/pull/172)) ([1bfed6c](https://github.com/serverless/utils/commit/1bfed6c1d2e19a34fc04faa9d75da0ad4c9adbd2)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Auth:**
+  - Fix error code ([#172](https://github.com/serverless/utils/pull/172)) ([d6bab1a](https://github.com/serverless/utils/commit/d6bab1abaa963bb2737c1aa69e1ba7afb1e4b70b)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Improve server errors handling ([#172](https://github.com/serverless/utils/pull/172)) ([49f7632](https://github.com/serverless/utils/commit/49f76324ceaf7aa498b2f2b619233bd7de65431f)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Refactor utils to be CLI agnostic ([#171](https://github.com/serverless/utils/pull/171)) ([fa05f40](https://github.com/serverless/utils/commit/fa05f407a5b94395cdf54d47f1ea592462717436)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.2.0](https://github.com/serverless/utils/compare/v6.1.0...v6.2.0) (2022-05-06)
 
 ### Features
