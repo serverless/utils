@@ -127,11 +127,18 @@ const getRefreshToken = async (sessionId) => {
   return getRefreshToken(sessionId);
 };
 
-module.exports = async () => {
+module.exports = async (options = {}) => {
+  if (!_.isObject(options)) options = {};
   log.notice('Logging into the Serverless Console via the browser');
 
   const sessionId = await createLoginSession();
-  const loginUrl = `${urls.frontend}?client=cli&transactionId=${sessionId}`;
+  const params = new URLSearchParams({
+    client: options.clientName || 'cli',
+    transactionId: sessionId,
+  });
+  if (options.clientVersion) params.append('clientVersion', options.clientVersion);
+
+  const loginUrl = `${urls.frontend}?${params}`;
   open(loginUrl);
   log.notice(
     style.aside('If your browser does not open automatically, please open this URL:', loginUrl)
