@@ -12,6 +12,7 @@ npm install @serverless/utils
 
 - [`account`](docs/account.md)
 - [`analyticsAndNotificationsUrl`](docs/analytics-and-notifications-url.md)
+- [`auth`](docs/auth.md)
 - [`cloudformationSchema`](docs/cloudformation-schema.md)
 - [`config`](docs/config.md)
 - [`download`](docs/download.md)
