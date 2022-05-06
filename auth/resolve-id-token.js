@@ -92,7 +92,7 @@ module.exports = async () => {
     }
   })();
   const idToken = _.get(responseObject, 'idToken');
-  if (!idToken) {
+  if (!idToken || !responseObject.refreshToken) {
     log.debug('Unexpected response value', responseObject);
     throw new ServerlessError(
       'Cannot initialize login session due to unexpected server response, please try again later',
@@ -103,6 +103,6 @@ module.exports = async () => {
   const idTokenData = jwtDecode(data.idToken);
   log.debug('id token data: %o', idTokenData);
   idTokenExpiresAt = idTokenData.exp * 1000;
-  configUtils.set('auth.idToken', idToken);
+  configUtils.set({ auth: { idToken, refreshToken: responseObject.refreshToken } });
   return idToken;
 };

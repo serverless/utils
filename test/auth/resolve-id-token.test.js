@@ -22,24 +22,28 @@ describe('test/auth/resolve-id-token.test.js', () => {
     beforeEach(() => {
       resolveIdToken = requireUncached(() =>
         proxyquire('../../auth/resolve-id-token', {
-          'node-fetch': sinon.stub().callsFake(async (url, { method } = { method: 'GET' }) => {
-            log.debug('fetch request %s %o', url, method);
-            switch (method) {
-              case 'POST':
-                if (url.endsWith('/auth/tokens/refresh')) {
-                  return {
-                    ok: true,
-                    json: async () => ({
-                      idToken: activeIdToken,
-                    }),
-                  };
-                }
-                break;
+          'node-fetch': sinon
+            .stub()
+            .callsFake(async (url, { method, body } = { method: 'GET' }) => {
+              log.debug('fetch request %s %o', url, method);
+              switch (method) {
+                case 'POST':
+                  if (url.endsWith('/auth/tokens/refresh')) {
+                    const bodyObject = JSON.parse(body);
+                    return {
+                      ok: true,
+                      json: async () => ({
+                        idToken: activeIdToken,
+                        refreshToken: bodyObject.refreshToken,
+                      }),
+                    };
+                  }
+                  break;
 
-              default:
-            }
-            throw new Error(`Unexpected request: ${url} method: ${method}`);
-          }),
+                default:
+              }
+              throw new Error(`Unexpected request: ${url} method: ${method}`);
+            }),
         })
       );
     });
