@@ -22,20 +22,20 @@ logout();
 // No logged in user
 ```
 
-### `resolveIdToken`
+### `resolveToken`
 
-Resolve valid `idToken` required for any exchange with Serverless Inc. API.
+Resolve valid authentication token required for any exchange with Serverless Inc. API.
 Once resolved, tokens are cached for instant resolution until they expire.
 
 _Note: Resolved token should never be stored in outer logic. In all cases all calls to API should hit this utility directly to retrieve the id token._
 
-Token is resolved either via _refresh token_ stored for logged-in CLI users or is assumed from `SLS_ORG_TOKEN` environment variable where in CI/CD cases non expiring token is expected to be provided
+Token is either an _id token_ resolved via _refresh token_ stored for logged-in CLI users or it's an _org token_ assumed from `SLS_ORG_TOKEN` environment variable where in CI/CD cases non expiring token is expected to be provided
 
 ```javascript
-const resolveIdToken = require('@serverless/utils/auth/resolve-id-token');
+const resolveAuthToken = require('@serverless/utils/auth/resolve-token');
 ...
 const responseData = await someServerlessIncApiCall.request({
-  idToken: await resolveIdToken()
+  idToken: await resolveAuthToken()
 });
 ```
 

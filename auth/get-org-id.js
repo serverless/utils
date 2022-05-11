@@ -7,7 +7,7 @@ const fetch = require('node-fetch');
 const log = require('../log').log.get('auth');
 const ServerlessError = require('../serverless-error');
 const backendUrl = require('../lib/auth/urls').backend;
-const resolveIdToken = require('./resolve-id-token');
+const resolveIdToken = require('./resolve-token');
 
 module.exports = memoizee(
   async (name) => {

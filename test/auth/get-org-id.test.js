@@ -15,7 +15,7 @@ describe('test/auth/get-org-id.test.js', () => {
   beforeEach(() => {
     getOrgId = requireUncached(() =>
       proxyquire('../../auth/get-org-id', {
-        './resolve-id-token': async () => 'token',
+        './resolve-token': async () => 'token',
         'node-fetch': sinon.stub().callsFake(async (url, { method } = { method: 'GET' }) => {
           log.debug('fetch request %s %o', url, method);
           switch (method) {
