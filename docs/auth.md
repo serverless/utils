@@ -53,13 +53,21 @@ const getOrgId = require('@serverless/utils/auth/get-org-id');
 const orgId = await getOrgId(orgName)
 ```
 
-### `isAuthenticated`
+### `resolveMode`
 
-Confirm wether user is logged in (we have access to valid `idToken`)
+Confirm wether we're authenticated and with what kind of authentication (either as `users`, or as an `org`)
 
 ```javascript
-const isAuthenticated = require('@serverless/utils/auth/is-authenticated');
+const resolveAuthMode = require('@serverless/utils/auth/resolve-mode');
 ...
-if (await isAuthenticated()) console.log("User logged in");
-else console.log("No user logged in");
+switch (await resolveAuthMode()) {
+  case "user":
+    console.log("We're authenticated as a logged-in user");
+    break;
+  case "org":
+    console.log("We're authenticated with org token");
+    break;
+  default:
+    console.log("We're not authenticated");
+}
 ```
