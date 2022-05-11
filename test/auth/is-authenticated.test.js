@@ -10,22 +10,22 @@ chai.use(require('chai-as-promised'));
 
 let isAutenticated;
 describe('test/auth/is-authenticated.test.js', () => {
-  let resolveIdToken;
+  let resolveAuthenticationToken;
   beforeEach(() => {
     isAutenticated = requireUncached(() =>
       proxyquire('../../auth/is-authenticated', {
-        './resolve-id-token': async () => resolveIdToken(),
+        './resolve-token': async () => resolveAuthenticationToken(),
       })
     );
   });
 
   it('should return true, when id token provided', async () => {
-    resolveIdToken = () => 'token';
+    resolveAuthenticationToken = () => 'token';
     expect(await isAutenticated()).to.be.true;
   });
 
   it('should return false, when logged out', async () => {
-    resolveIdToken = () => {
+    resolveAuthenticationToken = () => {
       throw new ServerlessError('Not logged in', 'CONSOLE_LOGGED_OUT');
     };
     expect(await isAutenticated()).to.be.false;

@@ -1,10 +1,10 @@
 'use strict';
 
-const resolveIdToken = require('./resolve-id-token');
+const resolveAuthToken = require('./resolve-token');
 
 module.exports = async () => {
   try {
-    await resolveIdToken();
+    await resolveAuthToken();
     return true;
   } catch (error) {
     if (error.code === 'CONSOLE_LOGGED_OUT') return false;

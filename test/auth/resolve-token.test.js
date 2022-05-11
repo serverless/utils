@@ -17,11 +17,11 @@ const expiredIdToken =
   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTTFMyIiwiaWF0IjoxNjExNzQwMzU4LCJleHAiOjE2MTE3NTAzNTgsImF1ZCI6InNscyIsInN1YiI6InNsc0BzbHMuY29tIn0.lHIztOZK5TaqVsNfc1BAA6whNU1E3ON5TxBpRlqpyuc';
 let resolveIdToken;
 
-describe('test/auth/resolve-id-token.test.js', () => {
+describe('test/auth/resolve-token.test.js', () => {
   describe('regular', () => {
     beforeEach(() => {
       resolveIdToken = requireUncached(() =>
-        proxyquire('../../auth/resolve-id-token', {
+        proxyquire('../../auth/resolve-token', {
           'node-fetch': sinon
             .stub()
             .callsFake(async (url, { method, body } = { method: 'GET' }) => {
@@ -78,7 +78,7 @@ describe('test/auth/resolve-id-token.test.js', () => {
   describe('CI/CD', () => {
     before(() => {
       process.env.SLS_ORG_TOKEN = 'foo';
-      resolveIdToken = requireUncached(() => require('../../auth/resolve-id-token'));
+      resolveIdToken = requireUncached(() => require('../../auth/resolve-token'));
     });
 
     after(() => {
