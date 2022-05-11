@@ -39,20 +39,6 @@ const responseData = await someServerlessIncApiCall.request({
 });
 ```
 
-### `getOrgId`
-
-Resolve _org id_ for provided _org name_ (which in regular case should be read from service `org` setting, or `org` CLI param).
-
-Request will fail if logged in user does not belong to passed org.
-
-_Org id_ is needed for CLI communication with Console backend
-
-```javascript
-const getOrgId = require('@serverless/utils/auth/get-org-id');
-...
-const orgId = await getOrgId(orgName)
-```
-
 ### `resolveMode`
 
 Confirm wether we're authenticated and with what kind of authentication (either as `users`, or as an `org`)
