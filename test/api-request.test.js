@@ -16,6 +16,7 @@ describe('test/api-request.test.js', () => {
     api = requireUncached(() =>
       proxyquire('../api-request', {
         './auth/resolve-token': async () => 'token',
+        './auth/resolve-mode': async () => 'user',
         'node-fetch': sinon.stub().callsFake(async (url, { method } = { method: 'GET' }) => {
           log.debug('fetch request %s %o', url, method);
           switch (method) {
