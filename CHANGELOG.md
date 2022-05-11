@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.4.0](https://github.com/serverless/utils/compare/v6.3.0...v6.4.0) (2022-05-11)
+
+### Features
+
+- **Auth:**
+  - Rename `resolveIdToken` to `resolveToken` ([#174](https://github.com/serverless/utils/pull/174)) ([261fa75](https://github.com/serverless/utils/commit/261fa751d1bbe08d965bd09e190a2f64472b945a)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Replace `isAuthenticated` with `resolveMode` ([#174](https://github.com/serverless/utils/pull/174)) ([d7af467](https://github.com/serverless/utils/commit/d7af4673145fb15eb947168a966bfe732e3e6446)) ([Mariusz Nowak](https://github.com/medikoo))
+- `apiRequest` util (and remove `auth.getOrgId`) ([#174](https://github.com/serverless/utils/pull/174)) ([c2df18a](https://github.com/serverless/utils/commit/c2df18ab68cb6cc12bb10064b48944e39ecb40c1)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Auth:** Ensure to send required header with org token ([#174](https://github.com/serverless/utils/pull/174)) ([aa37b21](https://github.com/serverless/utils/commit/aa37b21df23a14b36b180731712d6b33fa295376)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.3.0](https://github.com/serverless/utils/compare/v6.2.0...v6.3.0) (2022-05-06)
 
 ### Features
