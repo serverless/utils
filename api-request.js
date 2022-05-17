@@ -44,7 +44,9 @@ module.exports = async (pathname, options = {}) => {
   if (!response.ok) {
     const responseText = await response.text();
     if (response.status < 500) {
-      throw new Error(`Console server error: [${response.status}] ${responseText}`);
+      throw Object.assign(new Error(`Console server error: [${response.status}] ${responseText}`), {
+        code: `CONSOLE_SERVER_ERROR_${response.status}`,
+      });
     }
     log.debug('Console server error %d %s', response.status, responseText);
     throw new ServerlessError(
