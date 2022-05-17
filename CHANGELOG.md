@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.5.0](https://github.com/serverless/utils/compare/v6.4.1...v6.5.0) (2022-05-17)
+
+### Features
+
+- **API (experimental):**
+  - Extend generic request handler to support all methods ([#178](https://github.com/serverless/utils/pull/178)) ([a4cae48](https://github.com/serverless/utils/commit/a4cae4861c917d6c9a278c520739be90ae6f2b36)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Do not hard code url prefix ([#178](https://github.com/serverless/utils/pull/178)) ([87cc2d5](https://github.com/serverless/utils/commit/87cc2d585174234c7e2b443954de8fbcd7c4b397)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Expose 4xx response status in error code ([#178](https://github.com/serverless/utils/pull/178)) ([09bb2b6](https://github.com/serverless/utils/commit/09bb2b6883a177bf7279fc3a56af0247a06726d3)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Expose status code as `httpStatusCode` on error ([#178](https://github.com/serverless/utils/pull/178)) ([015cb0e](https://github.com/serverless/utils/commit/015cb0e8324b747659502976739e0976f9b5e2a1)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **API:** Improve debug logs ([#178](https://github.com/serverless/utils/pull/178)) ([385003c](https://github.com/serverless/utils/commit/385003ca9609cf4cd2e4150ba6db95a13cd65561)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [6.4.1](https://github.com/serverless/utils/compare/v6.4.0...v6.4.1) (2022-05-17)
 
 ### Maintenance Improvements
