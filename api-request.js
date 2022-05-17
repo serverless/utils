@@ -46,6 +46,7 @@ module.exports = async (pathname, options = {}) => {
     if (response.status < 500) {
       throw Object.assign(new Error(`Console server error: [${response.status}] ${responseText}`), {
         code: `CONSOLE_SERVER_ERROR_${response.status}`,
+        httpStatusCode: response.status,
       });
     }
     log.debug('Console server error %d %s', response.status, responseText);
