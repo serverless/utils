@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.4.1](https://github.com/serverless/utils/compare/v6.4.0...v6.4.1) (2022-05-17)
+
+### Maintenance Improvements
+
+- **Auth:** Add debug logs ([#176](https://github.com/serverless/utils/pull/176)) ([c5b9629](https://github.com/serverless/utils/commit/c5b96290e44cbe5e6d0cb74ae2a1374108c5013d)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.4.0](https://github.com/serverless/utils/compare/v6.3.0...v6.4.0) (2022-05-11)
 
 ### Features
