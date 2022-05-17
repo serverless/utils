@@ -18,7 +18,7 @@ module.exports = async (pathname, options = {}) => {
   const authMethod = await resolveAuthMethod();
   if (!authMethod) throw new Error('Not authenticated to send request to the Console server');
   const response = await (async () => {
-    const url = `${backendUrl}/api/identity${pathname}`;
+    const url = `${backendUrl}${pathname}`;
     const headers = {
       'Authorization': `Bearer ${await resolveAuthToken()}`,
       'Content-Type': 'application/json',
