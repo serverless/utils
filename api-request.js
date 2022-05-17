@@ -4,11 +4,13 @@ const ensureString = require('type/string/ensure');
 const isObject = require('type/object/is');
 const ensurePlainObject = require('type/plain-object/ensure');
 const fetch = require('node-fetch');
-const log = require('./log').log.get('auth');
+const log = require('./log').log.get('api');
 const ServerlessError = require('./serverless-error');
 const backendUrl = require('./lib/auth/urls').backend;
 const resolveAuthToken = require('./auth/resolve-token');
 const resolveAuthMethod = require('./auth/resolve-mode');
+
+let requestIdCounter = 0;
 
 module.exports = async (pathname, options = {}) => {
   pathname = ensureString(pathname, { name: 'pathname' });
@@ -17,6 +19,7 @@ module.exports = async (pathname, options = {}) => {
   const body = ensurePlainObject(options.body, { name: 'options.body', isOptional: true });
   const authMethod = await resolveAuthMethod();
   if (!authMethod) throw new Error('Not authenticated to send request to the Console server');
+  const requestId = ++requestIdCounter;
   const response = await (async () => {
     const url = `${backendUrl}${pathname}`;
     const headers = {
@@ -29,7 +32,7 @@ module.exports = async (pathname, options = {}) => {
       headers,
     };
     if (body) fetchOptions.body = JSON.stringify(body);
-    log.debug('request: %s, options: %o', url, fetchOptions);
+    log.debug('[%d] %s, options: %o', requestId, url, fetchOptions);
     try {
       return await fetch(url, fetchOptions);
     } catch (error) {
@@ -40,16 +43,16 @@ module.exports = async (pathname, options = {}) => {
       );
     }
   })();
-  log.debug('response: %d, headers: %o', response.status, response.headers);
+  log.debug('[%d] %d, %o', requestId, response.status, response.headers);
   if (!response.ok) {
     const responseText = await response.text();
+    log.debug('[%d] %s', requestId, responseText);
     if (response.status < 500) {
       throw Object.assign(new Error(`Console server error: [${response.status}] ${responseText}`), {
         code: `CONSOLE_SERVER_ERROR_${response.status}`,
         httpStatusCode: response.status,
       });
     }
-    log.debug('Console server error %d %s', response.status, responseText);
     throw new ServerlessError(
       'Console server is unavailable, please try again later',
       'CONSOLE_SERVER_REQUEST_FAILED'
@@ -61,11 +64,11 @@ module.exports = async (pathname, options = {}) => {
         return await response.json();
       } catch (error) {
         const responseText = await response.text();
-        log.debug('Canot resolve response JSON', error);
+        log.debug('[%d] %s', requestId, responseText);
         throw new Error(`Console server error: received unexpected response: ${responseText}`);
       }
     })();
-    log.debug('response: %o', responseData);
+    log.debug('[%d] %o', requestId, responseData);
     return responseData;
   }
   return await response.text();
