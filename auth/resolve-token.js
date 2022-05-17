@@ -16,6 +16,7 @@ let idTokenExpiresAt;
 if (process.env.SLS_ORG_TOKEN) {
   data.idToken = process.env.SLS_ORG_TOKEN;
   idTokenExpiresAt = Infinity;
+  log.debug('consume org token');
 }
 
 module.exports = async () => {
@@ -28,7 +29,11 @@ module.exports = async () => {
     }
   }
   if (data.idToken) {
-    if (idTokenExpiresAt > Date.now() + 500) return data.idToken;
+    if (idTokenExpiresAt > Date.now() + 500) {
+      log.debug('return valid token');
+      return data.idToken;
+    }
+    log.debug('token expired');
     configUtils.delete('auth.idToken');
     idTokenExpiresAt = null;
   }

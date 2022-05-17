@@ -13,10 +13,12 @@ module.exports = async (pathname) => {
   const authMethod = await resolveAuthMethod();
   if (!authMethod) throw new Error('Not authenticated to send request to the Console server');
   const response = await (async () => {
+    const url = `${backendUrl}/api/identity${pathname}`;
+    const headers = { Authorization: `Bearer ${await resolveAuthToken()}` };
+    if (authMethod === 'org') headers['sls-token-type'] = 'orgToken';
+    log.debug('request: %s, headers %o', url, headers);
     try {
-      const headers = { Authorization: `Bearer ${await resolveAuthToken()}` };
-      if (authMethod === 'org') headers['sls-token-type'] = 'orgToken';
-      return await fetch(`${backendUrl}/api/identity${pathname}`, {
+      return await fetch(url, {
         method: 'GET',
         headers,
       });
@@ -39,11 +41,15 @@ module.exports = async (pathname) => {
       'CONSOLE_SERVER_REQUEST_FAILED'
     );
   }
-  try {
-    return await response.json();
-  } catch (error) {
-    const responseText = await response.text();
-    log.debug('Canot resolve response JSON', error);
-    throw new Error(`Console server error: received unexpected response: ${responseText}`);
-  }
+  const responseData = await (async () => {
+    try {
+      return await response.json();
+    } catch (error) {
+      const responseText = await response.text();
+      log.debug('Canot resolve response JSON', error);
+      throw new Error(`Console server error: received unexpected response: ${responseText}`);
+    }
+  })();
+  log.debug('response: %o', responseData);
+  return responseData;
 };
