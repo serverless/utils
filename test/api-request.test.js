@@ -112,7 +112,10 @@ describe('test/api-request.test.js', () => {
   });
 
   it('should handle programmer error', async () => {
-    expect(api('/programmer-error/')).to.eventually.be.rejectedWith('Programmer Error');
+    expect(api('/programmer-error/')).to.eventually.be.rejected.and.have.property(
+      'code',
+      'CONSOLE_SERVER_ERROR_400'
+    );
   });
 
   it('should handle unexpected response', async () => {
