@@ -63,6 +63,7 @@ describe('test/api-request.test.js', () => {
                 }
                 if (url.includes('/unexpected-response/')) {
                   return {
+                    status: 200,
                     ok: true,
                     headers: responseHeaders,
                     json: async () => {
@@ -73,6 +74,7 @@ describe('test/api-request.test.js', () => {
                 }
                 if (url.includes('/success/')) {
                   return {
+                    status: 200,
                     ok: true,
                     headers: responseHeaders,
                     json: async () => ({ foo: 'bar' }),
@@ -82,6 +84,7 @@ describe('test/api-request.test.js', () => {
               case 'POST':
                 if (url.includes('/submission/')) {
                   return {
+                    status: 200,
                     ok: true,
                     headers: responseHeaders,
                     json: async () => ({ foo: 'bar' }),
