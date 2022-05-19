@@ -47,6 +47,20 @@ describe('test/api-request.test.js', () => {
                     text: async () => 'Programmer Error',
                   };
                 }
+                if (url.includes('/org-auth-error/')) {
+                  return {
+                    status: 401,
+                    headers: responseHeaders,
+                    text: async () => 'Org auth error',
+                  };
+                }
+                if (url.includes('/user-auth-error/')) {
+                  return {
+                    status: 401,
+                    headers: responseHeaders,
+                    text: async () => 'User auth Error',
+                  };
+                }
                 if (url.includes('/unexpected-response/')) {
                   return {
                     ok: true,
@@ -97,28 +111,24 @@ describe('test/api-request.test.js', () => {
     expect(lastRequestBody).to.equal('{"foo":"bar"}');
   });
 
-  it('should handle server unavailability', async () => {
+  it('should handle server unavailability', async () =>
     expect(api('/server-unavailable/')).to.eventually.be.rejected.and.have.property(
       'code',
       'CONSOLE_SERVER_UNAVAILABLE'
-    );
-  });
+    ));
 
-  it('should handle server error', async () => {
+  it('should handle server error', async () =>
     expect(api('/server-error/')).to.eventually.be.rejected.and.have.property(
       'code',
       'CONSOLE_SERVER_REQUEST_FAILED'
-    );
-  });
+    ));
 
-  it('should handle programmer error', async () => {
+  it('should handle programmer error', async () =>
     expect(api('/programmer-error/')).to.eventually.be.rejected.and.have.property(
       'code',
       'CONSOLE_SERVER_ERROR_400'
-    );
-  });
+    ));
 
-  it('should handle unexpected response', async () => {
-    expect(api('/unexpected-response/')).to.eventually.be.rejectedWith('Unexpected response');
-  });
+  it('should handle unexpected response', async () =>
+    expect(api('/unexpected-response/')).to.eventually.be.rejectedWith('Unexpected response'));
 });
