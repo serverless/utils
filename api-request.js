@@ -48,6 +48,26 @@ module.exports = async (pathname, options = {}) => {
     const responseText = await response.text();
     log.debug('[%d] %s', requestId, responseText);
     if (response.status < 500) {
+      if (response.status === 401) {
+        if (authMethod === 'org') {
+          throw Object.assign(
+            new ServerlessError(
+              'Unauthorized request: Either org token is invalid, ' +
+                'or org token is not supported for this command ' +
+                '(run the command as logged-in user instead)',
+              'CONSOLE_ORG_AUTH_REJECTED'
+            ),
+            { httpStatusCode: 401 }
+          );
+        }
+        throw Object.assign(
+          new ServerlessError(
+            'Unauthorized request: Run "sls login --console" to authenticate',
+            'CONSOLE_USER_AUTH_REJECTED'
+          ),
+          { httpStatusCode: 401 }
+        );
+      }
       throw Object.assign(new Error(`Console server error: [${response.status}] ${responseText}`), {
         code: `CONSOLE_SERVER_ERROR_${response.status}`,
         httpStatusCode: response.status,
