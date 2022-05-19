@@ -15,12 +15,13 @@ describe('test/api-request.test.js', () => {
   let lastMethod;
   let lastRequestHeaders;
   let lastRequestBody;
+  let authMode = 'user';
   beforeEach(() => {
     const responseHeaders = new Map([['content-type', 'application/json; charset=utf-8']]);
     api = requireUncached(() =>
       proxyquire('../api-request', {
         './auth/resolve-token': async () => 'token',
-        './auth/resolve-mode': async () => 'user',
+        './auth/resolve-mode': async () => authMode,
         'node-fetch': sinon
           .stub()
           .callsFake(async (url, { method, headers: requestHeaders, body } = { method: 'GET' }) => {
@@ -99,6 +100,9 @@ describe('test/api-request.test.js', () => {
       })
     );
   });
+  afterEach(() => {
+    authMode = 'user';
+  });
 
   it('should handle success response', async () => {
     expect(await api('/success/')).to.deep.equal({ foo: 'bar' });
@@ -132,6 +136,19 @@ describe('test/api-request.test.js', () => {
       'CONSOLE_SERVER_ERROR_400'
     ));
 
+  it('should handle org auth error', async () => {
+    authMode = 'org';
+    await expect(api('/org-auth-error/')).to.eventually.be.rejected.and.have.property(
+      'code',
+      'CONSOLE_ORG_AUTH_REJECTED'
+    );
+  });
+
+  it('should handle user auth error', async () =>
+    expect(api('/user-auth-error/')).to.eventually.be.rejected.and.have.property(
+      'code',
+      'CONSOLE_USER_AUTH_REJECTED'
+    ));
   it('should handle unexpected response', async () =>
     expect(api('/unexpected-response/')).to.eventually.be.rejectedWith('Unexpected response'));
 });
