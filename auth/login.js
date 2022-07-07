@@ -129,6 +129,9 @@ module.exports = async (options = {}) => {
     transactionId: sessionId,
   });
   if (options.clientVersion) params.append('clientVersion', options.clientVersion);
+  if (options.clientOriginCommand) {
+    params.append('clientOriginCommand', options.clientOriginCommand);
+  }
 
   const loginUrl = `${urls.frontend}?${params}`;
   open(loginUrl);
