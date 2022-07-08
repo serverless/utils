@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.7.0](https://github.com/serverless/utils/compare/v6.6.0...v6.7.0) (2022-07-08)
+
+### Features
+
+- **Auth:** Support `clientOriginCommand` param ([#183](https://github.com/serverless/utils/pull/183)) ([287d68b](https://github.com/serverless/utils/commit/287d68ba35b8cdbb054cd3e8943627b7d2fa6cdc)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.6.0](https://github.com/serverless/utils/compare/v6.5.0...v6.6.0) (2022-05-19)
 
 ### Features
