@@ -6,7 +6,6 @@
   "homepage": "https://github.com/serverless/utils#readme",
   "author": "Serverless, Inc.",
   "dependencies": {
-    "archive-type": "^4.0.0",
     "chalk": "^4.1.2",
     "ci-info": "^3.3.2",
     "cli-progress-footer": "^2.3.2",
@@ -16,7 +15,7 @@
     "event-emitter": "^0.3.5",
     "ext": "^1.6.0",
     "ext-name": "^5.0.0",
-    "file-type": "^16.5.3",
+    "file-type": "^16.5.4",
     "filenamify": "^4.3.0",
     "get-stream": "^6.0.1",
     "got": "^11.8.5",
