@@ -38,7 +38,7 @@ module.exports = async (pathname, options = {}) => {
     } catch (error) {
       log.debug('Server unavailable', error);
       throw new ServerlessError(
-        'Console server is not avaiable, please try again later',
+        'Console server is not available, please try again later',
         'CONSOLE_SERVER_UNAVAILABLE'
       );
     }
