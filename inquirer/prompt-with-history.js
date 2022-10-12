@@ -1,5 +1,7 @@
 'use strict';
 
+const isObject = require('type/object/is');
+
 const inquirer = require('./');
 
 module.exports = async (options = {}) => {
@@ -20,7 +22,11 @@ module.exports = async (options = {}) => {
     answer = answer.trim();
   }
   const answerToRecord = (() => {
-    if (recordRawAnswerInHistory || !isStringAnswer || (isStringAnswer && answer.startsWith('_'))) {
+    if (
+      recordRawAnswerInHistory ||
+      (!isStringAnswer && !isObject(answer)) ||
+      (isStringAnswer && answer.startsWith('_'))
+    ) {
       return answer;
     }
 
