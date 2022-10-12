@@ -6,7 +6,7 @@ const ensurePlainObject = require('type/plain-object/ensure');
 const fetch = require('node-fetch');
 const log = require('./log').log.get('api');
 const ServerlessError = require('./serverless-error');
-const backendUrl = require('./lib/auth/urls').backend;
+const urls = require('./lib/auth/urls');
 const resolveAuthToken = require('./auth/resolve-token');
 const resolveAuthMethod = require('./auth/resolve-mode');
 
@@ -21,7 +21,7 @@ module.exports = async (pathname, options = {}) => {
   if (!authMethod) throw new Error('Not authenticated to send request to the Console server');
   const requestId = ++requestIdCounter;
   const response = await (async () => {
-    const url = `${backendUrl}${pathname}`;
+    const url = `${urls[options.urlName] || urls.backend}${pathname}`;
     const headers = {
       'Authorization': `Bearer ${await resolveAuthToken()}`,
       'Content-Type': 'application/json',
