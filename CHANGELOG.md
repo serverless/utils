@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.8.0](https://github.com/serverless/utils/compare/v6.7.0...v6.8.0) (2022-10-12)
+
+### Features
+
+- **API:** Recognize integration backend ([#189](https://github.com/serverless/utils/issues/189)) ([65b1093](https://github.com/serverless/utils/commit/65b10935e5a6a5e822511f748620744e19149832)) ([Mariusz Nowak](https://github.com/medikoo))
+- Ensure handling of object values in step history ([#188](https://github.com/serverless/utils/issues/188)) ([71202b5](https://github.com/serverless/utils/commit/71202b586192559ad880f02645b6d6932ea00bba)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- Correct typos in error messages ([#187](https://github.com/serverless/utils/issues/187)) ([f1a0fe1](https://github.com/serverless/utils/commit/f1a0fe13283b1c62aa99f7e59771bcda82c44fe6)) ([Lee Sang Min](https://github.com/morethanmin))
+
 ## [6.7.0](https://github.com/serverless/utils/compare/v6.6.0...v6.7.0) (2022-07-08)
 
 ### Features
