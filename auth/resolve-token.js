@@ -20,6 +20,7 @@ if (process.env.SLS_ORG_TOKEN) {
 }
 
 module.exports = async () => {
+  log.debug('cached data: %o, cached expires %d', data, idTokenExpiresAt);
   if (!data.idToken) {
     Object.assign(data, configUtils.get('auth'));
     if (data.idToken) {
