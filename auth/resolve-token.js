@@ -99,6 +99,7 @@ module.exports = async () => {
     );
   }
   data.idToken = idToken;
+  data.refreshToken = responseObject.refreshToken;
   const idTokenData = jwtDecode(data.idToken);
   log.debug('id token data: %o', idTokenData);
   idTokenExpiresAt = idTokenData.exp * 1000;
