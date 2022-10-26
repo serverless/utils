@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.8.1](https://github.com/serverless/utils/compare/v6.8.0...v6.8.1) (2022-10-26)
+
+### Bug Fixes
+
+- **Auth:** Fix in-memory handling of refresh token ([#191](https://github.com/serverless/utils/issues/191)) ([1b309d4](https://github.com/serverless/utils/commit/1b309d46637d343ffc96b3e6de70a94b4cfbd405)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Auth:** Improve debug logging ([#191](https://github.com/serverless/utils/issues/191)) ([49539f4](https://github.com/serverless/utils/commit/49539f4110e7e909872fc9d61ec47ab2ceb548ad)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.8.0](https://github.com/serverless/utils/compare/v6.7.0...v6.8.0) (2022-10-12)
 
 ### Features
