@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const limit = require('ext/promise/limit').bind(Promise);
 const jwtDecode = require('jwt-decode');
 const fetch = require('node-fetch');
 const configUtils = require('../config');
@@ -19,7 +20,7 @@ if (process.env.SLS_ORG_TOKEN) {
   log.debug('consume org token');
 }
 
-module.exports = async () => {
+module.exports = limit(1, async () => {
   log.debug('start with cached data: %o, expires %d', data, idTokenExpiresAt);
   if (!data.idToken) {
     Object.assign(data, configUtils.get('auth'));
@@ -107,4 +108,4 @@ module.exports = async () => {
   idTokenExpiresAt = idTokenData.exp * 1000;
   configUtils.set({ auth: { idToken, refreshToken: responseObject.refreshToken } });
   return idToken;
-};
+});
