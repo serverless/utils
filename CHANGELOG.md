@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.8.2](https://github.com/serverless/utils/compare/v6.8.1...v6.8.2) (2022-11-02)
+
+### Bug Fixes
+
+- **Auth:**
+  - Ensure no overlapping auth calls ([#192](https://github.com/serverless/utils/issues/192)) ([9b3376a](https://github.com/serverless/utils/commit/9b3376a4176f92f75457945d304b0db95107322b)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Handle parallel processes race condition case ([#192](https://github.com/serverless/utils/issues/192)) ([0ac94af](https://github.com/serverless/utils/commit/0ac94af43edd13abffd96298108c8a4acf30aabe)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Auth:** Improve debug logs ([#192](https://github.com/serverless/utils/issues/192)) ([f92091d](https://github.com/serverless/utils/commit/f92091d2c599efd433a7d396bdf316a16085a3ff))([Mariusz Nowak](https://github.com/medikoo))
+
 ### [6.8.1](https://github.com/serverless/utils/compare/v6.8.0...v6.8.1) (2022-10-26)
 
 ### Bug Fixes
