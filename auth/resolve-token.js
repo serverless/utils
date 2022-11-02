@@ -20,21 +20,23 @@ if (process.env.SLS_ORG_TOKEN) {
 }
 
 module.exports = async () => {
-  log.debug('cached data: %o, cached expires %d', data, idTokenExpiresAt);
+  log.debug('start with cached data: %o, expires %d', data, idTokenExpiresAt);
   if (!data.idToken) {
     Object.assign(data, configUtils.get('auth'));
+    log.debug('resolved data from config: %o', data);
     if (data.idToken) {
       const idTokenData = jwtDecode(data.idToken);
-      log.debug('id token data: %o', idTokenData);
+      log.debug('resolved id token from config: %o', idTokenData);
       idTokenExpiresAt = idTokenData.exp * 1000;
+      log.debug('resolved id token from config: %o, expires %d', idTokenData, idTokenExpiresAt);
     }
   }
   if (data.idToken) {
     if (idTokenExpiresAt > Date.now() + 500) {
-      log.debug('return valid token');
+      log.debug('valid token, return');
       return data.idToken;
     }
-    log.debug('token expired');
+    log.debug('token expired, clear, retrieve a new one');
     configUtils.delete('auth.idToken');
     idTokenExpiresAt = null;
   }
