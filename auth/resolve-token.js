@@ -20,18 +20,20 @@ if (process.env.SLS_ORG_TOKEN) {
   log.debug('consume org token');
 }
 
-module.exports = limit(1, async () => {
-  log.debug('start with cached data: %o, expires %d', data, idTokenExpiresAt);
-  if (!data.idToken) {
-    Object.assign(data, configUtils.get('auth'));
-    log.debug('resolved data from config: %o', data);
-    if (data.idToken) {
-      const idTokenData = jwtDecode(data.idToken);
-      log.debug('resolved id token from config: %o', idTokenData);
-      idTokenExpiresAt = idTokenData.exp * 1000;
-      log.debug('resolved id token from config: %o, expires %d', idTokenData, idTokenExpiresAt);
-    }
+const resolveTokenFromConfig = () => {
+  Object.assign(data, configUtils.get('auth'));
+  log.debug('resolved data from config: %o', data);
+  if (data.idToken) {
+    const idTokenData = jwtDecode(data.idToken);
+    idTokenExpiresAt = idTokenData.exp * 1000;
+    log.debug('id token: %o, expires %d', idTokenData, idTokenExpiresAt);
   }
+};
+
+module.exports = limit(1, async function self() {
+  log.debug('start with cached data: %o, expires %d', data, idTokenExpiresAt);
+  if (!data.idToken) resolveTokenFromConfig();
+
   if (data.idToken) {
     if (idTokenExpiresAt > Date.now() + 500) {
       log.debug('valid token, return');
@@ -40,6 +42,7 @@ module.exports = limit(1, async () => {
     log.debug('token expired, clear, retrieve a new one');
     configUtils.delete('auth.idToken');
     idTokenExpiresAt = null;
+    delete data.idToken;
   }
   if (!data.refreshToken) Object.assign(data, configUtils.get('auth'));
   if (!data.refreshToken) {
@@ -68,6 +71,12 @@ module.exports = limit(1, async () => {
     log.debug('Canot resolve idToken', response.status);
     const responseText = await response.text();
     if (response.status < 500) {
+      if (response.status === 401) {
+        // Possible race condition when two simultaneous processes are authenticating.
+        // Attempt to read auth data written by the other process and rely on it
+        resolveTokenFromConfig();
+        if (data.idToken) return self();
+      }
       logout();
       delete data.refreshToken;
       throw new Error(`Console server error: ${responseText}`);
@@ -101,11 +110,14 @@ module.exports = limit(1, async () => {
       'CONSOLE_ID_TOKEN_RETRIEVAL_INVALID_RESPONSE'
     );
   }
+
   data.idToken = idToken;
   data.refreshToken = responseObject.refreshToken;
+  log.debug('new data: %o', data);
   const idTokenData = jwtDecode(data.idToken);
-  log.debug('id token data: %o', idTokenData);
   idTokenExpiresAt = idTokenData.exp * 1000;
+  log.debug('id token: %o, expires %d', idTokenData, idTokenExpiresAt);
   configUtils.set({ auth: { idToken, refreshToken: responseObject.refreshToken } });
+
   return idToken;
 });
