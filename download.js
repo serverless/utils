@@ -14,6 +14,10 @@
 
 'use strict';
 
+// Proxy support for got via global-agent
+// $ export GLOBAL_AGENT_HTTP_PROXY=
+const gaBootstrap = require('global-agent').bootstrap;
+
 const fsp = require('fs').promises;
 const path = require('path');
 const { URL } = require('url');
@@ -85,6 +89,8 @@ module.exports = (uri, output, opts) => {
     },
     opts
   );
+
+  gaBootstrap();
 
   const stream = got.stream(uri, opts);
 
