@@ -172,8 +172,6 @@ const omitAndSortDevModeActivity = (array) => {
         ) {
           return false;
         }
-      } else if (typeof data.message === 'string' && 'resetThrottle' in data) {
-        return false;
       }
       return true;
     })
