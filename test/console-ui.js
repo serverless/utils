@@ -432,8 +432,28 @@ describe('Console UI', () => {
         type: 'aws-lambda-request',
       },
       {
-        timestamp: new Date('2019-01-01T00:00:00.05Z'),
+        timestamp: new Date('2019-01-01T00:00:00.005Z'),
         type: 'event',
+        sequenceId: 1,
+      },
+      {
+        timestamp: new Date('2019-01-01T00:00:00.005Z'),
+        type: 'event',
+        sequenceId: 0,
+      },
+      {
+        timestamp: new Date('2019-01-01T00:00:00.05Z'),
+        type: 'newEventType',
+      },
+      {
+        timestamp: new Date('2019-01-01T00:00:00.05Z'),
+        type: 'span',
+        name: 'aws.lambda',
+      },
+      {
+        timestamp: new Date('2019-01-01T00:00:00.05Z'),
+        type: 'span',
+        name: 'aws.lambda',
       },
     ];
     const expectedArray = [
@@ -442,8 +462,9 @@ describe('Console UI', () => {
       activityArray[4], // log at 002 with sequenceId 0
       activityArray[3], // log at 002 with sequenceId 1
       activityArray[2], // log at 003 with sequenceId 10
-      activityArray[5], // event
-      activityArray[7], // response
+      activityArray[8], // event with sequenceId 0
+      activityArray[7], // event with sequenceId 1
+      activityArray[5], // response
     ];
 
     expect(consoleUi.omitAndSortDevModeActivity(activityArray)).to.deep.equal(expectedArray);
