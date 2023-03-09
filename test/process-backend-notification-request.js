@@ -5,6 +5,7 @@ const fsp = require('fs').promises;
 const wait = require('timers-ext/promise/sleep');
 const proxyquire = require('proxyquire');
 const configFileName = require('../config').CONFIG_FILE_NAME;
+const log = require('../log').log.get('test');
 
 const sinon = require('sinon');
 
@@ -27,7 +28,12 @@ const defaultFixture = [
 // had the same lastShown value in config
 const processTargetNotifications = async (notifications) => {
   try {
-    return processBackendNotificationRequest(notifications);
+    const result = processBackendNotificationRequest(notifications);
+    log.debug('process notification %o success: %s', notifications, result);
+    return result;
+  } catch (error) {
+    log.debug('process notification %o error: %o', notifications, error);
+    throw error;
   } finally {
     await wait(1);
   }
