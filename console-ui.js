@@ -28,14 +28,14 @@ const formatAWSSDKName = (activity) => {
     finalName = `AWS SDK • Event Bridge • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.secretsmanager')) {
     finalName = `AWS SDK • Secrets Manager • ${operation.toUpperCase()}`;
-  } else if (name.includes('aws.sdk.kinesis')) {
-    finalName = `AWS SDK • Kinesis • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.elastictranscoder')) {
     finalName = `AWS SDK • Elastic Transcoder • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.iotdata')) {
     finalName = `AWS SDK • IOT Data • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.kinesisvideo')) {
     finalName = `AWS SDK • Kinesis Video • ${operation.toUpperCase()}`;
+  } else if (name.includes('aws.sdk.kinesis.')) {
+    finalName = `AWS SDK • Kinesis • ${operation.toUpperCase()}`;
   }
   return `${activity.durationFormatted ? `${activity.durationFormatted} • ` : ''}${finalName}`;
 };
@@ -56,9 +56,7 @@ const formatHTTPName = (activity) => {
     name += ` • ${activity.tags.http.path}`;
   }
 
-  return {
-    name,
-  };
+  return name;
 };
 
 /**
@@ -117,16 +115,16 @@ const formatConsoleEvent = (activity) => {
  */
 const formatConsoleSpan = (data) => {
   // Add nice names for the span types
-  if (data.startTime && data.endTime && !data.duration) {
+  if (data.startTime && data.endTime) {
     data.duration = getSpanDuration(data.startTime, data.endTime);
     data.durationFormatted = data.duration ? ms(data.duration) : null;
   }
   const name = data.name;
   if (/aws\.sdk/.test(name)) {
-    const { name: niceName } = formatAWSSDKName(data);
+    const niceName = formatAWSSDKName(data);
     data.niceName = niceName;
   } else if (name && (name.includes('node.http.request') || name.includes('node.https.request'))) {
-    const { name: niceName } = formatHTTPName(data);
+    const niceName = formatHTTPName(data);
     data.niceName = niceName;
   } else {
     data.niceName = data.name;
@@ -141,11 +139,7 @@ const formatConsoleSpan = (data) => {
  * @returns {string} Formatted date of HH:mm:ss:SSS
  */
 const formatConsoleDate = (date) => {
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  const milliseconds = date.getMilliseconds();
-  return `${hours}:${minutes}:${seconds}:${milliseconds}`;
+  return date.toISOString().split('T')[1].replace('Z', '');
 };
 
 /**
@@ -178,7 +172,7 @@ const omitAndSortDevModeActivity = (array) => {
         ) {
           return false;
         }
-      } else if (typeof data.message === 'string') {
+      } else if (typeof data.message === 'string' && 'resetThrottle' in data) {
         return false;
       }
       return true;
