@@ -194,7 +194,7 @@ describe('Console UI', () => {
       expect(formattedMessage).to.equal(`WARNING • ${message}`);
       expect(payload).to.deep.equal({
         message,
-        ...customTags,
+        customTags: null,
       });
     });
 
@@ -238,7 +238,7 @@ describe('Console UI', () => {
       expect(message1).to.equal(expectedMessage);
       expect(payload1).to.deep.equal({
         ...error,
-        ...customTags,
+        customTags: null,
       });
 
       error.type = 'ERROR_TYPE_CAUGHT_SDK_INTERNAL';
@@ -270,7 +270,7 @@ describe('Console UI', () => {
       expect(message1).to.equal(expectedMessage);
       expect(payload1).to.deep.equal({
         ...error,
-        ...customTags,
+        customTags: null,
       });
     });
 
@@ -292,7 +292,7 @@ describe('Console UI', () => {
       expect(message1).to.equal(expectedMessage);
       expect(payload1).to.deep.equal({
         ...error,
-        ...customTags,
+        customTags: null,
       });
     });
 

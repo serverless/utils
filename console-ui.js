@@ -21,23 +21,23 @@ const getSpanDuration = (startTime, endTime) => {
 const formatAWSSDKName = (activity) => {
   const { name } = activity;
   const [, , service, operation] = name.split('.');
-  let finalName = `AWS SDK • ${service.toUpperCase()} • ${operation.toUpperCase()}`;
+  const duration = activity.durationFormatted ? `${activity.durationFormatted} • ` : '';
   if (name.includes('aws.sdk.dynamodb')) {
-    finalName = `AWS SDK • DynamoDB • ${operation.toUpperCase()}`;
+    return `${duration}AWS SDK • DynamoDB • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.eventbridge')) {
-    finalName = `AWS SDK • Event Bridge • ${operation.toUpperCase()}`;
+    return `${duration}AWS SDK • Event Bridge • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.secretsmanager')) {
-    finalName = `AWS SDK • Secrets Manager • ${operation.toUpperCase()}`;
+    return `${duration}AWS SDK • Secrets Manager • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.elastictranscoder')) {
-    finalName = `AWS SDK • Elastic Transcoder • ${operation.toUpperCase()}`;
+    return `${duration}AWS SDK • Elastic Transcoder • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.iotdata')) {
-    finalName = `AWS SDK • IOT Data • ${operation.toUpperCase()}`;
+    return `${duration}AWS SDK • IOT Data • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.kinesisvideo')) {
-    finalName = `AWS SDK • Kinesis Video • ${operation.toUpperCase()}`;
+    return `${duration}AWS SDK • Kinesis Video • ${operation.toUpperCase()}`;
   } else if (name.includes('aws.sdk.kinesis.')) {
-    finalName = `AWS SDK • Kinesis • ${operation.toUpperCase()}`;
+    return `${duration}AWS SDK • Kinesis • ${operation.toUpperCase()}`;
   }
-  return `${activity.durationFormatted ? `${activity.durationFormatted} • ` : ''}${finalName}`;
+  return `${duration}AWS SDK • ${service.toUpperCase()} • ${operation.toUpperCase()}`;
 };
 
 /**
@@ -71,14 +71,14 @@ const formatConsoleEvent = (activity) => {
   let customTags = {};
   try {
     const parsedTags = JSON.parse(activity.customTags);
-    customTags = Object.keys(parsedTags).length > 0 ? { customTags: parsedTags } : {};
+    customTags = Object.keys(parsedTags).length > 0 ? parsedTags : null;
   } catch {
     // ignore
   }
   if (activity.eventName === 'telemetry.error.generated.v1') {
     payload = {
       ...activity.tags.error,
-      ...customTags,
+      customTags,
     };
     switch (activity.tags.error.type) {
       case 'ERROR_TYPE_CAUGHT_USER':
@@ -98,7 +98,7 @@ const formatConsoleEvent = (activity) => {
     }
   } else if (activity.eventName === 'telemetry.warning.generated.v1') {
     message = `WARNING • ${activity.tags.warning.message}`;
-    payload = { ...activity.tags.warning, ...customTags };
+    payload = { ...activity.tags.warning, customTags };
   }
 
   return {
