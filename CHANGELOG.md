@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.9.0](https://github.com/serverless/utils/compare/v6.8.2...v6.9.0) (2023-03-13)
+
+### Features
+
+- Added console UI utlities ([#196](https://github.com/serverless/utils/issues/196)) ([5e3e20d](https://github.com/serverless/utils/commit/5e3e20d7e7d2e40e5e599403843a40d8ca3bd6ea)) ([Dan Jarvis](https://github.com/Danwakeem))
+- **Auth:** Configure `devModeFeed` url ([#195](https://github.com/serverless/utils/issues/195)) ([5e2f1bf](https://github.com/serverless/utils/commit/5e2f1bf0c8a825905585bcd4bedca9e6d589fe1b)) ([Dan Jarvis](https://github.com/Danwakeem))
+
 ### [6.8.2](https://github.com/serverless/utils/compare/v6.8.1...v6.8.2) (2022-11-02)
 
 ### Bug Fixes
