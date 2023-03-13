@@ -68,13 +68,8 @@ const formatHTTPName = (activity) => {
 const formatConsoleEvent = (activity) => {
   let message = 'Captured Event';
   let payload = {};
-  let customTags = {};
-  try {
-    const parsedTags = JSON.parse(activity.customTags);
-    customTags = Object.keys(parsedTags).length > 0 ? parsedTags : null;
-  } catch {
-    // ignore
-  }
+  const parsedTags = JSON.parse(activity.customTags);
+  const customTags = Object.keys(parsedTags).length > 0 ? parsedTags : null;
   if (activity.eventName === 'telemetry.error.generated.v1') {
     payload = {
       ...activity.tags.error,
