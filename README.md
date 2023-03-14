@@ -23,3 +23,4 @@ npm install @serverless/utils
 - [`processBackendNotificationRequest`](docs/process-backend-notification-request.md)
 - [`ServerlessError`](docs/serverless-error.md)
 - [`telemetry`](docs/telemetry.md)
+- [`consoleUi`](docs/console-ui.md)
