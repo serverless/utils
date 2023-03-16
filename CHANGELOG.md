@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.9.2](https://github.com/serverless/utils/compare/v6.9.1...v6.9.2) (2023-03-16)
+
+### Bug Fixes
+
+- Stack trace should not be camel case ([#200](https://github.com/serverless/utils/issues/200)) ([a046bdb](https://github.com/serverless/utils/commit/a046bdb47dbe517a3650f83daf606a859e05bdad))
+
 ## [6.9.1](https://github.com/serverless/utils/compare/v6.9.0...v6.9.1) (2023-03-16)
 
 ### Bug Fixes
