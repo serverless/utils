@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.9.1](https://github.com/serverless/utils/compare/v6.9.0...v6.9.1) (2023-03-16)
+
+### Bug Fixes
+
+- Filter out stack trace from warning ([#198](https://github.com/serverless/utils/issues/198)) ([9cec6e9](https://github.com/serverless/utils/commit/9cec6e9059b681986c695e2aac5fd21ddcd286ea))
+
 ## [6.9.0](https://github.com/serverless/utils/compare/v6.8.2...v6.9.0) (2023-03-13)
 
 ### Features
