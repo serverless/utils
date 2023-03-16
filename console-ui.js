@@ -94,6 +94,7 @@ const formatConsoleEvent = (activity) => {
   } else if (activity.eventName === 'telemetry.warning.generated.v1') {
     message = `WARNING • ${activity.tags.warning.message}`;
     payload = { ...activity.tags.warning, customTags };
+    delete payload.stackTrace;
   }
 
   return {
