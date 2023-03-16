@@ -186,7 +186,7 @@ describe('Console UI', () => {
         customTags: JSON.stringify(customTags),
         tags: {
           warning: {
-            stackTrace: 'stack trace',
+            stacktrace: 'stack trace',
             message,
           },
         },
@@ -209,7 +209,7 @@ describe('Console UI', () => {
         customTags: JSON.stringify(customTags),
         tags: {
           warning: {
-            stackTrace: 'stack trace',
+            stacktrace: 'stack trace',
             message,
           },
         },
