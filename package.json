@@ -1,6 +1,6 @@
 {
   "name": "@serverless/utils",
-  "version": "6.9.2",
+  "version": "6.10.0",
   "description": "Serverless CLI utilities",
   "repository": "serverless/utils",
   "homepage": "https://github.com/serverless/utils#readme",
