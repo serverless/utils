@@ -118,6 +118,11 @@ describe('test/api-request.test.js', () => {
     expect(lastRequestBody).to.equal('{"foo":"bar"}');
   });
 
+  it('should handle no auth option', async () => {
+    expect(await api('/success/', { noAuth: true })).to.deep.equal({ foo: 'bar' });
+    expect(!('Authorization' in lastRequestHeaders)).to.equal(true);
+  });
+
   it('should handle server unavailability', async () =>
     expect(api('/server-unavailable/')).to.eventually.be.rejected.and.have.property(
       'code',
