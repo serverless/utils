@@ -17,13 +17,16 @@ module.exports = async (pathname, options = {}) => {
   if (!isObject(options)) options = {};
   const method = ensureString(options.method, { name: 'options.method', default: 'GET' });
   const body = ensurePlainObject(options.body, { name: 'options.body', isOptional: true });
-  const authMethod = await resolveAuthMethod();
+  const authMethod = options.noAuth ? 'none' : await resolveAuthMethod();
   if (!authMethod) throw new Error('Not authenticated to send request to the Console server');
   const requestId = ++requestIdCounter;
+  const authorization = options.noAuth
+    ? {}
+    : { Authorization: `Bearer ${await resolveAuthToken()}` };
   const response = await (async () => {
     const url = `${urls[options.urlName] || urls.backend}${pathname}`;
     const headers = {
-      'Authorization': `Bearer ${await resolveAuthToken()}`,
+      ...authorization,
       'Content-Type': 'application/json',
     };
     if (authMethod === 'org') headers['sls-token-type'] = 'orgToken';
