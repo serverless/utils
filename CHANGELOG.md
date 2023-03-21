@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.10.0](https://github.com/serverless/utils/compare/v6.9.2...v6.10.0) (2023-03-21)
+
+### Features
+
+- Added no auth option to apiRequest ([#202](https://github.com/serverless/utils/issues/202)) ([623a885](https://github.com/serverless/utils/commit/623a885784dbda3222f7a568ee87c5e200352703))
+
 ## [6.9.2](https://github.com/serverless/utils/compare/v6.9.1...v6.9.2) (2023-03-16)
 
 ### Bug Fixes
