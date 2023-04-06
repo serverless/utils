@@ -56,6 +56,11 @@ module.exports = limit(1, async function self(options = {}) {
     );
   }
 
+  if (options.skipTokenRefresh) {
+    log.debug('token expired, but refresh is skipped');
+    return null;
+  }
+
   const response = await (async () => {
     try {
       return await fetch(`${backendUrl}/api/identity/auth/tokens/refresh`, {
