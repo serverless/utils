@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.11.1](https://github.com/serverless/utils/compare/v6.11.0...v6.11.1) (2023-04-06)
+
+### Bug Fixes
+
+- **Auth:** Fix handling of `skipTokenRefresh` option ([#206](https://github.com/serverless/utils/issues/206)) ([4d42e3d](https://github.com/serverless/utils/commit/4d42e3d686a47bcce5962c07d45d6a3f77a418cb)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.11.0](https://github.com/serverless/utils/compare/v6.10.0...v6.11.0) (2023-04-06)
 
 ### Features
