@@ -53,7 +53,9 @@ function storeConfig(config, configPath) {
       `Unable to store serverless config: ${configPath} due to ${error.code} error`,
       error.stack
     );
+    return;
   }
+  logDebug('Stored config at %s, auth data  %o', configPath, config.auth);
 }
 
 function createDefaultGlobalConfig() {
@@ -124,7 +126,9 @@ function getGlobalConfig() {
 
 function getConfig() {
   const localConfig = getLocalConfig();
+  logDebug('Retrieve local config, auth data %o', localConfig.auth);
   const globalConfig = getGlobalConfig();
+  logDebug('Retrieve global config, auth data %o', globalConfig.auth);
   return _.merge(globalConfig, localConfig);
 }
 
@@ -132,16 +136,28 @@ function getConfigForUpdate() {
   const localConfigPath = getLocalConfigPath();
   const localConfigExists = fs.existsSync(localConfigPath);
   if (localConfigExists) {
-    return {
+    const result = {
       config: getLocalConfig(),
       configPath: localConfigPath,
     };
+    logDebug(
+      'Retrieved local config for update at %s, auth data  %o',
+      localConfigPath,
+      result.config.auth
+    );
+    return result;
   }
 
-  return {
+  const result = {
     config: getGlobalConfig(),
     configPath: getGlobalConfigPath(),
   };
+  logDebug(
+    'Retrieved global config for update at %s, auth data  %o',
+    localConfigPath,
+    result.config.auth
+  );
+  return result;
 }
 
 function set(key, value) {
