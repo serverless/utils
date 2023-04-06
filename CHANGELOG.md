@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.11.0](https://github.com/serverless/utils/compare/v6.10.0...v6.11.0) (2023-04-06)
+
+### Features
+
+- **Auth:** Support offline auth check ([#204](https://github.com/serverless/utils/issues/204)) ([123588f](https://github.com/serverless/utils/commit/123588f21cf66654de07f59ed2f94167a9ffe1f7)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Auth:** Introduce debug logs ([#204](https://github.com/serverless/utils/issues/204)) ([70877a9](https://github.com/serverless/utils/commit/70877a99ac26330460751c3c0f9f93b45b701bce)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ## [6.10.0](https://github.com/serverless/utils/compare/v6.9.2...v6.10.0) (2023-03-21)
 
 ### Features
