@@ -10,5 +10,5 @@ const yaml = require('js-yaml');
 const fs   = require('fs');
 const cloudFormationSchema = require('@serverless/utils/cloudformation-schema');
 
-yaml.load(fs.readFileSync('serverless.yml', { schema: cloudFormationSchema });
+yaml.load( fs.readFileSync('serverless.yml', { schema: cloudFormationSchema }) );
 ```
