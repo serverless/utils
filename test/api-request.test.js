@@ -118,6 +118,15 @@ describe('test/api-request.test.js', () => {
     expect(lastRequestBody).to.equal('{"foo":"bar"}');
   });
 
+  it('should support body array input', async () => {
+    expect(await api('/submission/', { method: 'POST', body: [{ foo: 'bar' }] })).to.deep.equal({
+      foo: 'bar',
+    });
+    expect(lastMethod).to.equal('POST');
+    expect(lastRequestHeaders['Content-Type']).to.equal('application/json');
+    expect(lastRequestBody).to.equal('[{"foo":"bar"}]');
+  });
+
   it('should handle no auth option', async () => {
     expect(await api('/success/', { noAuth: true })).to.deep.equal({ foo: 'bar' });
     expect(!('Authorization' in lastRequestHeaders)).to.equal(true);
