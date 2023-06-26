@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.11.2](https://github.com/serverless/utils/compare/v6.11.1...v6.11.2) (2023-06-26)
+
+### Bug Fixes
+
+- **API:** Support arrays as body input ([#211](https://github.com/serverless/utils/issues/211)) ([98db4a0](https://github.com/serverless/utils/commit/98db4a0e911682a87e9b1581c63f91a70213a21d)) ([Mariusz Nowak](https://github.com/medikoo))
+
 ### [6.11.1](https://github.com/serverless/utils/compare/v6.11.0...v6.11.1) (2023-04-06)
 
 ### Bug Fixes
