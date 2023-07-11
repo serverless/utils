@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.11.2](https://github.com/serverless/utils/compare/v6.11.1...v6.11.2) (2023-06-26)
+
+### Bug Fixes
+
+- **API:** Support arrays as body input ([#211](https://github.com/serverless/utils/issues/211)) ([98db4a0](https://github.com/serverless/utils/commit/98db4a0e911682a87e9b1581c63f91a70213a21d)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [6.11.1](https://github.com/serverless/utils/compare/v6.11.0...v6.11.1) (2023-04-06)
+
+### Bug Fixes
+
+- **Auth:** Fix handling of `skipTokenRefresh` option ([#206](https://github.com/serverless/utils/issues/206)) ([4d42e3d](https://github.com/serverless/utils/commit/4d42e3d686a47bcce5962c07d45d6a3f77a418cb)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [6.11.0](https://github.com/serverless/utils/compare/v6.10.0...v6.11.0) (2023-04-06)
+
+### Features
+
+- **Auth:** Support offline auth check ([#204](https://github.com/serverless/utils/issues/204)) ([123588f](https://github.com/serverless/utils/commit/123588f21cf66654de07f59ed2f94167a9ffe1f7)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Auth:** Introduce debug logs ([#204](https://github.com/serverless/utils/issues/204)) ([70877a9](https://github.com/serverless/utils/commit/70877a99ac26330460751c3c0f9f93b45b701bce)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [6.10.0](https://github.com/serverless/utils/compare/v6.9.2...v6.10.0) (2023-03-21)
+
+### Features
+
+- Added no auth option to apiRequest ([#202](https://github.com/serverless/utils/issues/202)) ([623a885](https://github.com/serverless/utils/commit/623a885784dbda3222f7a568ee87c5e200352703))
+
 ## [6.9.2](https://github.com/serverless/utils/compare/v6.9.1...v6.9.2) (2023-03-16)
 
 ### Bug Fixes

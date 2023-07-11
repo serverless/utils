@@ -30,13 +30,17 @@ const resolveTokenFromConfig = () => {
   }
 };
 
-module.exports = limit(1, async function self() {
+module.exports = limit(1, async function self(options = {}) {
   log.debug('start with cached data: %o, expires %d', data, idTokenExpiresAt);
   if (!data.idToken) resolveTokenFromConfig();
 
   if (data.idToken) {
     if (idTokenExpiresAt > Date.now() + 500) {
       log.debug('valid token, return');
+      return data.idToken;
+    }
+    if (options.skipTokenRefresh) {
+      log.debug('token expired, but refresh is skipped');
       return data.idToken;
     }
     log.debug('token expired, clear, retrieve a new one');
@@ -50,6 +54,11 @@ module.exports = limit(1, async function self() {
       'You are not currently logged in. To log in, use: $ serverless login',
       'CONSOLE_LOGGED_OUT'
     );
+  }
+
+  if (options.skipTokenRefresh) {
+    log.debug('token expired, but refresh is skipped');
+    return null;
   }
 
   const response = await (async () => {

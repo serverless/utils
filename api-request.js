@@ -2,7 +2,7 @@
 
 const ensureString = require('type/string/ensure');
 const isObject = require('type/object/is');
-const ensurePlainObject = require('type/plain-object/ensure');
+const ensureObject = require('type/object/ensure');
 const fetch = require('node-fetch');
 const log = require('./log').log.get('api');
 const ServerlessError = require('./serverless-error');
@@ -16,7 +16,7 @@ module.exports = async (pathname, options = {}) => {
   pathname = ensureString(pathname, { name: 'pathname' });
   if (!isObject(options)) options = {};
   const method = ensureString(options.method, { name: 'options.method', default: 'GET' });
-  const body = ensurePlainObject(options.body, { name: 'options.body', isOptional: true });
+  const body = ensureObject(options.body, { name: 'options.body', isOptional: true });
   const authMethod = options.noAuth ? 'none' : await resolveAuthMethod();
   if (!authMethod) throw new Error('Not authenticated to send request to the Console server');
   const requestId = ++requestIdCounter;
