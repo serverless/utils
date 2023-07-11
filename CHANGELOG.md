@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.12.0](https://github.com/serverless/utils/compare/v6.11.2...v6.12.0) (2023-07-11)
+
+### Features
+
+- Added dashboard frontend url ([#214](https://github.com/serverless/utils/issues/214)) ([cacf8dc](https://github.com/serverless/utils/commit/cacf8dc0da5c8c0f83fac430ab5b06ce8766c48b))
+
+### Maintenance Improvements
+
+- Upgrade `make-dir` to v4 ([#213](https://github.com/serverless/utils/issues/213)) ([8767882](https://github.com/serverless/utils/commit/87678823359bf1f37d8300259828e2b4964a46d4))
+
 ### [6.11.2](https://github.com/serverless/utils/compare/v6.11.1...v6.11.2) (2023-06-26)
 
 ### Bug Fixes
