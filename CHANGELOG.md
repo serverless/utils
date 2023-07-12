@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.13.0](https://github.com/serverless/utils/compare/v6.12.0...v6.13.0) (2023-07-12)
+
+### Features
+
+- Allow custom accessKey on console api ([#216](https://github.com/serverless/utils/issues/216)) ([dca4bc4](https://github.com/serverless/utils/commit/dca4bc40c0d65f4a161427506fb80bb8316f123a))
+
 ## [6.12.0](https://github.com/serverless/utils/compare/v6.11.2...v6.12.0) (2023-07-11)
 
 ### Features
