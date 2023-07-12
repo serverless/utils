@@ -20,9 +20,13 @@ module.exports = async (pathname, options = {}) => {
   const authMethod = options.noAuth ? 'none' : await resolveAuthMethod();
   if (!authMethod) throw new Error('Not authenticated to send request to the Console server');
   const requestId = ++requestIdCounter;
-  const authorization = options.noAuth
-    ? {}
-    : { Authorization: `Bearer ${await resolveAuthToken()}` };
+  let authorization = {};
+  if (!options.noAuth && !options.accessKey) {
+    authorization = { Authorization: `Bearer ${await resolveAuthToken()}` };
+  } else if (!options.noAuth && options.accessKey) {
+    authorization = { Authorization: `Bearer ${options.accessKey}` };
+  }
+
   const response = await (async () => {
     const url = `${urls[options.urlName] || urls.backend}${pathname}`;
     const headers = {
