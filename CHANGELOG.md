@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.13.1](https://github.com/serverless/utils/compare/v6.13.0...v6.13.1) (2023-07-12)
+
+### Bug Fixes
+
+- Set dashboardToken when using dashboard token ([#218](https://github.com/serverless/utils/issues/218)) ([3aa8c08](https://github.com/serverless/utils/commit/3aa8c087d17963d4b828fdbe33ba3fda87a98c18))
+
 ## [6.13.0](https://github.com/serverless/utils/compare/v6.12.0...v6.13.0) (2023-07-12)
 
 ### Features
