@@ -24,7 +24,10 @@ module.exports = async (pathname, options = {}) => {
   if (!options.noAuth && !options.accessKey) {
     authorization = { Authorization: `Bearer ${await resolveAuthToken()}` };
   } else if (!options.noAuth && options.accessKey) {
-    authorization = { Authorization: `Bearer ${options.accessKey}` };
+    authorization = {
+      'Authorization': `Bearer ${options.accessKey}`,
+      'sls-token-type': 'dashboardToken',
+    };
   }
 
   const response = await (async () => {
