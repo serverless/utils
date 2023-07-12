@@ -24,10 +24,7 @@ module.exports = async (pathname, options = {}) => {
   if (!options.noAuth && !options.accessKey) {
     authorization = { Authorization: `Bearer ${await resolveAuthToken()}` };
   } else if (!options.noAuth && options.accessKey) {
-    authorization = {
-      'Authorization': `Bearer ${options.accessKey}`,
-      'sls-token-type': 'dashboardToken',
-    };
+    authorization = { Authorization: `Bearer ${options.accessKey}` };
   }
 
   const response = await (async () => {
@@ -37,6 +34,7 @@ module.exports = async (pathname, options = {}) => {
       'Content-Type': 'application/json',
     };
     if (authMethod === 'org') headers['sls-token-type'] = 'orgToken';
+    if (authMethod === 'dashboard') headers['sls-token-type'] = 'dashboardToken';
     const fetchOptions = {
       method,
       headers,
