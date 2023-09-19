@@ -7,8 +7,6 @@ const fetch = require('node-fetch');
 const log = require('./log').log.get('api');
 const ServerlessError = require('./serverless-error');
 const urls = require('./lib/auth/urls');
-const resolveAuthToken = require('./auth/resolve-token');
-const resolveAuthMethod = require('./auth/resolve-mode');
 
 let requestIdCounter = 0;
 
@@ -17,13 +15,15 @@ module.exports = async (pathname, options = {}) => {
   if (!isObject(options)) options = {};
   const method = ensureString(options.method, { name: 'options.method', default: 'GET' });
   const body = ensureObject(options.body, { name: 'options.body', isOptional: true });
-  const authMethod = options.noAuth ? 'none' : options.authMethod || (await resolveAuthMethod());
-  if (!authMethod) throw new Error('Not authenticated to send request to the Console server');
   const requestId = ++requestIdCounter;
   let authorization = {};
-  if (!options.noAuth && !options.accessKey) {
-    authorization = { Authorization: `Bearer ${await resolveAuthToken()}` };
-  } else if (!options.noAuth && options.accessKey) {
+  if (!options.accessKey && !options.noAuth) {
+    throw new ServerlessError(
+      'An access key must be specified. Please try logging out and logging back in',
+      'DASHBOARD_ACCESS_KEY_MISSING'
+    );
+  }
+  if (options.accessKey && !options.noAuth) {
     authorization = { Authorization: `Bearer ${options.accessKey}` };
   }
 
@@ -33,8 +33,6 @@ module.exports = async (pathname, options = {}) => {
       ...authorization,
       'Content-Type': 'application/json',
     };
-    if (authMethod === 'org') headers['sls-token-type'] = 'orgToken';
-    if (authMethod === 'dashboard') headers['sls-token-type'] = 'dashboardToken';
     const fetchOptions = {
       method,
       headers,
@@ -46,8 +44,8 @@ module.exports = async (pathname, options = {}) => {
     } catch (error) {
       log.debug('Server unavailable', error);
       throw new ServerlessError(
-        'Console server is not available, please try again later',
-        'CONSOLE_SERVER_UNAVAILABLE'
+        'Dashboard server is not available, please try again later',
+        'DASHBOARD_SERVER_UNAVAILABLE'
       );
     }
   })();
@@ -57,33 +55,25 @@ module.exports = async (pathname, options = {}) => {
     log.debug('[%d] %s', requestId, responseText);
     if (response.status < 500) {
       if (response.status === 401) {
-        if (authMethod === 'org') {
-          throw Object.assign(
-            new ServerlessError(
-              'Unauthorized request: Either org token is invalid, ' +
-                'or org token is not supported for this command ' +
-                '(run the command as logged-in user instead)',
-              'CONSOLE_ORG_AUTH_REJECTED'
-            ),
-            { httpStatusCode: 401 }
-          );
-        }
         throw Object.assign(
           new ServerlessError(
-            'Unauthorized request: Run "sls login --console" to authenticate',
-            'CONSOLE_USER_AUTH_REJECTED'
+            'Unauthorized request: Run "sls login to authenticate',
+            'DASHBOARD_USER_AUTH_REJECTED'
           ),
           { httpStatusCode: 401 }
         );
       }
-      throw Object.assign(new Error(`Console server error: [${response.status}] ${responseText}`), {
-        code: `CONSOLE_SERVER_ERROR_${response.status}`,
-        httpStatusCode: response.status,
-      });
+      throw Object.assign(
+        new Error(`Dashboard server error: [${response.status}] ${responseText}`),
+        {
+          code: `DASHBOARD_SERVER_ERROR_${response.status}`,
+          httpStatusCode: response.status,
+        }
+      );
     }
     throw new ServerlessError(
-      'Console server is unavailable, please try again later',
-      'CONSOLE_SERVER_REQUEST_FAILED'
+      'Dashboard server is unavailable, please try again later',
+      'DASHBOARD_SERVER_REQUEST_FAILED'
     );
   }
   if ((response.headers.get('content-type') || '').includes('application/json')) {
@@ -93,7 +83,7 @@ module.exports = async (pathname, options = {}) => {
       } catch (error) {
         const responseText = await response.text();
         log.debug('[%d] %s', requestId, responseText);
-        throw new Error(`Console server error: received unexpected response: ${responseText}`);
+        throw new Error(`Dashboard server error: received unexpected response: ${responseText}`);
       }
     })();
     log.debug('[%d] %o', requestId, responseData);
