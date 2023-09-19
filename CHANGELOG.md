@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.14.0](https://github.com/serverless/utils/compare/v6.13.1...v6.14.0) (2023-09-19)
+
+### Features
+
+- Remove console auth and require dashboard accessKey for api calls ([#220](https://github.com/serverless/utils/issues/220)) ([1d8f91c](https://github.com/serverless/utils/commit/1d8f91c2c70427095f05c9c448bbbe1d49962671))
+
 ### [6.13.1](https://github.com/serverless/utils/compare/v6.13.0...v6.13.1) (2023-07-12)
 
 ### Bug Fixes
