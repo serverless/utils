@@ -50,6 +50,7 @@ module.exports = async (pathname, options = {}) => {
     }
   })();
   log.debug('[%d] %d, %o', requestId, response.status, response.headers);
+  const slsCorrelationId = response.headers.get('sls-correlation-id');
   if (!response.ok) {
     const responseText = await response.text();
     log.debug('[%d] %s', requestId, responseText);
@@ -64,7 +65,9 @@ module.exports = async (pathname, options = {}) => {
         );
       }
       throw Object.assign(
-        new Error(`Dashboard server error: [${response.status}] ${responseText}`),
+        new Error(
+          `Dashboard server error: [${response.status}] ${responseText}. ReferenceId: ${slsCorrelationId}`
+        ),
         {
           code: `DASHBOARD_SERVER_ERROR_${response.status}`,
           httpStatusCode: response.status,
@@ -72,7 +75,7 @@ module.exports = async (pathname, options = {}) => {
       );
     }
     throw new ServerlessError(
-      'Dashboard server is unavailable, please try again later',
+      `Dashboard encountered an error, please try again later. ReferenceId: ${slsCorrelationId}`,
       'DASHBOARD_SERVER_REQUEST_FAILED'
     );
   }
@@ -83,7 +86,9 @@ module.exports = async (pathname, options = {}) => {
       } catch (error) {
         const responseText = await response.text();
         log.debug('[%d] %s', requestId, responseText);
-        throw new Error(`Dashboard server error: received unexpected response: ${responseText}`);
+        throw new Error(
+          `Dashboard server error: ${responseText}. ReferenceId: ${slsCorrelationId}`
+        );
       }
     })();
     log.debug('[%d] %o', requestId, responseData);

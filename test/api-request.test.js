@@ -35,14 +35,24 @@ describe('test/api-request.test.js', () => {
                 if (url.includes('/server-error/')) {
                   return {
                     status: 500,
-                    headers: responseHeaders,
+                    headers: new Map(
+                      Object.entries({
+                        ...responseHeaders,
+                        'sls-correlation-id': 'correlation-id-123',
+                      })
+                    ),
                     text: async () => 'Server Error',
                   };
                 }
                 if (url.includes('/programmer-error/')) {
                   return {
                     status: 400,
-                    headers: responseHeaders,
+                    headers: new Map(
+                      Object.entries({
+                        ...responseHeaders,
+                        'sls-correlation-id': 'correlation-id-123',
+                      })
+                    ),
                     text: async () => 'Programmer Error',
                   };
                 }
@@ -144,12 +154,26 @@ describe('test/api-request.test.js', () => {
     expect(
       api('/server-error/', { accessKey: testAccessKey })
     ).to.eventually.be.rejected.and.have.property('code', 'DASHBOARD_SERVER_REQUEST_FAILED'));
-
+  it('should handle server error and include correlationId', async () => {
+    expect(
+      api('/server-error/', { accessKey: testAccessKey })
+    ).to.eventually.be.rejected.and.have.property(
+      'message',
+      'Dashboard encountered an error, please try again later. ReferenceId: correlation-id-123'
+    );
+  });
   it('should handle programmer error', async () =>
     expect(
       api('/programmer-error/', { accessKey: testAccessKey })
     ).to.eventually.be.rejected.and.have.property('code', 'DASHBOARD_SERVER_ERROR_400'));
-
+  it('should handle progammer error and include correlationId', async () => {
+    expect(
+      api('/programmer-error/', { accessKey: testAccessKey })
+    ).to.eventually.be.rejected.and.have.property(
+      'message',
+      'Dashboard server error: [400] Programmer Error. ReferenceId: correlation-id-123'
+    );
+  });
   it('should handle user auth error', async () =>
     expect(
       api('/user-auth-error/', { accessKey: testAccessKey })
