@@ -15,13 +15,11 @@ describe('test/api-request.test.js', () => {
   let lastMethod;
   let lastRequestHeaders;
   let lastRequestBody;
-  let authMode = 'user';
+  const testAccessKey = 'abc123Key';
   beforeEach(() => {
     const responseHeaders = new Map([['content-type', 'application/json; charset=utf-8']]);
     api = requireUncached(() =>
       proxyquire('../api-request', {
-        './auth/resolve-token': async () => 'token',
-        './auth/resolve-mode': async () => authMode,
         'node-fetch': sinon
           .stub()
           .callsFake(async (url, { method, headers: requestHeaders, body } = { method: 'GET' }) => {
@@ -100,17 +98,16 @@ describe('test/api-request.test.js', () => {
       })
     );
   });
-  afterEach(() => {
-    authMode = 'user';
-  });
 
   it('should handle success response', async () => {
-    expect(await api('/success/')).to.deep.equal({ foo: 'bar' });
+    expect(await api('/success/', { accessKey: testAccessKey })).to.deep.equal({ foo: 'bar' });
     expect(lastMethod).to.equal('GET');
   });
 
   it('should handle post requests', async () => {
-    expect(await api('/submission/', { method: 'POST', body: { foo: 'bar' } })).to.deep.equal({
+    expect(
+      await api('/submission/', { method: 'POST', body: { foo: 'bar' }, accessKey: testAccessKey })
+    ).to.deep.equal({
       foo: 'bar',
     });
     expect(lastMethod).to.equal('POST');
@@ -119,7 +116,13 @@ describe('test/api-request.test.js', () => {
   });
 
   it('should support body array input', async () => {
-    expect(await api('/submission/', { method: 'POST', body: [{ foo: 'bar' }] })).to.deep.equal({
+    expect(
+      await api('/submission/', {
+        method: 'POST',
+        body: [{ foo: 'bar' }],
+        accessKey: testAccessKey,
+      })
+    ).to.deep.equal({
       foo: 'bar',
     });
     expect(lastMethod).to.equal('POST');
@@ -133,36 +136,26 @@ describe('test/api-request.test.js', () => {
   });
 
   it('should handle server unavailability', async () =>
-    expect(api('/server-unavailable/')).to.eventually.be.rejected.and.have.property(
-      'code',
-      'CONSOLE_SERVER_UNAVAILABLE'
-    ));
+    expect(
+      api('/server-unavailable/', { accessKey: testAccessKey })
+    ).to.eventually.be.rejected.and.have.property('code', 'DASHBOARD_SERVER_UNAVAILABLE'));
 
   it('should handle server error', async () =>
-    expect(api('/server-error/')).to.eventually.be.rejected.and.have.property(
-      'code',
-      'CONSOLE_SERVER_REQUEST_FAILED'
-    ));
+    expect(
+      api('/server-error/', { accessKey: testAccessKey })
+    ).to.eventually.be.rejected.and.have.property('code', 'DASHBOARD_SERVER_REQUEST_FAILED'));
 
   it('should handle programmer error', async () =>
-    expect(api('/programmer-error/')).to.eventually.be.rejected.and.have.property(
-      'code',
-      'CONSOLE_SERVER_ERROR_400'
-    ));
-
-  it('should handle org auth error', async () => {
-    authMode = 'org';
-    await expect(api('/org-auth-error/')).to.eventually.be.rejected.and.have.property(
-      'code',
-      'CONSOLE_ORG_AUTH_REJECTED'
-    );
-  });
+    expect(
+      api('/programmer-error/', { accessKey: testAccessKey })
+    ).to.eventually.be.rejected.and.have.property('code', 'DASHBOARD_SERVER_ERROR_400'));
 
   it('should handle user auth error', async () =>
-    expect(api('/user-auth-error/')).to.eventually.be.rejected.and.have.property(
-      'code',
-      'CONSOLE_USER_AUTH_REJECTED'
-    ));
+    expect(
+      api('/user-auth-error/', { accessKey: testAccessKey })
+    ).to.eventually.be.rejected.and.have.property('code', 'DASHBOARD_USER_AUTH_REJECTED'));
   it('should handle unexpected response', async () =>
-    expect(api('/unexpected-response/')).to.eventually.be.rejectedWith('Unexpected response'));
+    expect(
+      api('/unexpected-response/', { accessKey: testAccessKey })
+    ).to.eventually.be.rejectedWith('Unexpected response'));
 });
