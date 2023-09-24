@@ -14,6 +14,18 @@
 
 'use strict';
 
+// Proxy support for got via global-agent
+// $ export GLOBAL_AGENT_HTTP_PROXY=
+// or
+// $ export GLOBAL_AGENT_ENVIRONMENT_VARIABLE_NAMESPACE=
+// $ export HTTP_PROXY=
+const globalAgentEnvVarNS = typeof process.env.GLOBAL_AGENT_ENVIRONMENT_VARIABLE_NAMESPACE === 'string' ? process.env.GLOBAL_AGENT_ENVIRONMENT_VARIABLE_NAMESPACE : 'GLOBAL_AGENT_';
+const globalAgentEnvVarHTTPsProxy = process.env[globalAgentEnvVarNS + 'HTTPS_PROXY'] ?? process.env[globalAgentEnvVarNS + 'HTTP_PROXY'] ?? null;
+if (typeof globalAgentEnvVarHTTPsProxy === 'string') {
+  const globalAgentBootstrap = require('global-agent').bootstrap;
+  globalAgentBootstrap();
+}
+
 const fsp = require('fs').promises;
 const path = require('path');
 const { URL } = require('url');

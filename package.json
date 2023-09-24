@@ -19,6 +19,7 @@
     "file-type": "^16.5.4",
     "filenamify": "^4.3.0",
     "get-stream": "^6.0.1",
+    "global-agent": "^3.0.0",
     "got": "^11.8.6",
     "inquirer": "^8.2.5",
     "js-yaml": "^4.1.0",
