@@ -18,7 +18,6 @@ const fsp = require('fs').promises;
 const path = require('path');
 const { URL } = require('url');
 const contentDisposition = require('content-disposition');
-const archiveType = require('archive-type');
 const decompress = require('decompress');
 const filenamify = require('filenamify');
 const getStream = require('get-stream');
@@ -27,6 +26,14 @@ const makeDir = require('make-dir');
 const pEvent = require('p-event');
 const FileType = require('file-type');
 const extName = require('ext-name');
+
+// This function is inspired by now abandoned module from https://github.com/kevva/archive-type repository
+const archiveTypeFromBuffer = async (input) => {
+  const archiveExtensions = new Set(['7z', 'bz2', 'gz', 'rar', 'tar', 'zip', 'xz', 'gz']);
+
+  const ret = await FileType.fromBuffer(input);
+  return archiveExtensions.has(ret && ret.ext) ? ret : null;
+};
 
 const filenameFromPath = (res) => path.basename(new URL(res.requestUrl).pathname);
 
@@ -97,13 +104,13 @@ module.exports = (uri, output, opts) => {
       const [data, res] = result;
 
       if (!output) {
-        return opts.extract && archiveType(data) ? decompress(data, opts) : data;
+        return opts.extract && (await archiveTypeFromBuffer(data)) ? decompress(data, opts) : data;
       }
 
       const filename = opts.filename || filenamify(await getFilename(res, data));
       const outputFilepath = path.join(output, filename);
 
-      if (opts.extract && archiveType(data)) {
+      if (opts.extract && (await archiveTypeFromBuffer(data))) {
         return decompress(data, path.dirname(outputFilepath), opts);
       }
 
