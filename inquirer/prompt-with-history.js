@@ -4,7 +4,22 @@ const isObject = require('type/object/is');
 
 const inquirer = require('./');
 
-module.exports = async (options = {}) => {
+/**
+ * Prompt for input with stored step history
+ * @typedef {Object} StepHistory
+ * @property {(name: string) => void} start
+ * @property {(name: string, answerToRecord: string) => void} finalize
+ * @typedef {Object} PromptWithHistoryRequest
+ * @property {string} message
+ * @property {string} name
+ * @property {StepHistory} stepHistory
+ * @property {string} type
+ * @property {boolean} recordRawAnswerInHistory
+ *
+ * @param {PromptWithHistoryRequest} options
+ * @returns {string}
+ */
+const promptWithHistory = async (options = {}) => {
   const { message, name, stepHistory, type, recordRawAnswerInHistory, ...restOfOptions } = options;
 
   stepHistory.start(name);
@@ -43,3 +58,5 @@ module.exports = async (options = {}) => {
   stepHistory.finalize(name, answerToRecord);
   return answer;
 };
+
+module.exports = promptWithHistory;

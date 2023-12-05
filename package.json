@@ -62,7 +62,8 @@
     "random-buffer": "^0.1.0",
     "sinon": "^13.0.2",
     "sinon-chai": "^3.7.0",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "typescript": "^5.2.2"
   },
   "eslintConfig": {
     "extends": "@serverless/eslint-config/node/12",
@@ -152,5 +153,12 @@
   "engines": {
     "node": ">=12.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  }
 }

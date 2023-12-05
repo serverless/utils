@@ -8,6 +8,21 @@ const uniGlobal = require('uni-global')('serverless/serverless/202110');
 const getOutputReporter = require('./lib/log/get-output-reporter');
 const getProgressReporter = require('./lib/log/get-progress-reporter');
 
+/**
+ * @typedef {(...args: any[]) => void} LogFunction
+ * @typedef {Object} Logger
+ * @property {LogFunction} debug
+ * @property {LogFunction} info
+ * @property {LogFunction} notice
+ * @property {LogFunction} warning
+ * @property {LogFunction} warn
+ * @property {LogFunction} error
+ * @property {(namespace: string) => Logger} get
+ */
+
+/**
+ * @type {Logger}
+ */
 const log = (() => {
   if (!uniGlobal.log) uniGlobal.log = require('log').get('serverless').notice;
   return uniGlobal.log;

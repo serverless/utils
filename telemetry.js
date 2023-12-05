@@ -10,6 +10,11 @@ class StepHistory extends Map {
     return super.set(key, newValueWithTimestamp);
   }
 
+  /**
+   *
+   * @param {string} key - Step name to record history
+   * @returns
+   */
   start(key) {
     const valueObject = {
       startedAt: Date.now(),
@@ -17,6 +22,11 @@ class StepHistory extends Map {
     return super.set(key, valueObject);
   }
 
+  /**
+   *
+   * @param {string} key - Step name to record history
+   * @param {string} value - Value to record
+   */
   finalize(key, value) {
     Object.assign(super.get(key), { finalizedAt: Date.now(), value });
   }
